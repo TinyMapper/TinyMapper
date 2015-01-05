@@ -1,0 +1,16 @@
+Out
+.svn
+obj
+bin
+.idea
+_ReSharper*
+*.sln.GhostDoc.xml
+*.dotCover
+*.suo
+*.user
+*.Cache
+*.cache
+*.ncrunchsolution
+*.ncrunchproject
+/packages/*/*
+/Tools/*/*
