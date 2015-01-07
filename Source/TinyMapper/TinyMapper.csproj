@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicAssembly.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
     <Compile Include="Mappers\PrimitiveTypeMapper.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
+using TinyMapper;
 using Xunit;
 
 namespace UnitTests
@@ -9,7 +10,8 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            CallDynamicMethod();
+            DynamicAssembly.Save();
+            //            CallDynamicMethod();
         }
 
         private static void CallDynamicMethod()
