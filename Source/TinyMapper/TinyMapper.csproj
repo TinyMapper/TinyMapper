@@ -33,11 +33,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nelibur.Sword\Core\Error.cs" />
+    <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
+    <Compile Include="Mappers\PrimitiveTypeMapper.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Nelibur.Sword\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Nelibur.Sword\Extensions\OptionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
