@@ -11,11 +11,9 @@ namespace TinyMapper
 
         static DynamicAssembly()
         {
-            string name = string.Format("TinyMapper_{0}", Guid.NewGuid().ToString("N"));
-            var assemblyName = new AssemblyName(name);
-
+            var assemblyName = new AssemblyName("TinyMapperAssembly");
             _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
-            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, true);
+            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, assemblyName.Name + ".dll", true);
         }
 
         public static TypeBuilder DefineType(string typeName, Type parentType)
