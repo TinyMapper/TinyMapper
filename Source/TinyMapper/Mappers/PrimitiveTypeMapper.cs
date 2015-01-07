@@ -10,12 +10,10 @@ namespace TinyMapper.Mappers
     internal class PrimitiveTypeMapper
     {
         private const BindingFlags StaticNonPublic = BindingFlags.Static | BindingFlags.NonPublic;
-        //        private readonly List<Func<Type, Type, Option<MethodInfo>>> _converters = new List<Func<Type, Type, Option<MethodInfo>>>();
         private readonly List<Func<Type, Type, Option<Func<object, object>>>> _converters = new List<Func<Type, Type, Option<Func<object, object>>>>();
 
         public PrimitiveTypeMapper()
         {
-            //            _converters.Add(GetConversionMethod);
             _converters.Add(GetConversionMethod2);
         }
 
@@ -30,11 +28,6 @@ namespace TinyMapper.Mappers
             {
                 return (TTo)converter.Value(value);
             }
-            //            Option<MethodInfo> converter = GetConverter<TFrom, TTo>();
-            //            if (converter.HasValue)
-            //            {
-            //                return Map<TFrom, TTo>(value, converter.Value);
-            //            }
             return default(TTo);
         }
 
@@ -81,34 +74,32 @@ namespace TinyMapper.Mappers
             return Option<MethodInfo>.Empty;
         }
 
-        private static Option<Func<object, object>> GetConversionMethod2(Type from, Type to)
+        private static Option<Func<object, object>> GetConversionMethod2(Type source, Type target)
         {
-            if (from == null || to == null)
+            if (source == null || target == null)
             {
                 return Option<Func<object, object>>.Empty;
             }
 
-            TypeConverter converter = TypeDescriptor.GetConverter(from);
-            if (converter.CanConvertTo(to))
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(source);
+            if (fromConverter.CanConvertTo(target))
             {
-                Func<object, object> result = x => converter.ConvertTo(x, to);
+                Func<object, object> result = x => fromConverter.ConvertTo(x, target);
                 return result.ToOption();
             }
 
-            if (to.IsEnum)
+            TypeConverter toConverter = TypeDescriptor.GetConverter(target);
+            if (toConverter.CanConvertFrom(source))
             {
-                Func<object, object> result = x =>
-                {
-                    if (x is string)
-                    {
-                        string textValue = x.ToString();
-                        return Enum.Parse(to, textValue);
-                    }
-                    return Convert.ChangeType(x, from);
-                };
+                Func<object, object> result = x => toConverter.ConvertFrom(x);
                 return result.ToOption();
             }
 
+            if (source.IsEnum && target.IsEnum)
+            {
+                Func<object, object> result = x => Convert.ChangeType(x, source);
+                return result.ToOption();
+            }
             return Option<Func<object, object>>.Empty;
         }
 

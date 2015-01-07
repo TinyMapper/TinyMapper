@@ -1,48 +1,48 @@
-﻿using System;
-using System.Diagnostics;
-using TinyMapper.Mappers;
+﻿using TinyMapper.Mappers;
 using Xunit;
 
 namespace UnitTests.Mappers
 {
     public sealed class PrimitiveTypeMapperTests
     {
+        private enum Enum1
+        {
+            Item1,
+            Item2,
+            Item3
+        }
+
+
+        private enum Enum2
+        {
+            Item1,
+            Item2,
+            Item3
+        }
+
+
         [Fact]
-        public void Map_Enum_Success()
+        public void Map_EnumToEnum_Success()
         {
-
             var mapper = new PrimitiveTypeMapper();
-            var stopwatch = Stopwatch.StartNew();
-            for (int i = 0; i < 100000; i++)
-            {
-                B.Enum value = mapper.Map<A.Enum, B.Enum>(A.Enum.Item1);
-            }
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.Elapsed.TotalMilliseconds);
-
-            //            Assert.Equal(B.Enum.Item1, value);
+            Enum2 value = mapper.Map<Enum1, Enum2>(Enum1.Item1);
+            Assert.Equal(Enum2.Item1, value);
         }
 
-
-        private static class A
+        [Fact]
+        public void Map_StringToEnum_Success()
         {
-            public enum Enum
-            {
-                Item1,
-                Item2,
-                Item3
-            }
+            var mapper = new PrimitiveTypeMapper();
+            Enum2 value = mapper.Map<string, Enum2>(Enum1.Item1.ToString());
+            Assert.Equal(Enum2.Item1, value);
         }
 
-
-        private static class B
+        [Fact]
+        public void Map_StringToInt_Success()
         {
-            public enum Enum
-            {
-                Item1,
-                Item2,
-                Item3
-            }
+            var mapper = new PrimitiveTypeMapper();
+            int value = mapper.Map<string, int>("2");
+            Assert.Equal(2, value);
         }
     }
 }
