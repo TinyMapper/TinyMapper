@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.Compilers;
 using TinyMapper.Compilers.Ast;
 using TinyMapper.Compilers.Ast.Statements;
 using TinyMapper.Extensions;
 using TinyMapper.Mappers;
-using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.Engines.Builders.Methods
 {
@@ -22,12 +20,10 @@ namespace TinyMapper.Engines.Builders.Methods
             EmitMethod(_targetType, _typeBuilder);
         }
 
-        private CodeGenerator CreateCodeGenerator(TypeBuilder typeBuilder)
+        protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ObjectTypeMapper.CreateTargetInstanceMethodName,
-                MethodAttributes.Assembly | MethodAttributes.Virtual, typeof(object), Type.EmptyTypes);
-
-            return new CodeGenerator(methodBuilder.GetILGenerator());
+            return typeBuilder.DefineMethod(ObjectTypeMapper.CreateTargetInstanceMethodName, MethodAttribute,
+                typeof(object), Type.EmptyTypes);
         }
 
         private IAstType CreateRefType(Type type)
@@ -50,11 +46,8 @@ namespace TinyMapper.Engines.Builders.Methods
         {
             CodeGenerator codeGenerator = CreateCodeGenerator(typeBuilder);
 
-            type.ToOption()
-                .Map(_ => type.IsValueType, _ => CreateValueType(type, codeGenerator))
-                .Map(_ => type.IsValueType == false, _ => CreateRefType(type))
-                .Map(x => new AstReturn(type, x))
-                .Do(x => x.Emit(codeGenerator));
+            IAstType value = type.IsValueType ? CreateValueType(type, codeGenerator) : CreateRefType(type);
+            new AstReturn(type, value).Emit(codeGenerator);
         }
     }
 }

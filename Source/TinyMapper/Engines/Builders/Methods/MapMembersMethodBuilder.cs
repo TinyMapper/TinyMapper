@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.Compilers;
 using TinyMapper.Compilers.Ast;
@@ -30,12 +29,10 @@ namespace TinyMapper.Engines.Builders.Methods
             astComposite.Emit(codeGenerator);
         }
 
-        private CodeGenerator CreateCodeGenerator(TypeBuilder typeBuilder)
+        protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ObjectTypeMapper.MapMembersMethodName,
-                MethodAttributes.Assembly | MethodAttributes.Virtual, typeof(object), new Type[] { typeof(object), typeof(object) });
-
-            return new CodeGenerator(methodBuilder.GetILGenerator());
+            return typeBuilder.DefineMethod(ObjectTypeMapper.MapMembersMethodName,
+                MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 
         /// <summary>

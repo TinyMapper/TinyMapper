@@ -6,6 +6,8 @@ namespace TinyMapper.Engines.Builders
 {
     internal class DynamicAssemblyBuilder
     {
+        internal const string AssemblyName = "TinyMapper_E028674AFAE9";
+        private const string AssemblyNameFileName = AssemblyName + ".dll";
         private static readonly DynamicAssembly _dynamicAssembly = new DynamicAssembly();
 
         public static IDynamicAssembly Build()
@@ -22,9 +24,9 @@ namespace TinyMapper.Engines.Builders
 
             public DynamicAssembly()
             {
-                var assemblyName = new AssemblyName("TinyMapperAssembly");
+                var assemblyName = new AssemblyName(AssemblyName);
                 _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
-                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, assemblyName.Name + ".dll", true);
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
             }
 
             public TypeBuilder DefineType(string typeName, Type parentType)
@@ -39,7 +41,7 @@ namespace TinyMapper.Engines.Builders
             {
                 lock (_locker)
                 {
-                    _assemblyBuilder.Save("TinyMapper4Debug.dll");
+                    _assemblyBuilder.Save(AssemblyNameFileName);
                 }
             }
         }

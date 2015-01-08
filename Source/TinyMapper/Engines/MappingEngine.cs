@@ -1,15 +1,16 @@
-﻿using System;
-using TinyMapper.Engines.Builders;
+﻿using TinyMapper.Engines.Builders;
 
 namespace TinyMapper.Engines
 {
     internal sealed class MappingEngine
     {
-        public void CreateMapper(Type sourceType, Type targetType)
+        public static void CreateMapper<TSource, TTarget>()
         {
-            IDynamicAssembly assembly = DynamicAssemblyBuilder.Build(); //.DefineType("Test1", typeof(MarkerTypeMapper));
+            IDynamicAssembly assembly = DynamicAssemblyBuilder.Build();
             var targetTypeBuilder = new TargetTypeBuilder(assembly);
-            targetTypeBuilder.Build(sourceType, targetType);
+            targetTypeBuilder.Build(typeof(TSource), typeof(TTarget));
+
+            assembly.Save();
         }
     }
 }

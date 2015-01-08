@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
+using TinyMapper.Engines;
 using Xunit;
 
 namespace UnitTests
@@ -9,7 +10,8 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            CallDynamicMethod();
+            MappingEngine.CreateMapper<Class1, Class2>();
+            //            CallDynamicMethod();
         }
 
         private static void CallDynamicMethod()
@@ -39,6 +41,18 @@ namespace UnitTests
             int result = calcMethodDelegate(10, 10);
 
             Console.WriteLine(result);
+        }
+
+
+        private class Class1
+        {
+            public int Id { get; set; }
+        }
+
+
+        private class Class2
+        {
+            public int Id { get; set; }
         }
     }
 }

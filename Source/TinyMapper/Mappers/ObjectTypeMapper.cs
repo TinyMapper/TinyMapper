@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Mappers
 {
-    internal abstract class ObjectTypeMapper
+    public abstract class ObjectTypeMapper
     {
         public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
         public const string MapMembersMethodName = "MapMembersCore";
@@ -15,7 +15,7 @@
             return MapMembersCore(source, target);
         }
 
-        protected abstract object CreateTargetInstanceCore();
-        protected abstract object MapMembersCore(object source, object target);
+        internal abstract object CreateTargetInstanceCore();
+        internal abstract object MapMembersCore(object source, object target);
     }
 }
