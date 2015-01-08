@@ -17,7 +17,7 @@ namespace TinyMapper.Engines.Builders
         public void Build(Type sourceType, Type targetType)
         {
             TypeBuilder typeBuilder = _assembly.DefineType("Test1", typeof(MarkerTypeMapper));
-            var createInstance = new CreateInstanceMethodBuilder(targetType, typeBuilder);
+            var createInstance = new CreateInstanceMethodBuilder(sourceType, targetType, typeBuilder);
             createInstance.Build();
         }
     }

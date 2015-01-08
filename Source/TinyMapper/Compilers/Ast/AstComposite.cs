@@ -7,13 +7,13 @@ namespace TinyMapper.Compilers.Ast
     {
         private readonly List<IAstNode> _nodes = new List<IAstNode>();
 
-        public void Add(IAstNode node)
+        public AstComposite Add(IAstNode node)
         {
-            if (node.IsNull())
+            if (node.IsNotNull())
             {
-                return;
+                _nodes.Add(node);
             }
-            _nodes.Add(node);
+            return this;
         }
 
         public void Emit(CodeGenerator generator)

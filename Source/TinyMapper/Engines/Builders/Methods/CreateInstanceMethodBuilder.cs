@@ -10,20 +10,16 @@ using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.Engines.Builders.Methods
 {
-    internal sealed class CreateInstanceMethodBuilder
+    internal sealed class CreateInstanceMethodBuilder : TargetMethodBuilder
     {
-        private readonly Type _type;
-        private readonly TypeBuilder _typeBuilder;
-
-        public CreateInstanceMethodBuilder(Type type, TypeBuilder typeBuilder)
+        public CreateInstanceMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
+            : base(sourceType, targetType, typeBuilder)
         {
-            _type = type;
-            _typeBuilder = typeBuilder;
         }
 
-        public void Build()
+        protected override void BuildCore()
         {
-            EmitCreateTargetInstance(_type, _typeBuilder);
+            EmitMethod(_targetType, _typeBuilder);
         }
 
         private CodeGenerator CreateCodeGenerator(TypeBuilder typeBuilder)
@@ -47,16 +43,11 @@ namespace TinyMapper.Engines.Builders.Methods
         {
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
             new AstLocalVariableDeclaration(builder).Emit(codeGenerator);
-            return new AstBox(AstReadLocal.ReadLocal(builder));
+            return new AstBox(AstLoadLocal.Load(builder));
         }
 
-        private void EmitCreateTargetInstance(Type type, TypeBuilder typeBuilder)
+        private void EmitMethod(Type type, TypeBuilder typeBuilder)
         {
-            if (type.IsNullable())
-            {
-                type = Nullable.GetUnderlyingType(type);
-            }
-
             CodeGenerator codeGenerator = CreateCodeGenerator(typeBuilder);
 
             type.ToOption()
