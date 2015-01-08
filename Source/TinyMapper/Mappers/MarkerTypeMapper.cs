@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Mappers
 {
-    public abstract class MarkerTypeMapper
+    internal abstract class MarkerTypeMapper : ObjectTypeMapper
     {
     }
 }

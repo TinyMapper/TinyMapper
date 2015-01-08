@@ -7,6 +7,8 @@
             return CreateTargetInstanceCore();
         }
 
+        public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
+
         protected abstract object CreateTargetInstanceCore();
     }
 }

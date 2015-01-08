@@ -37,6 +37,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compilers\Ast\AstBox.cs" />
+    <Compile Include="Compilers\Ast\AstComposite.cs" />
+    <Compile Include="Compilers\Ast\AstNewType.cs" />
+    <Compile Include="Compilers\Ast\AstNull.cs" />
+    <Compile Include="Compilers\Ast\AstReturn.cs" />
+    <Compile Include="Compilers\Ast\IAstNode.cs" />
+    <Compile Include="Compilers\Ast\IAstType.cs" />
+    <Compile Include="Compilers\Ast\Statements\AstLocalVariableDeclaration.cs" />
+    <Compile Include="Compilers\Ast\Statements\AstReadLocal.cs" />
+    <Compile Include="Compilers\CodeGenerator.cs" />
     <Compile Include="DynamicAssembly.cs" />
     <Compile Include="Engines\MappingEngine.cs" />
     <Compile Include="Mappers\MarkerTypeMapper.cs" />
