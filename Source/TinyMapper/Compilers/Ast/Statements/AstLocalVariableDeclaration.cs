@@ -12,6 +12,7 @@ namespace TinyMapper.Compilers.Ast.Statements
         public AstLocalVariableDeclaration(LocalBuilder localBuilder)
         {
             _localBuilder = localBuilder.ToOption();
+            ObjectType = localBuilder.LocalType;
         }
 
         public Type ObjectType { get; private set; }

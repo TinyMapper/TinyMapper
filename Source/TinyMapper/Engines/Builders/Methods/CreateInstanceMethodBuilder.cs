@@ -10,7 +10,7 @@ using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.Engines.Builders.Methods
 {
-    internal sealed class CreateInstanceMethodBuilder : TargetMethodBuilder
+    internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {
         public CreateInstanceMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
             : base(sourceType, targetType, typeBuilder)

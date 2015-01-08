@@ -4,13 +4,13 @@ using TinyMapper.Extensions;
 
 namespace TinyMapper.Engines.Builders.Methods
 {
-    internal abstract class TargetMethodBuilder
+    internal abstract class EmitMethodBuilder
     {
         protected readonly Type _sourceType;
         protected readonly Type _targetType;
         protected readonly TypeBuilder _typeBuilder;
 
-        protected TargetMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
+        protected EmitMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
         {
             _sourceType = sourceType.IsNullable() ? Nullable.GetUnderlyingType(sourceType) : sourceType;
             _targetType = targetType.IsNullable() ? Nullable.GetUnderlyingType(targetType) : targetType;

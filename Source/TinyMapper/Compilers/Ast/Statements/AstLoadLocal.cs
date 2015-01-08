@@ -10,6 +10,7 @@ namespace TinyMapper.Compilers.Ast.Statements
         private AstLoadLocal(LocalBuilder localBuilder)
         {
             _localBuilder = localBuilder;
+            ObjectType = localBuilder.LocalType;
         }
 
         public Type ObjectType { get; private set; }
