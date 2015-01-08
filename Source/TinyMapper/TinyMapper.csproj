@@ -47,7 +47,10 @@
     <Compile Include="Compilers\Ast\Statements\AstLocalVariableDeclaration.cs" />
     <Compile Include="Compilers\Ast\Statements\AstReadLocal.cs" />
     <Compile Include="Compilers\CodeGenerator.cs" />
-    <Compile Include="DynamicAssembly.cs" />
+    <Compile Include="Engines\Builders\DynamicAssemblyBuilder.cs" />
+    <Compile Include="Engines\Builders\IDynamicAssembly.cs" />
+    <Compile Include="Engines\Builders\Methods\CreateInstanceMethodBuilder.cs" />
+    <Compile Include="Engines\Builders\TargetTypeBuilder.cs" />
     <Compile Include="Engines\MappingEngine.cs" />
     <Compile Include="Mappers\MarkerTypeMapper.cs" />
     <Compile Include="Mappers\ObjectTypeMapper.cs" />

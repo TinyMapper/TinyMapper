@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Reflection.Emit;
-using TinyMapper;
-using TinyMapper.Mappers;
 using Xunit;
 
 namespace UnitTests
@@ -11,9 +9,7 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            DynamicAssembly.DefineType("Test1sdf", typeof(MarkerTypeMapper));
-            DynamicAssembly.Save();
-            //            CallDynamicMethod();
+            CallDynamicMethod();
         }
 
         private static void CallDynamicMethod()
