@@ -56,6 +56,7 @@
     <Compile Include="Engines\Builders\Methods\EmitMethodBuilder.cs" />
     <Compile Include="Engines\Builders\TargetTypeBuilder.cs" />
     <Compile Include="Engines\MappingEngine.cs" />
+    <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\MarkerTypeMapper.cs" />
     <Compile Include="Mappers\ObjectTypeMapper.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Nelibur.Sword\Extensions\ObjectExtensions.cs" />
     <Compile Include="Nelibur.Sword\Extensions\OptionExtensions.cs" />
+    <Compile Include="Nelibur.Sword\Patterns\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

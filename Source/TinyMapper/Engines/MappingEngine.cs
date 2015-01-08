@@ -10,7 +10,7 @@ namespace TinyMapper.Engines
             var targetTypeBuilder = new TargetTypeBuilder(assembly);
             targetTypeBuilder.Build(typeof(TSource), typeof(TTarget));
 
-            assembly.Save();
+            //            assembly.Save();
         }
     }
 }

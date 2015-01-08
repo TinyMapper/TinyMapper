@@ -22,8 +22,8 @@ namespace TinyMapper.Engines.Builders.Methods
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            return typeBuilder.DefineMethod(ObjectTypeMapper.CreateTargetInstanceMethodName, MethodAttribute,
-                typeof(object), Type.EmptyTypes);
+            return typeBuilder.DefineMethod(ObjectTypeMapper.CreateTargetInstanceMethodName,
+                MethodAttribute, typeof(object), Type.EmptyTypes);
         }
 
         private IAstType CreateRefType(Type type)
