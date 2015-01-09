@@ -7,5 +7,6 @@ namespace TinyMapper.Builders
     {
         TypeBuilder DefineType(string typeName, Type parentType);
         void Save();
+        TargetTypeBuilder GetTypeBuilder();
     }
 }

@@ -17,7 +17,7 @@ namespace TinyMapper.Builders
         public void Build(Type sourceType, Type targetType)
         {
             string mapperTypeName = MapperTypeNameBuilder.Build(sourceType, targetType);
-            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(MarkerTypeMapper));
+            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(TargetTypeMarker));
 
             var methodBuilders = new List<EmitMethodBuilder>
             {
@@ -27,7 +27,7 @@ namespace TinyMapper.Builders
             methodBuilders.ForEach(x => x.Build());
 
             Type type = typeBuilder.CreateType();
-            var t = (MarkerTypeMapper)Activator.CreateInstance(type);
+            var t = (TargetTypeMarker)Activator.CreateInstance(type);
         }
     }
 }
