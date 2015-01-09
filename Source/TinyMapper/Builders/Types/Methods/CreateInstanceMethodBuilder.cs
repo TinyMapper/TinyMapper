@@ -5,7 +5,7 @@ using TinyMapper.CodeGenerators.Ast;
 using TinyMapper.CodeGenerators.Ast.Statements;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Builders.Methods
+namespace TinyMapper.Builders.Types.Methods
 {
     internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {
@@ -21,7 +21,7 @@ namespace TinyMapper.Builders.Methods
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            return typeBuilder.DefineMethod(ObjectTypeMapper.CreateTargetInstanceMethodName,
+            return typeBuilder.DefineMethod(ObjectTypeBuilder.CreateTargetInstanceMethodName,
                 MethodAttribute, typeof(object), Type.EmptyTypes);
         }
 

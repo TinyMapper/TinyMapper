@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Builders
 {
-    public abstract class ObjectTypeMapper
+    public abstract class ObjectTypeBuilder
     {
         public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
         public const string MapMembersMethodName = "MapMembersCore";

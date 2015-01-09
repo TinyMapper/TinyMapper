@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using TinyMapper.Builders.Types;
 
-namespace TinyMapper.Builders
+namespace TinyMapper.Builders.Assemblies
 {
     internal class DynamicAssemblyBuilder
     {

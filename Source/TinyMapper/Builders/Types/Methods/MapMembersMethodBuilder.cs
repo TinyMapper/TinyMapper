@@ -4,7 +4,7 @@ using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 using TinyMapper.CodeGenerators.Ast.Statements;
 
-namespace TinyMapper.Builders.Methods
+namespace TinyMapper.Builders.Types.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {
@@ -30,7 +30,7 @@ namespace TinyMapper.Builders.Methods
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            return typeBuilder.DefineMethod(ObjectTypeMapper.MapMembersMethodName,
+            return typeBuilder.DefineMethod(ObjectTypeBuilder.MapMembersMethodName,
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 

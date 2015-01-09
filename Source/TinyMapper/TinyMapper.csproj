@@ -37,7 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\IDynamicAssembly.cs" />
+    <Compile Include="Builders\Assemblies\IDynamicAssembly.cs" />
     <Compile Include="CodeGenerators\Ast\AstBox.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
     <Compile Include="CodeGenerators\Ast\AstNewType.cs" />
@@ -50,18 +50,18 @@
     <Compile Include="CodeGenerators\Ast\Statements\AstLoadLocal.cs" />
     <Compile Include="CodeGenerators\Ast\Statements\AstStoreLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
-    <Compile Include="Builders\DynamicAssemblyBuilder.cs" />
+    <Compile Include="Builders\Assemblies\DynamicAssemblyBuilder.cs" />
     <Compile Include="Builders\MemberSelector.cs" />
-    <Compile Include="Builders\Methods\CreateInstanceMethodBuilder.cs" />
-    <Compile Include="Builders\Methods\MapMembersMethodBuilder.cs" />
-    <Compile Include="Builders\Methods\EmitMethodBuilder.cs" />
-    <Compile Include="Builders\TargetTypeBuilder.cs" />
-    <Compile Include="Builders\MapperTypeNameBuilder.cs" />
+    <Compile Include="Builders\Types\Methods\CreateInstanceMethodBuilder.cs" />
+    <Compile Include="Builders\Types\Methods\MapMembersMethodBuilder.cs" />
+    <Compile Include="Builders\Types\Methods\EmitMethodBuilder.cs" />
+    <Compile Include="Builders\Types\TargetTypeBuilder.cs" />
+    <Compile Include="Builders\Types\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
-    <Compile Include="Builders\TargetTypeMarker.cs" />
-    <Compile Include="Builders\ObjectTypeMapper.cs" />
+    <Compile Include="Builders\Types\TargetTypeMarker.cs" />
+    <Compile Include="Builders\ObjectTypeBuilder.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
     <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />

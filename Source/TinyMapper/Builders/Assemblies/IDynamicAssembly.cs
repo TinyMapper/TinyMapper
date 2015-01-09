@@ -1,12 +1,13 @@
 using System;
 using System.Reflection.Emit;
+using TinyMapper.Builders.Types;
 
-namespace TinyMapper.Builders
+namespace TinyMapper.Builders.Assemblies
 {
     internal interface IDynamicAssembly
     {
         TypeBuilder DefineType(string typeName, Type parentType);
-        void Save();
         TargetTypeBuilder GetTypeBuilder();
+        void Save();
     }
 }

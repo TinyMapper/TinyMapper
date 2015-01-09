@@ -1,4 +1,5 @@
-﻿using TinyMapper.Builders;
+﻿using TinyMapper.Builders.Assemblies;
+using TinyMapper.Builders.Types;
 
 namespace TinyMapper
 {
