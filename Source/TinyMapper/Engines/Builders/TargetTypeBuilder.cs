@@ -17,7 +17,8 @@ namespace TinyMapper.Engines.Builders
 
         public void Build(Type sourceType, Type targetType)
         {
-            TypeBuilder typeBuilder = _assembly.DefineType(Guid.NewGuid().ToString(), typeof(MarkerTypeMapper));
+            string mapperTypeName = TypeNameBuilder.Build(sourceType, targetType);
+            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(MarkerTypeMapper));
 
             var methodBuilders = new List<EmitMethodBuilder>
             {
