@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Emit;
 
-namespace TinyMapper.Compilers.Ast.Statements
+namespace TinyMapper.CodeGenerators.Ast.Statements
 {
     internal sealed class AstStoreLocal : IAstNode
     {

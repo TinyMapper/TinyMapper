@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace TinyMapper.Compilers
+namespace TinyMapper.CodeGenerators
 {
     internal sealed class CodeGenerator
     {

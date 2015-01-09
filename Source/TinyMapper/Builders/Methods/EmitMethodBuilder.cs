@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.Compilers;
+using TinyMapper.CodeGenerators;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Engines.Builders.Methods
+namespace TinyMapper.Builders.Methods
 {
     internal abstract class EmitMethodBuilder
     {

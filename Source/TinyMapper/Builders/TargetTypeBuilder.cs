@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper.Engines.Builders.Methods;
-using TinyMapper.Mappers;
+using TinyMapper.Builders.Methods;
 
-namespace TinyMapper.Engines.Builders
+namespace TinyMapper.Builders
 {
     internal sealed class TargetTypeBuilder
     {
@@ -17,7 +16,7 @@ namespace TinyMapper.Engines.Builders
 
         public void Build(Type sourceType, Type targetType)
         {
-            string mapperTypeName = TypeNameBuilder.Build(sourceType, targetType);
+            string mapperTypeName = MapperTypeNameBuilder.Build(sourceType, targetType);
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(MarkerTypeMapper));
 
             var methodBuilders = new List<EmitMethodBuilder>

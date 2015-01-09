@@ -2,7 +2,7 @@
 using System.Reflection;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Compilers.Ast
+namespace TinyMapper.CodeGenerators.Ast
 {
     internal sealed class AstNewType : IAstType
     {

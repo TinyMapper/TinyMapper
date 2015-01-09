@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Reflection.Emit;
-using TinyMapper.Compilers;
-using TinyMapper.Compilers.Ast;
-using TinyMapper.Compilers.Ast.Statements;
-using TinyMapper.Mappers;
+using TinyMapper.CodeGenerators;
+using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.CodeGenerators.Ast.Statements;
 
-namespace TinyMapper.Engines.Builders.Methods
+namespace TinyMapper.Builders.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {

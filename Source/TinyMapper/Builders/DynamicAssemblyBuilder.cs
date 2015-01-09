@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace TinyMapper.Engines.Builders
+namespace TinyMapper.Builders
 {
     internal class DynamicAssemblyBuilder
     {

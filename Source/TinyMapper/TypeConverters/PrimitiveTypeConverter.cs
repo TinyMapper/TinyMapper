@@ -4,29 +4,29 @@ using System.ComponentModel;
 using TinyMapper.Nelibur.Sword.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.Mappers
+namespace TinyMapper.TypeConverters
 {
-    internal class PrimitiveTypeMapper
+    internal class PrimitiveTypeConverter
     {
         private readonly List<Func<Type, Type, Option<Func<object, object>>>> _converters = new List<Func<Type, Type, Option<Func<object, object>>>>();
 
-        public PrimitiveTypeMapper()
+        public PrimitiveTypeConverter()
         {
             _converters.Add(GetConversionMethod);
         }
 
-        public TTo Map<TFrom, TTo>(TFrom value)
+        public TTarget Convert<TSource, TTarget>(TSource value)
         {
             if (value.IsNull())
             {
-                return default(TTo);
+                return default(TTarget);
             }
-            Option<Func<object, object>> converter = GetConverter<TFrom, TTo>();
+            Option<Func<object, object>> converter = GetConverter<TSource, TTarget>();
             if (converter.HasValue)
             {
-                return (TTo)converter.Value(value);
+                return (TTarget)converter.Value(value);
             }
-            return default(TTo);
+            return default(TTarget);
         }
 
         private static Option<Func<object, object>> GetConversionMethod(Type source, Type target)
@@ -52,7 +52,7 @@ namespace TinyMapper.Mappers
 
             if (IsEnumToEnumConversion(source, target))
             {
-                Func<object, object> result = x => Convert.ChangeType(x, source);
+                Func<object, object> result = x => System.Convert.ChangeType(x, source);
                 return result.ToOption();
             }
             return Option<Func<object, object>>.Empty;

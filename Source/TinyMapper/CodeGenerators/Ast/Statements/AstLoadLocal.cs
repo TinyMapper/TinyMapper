@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 
-namespace TinyMapper.Compilers.Ast.Statements
+namespace TinyMapper.CodeGenerators.Ast.Statements
 {
     internal abstract class AstLoadLocal : IAstType
     {

@@ -1,4 +1,4 @@
-﻿namespace TinyMapper.Compilers.Ast
+﻿namespace TinyMapper.CodeGenerators.Ast
 {
     internal interface IAstNode
     {

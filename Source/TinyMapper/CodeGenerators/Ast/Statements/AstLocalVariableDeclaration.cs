@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 using TinyMapper.Nelibur.Sword.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.Compilers.Ast.Statements
+namespace TinyMapper.CodeGenerators.Ast.Statements
 {
     internal sealed class AstLocalVariableDeclaration : IAstType
     {

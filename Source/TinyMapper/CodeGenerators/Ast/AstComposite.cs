@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.Compilers.Ast
+namespace TinyMapper.CodeGenerators.Ast
 {
     internal sealed class AstComposite : IAstNode
     {

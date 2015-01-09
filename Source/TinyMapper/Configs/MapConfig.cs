@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TinyMapper.Engines.Configs
+namespace TinyMapper.Configs
 {
     internal sealed class MapConfig
     {

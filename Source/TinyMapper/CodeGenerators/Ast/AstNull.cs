@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 
-namespace TinyMapper.Compilers.Ast
+namespace TinyMapper.CodeGenerators.Ast
 {
     internal sealed class AstNull : IAstType
     {

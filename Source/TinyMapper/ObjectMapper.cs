@@ -1,8 +1,8 @@
-﻿using TinyMapper.Engines.Builders;
+﻿using TinyMapper.Builders;
 
-namespace TinyMapper.Engines
+namespace TinyMapper
 {
-    internal sealed class MappingEngine
+    internal sealed class ObjectMapper
     {
         public static void CreateMapper<TSource, TTarget>()
         {

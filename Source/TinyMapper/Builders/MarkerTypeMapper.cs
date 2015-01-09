@@ -1,4 +1,4 @@
-﻿namespace TinyMapper.Mappers
+﻿namespace TinyMapper.Builders
 {
     internal abstract class MarkerTypeMapper : ObjectTypeMapper
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
-using TinyMapper.Engines;
+using TinyMapper;
 using Xunit;
 
 namespace UnitTests
@@ -10,7 +10,7 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            MappingEngine.CreateMapper<Class1, Class2>();
+            ObjectMapper.CreateMapper<Class1, Class2>();
             //            CallDynamicMethod();
         }
 

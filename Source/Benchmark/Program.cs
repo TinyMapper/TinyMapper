@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using TinyMapper.Mappers;
+using TinyMapper.TypeConverters;
 
 namespace Benchmark
 {
@@ -10,11 +10,11 @@ namespace Benchmark
 
         private static void Main()
         {
-            var mapper = new PrimitiveTypeMapper();
+            var mapper = new PrimitiveTypeConverter();
             Stopwatch stopwatch = Stopwatch.StartNew();
             for (int i = 0; i < Iterations; i++)
             {
-                B.Enum value = mapper.Map<A.Enum, B.Enum>(A.Enum.Item1);
+                B.Enum value = mapper.Convert<A.Enum, B.Enum>(A.Enum.Item1);
             }
             stopwatch.Stop();
 
