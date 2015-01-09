@@ -51,7 +51,7 @@
     <Compile Include="CodeGenerators\Ast\Statements\AstStoreLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Builders\Assemblies\DynamicAssemblyBuilder.cs" />
-    <Compile Include="Builders\MemberSelector.cs" />
+    <Compile Include="Builders\Types\Members\MemberSelector.cs" />
     <Compile Include="Builders\Types\Methods\CreateInstanceMethodBuilder.cs" />
     <Compile Include="Builders\Types\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Builders\Types\Methods\EmitMethodBuilder.cs" />

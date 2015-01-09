@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.CodeGenerators
 {
@@ -57,10 +59,44 @@ namespace TinyMapper.CodeGenerators
             return this;
         }
 
+        public CodeGenerator EmitCall(MethodInfo method, IAstType invocationObject, params IAstType[] arguments)
+        {
+            ParameterInfo[] actualArguments = method.GetParameters();
+            if (arguments.Length != actualArguments.Length)
+            {
+                throw new ArgumentException();
+            }
+
+            if (invocationObject.IsNotNull())
+            {
+                invocationObject.Emit(this);
+            }
+
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                arguments[i].Emit(this);
+                CastType(arguments[i].ObjectType, actualArguments[i].ParameterType);
+            }
+            EmitCall(method);
+            return this;
+        }
+
         public CodeGenerator EmitNewObject(ConstructorInfo ctor)
         {
             _ilGenerator.Emit(OpCodes.Newobj, ctor);
             return this;
+        }
+
+        private void EmitCall(MethodInfo method)
+        {
+            if (method.IsVirtual)
+            {
+                _ilGenerator.EmitCall(OpCodes.Callvirt, method, Type.EmptyTypes);
+            }
+            else
+            {
+                _ilGenerator.EmitCall(OpCodes.Call, method, Type.EmptyTypes);
+            }
         }
     }
 }
