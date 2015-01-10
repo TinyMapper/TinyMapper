@@ -5,7 +5,7 @@ using System.Reflection;
 using TinyMapper.Configs;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.Builders.Types.Members
+namespace TinyMapper.Builders.Assemblies.Types.Members
 {
     internal sealed class MemberSelector
     {

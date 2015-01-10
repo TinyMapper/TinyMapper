@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Builders.Types.Methods
+namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
     internal abstract class EmitMethodBuilder
     {

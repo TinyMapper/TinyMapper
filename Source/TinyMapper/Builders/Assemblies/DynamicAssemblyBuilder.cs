@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.Builders.Types;
+using TinyMapper.Builders.Assemblies.Types;
 
 namespace TinyMapper.Builders.Assemblies
 {

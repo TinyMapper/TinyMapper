@@ -4,7 +4,7 @@ using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Builders.Types.Methods
+namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
     internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {

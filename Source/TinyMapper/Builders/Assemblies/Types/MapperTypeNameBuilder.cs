@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TinyMapper.Builders.Types
+namespace TinyMapper.Builders.Assemblies.Types
 {
     internal static class MapperTypeNameBuilder
     {

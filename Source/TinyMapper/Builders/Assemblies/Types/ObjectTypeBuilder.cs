@@ -1,4 +1,4 @@
-﻿namespace TinyMapper.Builders
+﻿namespace TinyMapper.Builders.Assemblies.Types
 {
     public abstract class ObjectTypeBuilder
     {

@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 
-namespace TinyMapper.Builders.Types.Methods
+namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {

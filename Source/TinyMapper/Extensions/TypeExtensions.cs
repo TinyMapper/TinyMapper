@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace TinyMapper.Extensions
@@ -11,8 +9,6 @@ namespace TinyMapper.Extensions
         {
             return type.GetConstructor(Type.EmptyTypes);
         }
-
-
 
         public static bool HasDefaultCtor(this Type type)
         {

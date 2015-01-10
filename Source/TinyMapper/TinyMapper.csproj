@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\Assemblies\IDynamicAssembly.cs" />
-    <Compile Include="Builders\Types\Members\MappingMember.cs" />
+    <Compile Include="Builders\Assemblies\Types\Members\MappingMember.cs" />
     <Compile Include="CodeGenerators\Ast\AstBox.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
     <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />
@@ -53,17 +53,17 @@
     <Compile Include="CodeGenerators\Ast\AstStoreLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Builders\Assemblies\DynamicAssemblyBuilder.cs" />
-    <Compile Include="Builders\Types\Members\MemberSelector.cs" />
-    <Compile Include="Builders\Types\Methods\CreateInstanceMethodBuilder.cs" />
-    <Compile Include="Builders\Types\Methods\MapMembersMethodBuilder.cs" />
-    <Compile Include="Builders\Types\Methods\EmitMethodBuilder.cs" />
-    <Compile Include="Builders\Types\TargetTypeBuilder.cs" />
-    <Compile Include="Builders\Types\MapperTypeNameBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\Members\MemberSelector.cs" />
+    <Compile Include="Builders\Assemblies\Types\Methods\CreateInstanceMethodBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\Methods\MapMembersMethodBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\Methods\EmitMethodBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\TargetTypeBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
-    <Compile Include="Builders\Types\TargetTypeMarker.cs" />
-    <Compile Include="Builders\ObjectTypeBuilder.cs" />
+    <Compile Include="Builders\Assemblies\Types\TargetTypeMarker.cs" />
+    <Compile Include="Builders\Assemblies\Types\ObjectTypeBuilder.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
     <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />
