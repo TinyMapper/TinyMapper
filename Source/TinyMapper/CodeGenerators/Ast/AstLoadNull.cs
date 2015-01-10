@@ -3,9 +3,9 @@ using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstNull : IAstType
+    internal sealed class AstLoadNull : IAstType
     {
-        public AstNull()
+        public AstLoadNull()
         {
             ObjectType = typeof(object);
         }

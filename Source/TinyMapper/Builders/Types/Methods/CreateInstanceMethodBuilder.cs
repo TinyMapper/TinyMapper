@@ -29,9 +29,9 @@ namespace TinyMapper.Builders.Types.Methods
         {
             if (type.HasDefaultCtor())
             {
-                return new AstNewType(type);
+                return new AstNewObj(type);
             }
-            return new AstNull();
+            return new AstLoadNull();
         }
 
         private IAstType CreateValueType(Type type, CodeGenerator codeGenerator)

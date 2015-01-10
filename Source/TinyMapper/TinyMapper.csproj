@@ -40,8 +40,8 @@
     <Compile Include="Builders\Assemblies\IDynamicAssembly.cs" />
     <Compile Include="CodeGenerators\Ast\AstBox.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
-    <Compile Include="CodeGenerators\Ast\AstNewType.cs" />
-    <Compile Include="CodeGenerators\Ast\AstNull.cs" />
+    <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />
+    <Compile Include="CodeGenerators\Ast\AstLoadNull.cs" />
     <Compile Include="CodeGenerators\Ast\AstReturn.cs" />
     <Compile Include="CodeGenerators\Ast\IAstNode.cs" />
     <Compile Include="CodeGenerators\Ast\IAstType.cs" />

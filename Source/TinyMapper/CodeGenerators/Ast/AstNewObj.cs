@@ -4,9 +4,9 @@ using TinyMapper.Extensions;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstNewType : IAstType
+    internal sealed class AstNewObj : IAstType
     {
-        public AstNewType(Type objectType)
+        public AstNewObj(Type objectType)
         {
             ObjectType = objectType;
         }

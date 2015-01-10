@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies;
+using TinyMapper.Builders.Types.Members;
 using TinyMapper.Builders.Types.Methods;
 
 namespace TinyMapper.Builders.Types
@@ -29,6 +30,9 @@ namespace TinyMapper.Builders.Types
 
             Type type = typeBuilder.CreateType();
             var t = (TargetTypeMarker)Activator.CreateInstance(type);
+
+            var t1 = new MemberSelector();
+            t1.GetMappingItems(new HashSet<MemberSelector.TypesPair>(), sourceType, targetType, null, null);
         }
     }
 }
