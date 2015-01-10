@@ -28,11 +28,11 @@ namespace TinyMapper.Builders.Types
             };
             methodBuilders.ForEach(x => x.Build());
 
+            var memberSelector = new MemberSelector();
+            List<MappingMember> mappingMembers = memberSelector.GetMappingMembers(sourceType, targetType);
+
             Type type = typeBuilder.CreateType();
             var t = (TargetTypeMarker)Activator.CreateInstance(type);
-
-            var t1 = new MemberSelector();
-            t1.GetMappingItems(new HashSet<MemberSelector.TypesPair>(), sourceType, targetType, null, null);
         }
     }
 }

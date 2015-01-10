@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\Assemblies\IDynamicAssembly.cs" />
+    <Compile Include="Builders\Types\Members\MappingMember.cs" />
     <Compile Include="CodeGenerators\Ast\AstBox.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
     <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />
