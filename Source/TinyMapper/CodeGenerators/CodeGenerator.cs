@@ -59,6 +59,12 @@ namespace TinyMapper.CodeGenerators
             return this;
         }
 
+        public CodeGenerator Emit(OpCode opCode, FieldInfo value)
+        {
+            _ilGenerator.Emit(opCode, value);
+            return this;
+        }
+
         public CodeGenerator EmitCall(MethodInfo method, IAstType invocationObject, params IAstType[] arguments)
         {
             ParameterInfo[] actualArguments = method.GetParameters();

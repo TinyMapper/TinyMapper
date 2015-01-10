@@ -2,7 +2,6 @@
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
-using TinyMapper.CodeGenerators.Ast.Statements;
 
 namespace TinyMapper.Builders.Types.Methods
 {

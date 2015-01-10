@@ -44,12 +44,13 @@
     <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />
     <Compile Include="CodeGenerators\Ast\AstLoadNull.cs" />
     <Compile Include="CodeGenerators\Ast\AstReturn.cs" />
+    <Compile Include="CodeGenerators\Ast\AstStoreField.cs" />
     <Compile Include="CodeGenerators\Ast\IAstNode.cs" />
     <Compile Include="CodeGenerators\Ast\IAstType.cs" />
-    <Compile Include="CodeGenerators\Ast\Statements\AstLoadArgument.cs" />
-    <Compile Include="CodeGenerators\Ast\Statements\AstLocalVariableDeclaration.cs" />
-    <Compile Include="CodeGenerators\Ast\Statements\AstLoadLocal.cs" />
-    <Compile Include="CodeGenerators\Ast\Statements\AstStoreLocal.cs" />
+    <Compile Include="CodeGenerators\Ast\AstLoadArgument.cs" />
+    <Compile Include="CodeGenerators\Ast\AstLocalVariableDeclaration.cs" />
+    <Compile Include="CodeGenerators\Ast\AstLoadLocal.cs" />
+    <Compile Include="CodeGenerators\Ast\AstStoreLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Builders\Assemblies\DynamicAssemblyBuilder.cs" />
     <Compile Include="Builders\Types\Members\MemberSelector.cs" />
