@@ -2,7 +2,14 @@
 {
     public abstract class ObjectTypeBuilder
     {
+        /// <summary>
+        /// public object CreateTargetInstance().
+        /// </summary>
         public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
+
+        /// <summary>
+        /// public object MapMembers(object source, object target)
+        /// </summary>
         public const string MapMembersMethodName = "MapMembersCore";
 
         public object CreateTargetInstance()

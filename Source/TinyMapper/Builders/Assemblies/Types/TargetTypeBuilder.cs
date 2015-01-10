@@ -27,9 +27,6 @@ namespace TinyMapper.Builders.Assemblies.Types
             };
             methodBuilders.ForEach(x => x.Build());
 
-            var memberSelector = new MemberSelector();
-            List<MappingMember> mappingMembers = memberSelector.GetMappingMembers(sourceType, targetType);
-
             Type type = typeBuilder.CreateType();
             var t = (TargetTypeMarker)Activator.CreateInstance(type);
         }

@@ -10,11 +10,19 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
     internal sealed class MemberSelector
     {
         private readonly MapConfig _config = new MapConfig();
+        private readonly Type _sourceType;
+        private readonly Type _targetType;
 
-        internal List<MappingMember> GetMappingMembers(Type sourceType, Type targetType)
+        public MemberSelector(Type sourceType, Type targetType)
         {
-            List<MemberInfo> sourceMembers = GetSourceMembers(sourceType);
-            List<MemberInfo> targetMembers = GetTargetMembers(targetType);
+            _sourceType = sourceType;
+            _targetType = targetType;
+        }
+
+        internal List<MappingMember> GetMappingMembers()
+        {
+            List<MemberInfo> sourceMembers = GetSourceMembers(_sourceType);
+            List<MemberInfo> targetMembers = GetTargetMembers(_targetType);
 
             return GetMappingMembers(sourceMembers, targetMembers, _config.Match);
         }

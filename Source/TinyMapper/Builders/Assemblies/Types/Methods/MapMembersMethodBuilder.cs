@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Emit;
+using TinyMapper.Builders.Assemblies.Types.Members;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 
@@ -7,9 +9,12 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {
+        private readonly MemberSelector _memberSelector;
+
         public MapMembersMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
             : base(sourceType, targetType, typeBuilder)
         {
+            _memberSelector = new MemberSelector(sourceType, targetType);
         }
 
         protected override void BuildCore()
@@ -21,6 +26,8 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
             var astComposite = new AstComposite();
             astComposite.Add(LoadMethodArgument(localSource, 1))
                         .Add(LoadMethodArgument(localTarget, 2));
+
+            List<MappingMember> mappingMembers = _memberSelector.GetMappingMembers();
 
             astComposite.Add(new AstReturn(typeof(object), AstLoadLocal.Load(localTarget)));
 
