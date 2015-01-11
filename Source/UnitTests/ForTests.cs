@@ -11,6 +11,8 @@ namespace UnitTests
         public void Test()
         {
             ObjectMapper.CreateMapper<Class1, Class2>();
+
+            //            MethodInfo t = PrimitiveTypeConverter.GetConverter(typeof(int), typeof(string));
             //            CallDynamicMethod();
         }
 

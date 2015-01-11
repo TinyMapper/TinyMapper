@@ -10,11 +10,10 @@ namespace Benchmark
 
         private static void Main()
         {
-            var mapper = new PrimitiveTypeConverter();
             Stopwatch stopwatch = Stopwatch.StartNew();
             for (int i = 0; i < Iterations; i++)
             {
-                B.Enum value = mapper.Convert<A.Enum, B.Enum>(A.Enum.Item1);
+                B.Enum value = PrimitiveTypeConverter.Convert<A.Enum, B.Enum>(A.Enum.Item1);
             }
             stopwatch.Stop();
 

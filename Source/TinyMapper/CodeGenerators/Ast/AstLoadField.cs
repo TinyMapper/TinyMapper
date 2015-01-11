@@ -7,20 +7,20 @@ namespace TinyMapper.CodeGenerators.Ast
     internal abstract class AstLoadField : IAstType
     {
         private readonly FieldInfo _field;
-        private readonly IAstType _value;
+        private readonly IAstType _source;
 
-        protected AstLoadField(FieldInfo field, IAstType value)
+        private AstLoadField(IAstType source, FieldInfo field)
         {
+            _source = source;
             _field = field;
-            _value = value;
             ObjectType = field.FieldType;
         }
 
         public Type ObjectType { get; private set; }
 
-        public static IAstType Load(FieldInfo field, IAstType value)
+        public static IAstType Load(IAstType source, FieldInfo field)
         {
-            var result = new AstLoadFieldImpl(field, value);
+            var result = new AstLoadFieldImpl(source, field);
             return result;
         }
 
@@ -29,13 +29,13 @@ namespace TinyMapper.CodeGenerators.Ast
 
         private sealed class AstLoadFieldImpl : AstLoadField
         {
-            public AstLoadFieldImpl(FieldInfo field, IAstType value) : base(field, value)
+            public AstLoadFieldImpl(IAstType source, FieldInfo field) : base(source, field)
             {
             }
 
             public override void Emit(CodeGenerator generator)
             {
-                _value.Emit(generator);
+                _source.Emit(generator);
                 generator.Emit(OpCodes.Ldfld, _field);
             }
         }

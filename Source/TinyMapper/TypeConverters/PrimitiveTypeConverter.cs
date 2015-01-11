@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using TinyMapper.Nelibur.Sword.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.TypeConverters
 {
-    internal class PrimitiveTypeConverter
+    internal static class PrimitiveTypeConverter
     {
-        private readonly List<Func<Type, Type, Option<Func<object, object>>>> _converters = new List<Func<Type, Type, Option<Func<object, object>>>>();
+        private static readonly List<Func<Type, Type, Option<Func<object, object>>>> _converters = new List<Func<Type, Type, Option<Func<object, object>>>>();
 
-        public PrimitiveTypeConverter()
+        static PrimitiveTypeConverter()
         {
             _converters.Add(GetConversionMethod);
         }
 
-        public TTarget Convert<TSource, TTarget>(TSource value)
+        public static TTarget Convert<TSource, TTarget>(TSource value)
         {
             if (value.IsNull())
             {
@@ -27,6 +28,12 @@ namespace TinyMapper.TypeConverters
                 return (TTarget)converter.Value(value);
             }
             return default(TTarget);
+        }
+
+        public static MethodInfo GetConverter(Type sourceType, Type targetType)
+        {
+            return typeof(PrimitiveTypeConverter).GetMethod("Convert", BindingFlags.Static | BindingFlags.Public)
+                                                 .MakeGenericMethod(sourceType, targetType);
         }
 
         private static Option<Func<object, object>> GetConversionMethod(Type source, Type target)
@@ -58,12 +65,7 @@ namespace TinyMapper.TypeConverters
             return Option<Func<object, object>>.Empty;
         }
 
-        private static bool IsEnumToEnumConversion(Type source, Type target)
-        {
-            return source.IsEnum && target.IsEnum;
-        }
-
-        private Option<Func<object, object>> GetConverter<TFrom, TTo>()
+        private static Option<Func<object, object>> GetConverter<TFrom, TTo>()
         {
             foreach (Func<Type, Type, Option<Func<object, object>>> converter in _converters)
             {
@@ -74,6 +76,11 @@ namespace TinyMapper.TypeConverters
                 }
             }
             return Option<Func<object, object>>.Empty;
+        }
+
+        private static bool IsEnumToEnumConversion(Type source, Type target)
+        {
+            return source.IsEnum && target.IsEnum;
         }
     }
 }
