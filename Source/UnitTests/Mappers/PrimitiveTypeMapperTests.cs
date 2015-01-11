@@ -1,5 +1,6 @@
 ﻿using TinyMapper.TypeConverters;
 using Xunit;
+using Xunit.Extensions;
 
 namespace UnitTests.Mappers
 {
@@ -27,6 +28,16 @@ namespace UnitTests.Mappers
             var mapper = new PrimitiveTypeConverter();
             Enum2 value = mapper.Convert<Enum1, Enum2>(Enum1.Item1);
             Assert.Equal(Enum2.Item1, value);
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(null, 0)]
+        public void Map_NullableToInt_Success(int? sourceValue, int expected)
+        {
+            var mapper = new PrimitiveTypeConverter();
+            int value = mapper.Convert<int?, int>(sourceValue);
+            Assert.Equal(expected, value);
         }
 
         [Fact]
