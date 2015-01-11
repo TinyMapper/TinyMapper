@@ -26,24 +26,20 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         private IAstType CreateRefType(Type type)
         {
-            if (type.HasDefaultCtor())
-            {
-                return new AstNewObj(type);
-            }
-            return new AstLoadNull();
+            return type.HasDefaultCtor() ? AstNewObj.NewObj(type) : AstLoadNull.Load();
         }
 
         private IAstType CreateValueType(Type type, CodeGenerator codeGenerator)
         {
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
-            new AstLocalVariableDeclaration(builder).Emit(codeGenerator);
-            return new AstBox(AstLoadLocal.Load(builder));
+            AstLocalVariableDeclaration.Declare(builder).Emit(codeGenerator);
+            return AstBox.Box(AstLoadLocal.Load(builder));
         }
 
         private void EmitMethod(Type type)
         {
             IAstType value = type.IsValueType ? CreateValueType(type, _codeGenerator) : CreateRefType(type);
-            new AstReturn(type, value).Emit(_codeGenerator);
+            AstReturn.Return(type, value).Emit(_codeGenerator);
         }
     }
 }

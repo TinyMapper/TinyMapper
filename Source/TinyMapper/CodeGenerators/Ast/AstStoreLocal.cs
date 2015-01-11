@@ -7,10 +7,15 @@ namespace TinyMapper.CodeGenerators.Ast
         private readonly LocalBuilder _localBuilder;
         private readonly IAstType _value;
 
-        public AstStoreLocal(LocalBuilder localBuilder, IAstType value)
+        private AstStoreLocal(LocalBuilder localBuilder, IAstType value)
         {
             _localBuilder = localBuilder;
             _value = value;
+        }
+
+        public static IAstNode Store(LocalBuilder localBuilder, IAstType value)
+        {
+            return new AstStoreLocal(localBuilder, value);
         }
 
         public void Emit(CodeGenerator generator)

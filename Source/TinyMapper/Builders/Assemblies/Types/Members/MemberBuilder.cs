@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using TinyMapper.CodeGenerators.Ast;
-using TinyMapper.Nelibur.Sword.DataStructures;
+using TinyMapper.Extensions;
 using TinyMapper.Nelibur.Sword.Extensions;
+using TinyMapper.TypeConverters;
 
 namespace TinyMapper.Builders.Assemblies.Types.Members
 {
@@ -36,18 +37,21 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             throw new NotImplementedException();
         }
 
-        private Option<IAstType> Test(MappingMember mappingMember)
+        private void Test(MappingMember mappingMember)
         {
             IAstType sourceObject = AstLoadLocal.Load(_config.LocalSource);
 
-            IAstType sourceValue = null;
+            IAstType memberValue = null;
 
             mappingMember.Source
                          .ToOption()
-                         .MatchType<FieldInfo>(x => sourceValue = ReadField(sourceObject, x))
-                         .MatchType<PropertyInfo>(x => sourceValue = ReadField(sourceObject, x));
+                         .MatchType<FieldInfo>(x => memberValue = ReadField(sourceObject, x))
+                         .MatchType<PropertyInfo>(x => memberValue = ReadField(sourceObject, x));
 
-            return sourceValue.ToOption();
+            MethodInfo converter = PrimitiveTypeConverter.GetConverter(mappingMember.Source.GetMemberType(),
+                mappingMember.Target.GetMemberType());
+
+            IAstType convertedMember = AstCallMethod.Call(converter, null, memberValue);
         }
     }
 }

@@ -43,6 +43,7 @@
     <Compile Include="Builders\Assemblies\Types\Members\MemberBuilder.cs" />
     <Compile Include="Builders\Assemblies\Types\Members\MemberBuilderConfig.cs" />
     <Compile Include="CodeGenerators\Ast\AstBox.cs" />
+    <Compile Include="CodeGenerators\Ast\AstCallMethod.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
     <Compile Include="CodeGenerators\Ast\AstLoadField.cs" />
     <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />

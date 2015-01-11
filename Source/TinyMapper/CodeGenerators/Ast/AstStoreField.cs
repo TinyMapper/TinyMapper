@@ -9,11 +9,16 @@ namespace TinyMapper.CodeGenerators.Ast
         private readonly IAstType _targetValue;
         private readonly IAstType _value;
 
-        public AstStoreField(FieldInfo field, IAstType targetValue, IAstType value)
+        private AstStoreField(FieldInfo field, IAstType targetValue, IAstType value)
         {
             _field = field;
             _targetValue = targetValue;
             _value = value;
+        }
+
+        public static IAstNode Store(FieldInfo field, IAstType targetValue, IAstType value)
+        {
+            return new AstStoreField(field, targetValue, value);
         }
 
         public void Emit(CodeGenerator generator)

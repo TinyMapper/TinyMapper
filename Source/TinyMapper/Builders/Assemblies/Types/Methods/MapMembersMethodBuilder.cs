@@ -32,7 +32,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
             IAstNode node = EmitMappingMembers(mappingMembers);
 
             astComposite.Add(node);
-            astComposite.Add(new AstReturn(typeof(object), AstLoadLocal.Load(_localTarget)));
+            astComposite.Add(AstReturn.Return(typeof(object), AstLoadLocal.Load(_localTarget)));
             astComposite.Emit(_codeGenerator);
         }
 
@@ -64,8 +64,8 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private AstComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
         {
             var result = new AstComposite();
-            result.Add(new AstLocalVariableDeclaration(builder))
-                  .Add(new AstStoreLocal(builder, AstLoadArgument.Load(typeof(object), argumentIndex)));
+            result.Add(AstLocalVariableDeclaration.Declare(builder))
+                  .Add(AstStoreLocal.Store(builder, AstLoadArgument.Load(typeof(object), argumentIndex)));
             return result;
         }
     }

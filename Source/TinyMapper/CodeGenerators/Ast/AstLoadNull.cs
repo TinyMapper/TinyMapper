@@ -5,9 +5,14 @@ namespace TinyMapper.CodeGenerators.Ast
 {
     internal sealed class AstLoadNull : IAstType
     {
-        public AstLoadNull()
+        private AstLoadNull()
         {
             ObjectType = typeof(object);
+        }
+
+        public static IAstType Load()
+        {
+            return new AstLoadNull();
         }
 
         public Type ObjectType { get; private set; }

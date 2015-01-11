@@ -9,13 +9,18 @@ namespace TinyMapper.CodeGenerators.Ast
     {
         private readonly Option<LocalBuilder> _localBuilder;
 
-        public AstLocalVariableDeclaration(LocalBuilder localBuilder)
+        private AstLocalVariableDeclaration(LocalBuilder localBuilder)
         {
             _localBuilder = localBuilder.ToOption();
             ObjectType = localBuilder.LocalType;
         }
 
         public Type ObjectType { get; private set; }
+
+        public static IAstType Declare(LocalBuilder localBuilder)
+        {
+            return new AstLocalVariableDeclaration(localBuilder);
+        }
 
         public void Emit(CodeGenerator generator)
         {

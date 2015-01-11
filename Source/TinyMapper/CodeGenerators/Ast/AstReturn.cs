@@ -7,13 +7,18 @@ namespace TinyMapper.CodeGenerators.Ast
     {
         private readonly IAstType _returnValue;
 
-        public AstReturn(Type returnType, IAstType returnValue)
+        private AstReturn(Type returnType, IAstType returnValue)
         {
             _returnValue = returnValue;
             ObjectType = returnType;
         }
 
         public Type ObjectType { get; private set; }
+
+        public static IAstType Return(Type returnType, IAstType returnValue)
+        {
+            return new AstReturn(returnType, returnValue);
+        }
 
         public void Emit(CodeGenerator generator)
         {
