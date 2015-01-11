@@ -2,42 +2,57 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies.Types.Members;
-using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 
 namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {
+        private readonly LocalBuilder _localSource;
+        private readonly LocalBuilder _localTarget;
+        private readonly IMemberBuilderConfig _memberBuilderConfig = MemberBuilderConfig.Create();
         private readonly MemberSelector _memberSelector;
 
         public MapMembersMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
             : base(sourceType, targetType, typeBuilder)
         {
             _memberSelector = new MemberSelector(sourceType, targetType);
+            _localSource = _codeGenerator.DeclareLocal(_sourceType);
+            _localTarget = _codeGenerator.DeclareLocal(_targetType);
         }
 
         protected override void BuildCore()
         {
-            CodeGenerator codeGenerator = CreateCodeGenerator(_typeBuilder);
-            LocalBuilder localSource = codeGenerator.DeclareLocal(_sourceType);
-            LocalBuilder localTarget = codeGenerator.DeclareLocal(_targetType);
-
             var astComposite = new AstComposite();
-            astComposite.Add(LoadMethodArgument(localSource, 1))
-                        .Add(LoadMethodArgument(localTarget, 2));
+            astComposite.Add(LoadMethodArgument(_localSource, 1))
+                        .Add(LoadMethodArgument(_localTarget, 2));
 
             List<MappingMember> mappingMembers = _memberSelector.GetMappingMembers();
 
-            astComposite.Add(new AstReturn(typeof(object), AstLoadLocal.Load(localTarget)));
+            IAstNode node = EmitMappingMembers(mappingMembers);
 
-            astComposite.Emit(codeGenerator);
+            astComposite.Add(node);
+            astComposite.Add(new AstReturn(typeof(object), AstLoadLocal.Load(_localTarget)));
+            astComposite.Emit(_codeGenerator);
         }
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
             return typeBuilder.DefineMethod(ObjectTypeBuilder.MapMembersMethodName,
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
+        }
+
+        private IAstNode EmitMappingMembers(List<MappingMember> mappingMembers)
+        {
+            MemberBuilder memberBuilder = _memberBuilderConfig.Configure(x =>
+            {
+                x.LocalSource = _localSource;
+                x.LocalTarget = _localTarget;
+                x.CodeGenerator = _codeGenerator;
+            }).CreateMemberBuilder();
+
+            IAstNode result = memberBuilder.Build(mappingMembers);
+            return result;
         }
 
         /// <summary>

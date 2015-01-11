@@ -9,15 +9,15 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
     internal abstract class EmitMethodBuilder
     {
         protected const MethodAttributes MethodAttribute = MethodAttributes.Assembly | MethodAttributes.Virtual;
+        protected readonly CodeGenerator _codeGenerator;
         protected readonly Type _sourceType;
         protected readonly Type _targetType;
-        protected readonly TypeBuilder _typeBuilder;
 
         protected EmitMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
         {
             _sourceType = sourceType.IsNullable() ? Nullable.GetUnderlyingType(sourceType) : sourceType;
             _targetType = targetType.IsNullable() ? Nullable.GetUnderlyingType(targetType) : targetType;
-            _typeBuilder = typeBuilder;
+            _codeGenerator = CreateCodeGenerator(typeBuilder);
         }
 
         public void Build()
@@ -27,12 +27,12 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         protected abstract void BuildCore();
 
-        protected CodeGenerator CreateCodeGenerator(TypeBuilder typeBuilder)
+        protected abstract MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder);
+
+        private CodeGenerator CreateCodeGenerator(TypeBuilder typeBuilder)
         {
             MethodBuilder methodBuilder = CreateMethodBuilder(typeBuilder);
             return new CodeGenerator(methodBuilder.GetILGenerator());
         }
-
-        protected abstract MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder);
     }
 }

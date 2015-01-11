@@ -15,7 +15,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         protected override void BuildCore()
         {
-            EmitMethod(_targetType, _typeBuilder);
+            EmitMethod(_targetType);
         }
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
@@ -40,12 +40,10 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
             return new AstBox(AstLoadLocal.Load(builder));
         }
 
-        private void EmitMethod(Type type, TypeBuilder typeBuilder)
+        private void EmitMethod(Type type)
         {
-            CodeGenerator codeGenerator = CreateCodeGenerator(typeBuilder);
-
-            IAstType value = type.IsValueType ? CreateValueType(type, codeGenerator) : CreateRefType(type);
-            new AstReturn(type, value).Emit(codeGenerator);
+            IAstType value = type.IsValueType ? CreateValueType(type, _codeGenerator) : CreateRefType(type);
+            new AstReturn(type, value).Emit(_codeGenerator);
         }
     }
 }
