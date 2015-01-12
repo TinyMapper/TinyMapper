@@ -10,7 +10,6 @@ namespace TinyMapper.CodeGenerators.Ast
         private AstLoadLocal(LocalBuilder localBuilder)
         {
             _localBuilder = localBuilder;
-            ObjectType = localBuilder.LocalType;
         }
 
         public Type ObjectType { get; private set; }
@@ -21,13 +20,38 @@ namespace TinyMapper.CodeGenerators.Ast
             return result;
         }
 
+        public static IAstType LoadAddress(LocalBuilder localBuilder)
+        {
+            if (localBuilder.LocalType.IsValueType)
+            {
+                return new AstLoadLocalAddressImpl(localBuilder);
+            }
+            return new AstLoadLocalAddressImpl(localBuilder);
+        }
+
         public abstract void Emit(CodeGenerator generator);
+
+
+        private sealed class AstLoadLocalAddressImpl : AstLoadLocal
+        {
+            public AstLoadLocalAddressImpl(LocalBuilder localBuilder)
+                : base(localBuilder)
+            {
+                ObjectType = localBuilder.LocalType.MakeByRefType();
+            }
+
+            public override void Emit(CodeGenerator generator)
+            {
+                generator.Emit(OpCodes.Ldloca, _localBuilder.LocalIndex);
+            }
+        }
 
 
         private sealed class AstLoadLocalImpl : AstLoadLocal
         {
             public AstLoadLocalImpl(LocalBuilder localBuilder) : base(localBuilder)
             {
+                ObjectType = localBuilder.LocalType;
             }
 
             public override void Emit(CodeGenerator generator)

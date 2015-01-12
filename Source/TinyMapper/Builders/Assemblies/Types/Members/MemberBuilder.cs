@@ -19,12 +19,16 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
 
         public IAstNode Build(List<MappingMember> mappingMembers)
         {
-            throw new NotImplementedException();
+            var result = new AstComposite();
+            mappingMembers.ForEach(x => result.Add(Test(x)));
+            return result;
         }
 
-        private MethodInfo GetTypeConverter()
+        private MethodInfo GetTypeConverter(MappingMember mappingMember)
         {
-            throw new NotImplementedException();
+            MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.Source.GetMemberType(),
+                mappingMember.Target.GetMemberType());
+            return result;
         }
 
         private IAstType ReadField(IAstType source, FieldInfo field)
@@ -37,21 +41,26 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             throw new NotImplementedException();
         }
 
-        private void Test(MappingMember mappingMember)
+        private IAstNode Test(MappingMember mappingMember)
         {
             IAstType sourceObject = AstLoadLocal.Load(_config.LocalSource);
 
             IAstType memberValue = null;
-
             mappingMember.Source
                          .ToOption()
                          .MatchType<FieldInfo>(x => memberValue = ReadField(sourceObject, x))
                          .MatchType<PropertyInfo>(x => memberValue = ReadField(sourceObject, x));
 
-            MethodInfo converter = PrimitiveTypeConverter.GetConverter(mappingMember.Source.GetMemberType(),
-                mappingMember.Target.GetMemberType());
+            MethodInfo converter = GetTypeConverter(mappingMember);
 
             IAstType convertedMember = AstCallMethod.Call(converter, null, memberValue);
+
+            IAstNode result = null;
+            IAstType t = AstLoadLocal.LoadAddress(_config.LocalTarget);
+            mappingMember.Target
+                         .ToOption()
+                         .MatchType<FieldInfo>(x => result = AstStoreField.Store(x, t, convertedMember));
+            return result;
         }
     }
 }

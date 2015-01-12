@@ -48,13 +48,14 @@ namespace UnitTests
 
         private class Class1
         {
-            public int Id { get; set; }
+            public int Id;
+            public int Id1 { get; set; }
         }
 
 
         private class Class2
         {
-            public int Id { get; set; }
+            public int Id;
         }
     }
 }
