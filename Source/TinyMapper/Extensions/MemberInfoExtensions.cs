@@ -1,19 +1,40 @@
 ﻿using System;
 using System.Reflection;
-using TinyMapper.Nelibur.Sword.Patterns;
 
 namespace TinyMapper.Extensions
 {
     internal static class MemberInfoExtensions
     {
-        private static readonly IFuncVisitor<MemberInfo, Type> _visitor = Visitor.For<MemberInfo, Type>()
-                                                                                 .Register<PropertyInfo>(x => x.PropertyType)
-                                                                                 .Register<FieldInfo>(x => x.FieldType)
-                                                                                 .Register<MethodInfo>(x => x.ReturnType);
-
         public static Type GetMemberType(this MemberInfo value)
         {
-            return _visitor.Visit(value);
+            if (value.IsField())
+            {
+                return ((FieldInfo)value).FieldType;
+            }
+            else if (value.IsProperty())
+            {
+                return ((PropertyInfo)value).PropertyType;
+            }
+            else if (value.IsMethod())
+            {
+                return ((MethodInfo)value).ReturnType;
+            }
+            throw new NotSupportedException();
+        }
+
+        public static bool IsField(this MemberInfo value)
+        {
+            return value.MemberType == MemberTypes.Field;
+        }
+
+        public static bool IsMethod(this MemberInfo value)
+        {
+            return value.MemberType == MemberTypes.Method;
+        }
+
+        public static bool IsProperty(this MemberInfo value)
+        {
+            return value.MemberType == MemberTypes.Property;
         }
     }
 }

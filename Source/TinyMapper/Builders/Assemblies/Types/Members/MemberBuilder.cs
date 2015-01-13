@@ -24,6 +24,22 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
+        private static IAstNode StoreTargetObjectMember(MappingMember mappingMember, IAstType targetObject, IAstType convertedMember)
+        {
+            IAstNode result = null;
+            mappingMember.Target
+                         .ToOption()
+                         .Match(x => x.IsField(), x => result = AstStoreField.Store((FieldInfo)x, targetObject, convertedMember));
+            return result;
+        }
+
+        private IAstType ConvertMember(MappingMember mappingMember, IAstType memberValue)
+        {
+            MethodInfo converter = GetTypeConverter(mappingMember);
+            IAstType convertedMember = AstCallMethod.Call(converter, null, memberValue);
+            return convertedMember;
+        }
+
         private MethodInfo GetTypeConverter(MappingMember mappingMember)
         {
             MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.Source.GetMemberType(),
@@ -31,35 +47,37 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
-        private IAstType ReadField(IAstType source, FieldInfo field)
+        private IAstType LoadField(IAstType source, FieldInfo field)
         {
             return AstLoadField.Load(source, field);
         }
 
-        private IAstType ReadField(IAstType source, PropertyInfo property)
+        private IAstType LoadProperty(IAstType source, PropertyInfo property)
         {
             throw new NotImplementedException();
+        }
+
+        private IAstType LoadSourceObjectMember(MappingMember mappingMember, IAstType sourceObject)
+        {
+            IAstType result = null;
+            mappingMember.Source
+                         .ToOption()
+                         .Match(x => x.IsField(), x => result = LoadField(sourceObject, (FieldInfo)x))
+                         .Match(x => x.IsProperty(), x => result = LoadProperty(sourceObject, (PropertyInfo)x));
+            return result;
         }
 
         private IAstNode Test(MappingMember mappingMember)
         {
             IAstType sourceObject = AstLoadLocal.Load(_config.LocalSource);
 
-            IAstType memberValue = null;
-            mappingMember.Source
-                         .ToOption()
-                         .MatchType<FieldInfo>(x => memberValue = ReadField(sourceObject, x))
-                         .MatchType<PropertyInfo>(x => memberValue = ReadField(sourceObject, x));
+            IAstType memberValue = LoadSourceObjectMember(mappingMember, sourceObject);
 
-            MethodInfo converter = GetTypeConverter(mappingMember);
+            IAstType convertedMember = ConvertMember(mappingMember, memberValue);
 
-            IAstType convertedMember = AstCallMethod.Call(converter, null, memberValue);
+            IAstType targetObject = AstLoadLocal.LoadAddress(_config.LocalTarget);
 
-            IAstNode result = null;
-            IAstType t = AstLoadLocal.LoadAddress(_config.LocalTarget);
-            mappingMember.Target
-                         .ToOption()
-                         .MatchType<FieldInfo>(x => result = AstStoreField.Store(x, t, convertedMember));
+            IAstNode result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
             return result;
         }
     }
