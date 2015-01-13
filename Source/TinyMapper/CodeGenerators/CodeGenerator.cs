@@ -68,6 +68,10 @@ namespace TinyMapper.CodeGenerators
         public CodeGenerator EmitCall(MethodInfo method, IAstType invocationObject, params IAstType[] arguments)
         {
             ParameterInfo[] actualArguments = method.GetParameters();
+            if (arguments.IsNull())
+            {
+                arguments = new IAstType[0];
+            }
             if (arguments.Length != actualArguments.Length)
             {
                 throw new ArgumentException();

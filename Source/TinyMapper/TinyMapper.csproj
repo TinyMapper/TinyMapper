@@ -46,10 +46,12 @@
     <Compile Include="CodeGenerators\Ast\AstCallMethod.cs" />
     <Compile Include="CodeGenerators\Ast\AstComposite.cs" />
     <Compile Include="CodeGenerators\Ast\AstLoadField.cs" />
+    <Compile Include="CodeGenerators\Ast\AstLoadProperty.cs" />
     <Compile Include="CodeGenerators\Ast\AstNewObj.cs" />
     <Compile Include="CodeGenerators\Ast\AstLoadNull.cs" />
     <Compile Include="CodeGenerators\Ast\AstReturn.cs" />
     <Compile Include="CodeGenerators\Ast\AstStoreField.cs" />
+    <Compile Include="CodeGenerators\Ast\AstStoreProperty.cs" />
     <Compile Include="CodeGenerators\Ast\IAstNode.cs" />
     <Compile Include="CodeGenerators\Ast\IAstType.cs" />
     <Compile Include="CodeGenerators\Ast\AstLoadArgument.cs" />

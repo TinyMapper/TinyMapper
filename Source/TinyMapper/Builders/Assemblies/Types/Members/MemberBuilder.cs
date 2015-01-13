@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using TinyMapper.CodeGenerators.Ast;
 using TinyMapper.Extensions;
@@ -24,12 +23,23 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
+        private static IAstNode StoreFiled(FieldInfo field, IAstType targetObject, IAstType value)
+        {
+            return AstStoreField.Store(field, targetObject, value);
+        }
+
+        private static IAstNode StoreProperty(PropertyInfo property, IAstType targetObject, IAstType value)
+        {
+            return AstStoreProperty.Store(property, targetObject, value);
+        }
+
         private static IAstNode StoreTargetObjectMember(MappingMember mappingMember, IAstType targetObject, IAstType convertedMember)
         {
             IAstNode result = null;
             mappingMember.Target
                          .ToOption()
-                         .Match(x => x.IsField(), x => result = AstStoreField.Store((FieldInfo)x, targetObject, convertedMember));
+                         .Match(x => x.IsField(), x => result = StoreFiled((FieldInfo)x, targetObject, convertedMember))
+                         .Match(x => x.IsProperty(), x => result = StoreProperty((PropertyInfo)x, targetObject, convertedMember));
             return result;
         }
 
@@ -54,7 +64,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
 
         private IAstType LoadProperty(IAstType source, PropertyInfo property)
         {
-            throw new NotImplementedException();
+            return AstLoadProperty.Load(source, property);
         }
 
         private IAstType LoadSourceObjectMember(MappingMember mappingMember, IAstType sourceObject)

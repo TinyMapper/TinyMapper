@@ -43,6 +43,12 @@ namespace TinyMapper.TypeConverters
                 return Option<Func<object, object>>.Empty;
             }
 
+            if (source == target)
+            {
+                Func<object, object> result = x => x;
+                return result.ToOption();
+            }
+
             TypeConverter fromConverter = TypeDescriptor.GetConverter(source);
             if (fromConverter.CanConvertTo(target))
             {

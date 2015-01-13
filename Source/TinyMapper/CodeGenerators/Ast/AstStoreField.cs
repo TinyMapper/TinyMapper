@@ -6,13 +6,13 @@ namespace TinyMapper.CodeGenerators.Ast
     internal sealed class AstStoreField : IAstNode
     {
         private readonly FieldInfo _field;
-        private readonly IAstType _targetValue;
+        private readonly IAstType _targetObject;
         private readonly IAstType _value;
 
-        private AstStoreField(FieldInfo field, IAstType targetValue, IAstType value)
+        private AstStoreField(FieldInfo field, IAstType targetObject, IAstType value)
         {
             _field = field;
-            _targetValue = targetValue;
+            _targetObject = targetObject;
             _value = value;
         }
 
@@ -23,7 +23,7 @@ namespace TinyMapper.CodeGenerators.Ast
 
         public void Emit(CodeGenerator generator)
         {
-            _targetValue.Emit(generator);
+            _targetObject.Emit(generator);
             _value.Emit(generator);
             generator.CastType(_value.ObjectType, _field.FieldType);
             generator.Emit(OpCodes.Stfld, _field);
