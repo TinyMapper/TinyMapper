@@ -10,12 +10,12 @@ namespace TinyMapper.CodeGenerators.Ast
             ObjectType = typeof(object);
         }
 
+        public Type ObjectType { get; private set; }
+
         public static IAstType Load()
         {
             return new AstLoadNull();
         }
-
-        public Type ObjectType { get; private set; }
 
         public void Emit(CodeGenerator generator)
         {

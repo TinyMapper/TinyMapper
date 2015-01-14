@@ -26,7 +26,6 @@ namespace TinyMapper.TypeConverters
             if (converter.HasValue)
             {
                 var result = (TTarget)converter.Value(value);
-                Console.WriteLine(result);
                 return result;
             }
             return default(TTarget);
@@ -40,11 +39,6 @@ namespace TinyMapper.TypeConverters
 
         private static Option<Func<object, object>> GetConversionMethod(Type source, Type target)
         {
-            if (source == null || target == null)
-            {
-                return Option<Func<object, object>>.Empty;
-            }
-
             if (source == target)
             {
                 Func<object, object> result = x => x;

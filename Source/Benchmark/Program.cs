@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
-using TinyMapper.TypeConverters;
+using TinyMapper;
 
 namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 1000000;
+        private const int Iterations = 100000;
 
         private static void Main()
         {
+            ObjectMapper.Bind<Class1, Class2>();
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             for (int i = 0; i < Iterations; i++)
             {
-                B.Enum value = PrimitiveTypeConverter.Convert<A.Enum, B.Enum>(A.Enum.Item1);
+                var source = new Class1
+                {
+                    Field = 10,
+                };
+                var cl2 = new Class2 { Field = 3 };
+                Class2 t = ObjectMapper.Project(source, cl2);
             }
             stopwatch.Stop();
 
@@ -22,27 +29,17 @@ namespace Benchmark
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
         }
+    }
 
 
-        private static class A
-        {
-            public enum Enum
-            {
-                Item1,
-                Item2,
-                Item3
-            }
-        }
+    public class Class1
+    {
+        public int Field;
+    }
 
 
-        private static class B
-        {
-            public enum Enum
-            {
-                Item1,
-                Item2,
-                Item3
-            }
-        }
+    public class Class2
+    {
+        public int Field;
     }
 }

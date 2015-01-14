@@ -19,7 +19,7 @@
                 target = CreateTargetInstanceCore();
             }
 
-            var result = MapMembersCore(source, target);
+            object result = MapMembersCore(source, target);
             return result;
         }
 

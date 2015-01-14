@@ -1,4 +1,3 @@
-using System;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 
@@ -6,9 +5,9 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
 {
     internal interface IMemberBuilderConfig
     {
+        CodeGenerator CodeGenerator { get; set; }
         LocalBuilder LocalSource { get; set; }
         LocalBuilder LocalTarget { get; set; }
-        CodeGenerator CodeGenerator { get; set; }
         MemberBuilder Create();
     }
 }
