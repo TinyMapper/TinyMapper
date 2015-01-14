@@ -1,19 +1,20 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstStoreProperty : IAstNode
+    internal sealed class AstStoreProperty : IAstType
     {
-        private readonly PropertyInfo _property;
-        private readonly IAstType _targetObject;
-        private readonly IAstType _value;
+        private readonly IAstType _callMethod;
 
         private AstStoreProperty(PropertyInfo property, IAstType targetObject, IAstType value)
         {
-            _property = property;
-            _targetObject = targetObject;
-            _value = value;
+            MethodInfo method = property.GetSetMethod();
+            _callMethod = AstCallMethod.Call(method, targetObject, value);
+            ObjectType = _callMethod.ObjectType;
         }
+
+        public Type ObjectType { get; private set; }
 
         public static IAstNode Store(PropertyInfo property, IAstType targetObject, IAstType value)
         {
@@ -22,8 +23,7 @@ namespace TinyMapper.CodeGenerators.Ast
 
         public void Emit(CodeGenerator generator)
         {
-            MethodInfo method = _property.GetSetMethod();
-            AstCallMethod.Call(method, _targetObject, _value).Emit(generator);
+            _callMethod.Emit(generator);
         }
     }
 }

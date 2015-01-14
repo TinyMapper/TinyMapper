@@ -1,9 +1,10 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstStoreField : IAstNode
+    internal sealed class AstStoreField : IAstType
     {
         private readonly FieldInfo _field;
         private readonly IAstType _targetObject;
@@ -14,7 +15,10 @@ namespace TinyMapper.CodeGenerators.Ast
             _field = field;
             _targetObject = targetObject;
             _value = value;
+            ObjectType = _field.FieldType;
         }
+
+        public Type ObjectType { get; private set; }
 
         public static IAstNode Store(FieldInfo field, IAstType targetObject, IAstType value)
         {

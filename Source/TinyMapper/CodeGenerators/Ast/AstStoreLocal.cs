@@ -1,8 +1,9 @@
-﻿using System.Reflection.Emit;
+﻿using System;
+using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstStoreLocal : IAstNode
+    internal sealed class AstStoreLocal : IAstType
     {
         private readonly LocalBuilder _localBuilder;
         private readonly IAstType _value;
@@ -11,7 +12,10 @@ namespace TinyMapper.CodeGenerators.Ast
         {
             _localBuilder = localBuilder;
             _value = value;
+            ObjectType = _localBuilder.LocalType;
         }
+
+        public Type ObjectType { get; private set; }
 
         public static IAstNode Store(LocalBuilder localBuilder, IAstType value)
         {
