@@ -29,14 +29,14 @@ namespace UnitTests.Mappers
             Assert.Equal(Enum2.Item1, value);
         }
 
-        [Theory]
-        [InlineData(1, 1)]
-        [InlineData(null, 0)]
-        public void Map_NullableToInt_Success(int? sourceValue, int expected)
-        {
-            int value = PrimitiveTypeConverter.Convert<int?, int>(sourceValue);
-            Assert.Equal(expected, value);
-        }
+//        [Theory]
+//        [InlineData(1, 1)]
+//        [InlineData(null, 0)]
+//        public void Map_NullableToInt_Success(int? sourceValue, int expected)
+//        {
+//            int value = PrimitiveTypeConverter.Convert<int?, int>(sourceValue);
+//            Assert.Equal(expected, value);
+//        }
 
         [Fact]
         public void Map_StringToEnum_Success()
@@ -50,6 +50,12 @@ namespace UnitTests.Mappers
         {
             int value = PrimitiveTypeConverter.Convert<string, int>("2");
             Assert.Equal(2, value);
+        }
+
+
+        public class MyClass
+        {
+            public int Id;
         }
     }
 }

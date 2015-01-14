@@ -12,14 +12,15 @@
         /// </summary>
         public const string MapMembersMethodName = "MapMembersCore";
 
-        public object CreateTargetInstance()
+        public object MapMembers(object source, object target = null)
         {
-            return CreateTargetInstanceCore();
-        }
+            if (target == null)
+            {
+                target = CreateTargetInstanceCore();
+            }
 
-        public object MapMembers(object source, object target)
-        {
-            return MapMembersCore(source, target);
+            var result = MapMembersCore(source, target);
+            return result;
         }
 
         internal abstract object CreateTargetInstanceCore();

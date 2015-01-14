@@ -26,7 +26,7 @@ namespace TinyMapper.CodeGenerators.Ast
             {
                 return new AstLoadLocalAddressImpl(localBuilder);
             }
-            return new AstLoadLocalAddressImpl(localBuilder);
+            return new AstLoadLocalImpl(localBuilder);
         }
 
         public abstract void Emit(CodeGenerator generator);

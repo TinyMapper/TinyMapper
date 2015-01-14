@@ -10,9 +10,14 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            ObjectMapper.CreateMapper<Class1, Class2>();
+            ObjectMapper.Bind<Class1, Class2>();
+            var source = new Class1
+            {
+                Field = 10,
+            };
+            var cl2 = new Class2 { Field = 3 };
+            Class2 t = ObjectMapper.Project(source, cl2);
 
-            //            MethodInfo t = PrimitiveTypeConverter.GetConverter(typeof(int), typeof(string));
             //            CallDynamicMethod();
         }
 
@@ -46,17 +51,15 @@ namespace UnitTests
         }
 
 
-        private class Class1
+        public class Class1
         {
             public int Field;
-            public int Property { get; set; }
         }
 
 
-        private class Class2
+        public class Class2
         {
             public int Field;
-            public int Property { get; set; }
         }
     }
 }

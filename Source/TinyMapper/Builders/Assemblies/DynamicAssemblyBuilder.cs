@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies.Types;
@@ -28,7 +30,22 @@ namespace TinyMapper.Builders.Assemblies
             {
                 var assemblyName = new AssemblyName(AssemblyName);
                 _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+
+//                // Mark generated code as debuggable. 
+//                // See http://blogs.msdn.com/rmbyers/archive/2005/06/26/432922.aspx for explanation.
+//                Type daType = typeof(DebuggableAttribute);
+//                ConstructorInfo daCtor = daType.GetConstructor(new Type[] { typeof(DebuggableAttribute.DebuggingModes) });
+//                var daBuilder = new CustomAttributeBuilder(daCtor, new object[]
+//                {
+//                    DebuggableAttribute.DebuggingModes.DisableOptimizations |
+//                    DebuggableAttribute.DebuggingModes.Default
+//                });
+//                _assemblyBuilder.SetCustomAttribute(daBuilder);
+
                 _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+
+//                ISymbolDocumentWriter doc = _moduleBuilder.DefineDocument(@"Source.txt", Guid.Empty, Guid.Empty, Guid.Empty);
+
                 _targetTypeBuilder = new TargetTypeBuilder(this);
             }
 
@@ -36,7 +53,7 @@ namespace TinyMapper.Builders.Assemblies
             {
                 lock (_locker)
                 {
-                    return _moduleBuilder.DefineType(typeName, TypeAttributes.NotPublic | TypeAttributes.Sealed, parentType);
+                    return _moduleBuilder.DefineType(typeName, TypeAttributes.Public | TypeAttributes.Sealed, parentType);
                 }
             }
 

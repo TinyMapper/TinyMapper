@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper.Builders.Assemblies.Types.Members;
 using TinyMapper.Builders.Assemblies.Types.Methods;
 
 namespace TinyMapper.Builders.Assemblies.Types
@@ -15,7 +14,7 @@ namespace TinyMapper.Builders.Assemblies.Types
             _assembly = assembly;
         }
 
-        public void Build(Type sourceType, Type targetType)
+        public ObjectTypeBuilder Build(Type sourceType, Type targetType)
         {
             string mapperTypeName = MapperTypeNameBuilder.Build(sourceType, targetType);
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(TargetTypeMarker));
@@ -28,7 +27,8 @@ namespace TinyMapper.Builders.Assemblies.Types
             methodBuilders.ForEach(x => x.Build());
 
             Type type = typeBuilder.CreateType();
-            var t = (TargetTypeMarker)Activator.CreateInstance(type);
+            var result = (ObjectTypeBuilder)Activator.CreateInstance(type);
+            return result;
         }
     }
 }

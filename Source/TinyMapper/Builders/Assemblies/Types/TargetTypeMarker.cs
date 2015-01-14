@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Builders.Assemblies.Types
 {
-    internal abstract class TargetTypeMarker : ObjectTypeBuilder
+    public abstract class TargetTypeMarker : ObjectTypeBuilder
     {
     }
 }

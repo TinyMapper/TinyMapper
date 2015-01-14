@@ -25,7 +25,9 @@ namespace TinyMapper.TypeConverters
             Option<Func<object, object>> converter = GetConverter<TSource, TTarget>();
             if (converter.HasValue)
             {
-                return (TTarget)converter.Value(value);
+                var result = (TTarget)converter.Value(value);
+                Console.WriteLine(result);
+                return result;
             }
             return default(TTarget);
         }
