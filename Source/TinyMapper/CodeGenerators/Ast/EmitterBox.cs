@@ -3,11 +3,11 @@ using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstBox : IAstType
+    internal sealed class EmitterBox : IEmitterType
     {
-        private readonly IAstType _value;
+        private readonly IEmitterType _value;
 
-        private AstBox(IAstType value)
+        private EmitterBox(IEmitterType value)
         {
             _value = value;
             ObjectType = value.ObjectType;
@@ -15,9 +15,9 @@ namespace TinyMapper.CodeGenerators.Ast
 
         public Type ObjectType { get; private set; }
 
-        public static IAstType Box(IAstType value)
+        public static IEmitterType Box(IEmitterType value)
         {
-            return new AstBox(value);
+            return new EmitterBox(value);
         }
 
         public void Emit(CodeGenerator generator)

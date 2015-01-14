@@ -4,18 +4,18 @@ using TinyMapper.Extensions;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstNewObj : IAstType
+    internal sealed class EmitterNewObj : IEmitterType
     {
-        private AstNewObj(Type objectType)
+        private EmitterNewObj(Type objectType)
         {
             ObjectType = objectType;
         }
 
         public Type ObjectType { get; private set; }
 
-        public static IAstType NewObj(Type objectType)
+        public static IEmitterType NewObj(Type objectType)
         {
-            return new AstNewObj(objectType);
+            return new EmitterNewObj(objectType);
         }
 
         public void Emit(CodeGenerator generator)

@@ -3,34 +3,28 @@ using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal abstract class AstLoadArgument : IAstType
+    internal static class EmitterArgument
     {
-        private readonly int _index;
-
-        private AstLoadArgument(Type type, int index)
+        public static IEmitterType Load(Type type, int index)
         {
-            ObjectType = type;
-            _index = index;
-        }
-
-        public Type ObjectType { get; private set; }
-
-        public static IAstType Load(Type type, int index)
-        {
-            var result = new AstLoadArgumentImpl(type, index);
+            var result = new EmitterLoadArgument(type, index);
             return result;
         }
 
-        public abstract void Emit(CodeGenerator generator);
 
-
-        private sealed class AstLoadArgumentImpl : AstLoadArgument
+        private sealed class EmitterLoadArgument : IEmitterType
         {
-            public AstLoadArgumentImpl(Type type, int index) : base(type, index)
+            private readonly int _index;
+
+            public EmitterLoadArgument(Type type, int index)
             {
+                ObjectType = type;
+                _index = index;
             }
 
-            public override void Emit(CodeGenerator generator)
+            public Type ObjectType { get; private set; }
+
+            public void Emit(CodeGenerator generator)
             {
                 switch (_index)
                 {

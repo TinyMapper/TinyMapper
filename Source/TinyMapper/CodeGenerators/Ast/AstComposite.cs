@@ -3,11 +3,11 @@ using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstComposite : IAstNode
+    internal sealed class AstComposite : IEmitter
     {
-        private readonly List<IAstNode> _nodes = new List<IAstNode>();
+        private readonly List<IEmitter> _nodes = new List<IEmitter>();
 
-        public AstComposite Add(IAstNode node)
+        public AstComposite Add(IEmitter node)
         {
             if (node.IsNotNull())
             {

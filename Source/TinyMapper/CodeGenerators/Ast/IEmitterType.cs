@@ -2,7 +2,7 @@
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal interface IAstType : IAstNode
+    internal interface IEmitterType : IEmitter
     {
         Type ObjectType { get; }
     }

@@ -28,10 +28,10 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
             List<MappingMember> mappingMembers = _memberSelector.GetMappingMembers();
 
-            IAstNode node = EmitMappingMembers(mappingMembers);
+            IEmitter node = EmitMappingMembers(mappingMembers);
 
             astComposite.Add(node);
-            astComposite.Add(AstReturn.Return(typeof(object), AstLoadLocal.Load(_localTarget)));
+            astComposite.Add(EmitterReturn.Return(typeof(object), EmitterLocal.Load(_localTarget)));
             astComposite.Emit(_codeGenerator);
         }
 
@@ -41,7 +41,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 
-        private IAstNode EmitMappingMembers(List<MappingMember> mappingMembers)
+        private IEmitter EmitMappingMembers(List<MappingMember> mappingMembers)
         {
             MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
             {
@@ -50,7 +50,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
                 x.CodeGenerator = _codeGenerator;
             }).Create();
 
-            IAstNode result = memberBuilder.Build(mappingMembers);
+            IEmitter result = memberBuilder.Build(mappingMembers);
             return result;
         }
 
@@ -65,8 +65,8 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private AstComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
         {
             var result = new AstComposite();
-            result.Add(AstLocalVariableDeclaration.Declare(builder))
-                  .Add(AstStoreLocal.Store(builder, AstLoadArgument.Load(typeof(object), argumentIndex)));
+            result.Add(EmitterLocalVariableDeclaration.Declare(builder))
+                  .Add(EmitterLocal.Store(builder, EmitterArgument.Load(typeof(object), argumentIndex)));
             return result;
         }
     }

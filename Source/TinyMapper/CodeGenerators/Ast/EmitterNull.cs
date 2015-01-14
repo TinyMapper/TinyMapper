@@ -3,18 +3,18 @@ using System.Reflection.Emit;
 
 namespace TinyMapper.CodeGenerators.Ast
 {
-    internal sealed class AstLoadNull : IAstType
+    internal sealed class EmitterNull : IEmitterType
     {
-        private AstLoadNull()
+        private EmitterNull()
         {
             ObjectType = typeof(object);
         }
 
         public Type ObjectType { get; private set; }
 
-        public static IAstType Load()
+        public static IEmitterType Load()
         {
-            return new AstLoadNull();
+            return new EmitterNull();
         }
 
         public void Emit(CodeGenerator generator)

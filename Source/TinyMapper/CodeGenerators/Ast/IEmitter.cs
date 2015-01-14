@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.CodeGenerators.Ast
 {
-    internal interface IAstNode
+    internal interface IEmitter
     {
         void Emit(CodeGenerator generator);
     }

@@ -65,12 +65,12 @@ namespace TinyMapper.CodeGenerators
             return this;
         }
 
-        public CodeGenerator EmitCall(MethodInfo method, IAstType invocationObject, params IAstType[] arguments)
+        public CodeGenerator EmitCall(MethodInfo method, IEmitterType invocationObject, params IEmitterType[] arguments)
         {
             ParameterInfo[] actualArguments = method.GetParameters();
             if (arguments.IsNull())
             {
-                arguments = new IAstType[0];
+                arguments = new IEmitterType[0];
             }
             if (arguments.Length != actualArguments.Length)
             {

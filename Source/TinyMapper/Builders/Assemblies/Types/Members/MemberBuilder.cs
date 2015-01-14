@@ -26,26 +26,26 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return new MemberBuilderConfig().Config(action);
         }
 
-        public IAstNode Build(List<MappingMember> mappingMembers)
+        public IEmitter Build(List<MappingMember> mappingMembers)
         {
             var result = new AstComposite();
             mappingMembers.ForEach(x => result.Add(Test(x)));
             return result;
         }
 
-        private static IAstNode StoreFiled(FieldInfo field, IAstType targetObject, IAstType value)
+        private static IEmitterType StoreFiled(FieldInfo field, IEmitterType targetObject, IEmitterType value)
         {
-            return AstStoreField.Store(field, targetObject, value);
+            return EmitterField.Store(field, targetObject, value);
         }
 
-        private static IAstNode StoreProperty(PropertyInfo property, IAstType targetObject, IAstType value)
+        private static IEmitterType StoreProperty(PropertyInfo property, IEmitterType targetObject, IEmitterType value)
         {
-            return AstStoreProperty.Store(property, targetObject, value);
+            return EmitterProperty.Store(property, targetObject, value);
         }
 
-        private static IAstNode StoreTargetObjectMember(MappingMember mappingMember, IAstType targetObject, IAstType convertedMember)
+        private static IEmitterType StoreTargetObjectMember(MappingMember mappingMember, IEmitterType targetObject, IEmitterType convertedMember)
         {
-            IAstNode result = null;
+            IEmitterType result = null;
             mappingMember.Target
                          .ToOption()
                          .Match(x => x.IsField(), x => result = StoreFiled((FieldInfo)x, targetObject, convertedMember))
@@ -53,10 +53,10 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
-        private IAstType ConvertMember(MappingMember mappingMember, IAstType memberValue)
+        private IEmitterType ConvertMember(MappingMember mappingMember, IEmitterType memberValue)
         {
             MethodInfo converter = GetTypeConverter(mappingMember);
-            IAstType convertedMember = AstCallMethod.Call(converter, null, memberValue);
+            IEmitterType convertedMember = EmitterMethod.Call(converter, null, memberValue);
             return convertedMember;
         }
 
@@ -67,19 +67,19 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
-        private IAstType LoadField(IAstType source, FieldInfo field)
+        private IEmitterType LoadField(IEmitterType source, FieldInfo field)
         {
-            return AstLoadField.Load(source, field);
+            return EmitterField.Load(source, field);
         }
 
-        private IAstType LoadProperty(IAstType source, PropertyInfo property)
+        private IEmitterType LoadProperty(IEmitterType source, PropertyInfo property)
         {
-            return AstLoadProperty.Load(source, property);
+            return EmitterProperty.Load(source, property);
         }
 
-        private IAstType LoadSourceObjectMember(MappingMember mappingMember, IAstType sourceObject)
+        private IEmitterType LoadSourceObjectMember(MappingMember mappingMember, IEmitterType sourceObject)
         {
-            IAstType result = null;
+            IEmitterType result = null;
             mappingMember.Source
                          .ToOption()
                          .Match(x => x.IsField(), x => result = LoadField(sourceObject, (FieldInfo)x))
@@ -87,17 +87,17 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
             return result;
         }
 
-        private IAstNode Test(MappingMember mappingMember)
+        private IEmitter Test(MappingMember mappingMember)
         {
-            IAstType sourceObject = AstLoadLocal.Load(_config.LocalSource);
+            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
 
-            IAstType memberValue = LoadSourceObjectMember(mappingMember, sourceObject);
+            IEmitterType memberValue = LoadSourceObjectMember(mappingMember, sourceObject);
 
-            IAstType convertedMember = ConvertMember(mappingMember, memberValue);
+            IEmitterType convertedMember = ConvertMember(mappingMember, memberValue);
 
-            IAstType targetObject = AstLoadLocal.LoadAddress(_config.LocalTarget);
+            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
 
-            IAstNode result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
+            IEmitter result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
             return result;
         }
 
