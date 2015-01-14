@@ -9,7 +9,6 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
         LocalBuilder LocalSource { get; set; }
         LocalBuilder LocalTarget { get; set; }
         CodeGenerator CodeGenerator { get; set; }
-        IMemberBuilderConfig Configure(Action<IMemberBuilderConfig> action);
-        MemberBuilder CreateMemberBuilder();
+        MemberBuilder Create();
     }
 }

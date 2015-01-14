@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
+using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Ast;
 using TinyMapper.Extensions;
 using TinyMapper.Nelibur.Sword.Extensions;
@@ -11,9 +16,14 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
     {
         private readonly IMemberBuilderConfig _config;
 
-        public MemberBuilder(IMemberBuilderConfig config)
+        private MemberBuilder(IMemberBuilderConfig config)
         {
             _config = config;
+        }
+
+        public static IMemberBuilderConfig Configure(Action<IMemberBuilderConfig> action)
+        {
+            return new MemberBuilderConfig().Config(action);
         }
 
         public IAstNode Build(List<MappingMember> mappingMembers)
@@ -89,6 +99,39 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
 
             IAstNode result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
             return result;
+        }
+
+
+        private sealed class MemberBuilderConfig : IMemberBuilderConfig
+        {
+            public CodeGenerator CodeGenerator { get; set; }
+            public LocalBuilder LocalSource { get; set; }
+            public LocalBuilder LocalTarget { get; set; }
+
+            public IMemberBuilderConfig Config(Action<IMemberBuilderConfig> action)
+            {
+                action(this);
+                return this;
+            }
+
+            public MemberBuilder Create()
+            {
+                Validate();
+                return new MemberBuilder(this);
+            }
+
+            private void Validate()
+            {
+                var nullCheck = new List<object>
+                {
+                    LocalSource, LocalTarget, CodeGenerator
+                };
+
+                if (nullCheck.Any(x => x.IsNull()))
+                {
+                    throw new ConfigurationErrorsException();
+                }
+            }
         }
     }
 }

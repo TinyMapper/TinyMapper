@@ -10,7 +10,6 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
     {
         private readonly LocalBuilder _localSource;
         private readonly LocalBuilder _localTarget;
-        private readonly IMemberBuilderConfig _memberBuilderConfig = MemberBuilderConfig.Create();
         private readonly MemberSelector _memberSelector;
 
         public MapMembersMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
@@ -44,23 +43,25 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         private IAstNode EmitMappingMembers(List<MappingMember> mappingMembers)
         {
-            MemberBuilder memberBuilder = _memberBuilderConfig.Configure(x =>
+            MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
             {
                 x.LocalSource = _localSource;
                 x.LocalTarget = _localTarget;
                 x.CodeGenerator = _codeGenerator;
-            }).CreateMemberBuilder();
+            }).Create();
 
             IAstNode result = memberBuilder.Build(mappingMembers);
             return result;
         }
 
         /// <summary>
-        /// Loads the method argument.
+        ///     Loads the method argument.
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="argumentIndex">Index of the argument. 0 - This! (start from 1)</param>
-        /// <returns><see cref="AstComposite"/></returns>
+        /// <returns>
+        ///     <see cref="AstComposite" />
+        /// </returns>
         private AstComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
         {
             var result = new AstComposite();
