@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Builders.Assemblies.Types
 {
-    public abstract class ObjectTypeBuilder
+    public abstract class Mapper
     {
         /// <summary>
         /// public object CreateTargetInstance().

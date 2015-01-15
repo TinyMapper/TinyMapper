@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyMapper", "Source\TinyMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Source\Benchmark\Benchmark.csproj", "{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly", "Source\TestAssembly\TestAssembly.csproj", "{B4AF0D82-E6FA-4D68-B151-F7154870E1D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4AF0D82-E6FA-4D68-B151-F7154870E1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4AF0D82-E6FA-4D68-B151-F7154870E1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4AF0D82-E6FA-4D68-B151-F7154870E1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4AF0D82-E6FA-4D68-B151-F7154870E1D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

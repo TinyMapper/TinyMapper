@@ -7,7 +7,7 @@ namespace TinyMapper.Builders.Assemblies
     internal interface IDynamicAssembly
     {
         TypeBuilder DefineType(string typeName, Type parentType);
-        TargetTypeBuilder GetTypeBuilder();
+        TargetMapperBuilder GetTypeBuilder();
         void Save();
     }
 }

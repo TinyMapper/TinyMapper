@@ -5,23 +5,23 @@ using TinyMapper.Builders.Assemblies.Types;
 
 namespace TinyMapper
 {
-    internal sealed class ObjectMapper
+    public sealed class ObjectMapper
     {
         private static readonly IDynamicAssembly _assembly = DynamicAssemblyBuilder.Get();
-        private static readonly Dictionary<MappingType, ObjectTypeBuilder> _mappers = new Dictionary<MappingType, ObjectTypeBuilder>();
+        private static readonly Dictionary<MappingType, Mapper> _mappers = new Dictionary<MappingType, Mapper>();
 
         public static void Bind<TSource, TTarget>()
         {
-            TargetTypeBuilder targetTypeBuilder = _assembly.GetTypeBuilder();
-            ObjectTypeBuilder objectTypeBuilder = targetTypeBuilder.Build(typeof(TSource), typeof(TTarget));
+            TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
+            Mapper mapper = targetMapperBuilder.Build(typeof(TSource), typeof(TTarget));
 
-            _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))] = objectTypeBuilder;
+            _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))] = mapper;
             _assembly.Save();
         }
 
         public static TTarget Project<TSource, TTarget>(TSource source, TTarget target)
         {
-            ObjectTypeBuilder mapper = _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))];
+            Mapper mapper = _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))];
             var result = (TTarget)mapper.MapMembers(source, target);
 
             return result;
@@ -29,7 +29,7 @@ namespace TinyMapper
 
         public static TTarget Project<TTarget>(object source)
         {
-            ObjectTypeBuilder mapper = _mappers[CreateMappingType(source.GetType(), typeof(TTarget))];
+            Mapper mapper = _mappers[CreateMappingType(source.GetType(), typeof(TTarget))];
             var result = (TTarget)mapper.MapMembers(source);
             return result;
         }

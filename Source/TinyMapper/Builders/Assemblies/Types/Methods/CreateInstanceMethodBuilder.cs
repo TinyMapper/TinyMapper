@@ -20,7 +20,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            return typeBuilder.DefineMethod(ObjectTypeBuilder.CreateTargetInstanceMethodName,
+            return typeBuilder.DefineMethod(Mapper.CreateTargetInstanceMethodName,
                 MethodAttribute, typeof(object), Type.EmptyTypes);
         }
 

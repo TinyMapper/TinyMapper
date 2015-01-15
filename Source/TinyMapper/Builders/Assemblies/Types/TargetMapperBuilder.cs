@@ -5,19 +5,19 @@ using TinyMapper.Builders.Assemblies.Types.Methods;
 
 namespace TinyMapper.Builders.Assemblies.Types
 {
-    internal sealed class TargetTypeBuilder
+    internal sealed class TargetMapperBuilder
     {
         private readonly IDynamicAssembly _assembly;
 
-        public TargetTypeBuilder(IDynamicAssembly assembly)
+        public TargetMapperBuilder(IDynamicAssembly assembly)
         {
             _assembly = assembly;
         }
 
-        public ObjectTypeBuilder Build(Type sourceType, Type targetType)
+        public Mapper Build(Type sourceType, Type targetType)
         {
             string mapperTypeName = MapperTypeNameBuilder.Build(sourceType, targetType);
-            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(ObjectTypeBuilder));
+            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(Mapper));
 
             var methodBuilders = new List<EmitMethodBuilder>
             {
@@ -27,7 +27,7 @@ namespace TinyMapper.Builders.Assemblies.Types
             methodBuilders.ForEach(x => x.Build());
 
             Type type = typeBuilder.CreateType();
-            var result = (ObjectTypeBuilder)Activator.CreateInstance(type);
+            var result = (Mapper)Activator.CreateInstance(type);
             return result;
         }
     }

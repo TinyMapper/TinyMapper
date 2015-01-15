@@ -14,8 +14,9 @@ namespace UnitTests
             var source = new Class1
             {
                 Field = 10,
+                Property = 4
             };
-            var cl2 = new Class2 { Field = 3 };
+            var cl2 = new Class2 { Field = 3, Property = 5 };
             Class2 t = ObjectMapper.Project(source, cl2);
 
             //            CallDynamicMethod();
@@ -54,12 +55,14 @@ namespace UnitTests
         public class Class1
         {
             public int Field;
+            public int Property { get; set; }
         }
 
 
         public class Class2
         {
             public int Field;
+            public int Property { get; set; }
         }
     }
 }

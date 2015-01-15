@@ -22,7 +22,7 @@ namespace TinyMapper.Builders.Assemblies
             private readonly AssemblyBuilder _assemblyBuilder;
             private readonly object _locker = new object();
             private readonly ModuleBuilder _moduleBuilder;
-            private readonly TargetTypeBuilder _targetTypeBuilder;
+            private readonly TargetMapperBuilder _targetMapperBuilder;
 
             public DynamicAssembly()
             {
@@ -40,11 +40,11 @@ namespace TinyMapper.Builders.Assemblies
                 //                });
                 //                _assemblyBuilder.SetCustomAttribute(daBuilder);
 
-                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, false);
 
                 //                ISymbolDocumentWriter doc = _moduleBuilder.DefineDocument(@"Source.txt", Guid.Empty, Guid.Empty, Guid.Empty);
 
-                _targetTypeBuilder = new TargetTypeBuilder(this);
+                _targetMapperBuilder = new TargetMapperBuilder(this);
             }
 
             public TypeBuilder DefineType(string typeName, Type parentType)
@@ -55,9 +55,9 @@ namespace TinyMapper.Builders.Assemblies
                 }
             }
 
-            public TargetTypeBuilder GetTypeBuilder()
+            public TargetMapperBuilder GetTypeBuilder()
             {
-                return _targetTypeBuilder;
+                return _targetMapperBuilder;
             }
 
             public void Save()

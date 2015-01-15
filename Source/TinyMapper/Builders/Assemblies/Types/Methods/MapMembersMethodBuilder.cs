@@ -37,7 +37,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
-            return typeBuilder.DefineMethod(ObjectTypeBuilder.MapMembersMethodName,
+            return typeBuilder.DefineMethod(Mapper.MapMembersMethodName,
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 

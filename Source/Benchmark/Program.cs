@@ -23,6 +23,23 @@ namespace Benchmark
             Console.WriteLine("AutoMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
         }
 
+        private static void HandmadeMapper()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            var source = new Class1 { Field = 10 };
+
+            for (int i = 0; i < Iterations; i++)
+            {
+                var t = new Class2
+                {
+                    Field = source.Field
+                };
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Handmade: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
+        }
+
         private static void Initialise()
         {
             ObjectMapper.Bind<Class1, Class2>();
@@ -33,6 +50,7 @@ namespace Benchmark
         {
             Initialise();
 
+            //            HandmadeMapper();
             TinyMapper();
             AutoMapper();
 

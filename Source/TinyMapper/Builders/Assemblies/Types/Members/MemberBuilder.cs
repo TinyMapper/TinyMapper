@@ -29,7 +29,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
         public IEmitter Build(List<MappingMember> mappingMembers)
         {
             var result = new EmitterComposite();
-            mappingMembers.ForEach(x => result.Add(Test(x)));
+            mappingMembers.ForEach(x => result.Add(Build(x)));
             return result;
         }
 
@@ -50,6 +50,20 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
                          .ToOption()
                          .Match(x => x.IsField(), x => result = StoreFiled((FieldInfo)x, targetObject, convertedMember))
                          .Match(x => x.IsProperty(), x => result = StoreProperty((PropertyInfo)x, targetObject, convertedMember));
+            return result;
+        }
+
+        private IEmitter Build(MappingMember mappingMember)
+        {
+            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
+
+            IEmitterType memberValue = LoadSourceObjectMember(mappingMember, sourceObject);
+
+            IEmitterType convertedMember = ConvertMember(mappingMember, memberValue);
+
+            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
+
+            IEmitter result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
             return result;
         }
 
@@ -84,20 +98,6 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
                          .ToOption()
                          .Match(x => x.IsField(), x => result = LoadField(sourceObject, (FieldInfo)x))
                          .Match(x => x.IsProperty(), x => result = LoadProperty(sourceObject, (PropertyInfo)x));
-            return result;
-        }
-
-        private IEmitter Test(MappingMember mappingMember)
-        {
-            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
-
-            IEmitterType memberValue = LoadSourceObjectMember(mappingMember, sourceObject);
-
-            IEmitterType convertedMember = ConvertMember(mappingMember, memberValue);
-
-            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
-
-            IEmitter result = StoreTargetObjectMember(mappingMember, targetObject, convertedMember);
             return result;
         }
 

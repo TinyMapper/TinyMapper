@@ -23,8 +23,15 @@ namespace TinyMapper.CodeGenerators.Emitters
         public void Emit(CodeGenerator generator)
         {
             _returnValue.Emit(generator);
-            generator.CastType(_returnValue.ObjectType, ObjectType)
-                     .Emit(OpCodes.Ret);
+            if (ObjectType == typeof(object) && !_returnValue.ObjectType.IsValueType)
+            {
+                generator.Emit(OpCodes.Ret);
+            }
+            else
+            {
+                generator.CastType(_returnValue.ObjectType, ObjectType)
+                         .Emit(OpCodes.Ret);
+            }
         }
     }
 }
