@@ -28,7 +28,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
 
         public IEmitter Build(List<MappingMember> mappingMembers)
         {
-            var result = new AstComposite();
+            var result = new EmitterComposite();
             mappingMembers.ForEach(x => result.Add(Test(x)));
             return result;
         }

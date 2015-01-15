@@ -43,7 +43,7 @@
     <Compile Include="Builders\Assemblies\Types\Members\MemberBuilder.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterBox.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterMethod.cs" />
-    <Compile Include="CodeGenerators\Emitters\AstComposite.cs" />
+    <Compile Include="CodeGenerators\Emitters\EmitterComposite.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterField.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterProperty.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterNewObj.cs" />

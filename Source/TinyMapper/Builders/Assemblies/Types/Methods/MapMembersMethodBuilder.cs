@@ -22,7 +22,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
 
         protected override void BuildCore()
         {
-            var astComposite = new AstComposite();
+            var astComposite = new EmitterComposite();
             astComposite.Add(LoadMethodArgument(_localSource, 1))
                         .Add(LoadMethodArgument(_localTarget, 2));
 
@@ -60,11 +60,11 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         /// <param name="builder">The builder.</param>
         /// <param name="argumentIndex">Index of the argument. 0 - This! (start from 1)</param>
         /// <returns>
-        ///     <see cref="AstComposite" />
+        ///     <see cref="EmitterComposite" />
         /// </returns>
-        private AstComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
+        private EmitterComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
         {
-            var result = new AstComposite();
+            var result = new EmitterComposite();
             result.Add(EmitterLocalVariableDeclaration.Declare(builder))
                   .Add(EmitterLocal.Store(builder, EmitterArgument.Load(typeof(object), argumentIndex)));
             return result;
