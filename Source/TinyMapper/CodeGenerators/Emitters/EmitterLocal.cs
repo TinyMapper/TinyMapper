@@ -40,7 +40,24 @@ namespace TinyMapper.CodeGenerators.Emitters
 
             public void Emit(CodeGenerator generator)
             {
-                generator.Emit(OpCodes.Ldloc, _localBuilder.LocalIndex);
+                switch (_localBuilder.LocalIndex)
+                {
+                    case 0:
+                        generator.Emit(OpCodes.Ldloc_0);
+                        break;
+                    case 1:
+                        generator.Emit(OpCodes.Ldloc_1);
+                        break;
+                    case 2:
+                        generator.Emit(OpCodes.Ldloc_2);
+                        break;
+                    case 3:
+                        generator.Emit(OpCodes.Ldloc_3);
+                        break;
+                    default:
+                        generator.Emit(OpCodes.Ldloc, _localBuilder.LocalIndex);
+                        break;
+                }
             }
         }
 
@@ -82,7 +99,24 @@ namespace TinyMapper.CodeGenerators.Emitters
             {
                 _value.Emit(generator);
                 generator.CastType(_value.ObjectType, _localBuilder.LocalType);
-                generator.Emit(OpCodes.Stloc, _localBuilder.LocalIndex);
+                switch (_localBuilder.LocalIndex)
+                {
+                    case 0:
+                        generator.Emit(OpCodes.Stloc_0);
+                        break;
+                    case 1:
+                        generator.Emit(OpCodes.Stloc_1);
+                        break;
+                    case 2:
+                        generator.Emit(OpCodes.Stloc_2);
+                        break;
+                    case 3:
+                        generator.Emit(OpCodes.Stloc_3);
+                        break;
+                    default:
+                        generator.Emit(OpCodes.Stloc, _localBuilder.LocalIndex);
+                        break;
+                }
             }
         }
     }
