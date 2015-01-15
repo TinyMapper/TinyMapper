@@ -65,7 +65,6 @@
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
-    <Compile Include="Builders\Assemblies\Types\TargetTypeMarker.cs" />
     <Compile Include="Builders\Assemblies\Types\ObjectTypeBuilder.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />

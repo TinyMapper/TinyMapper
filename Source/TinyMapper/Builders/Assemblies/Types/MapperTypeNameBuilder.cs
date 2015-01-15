@@ -8,7 +8,7 @@ namespace TinyMapper.Builders.Assemblies.Types
 
         public static string Build(Type source, Type target)
         {
-            return string.Format("{0}_{1}_{2}", Prefix, GetFullName(source), GetFullName(target));
+            return string.Format("{0}_{1}_{2}_{3}", Prefix, GetFullName(source), GetFullName(target), Guid.NewGuid().ToString("N"));
         }
 
         private static string GetFullName(Type type)

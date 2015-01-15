@@ -1,33 +1,57 @@
 ﻿using System;
 using System.Diagnostics;
+using AutoMapper;
 using TinyMapper;
 
 namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 100000;
+        private const int Iterations = 1000000;
+
+        private static void AutoMapper()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            var source = new Class1 { Field = 10 };
+
+            for (int i = 0; i < Iterations; i++)
+            {
+                var t = Mapper.Map<Class2>(source);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("AutoMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
+        }
+
+        private static void Initialise()
+        {
+            ObjectMapper.Bind<Class1, Class2>();
+            Mapper.CreateMap<Class1, Class2>();
+        }
 
         private static void Main()
         {
-            ObjectMapper.Bind<Class1, Class2>();
+            Initialise();
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            for (int i = 0; i < Iterations; i++)
-            {
-                var source = new Class1
-                {
-                    Field = 10,
-                };
-                var cl2 = new Class2 { Field = 3 };
-                Class2 t = ObjectMapper.Project(source, cl2);
-            }
-            stopwatch.Stop();
-
-            Console.WriteLine("Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
+            TinyMapper();
+            AutoMapper();
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
+        }
+
+        private static void TinyMapper()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            var source = new Class1 { Field = 10 };
+
+            for (int i = 0; i < Iterations; i++)
+            {
+                var t = ObjectMapper.Project<Class2>(source);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("TinyMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
         }
     }
 
