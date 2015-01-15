@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.CodeGenerators.Ast
+namespace TinyMapper.CodeGenerators.Emitters
 {
     internal sealed class AstComposite : IEmitter
     {

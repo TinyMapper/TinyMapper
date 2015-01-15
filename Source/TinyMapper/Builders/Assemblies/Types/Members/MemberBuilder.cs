@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
-using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Extensions;
 using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.TypeConverters;

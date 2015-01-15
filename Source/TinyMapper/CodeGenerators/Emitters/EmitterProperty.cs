@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TinyMapper.CodeGenerators.Ast
+namespace TinyMapper.CodeGenerators.Emitters
 {
     internal sealed class EmitterProperty
     {

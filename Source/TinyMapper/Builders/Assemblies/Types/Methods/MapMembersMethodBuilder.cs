@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies.Types.Members;
-using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.CodeGenerators.Emitters;
 
 namespace TinyMapper.Builders.Assemblies.Types.Methods
 {

@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace TinyMapper.CodeGenerators.Ast
+namespace TinyMapper.CodeGenerators.Emitters
 {
     internal static class EmitterField
     {

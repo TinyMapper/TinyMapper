@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
-using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Extensions;
 
 namespace TinyMapper.Builders.Assemblies.Types.Methods

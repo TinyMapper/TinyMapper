@@ -2,7 +2,7 @@
 using System.Reflection;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.CodeGenerators.Ast
+namespace TinyMapper.CodeGenerators.Emitters
 {
     internal sealed class EmitterNewObj : IEmitterType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators.Ast;
+using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.CodeGenerators
