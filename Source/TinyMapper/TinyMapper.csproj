@@ -63,6 +63,7 @@
     <Compile Include="Builders\Assemblies\Types\TargetMapperBuilder.cs" />
     <Compile Include="Builders\Assemblies\Types\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
+    <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Builders\Assemblies\Types\Mapper.cs" />

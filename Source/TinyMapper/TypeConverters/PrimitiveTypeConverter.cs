@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using TinyMapper.DataStructures;
 using TinyMapper.Nelibur.Sword.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
@@ -9,12 +10,7 @@ namespace TinyMapper.TypeConverters
 {
     internal static class PrimitiveTypeConverter
     {
-        private static readonly List<Func<Type, Type, Option<Func<object, object>>>> _converters = new List<Func<Type, Type, Option<Func<object, object>>>>();
-
-        static PrimitiveTypeConverter()
-        {
-            _converters.Add(GetConversionMethod);
-        }
+        private static readonly Dictionary<TypePair, Option<Func<object, object>>> _t = new Dictionary<TypePair, Option<Func<object, object>>>();
 
         public static TTarget Convert<TSource, TTarget>(TSource value)
         {
@@ -22,13 +18,13 @@ namespace TinyMapper.TypeConverters
             {
                 return default(TTarget);
             }
-            Option<Func<object, object>> converter = GetConverter<TSource, TTarget>();
-            if (converter.HasValue)
+            Func<object, object> converter = GetConverter<TSource, TTarget>();
+            if (converter != null)
             {
-                var result = (TTarget)converter.Value(value);
+                var result = (TTarget)converter(value);
                 return result;
             }
-            return default(TTarget);
+            throw new NotSupportedException();
         }
 
         public static MethodInfo GetConverter(Type sourceType, Type targetType)
@@ -37,47 +33,37 @@ namespace TinyMapper.TypeConverters
                                                  .MakeGenericMethod(sourceType, targetType);
         }
 
-        private static Option<Func<object, object>> GetConversionMethod(Type source, Type target)
+        private static Func<object, object> GetConversionMethod(TypePair pair)
         {
-            if (source == target)
+            if (pair.Source == pair.Target)
             {
-                Func<object, object> result = x => x;
-                return result.ToOption();
+                return x => x;
             }
 
-            TypeConverter fromConverter = TypeDescriptor.GetConverter(source);
-            if (fromConverter.CanConvertTo(target))
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
+            if (fromConverter.CanConvertTo(pair.Target))
             {
-                Func<object, object> result = x => fromConverter.ConvertTo(x, target);
-                return result.ToOption();
+                return x => fromConverter.ConvertTo(x, pair.Target);
             }
 
-            TypeConverter toConverter = TypeDescriptor.GetConverter(target);
-            if (toConverter.CanConvertFrom(source))
+            TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
+            if (toConverter.CanConvertFrom(pair.Source))
             {
-                Func<object, object> result = x => toConverter.ConvertFrom(x);
-                return result.ToOption();
+                return x => toConverter.ConvertFrom(x);
             }
 
-            if (IsEnumToEnumConversion(source, target))
+            if (IsEnumToEnumConversion(pair.Source, pair.Target))
             {
-                Func<object, object> result = x => System.Convert.ChangeType(x, source);
-                return result.ToOption();
+                return x => System.Convert.ChangeType(x, pair.Source);
             }
-            return Option<Func<object, object>>.Empty;
+            return null;
         }
 
-        private static Option<Func<object, object>> GetConverter<TFrom, TTo>()
+        private static Func<object, object> GetConverter<TSource, TTarget>()
         {
-            foreach (Func<Type, Type, Option<Func<object, object>>> converter in _converters)
-            {
-                Option<Func<object, object>> func = converter(typeof(TFrom), typeof(TTo));
-                if (func.HasValue)
-                {
-                    return func;
-                }
-            }
-            return Option<Func<object, object>>.Empty;
+            var typePair = new TypePair(typeof(TSource), typeof(TTarget));
+
+            return GetConversionMethod(typePair);
         }
 
         private static bool IsEnumToEnumConversion(Type source, Type target)
