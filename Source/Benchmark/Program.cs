@@ -7,13 +7,14 @@ namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 1000000;
+        private const int Iterations = 100000;
 
         private static void AutoMapper()
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            Class1 source = CreateSource();
+            var temp = Mapper.Map<Class2>(source);
 
-            var source = new Class1 { Field = 10 };
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
@@ -23,17 +24,34 @@ namespace Benchmark
             Console.WriteLine("AutoMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
         }
 
+        private static Class1 CreateSource()
+        {
+            return new Class1
+            {
+                Field1 = 1,
+                //                Field2 = 2,
+                //                Field3 = 3,
+                //                Field4 = 4,
+                //                Field5 = 5,
+                //                Property1 = "1",
+                //                Property2 = "2",
+                //                Property3 = "3",
+                //                Property4 = "4",
+                //                Property5 = "5"
+            };
+        }
+
         private static void HandmadeMapper()
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            Class1 source = CreateSource();
 
-            var source = new Class1 { Field = 10 };
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
                 var t = new Class2
                 {
-                    Field = source.Field
+                    Field1 = source.Field1
                 };
             }
             stopwatch.Stop();
@@ -51,8 +69,16 @@ namespace Benchmark
             Initialise();
 
             //            HandmadeMapper();
-            TinyMapper();
-            AutoMapper();
+            const int Repeat = 5;
+            for (int i = 0; i < Repeat; i++)
+            {
+                TinyMapper();
+            }
+            Console.WriteLine();
+            for (int i = 0; i < Repeat; i++)
+            {
+                AutoMapper();
+            }
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
@@ -60,9 +86,10 @@ namespace Benchmark
 
         private static void TinyMapper()
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            Class1 source = CreateSource();
+            var temp = ObjectMapper.Project<Class2>(source);
 
-            var source = new Class1 { Field = 10 };
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
@@ -76,12 +103,32 @@ namespace Benchmark
 
     public class Class1
     {
-        public int Field;
+        public int Field1;
+        //        public int Field2;
+        //        public int Field3;
+        //        public int Field4;
+        //        public int Field5;
+        //
+        //        public string Property1 { get; set; }
+        //        public string Property2 { get; set; }
+        //        public string Property3 { get; set; }
+        //        public string Property4 { get; set; }
+        //        public string Property5 { get; set; }
     }
 
 
     public class Class2
     {
-        public int Field;
+        public int Field1;
+        //        public int Field2;
+        //        public int Field3;
+        //        public int Field4;
+        //        public int Field5;
+        //
+        //        public string Property1 { get; set; }
+        //        public string Property2 { get; set; }
+        //        public string Property3 { get; set; }
+        //        public string Property4 { get; set; }
+        //        public string Property5 { get; set; }
     }
 }

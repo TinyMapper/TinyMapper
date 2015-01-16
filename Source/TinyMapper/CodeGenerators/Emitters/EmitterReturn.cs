@@ -7,23 +7,23 @@ namespace TinyMapper.CodeGenerators.Emitters
     {
         private readonly IEmitterType _returnValue;
 
-        private EmitterReturn(Type returnType, IEmitterType returnValue)
+        private EmitterReturn(IEmitterType returnValue, Type returnType)
         {
+            ObjectType = returnType ?? returnValue.ObjectType;
             _returnValue = returnValue;
-            ObjectType = returnType;
         }
 
         public Type ObjectType { get; private set; }
 
-        public static IEmitterType Return(Type returnType, IEmitterType returnValue)
+        public static IEmitterType Return(IEmitterType returnValue, Type returnType = null)
         {
-            return new EmitterReturn(returnType, returnValue);
+            return new EmitterReturn(returnValue, returnType);
         }
 
         public void Emit(CodeGenerator generator)
         {
             _returnValue.Emit(generator);
-            if (ObjectType == typeof(object) && !_returnValue.ObjectType.IsValueType)
+            if (ObjectType == _returnValue.ObjectType)
             {
                 generator.Emit(OpCodes.Ret);
             }

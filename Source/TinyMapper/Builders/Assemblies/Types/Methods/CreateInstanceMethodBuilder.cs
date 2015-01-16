@@ -39,7 +39,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private void EmitMethod(Type type)
         {
             IEmitterType value = type.IsValueType ? CreateValueType(type, _codeGenerator) : CreateRefType(type);
-            EmitterReturn.Return(type, value).Emit(_codeGenerator);
+            EmitterReturn.Return(value, type).Emit(_codeGenerator);
         }
     }
 }

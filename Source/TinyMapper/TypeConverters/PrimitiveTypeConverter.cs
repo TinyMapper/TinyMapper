@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using TinyMapper.DataStructures;
-using TinyMapper.Nelibur.Sword.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.TypeConverters
 {
     internal static class PrimitiveTypeConverter
     {
-        private static readonly Dictionary<TypePair, Option<Func<object, object>>> _t = new Dictionary<TypePair, Option<Func<object, object>>>();
-
         public static TTarget Convert<TSource, TTarget>(TSource value)
         {
             if (value.IsNull())
             {
                 return default(TTarget);
             }
-            Func<object, object> converter = GetConverter<TSource, TTarget>();
+            var typePair = new TypePair(typeof(TSource), typeof(TTarget));
+            Func<object, object> converter = GetConverter(typePair);
             if (converter != null)
             {
                 var result = (TTarget)converter(value);
@@ -33,7 +30,7 @@ namespace TinyMapper.TypeConverters
                                                  .MakeGenericMethod(sourceType, targetType);
         }
 
-        private static Func<object, object> GetConversionMethod(TypePair pair)
+        private static Func<object, object> GetConverter(TypePair pair)
         {
             if (pair.Source == pair.Target)
             {
@@ -59,16 +56,14 @@ namespace TinyMapper.TypeConverters
             return null;
         }
 
-        private static Func<object, object> GetConverter<TSource, TTarget>()
-        {
-            var typePair = new TypePair(typeof(TSource), typeof(TTarget));
-
-            return GetConversionMethod(typePair);
-        }
-
         private static bool IsEnumToEnumConversion(Type source, Type target)
         {
             return source.IsEnum && target.IsEnum;
+        }
+
+        private static object ReturnSameValue(object value)
+        {
+            return value;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
             IEmitter node = EmitMappingMembers(mappingMembers);
 
             astComposite.Add(node);
-            astComposite.Add(EmitterReturn.Return(typeof(object), EmitterLocal.Load(_localTarget)));
+            astComposite.Add(EmitterReturn.Return(EmitterLocal.Load(_localTarget)));
             astComposite.Emit(_codeGenerator);
         }
 
