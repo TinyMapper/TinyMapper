@@ -7,7 +7,7 @@ namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 100000;
+        private const int Iterations = 1000000;
 
         private static void AutoMapper()
         {
@@ -29,15 +29,15 @@ namespace Benchmark
             return new Class1
             {
                 Field1 = 1,
-                //                Field2 = 2,
-                //                Field3 = 3,
-                //                Field4 = 4,
-                //                Field5 = 5,
-                //                Property1 = "1",
-                //                Property2 = "2",
-                //                Property3 = "3",
-                //                Property4 = "4",
-                //                Property5 = "5"
+//                Field2 = 2,
+//                Field3 = 3,
+//                Field4 = 4,
+//                Field5 = 5,
+//                Property1 = "1",
+//                Property2 = "2",
+//                Property3 = "3",
+//                Property4 = "4",
+//                Property5 = "5"
             };
         }
 
@@ -104,31 +104,31 @@ namespace Benchmark
     public class Class1
     {
         public int Field1;
-        //        public int Field2;
-        //        public int Field3;
-        //        public int Field4;
-        //        public int Field5;
-        //
-        //        public string Property1 { get; set; }
-        //        public string Property2 { get; set; }
-        //        public string Property3 { get; set; }
-        //        public string Property4 { get; set; }
-        //        public string Property5 { get; set; }
+//        public int Field2;
+//        public int Field3;
+//        public int Field4;
+//        public int Field5;
+//
+//        public string Property1 { get; set; }
+//        public string Property2 { get; set; }
+//        public string Property3 { get; set; }
+//        public string Property4 { get; set; }
+//        public string Property5 { get; set; }
     }
 
 
     public class Class2
     {
         public int Field1;
-        //        public int Field2;
-        //        public int Field3;
-        //        public int Field4;
-        //        public int Field5;
-        //
-        //        public string Property1 { get; set; }
-        //        public string Property2 { get; set; }
-        //        public string Property3 { get; set; }
-        //        public string Property4 { get; set; }
-        //        public string Property5 { get; set; }
+//        public int Field2;
+//        public int Field3;
+//        public int Field4;
+//        public int Field5;
+//
+//        public string Property1 { get; set; }
+//        public string Property2 { get; set; }
+//        public string Property3 { get; set; }
+//        public string Property4 { get; set; }
+//        public string Property5 { get; set; }
     }
 }
