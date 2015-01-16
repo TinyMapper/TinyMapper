@@ -32,7 +32,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private IEmitterType CreateValueType(Type type, CodeGenerator codeGenerator)
         {
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
-            EmitterLocalVariableDeclaration.Declare(builder).Emit(codeGenerator);
+            EmitterLocalVariable.Declare(builder).Emit(codeGenerator);
             return EmitterBox.Box(EmitterLocal.Load(builder));
         }
 

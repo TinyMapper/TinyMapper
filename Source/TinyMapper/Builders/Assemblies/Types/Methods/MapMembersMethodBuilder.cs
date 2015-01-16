@@ -65,7 +65,7 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private EmitterComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
         {
             var result = new EmitterComposite();
-            result.Add(EmitterLocalVariableDeclaration.Declare(builder))
+            result.Add(EmitterLocalVariable.Declare(builder))
                   .Add(EmitterLocal.Store(builder, EmitterArgument.Load(typeof(object), argumentIndex)));
             return result;
         }

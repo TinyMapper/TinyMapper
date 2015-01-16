@@ -52,7 +52,7 @@
     <Compile Include="CodeGenerators\Emitters\IEmitter.cs" />
     <Compile Include="CodeGenerators\Emitters\IEmitterType.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterArgument.cs" />
-    <Compile Include="CodeGenerators\Emitters\EmitterLocalVariableDeclaration.cs" />
+    <Compile Include="CodeGenerators\Emitters\EmitterLocalVariable.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Builders\Assemblies\DynamicAssemblyBuilder.cs" />

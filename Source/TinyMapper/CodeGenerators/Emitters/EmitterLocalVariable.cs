@@ -5,11 +5,11 @@ using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.CodeGenerators.Emitters
 {
-    internal sealed class EmitterLocalVariableDeclaration : IEmitterType
+    internal sealed class EmitterLocalVariable : IEmitterType
     {
         private readonly Option<LocalBuilder> _localBuilder;
 
-        private EmitterLocalVariableDeclaration(LocalBuilder localBuilder)
+        private EmitterLocalVariable(LocalBuilder localBuilder)
         {
             _localBuilder = localBuilder.ToOption();
             ObjectType = localBuilder.LocalType;
@@ -19,7 +19,7 @@ namespace TinyMapper.CodeGenerators.Emitters
 
         public static IEmitterType Declare(LocalBuilder localBuilder)
         {
-            return new EmitterLocalVariableDeclaration(localBuilder);
+            return new EmitterLocalVariable(localBuilder);
         }
 
         public void Emit(CodeGenerator generator)
