@@ -35,7 +35,7 @@ namespace TinyMapper.TypeConverters
             return (TTarget)converter.ConvertFrom(value);
         }
 
-        public static TSource ConvertSame<TSource>(TSource value)
+        public static TSource ConvertNothing<TSource>(TSource value)
         {
             return value;
         }
@@ -48,7 +48,12 @@ namespace TinyMapper.TypeConverters
 
         public static MethodInfo GetConverter(Type sourceType, Type targetType)
         {
-            return GetConverter1(new TypePair(sourceType, targetType));
+            MethodInfo result = GetConverter1(new TypePair(sourceType, targetType));
+            if (result == null)
+            {
+                throw new NotSupportedException();
+            }
+            return result;
             //            return typeof(PrimitiveTypeConverter).GetMethod("Convert", BindingFlags.Static | BindingFlags.Public)
             //                                                 .MakeGenericMethod(sourceType, targetType);
         }
@@ -83,7 +88,7 @@ namespace TinyMapper.TypeConverters
         {
             if (pair.Source == pair.Target)
             {
-                return typeof(PrimitiveTypeConverter).GetMethod("ConvertSame", BindingFlags.Static | BindingFlags.Public)
+                return typeof(PrimitiveTypeConverter).GetMethod("ConvertNothing", BindingFlags.Static | BindingFlags.Public)
                                                      .MakeGenericMethod(pair.Source);
             }
 
@@ -112,11 +117,6 @@ namespace TinyMapper.TypeConverters
         private static bool IsEnumToEnumConversion(Type source, Type target)
         {
             return source.IsEnum && target.IsEnum;
-        }
-
-        private static object ReturnSameValue(object value)
-        {
-            return value;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TinyMapper
             _assembly.Save();
         }
 
-        public static TTarget Project<TSource, TTarget>(TSource source, TTarget target)
+        public static TTarget Map<TSource, TTarget>(TSource source, TTarget target)
         {
             Mapper mapper = _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))];
             var result = (TTarget)mapper.MapMembers(source, target);
@@ -28,7 +28,7 @@ namespace TinyMapper
             return result;
         }
 
-        public static TTarget Project<TTarget>(object source)
+        public static TTarget Map<TTarget>(object source)
         {
             Mapper mapper = _mappers[CreateMappingType(source.GetType(), typeof(TTarget))];
             var result = (TTarget)mapper.MapMembers(source);

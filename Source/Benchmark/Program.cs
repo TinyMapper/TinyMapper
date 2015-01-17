@@ -87,13 +87,13 @@ namespace Benchmark
         private static void TinyMapper()
         {
             Class1 source = CreateSource();
-            var temp = ObjectMapper.Project<Class2>(source);
+            var temp = ObjectMapper.Map<Class2>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
-                var t = ObjectMapper.Project<Class2>(source);
+                var t = ObjectMapper.Map<Class2>(source);
             }
             stopwatch.Stop();
             Console.WriteLine("TinyMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
