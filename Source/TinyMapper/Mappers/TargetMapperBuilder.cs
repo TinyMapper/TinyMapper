@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders;
-using TinyMapper.Mappers.Builders.Methods;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers
 {
     internal sealed class TargetMapperBuilder
     {
-        private readonly IDynamicAssembly _assembly;
+        private readonly List<IMapperBuilder> _mapperBuilders;
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
-            _assembly = assembly;
+            _mapperBuilders = new List<IMapperBuilder>
+            {
+                new PrimitiveTypeMapperBuilder(assembly, this),
+                new CollectionMapperBuilder(assembly, this),
+                new ClassMapperBuilder(assembly, this)
+            };
         }
 
         public Mapper Build(TypePair typePair)
         {
-            string mapperTypeName = MapperTypeNameBuilder.Build(typePair);
-            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(Mapper));
-
-            var methodBuilders = new List<EmitMethodBuilder>
+            foreach (IMapperBuilder mapperBuilder in _mapperBuilders)
             {
-                new CreateInstanceMethodBuilder(typePair, typeBuilder),
-                new MapMembersMethodBuilder(typePair, typeBuilder),
-            };
-            methodBuilders.ForEach(x => x.Build());
-
-            Type type = typeBuilder.CreateType();
-            var result = (Mapper)Activator.CreateInstance(type);
-            return result;
+                if (mapperBuilder.IsSupported(typePair))
+                {
+                    return mapperBuilder.Create(typePair);
+                }
+            }
+            throw new NotSupportedException();
         }
     }
 }

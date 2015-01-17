@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\Builders\IMapperBuilder.cs" />
+    <Compile Include="Mappers\Builders\MapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
     <Compile Include="Mappers\Builders\Members\MappingMember.cs" />

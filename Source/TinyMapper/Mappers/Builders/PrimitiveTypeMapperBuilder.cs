@@ -1,15 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
 using TinyMapper.DataStructures;
+using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders
 {
-    internal sealed class PrimitiveTypeMapperBuilder : IMapperBuilder
+    internal sealed class PrimitiveTypeMapperBuilder : MapperBuilder
     {
-        public bool IsSupported(TypePair typePair)
+        public PrimitiveTypeMapperBuilder(IDynamicAssembly dynamicAssembly, TargetMapperBuilder targetMapperBuilder)
+            : base(dynamicAssembly, targetMapperBuilder)
+        {
+        }
+
+        public override bool IsSupported(TypePair typePair)
         {
             return IsTypePrimitive(typePair.Target)
                    || HasTypeConverter(typePair);
+        }
+
+        protected override Mapper CreateCore(TypePair typePair)
+        {
+            throw new NotImplementedException();
         }
 
         private static bool IsTypePrimitive(Type type)
