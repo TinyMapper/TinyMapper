@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies.Types.Methods;
+using TinyMapper.DataStructures;
 
 namespace TinyMapper.Builders.Assemblies.Types
 {
@@ -14,15 +15,15 @@ namespace TinyMapper.Builders.Assemblies.Types
             _assembly = assembly;
         }
 
-        public Mapper Build(Type sourceType, Type targetType)
+        public Mapper Build(TypePair typePair)
         {
-            string mapperTypeName = MapperTypeNameBuilder.Build(sourceType, targetType);
+            string mapperTypeName = MapperTypeNameBuilder.Build(typePair);
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(Mapper));
 
             var methodBuilders = new List<EmitMethodBuilder>
             {
-                new CreateInstanceMethodBuilder(sourceType, targetType, typeBuilder),
-                new MapMembersMethodBuilder(sourceType, targetType, typeBuilder),
+                new CreateInstanceMethodBuilder(typePair, typeBuilder),
+                new MapMembersMethodBuilder(typePair, typeBuilder),
             };
             methodBuilders.ForEach(x => x.Build());
 

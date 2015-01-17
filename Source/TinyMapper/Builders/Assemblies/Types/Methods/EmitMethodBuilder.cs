@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
-using TinyMapper.Extensions;
+using TinyMapper.DataStructures;
 
 namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
@@ -10,13 +9,11 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
     {
         protected const MethodAttributes MethodAttribute = MethodAttributes.Assembly | MethodAttributes.Virtual;
         protected readonly CodeGenerator _codeGenerator;
-        protected readonly Type _sourceType;
-        protected readonly Type _targetType;
+        protected readonly TypePair _typePair;
 
-        protected EmitMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
+        protected EmitMethodBuilder(TypePair typePair, TypeBuilder typeBuilder)
         {
-            _sourceType = sourceType.IsNullable() ? Nullable.GetUnderlyingType(sourceType) : sourceType;
-            _targetType = targetType.IsNullable() ? Nullable.GetUnderlyingType(targetType) : targetType;
+            _typePair = typePair;
             _codeGenerator = CreateCodeGenerator(typeBuilder);
         }
 

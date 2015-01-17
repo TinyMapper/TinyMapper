@@ -14,7 +14,7 @@ namespace UnitTests
             ObjectMapper.Bind<Class1, Class2>();
             var source = new Class1
             {
-                //                Field = 10,
+                //                                Field = 10,
                 //                Property = 4
                 List = new List<int> { 1 }
             };
@@ -55,7 +55,7 @@ namespace UnitTests
 
         public class Class1
         {
-            //            public int Field;
+            //                        public int Field;
             //            public int Property { get; set; }
             public List<int> List { get; set; }
         }
@@ -63,7 +63,7 @@ namespace UnitTests
 
         public class Class2
         {
-            //            public int Field;
+            //                        public int Field;
             //            public int Property { get; set; }
             public List<int> List { get; set; }
         }

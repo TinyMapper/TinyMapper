@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TinyMapper.Builders.Assemblies;
 using TinyMapper.Builders.Assemblies.Types;
 using TinyMapper.DataStructures;
@@ -13,16 +12,18 @@ namespace TinyMapper
 
         public static void Bind<TSource, TTarget>()
         {
-            TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
-            Mapper mapper = targetMapperBuilder.Build(typeof(TSource), typeof(TTarget));
+            TypePair typePair = TypePair.Create<TSource, TTarget>();
 
-            _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))] = mapper;
+            TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
+            Mapper mapper = targetMapperBuilder.Build(typePair);
+            _mappers[typePair] = mapper;
+
             _assembly.Save();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target)
         {
-            Mapper mapper = _mappers[CreateMappingType(typeof(TSource), typeof(TTarget))];
+            Mapper mapper = _mappers[TypePair.Create<TSource, TTarget>()];
             var result = (TTarget)mapper.MapMembers(source, target);
 
             return result;
@@ -30,14 +31,9 @@ namespace TinyMapper
 
         public static TTarget Map<TTarget>(object source)
         {
-            Mapper mapper = _mappers[CreateMappingType(source.GetType(), typeof(TTarget))];
+            Mapper mapper = _mappers[TypePair.Create(source.GetType(), typeof(TTarget))];
             var result = (TTarget)mapper.MapMembers(source);
             return result;
-        }
-
-        private static TypePair CreateMappingType(Type source, Type target)
-        {
-            return new TypePair(source, target);
         }
     }
 }

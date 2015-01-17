@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.Builders.Assemblies.Types.Members;
 using TinyMapper.CodeGenerators.Emitters;
+using TinyMapper.DataStructures;
 
 namespace TinyMapper.Builders.Assemblies.Types.Methods
 {
@@ -12,12 +12,12 @@ namespace TinyMapper.Builders.Assemblies.Types.Methods
         private readonly LocalBuilder _localTarget;
         private readonly MemberSelector _memberSelector;
 
-        public MapMembersMethodBuilder(Type sourceType, Type targetType, TypeBuilder typeBuilder)
-            : base(sourceType, targetType, typeBuilder)
+        public MapMembersMethodBuilder(TypePair typePair, TypeBuilder typeBuilder)
+            : base(typePair, typeBuilder)
         {
-            _memberSelector = new MemberSelector(sourceType, targetType);
-            _localSource = _codeGenerator.DeclareLocal(_sourceType);
-            _localTarget = _codeGenerator.DeclareLocal(_targetType);
+            _memberSelector = new MemberSelector(typePair);
+            _localSource = _codeGenerator.DeclareLocal(typePair.Source);
+            _localTarget = _codeGenerator.DeclareLocal(typePair.Target);
         }
 
         protected override void BuildCore()

@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Extensions\TypeExtensionsTests.cs" />
     <Compile Include="ForTests.cs" />
-    <Compile Include="Mappers\PrimitiveTypeMapperTests.cs" />
+    <Compile Include="TypeConverters\PrimitiveTypeConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

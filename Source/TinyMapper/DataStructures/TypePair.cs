@@ -13,6 +13,16 @@ namespace TinyMapper.DataStructures
         public Type Source { get; private set; }
         public Type Target { get; private set; }
 
+        public static TypePair Create(Type source, Type target)
+        {
+            return new TypePair(source, target);
+        }
+
+        public static TypePair Create<TSource, TTarget>()
+        {
+            return new TypePair(typeof(TSource), typeof(TTarget));
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))

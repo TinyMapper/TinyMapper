@@ -2,31 +2,14 @@
 using System.ComponentModel;
 using System.Reflection;
 using TinyMapper.DataStructures;
-using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.TypeConverters
 {
     internal static class PrimitiveTypeConverter
     {
-        public static TTarget Convert<TSource, TTarget>(TSource value)
-        {
-            if (value.IsNull())
-            {
-                return default(TTarget);
-            }
-            var typePair = new TypePair(typeof(TSource), typeof(TTarget));
-            Func<object, object> converter = GetConverter(typePair);
-            if (converter != null)
-            {
-                var result = (TTarget)converter(value);
-                return result;
-            }
-            throw new NotSupportedException();
-        }
-
         public static TTarget ConvertEnumToEnum<TTarget, TSource>(TSource value)
         {
-            return (TTarget)System.Convert.ChangeType(value, typeof(TTarget));
+            return (TTarget)Convert.ChangeType(value, typeof(TTarget));
         }
 
         public static TTarget ConvertFrom<TSource, TTarget>(TSource value)
@@ -48,48 +31,11 @@ namespace TinyMapper.TypeConverters
 
         public static MethodInfo GetConverter(Type sourceType, Type targetType)
         {
-            MethodInfo result = GetConverter1(new TypePair(sourceType, targetType));
-            if (result == null)
-            {
-                throw new NotSupportedException();
-            }
+            MethodInfo result = GetConverter(new TypePair(sourceType, targetType));
             return result;
-            //            return typeof(PrimitiveTypeConverter).GetMethod("Convert", BindingFlags.Static | BindingFlags.Public)
-            //                                                 .MakeGenericMethod(sourceType, targetType);
         }
 
-        private static bool IsTypePrimitive(Type type)
-        {
-            return type.IsPrimitive || type == typeof(string);
-        }
-
-        private static Func<object, object> GetConverter(TypePair pair)
-        {
-            if (pair.Source == pair.Target)
-            {
-                return x => x;
-            }
-
-            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
-            if (fromConverter.CanConvertTo(pair.Target))
-            {
-                return x => fromConverter.ConvertTo(x, pair.Target);
-            }
-
-            TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
-            if (toConverter.CanConvertFrom(pair.Source))
-            {
-                return x => toConverter.ConvertFrom(x);
-            }
-
-            if (IsEnumToEnumConversion(pair.Source, pair.Target))
-            {
-                return x => System.Convert.ChangeType(x, pair.Source);
-            }
-            return null;
-        }
-
-        private static MethodInfo GetConverter1(TypePair pair)
+        private static MethodInfo GetConverter(TypePair pair)
         {
             if (pair.Source == pair.Target && IsTypePrimitive(pair.Source))
             {
@@ -122,6 +68,19 @@ namespace TinyMapper.TypeConverters
         private static bool IsEnumToEnumConversion(Type source, Type target)
         {
             return source.IsEnum && target.IsEnum;
+        }
+
+        private static bool IsTypePrimitive(Type type)
+        {
+            return type.IsPrimitive
+                   || type.IsEnum
+                   || type == typeof(string)
+                   || type == typeof(double)
+                   || type == typeof(Guid)
+                   || type == typeof(long)
+                   || type == typeof(float)
+                   || type == typeof(short)
+                   || type == typeof(ulong);
         }
     }
 }

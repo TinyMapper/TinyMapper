@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TinyMapper.Configs;
+using TinyMapper.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.Builders.Assemblies.Types.Members
@@ -13,10 +14,10 @@ namespace TinyMapper.Builders.Assemblies.Types.Members
         private readonly Type _sourceType;
         private readonly Type _targetType;
 
-        public MemberSelector(Type sourceType, Type targetType)
+        public MemberSelector(TypePair typePair)
         {
-            _sourceType = sourceType;
-            _targetType = targetType;
+            _sourceType = typePair.Source;
+            _targetType = typePair.Target;
         }
 
         internal List<MappingMember> GetMappingMembers()
