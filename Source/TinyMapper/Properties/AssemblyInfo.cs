@@ -5,7 +5,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using TinyMapper.Builders.Assemblies;
 using TinyMapper.Reflection;
 
 [assembly: AssemblyTitle("TinyMapper")]
