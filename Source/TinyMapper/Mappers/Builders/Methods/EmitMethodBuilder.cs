@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.DataStructures;
 
-namespace TinyMapper.Builders.Assemblies.Types.Methods
+namespace TinyMapper.Mappers.Builders.Methods
 {
     internal abstract class EmitMethodBuilder
     {

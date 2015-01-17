@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using TinyMapper.Builders.Assemblies;
-using TinyMapper.Builders.Assemblies.Types;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Builders.Types;
+using TinyMapper.Reflection;
 
 namespace TinyMapper
 {

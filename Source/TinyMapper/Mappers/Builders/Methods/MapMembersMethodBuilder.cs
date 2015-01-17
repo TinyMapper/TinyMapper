@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper.Builders.Assemblies.Types.Members;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Builders.Members;
+using TinyMapper.Mappers.Builders.Types;
 
-namespace TinyMapper.Builders.Assemblies.Types.Methods
+namespace TinyMapper.Mappers.Builders.Methods
 {
     internal sealed class MapMembersMethodBuilder : EmitMethodBuilder
     {

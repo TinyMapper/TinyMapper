@@ -1,7 +1,7 @@
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 
-namespace TinyMapper.Builders.Assemblies.Types.Members
+namespace TinyMapper.Mappers.Builders.Members
 {
     internal interface IMemberBuilderConfig
     {

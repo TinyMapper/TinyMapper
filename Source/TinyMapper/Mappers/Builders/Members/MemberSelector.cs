@@ -6,7 +6,7 @@ using TinyMapper.Configs;
 using TinyMapper.DataStructures;
 using TinyMapper.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.Builders.Assemblies.Types.Members
+namespace TinyMapper.Mappers.Builders.Members
 {
     internal sealed class MemberSelector
     {

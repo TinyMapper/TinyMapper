@@ -10,7 +10,7 @@ using TinyMapper.Extensions;
 using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.TypeConverters;
 
-namespace TinyMapper.Builders.Assemblies.Types.Members
+namespace TinyMapper.Mappers.Builders.Members
 {
     internal sealed class MemberBuilder
     {

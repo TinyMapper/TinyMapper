@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace TinyMapper.Builders.Assemblies.Types.Members
+namespace TinyMapper.Mappers.Builders.Members
 {
     internal sealed class MappingMember
     {

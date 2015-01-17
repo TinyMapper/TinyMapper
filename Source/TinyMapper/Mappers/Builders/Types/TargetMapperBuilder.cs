@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper.Builders.Assemblies.Types.Methods;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Builders.Methods;
+using TinyMapper.Reflection;
 
-namespace TinyMapper.Builders.Assemblies.Types
+namespace TinyMapper.Mappers.Builders.Types
 {
     internal sealed class TargetMapperBuilder
     {
