@@ -37,7 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\Builders\IMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
     <Compile Include="Mappers\Builders\Members\MappingMember.cs" />
@@ -61,13 +61,13 @@
     <Compile Include="Mappers\Builders\Methods\CreateInstanceMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
-    <Compile Include="Mappers\Builders\Types\TargetMapperBuilder.cs" />
+    <Compile Include="Mappers\TargetMapperBuilder.cs" />
     <Compile Include="Mappers\Builders\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
-    <Compile Include="Mappers\ClassMapper.cs" />
-    <Compile Include="Mappers\CollectionMapper.cs" />
-    <Compile Include="Mappers\PrimitiveTypeMapper.cs" />
+    <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
+    <Compile Include="Mappers\Builders\CollectionMapperBuilder.cs" />
+    <Compile Include="Mappers\Builders\PrimitiveTypeMapperBuilder.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />

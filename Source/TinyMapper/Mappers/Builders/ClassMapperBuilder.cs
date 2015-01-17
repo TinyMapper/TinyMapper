@@ -1,8 +1,8 @@
 ﻿using TinyMapper.DataStructures;
 
-namespace TinyMapper.Mappers
+namespace TinyMapper.Mappers.Builders
 {
-    internal sealed class ClassMapper : IMapper
+    internal sealed class ClassMapperBuilder : IMapperBuilder
     {
         public bool IsSupported(TypePair typePair)
         {

@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using TinyMapper.DataStructures;
 
-namespace TinyMapper.Mappers
+namespace TinyMapper.Mappers.Builders
 {
-    internal sealed class PrimitiveTypeMapper : IMapper
+    internal sealed class PrimitiveTypeMapperBuilder : IMapperBuilder
     {
         public bool IsSupported(TypePair typePair)
         {

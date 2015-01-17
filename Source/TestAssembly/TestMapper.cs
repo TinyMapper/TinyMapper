@@ -1,5 +1,4 @@
 ﻿using TinyMapper.Mappers;
-using TinyMapper.Mappers.Builders.Types;
 
 namespace TestAssembly
 {

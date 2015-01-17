@@ -4,7 +4,6 @@ using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
-using TinyMapper.Mappers.Builders.Types;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
