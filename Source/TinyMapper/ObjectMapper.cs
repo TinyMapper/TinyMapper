@@ -13,17 +13,16 @@ namespace TinyMapper
         public static void Bind<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-
-            TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
-            Mapper mapper = targetMapperBuilder.Build(typePair);
-            _mappers[typePair] = mapper;
+            _mappers[typePair] = CreateMapper(typePair);
 
             _assembly.Save();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target)
         {
-            Mapper mapper = _mappers[TypePair.Create<TSource, TTarget>()];
+            TypePair typePair = TypePair.Create<TSource, TTarget>();
+
+            Mapper mapper = GetMapper(typePair);
             var result = (TTarget)mapper.MapMembers(source, target);
 
             return result;
@@ -31,9 +30,30 @@ namespace TinyMapper
 
         public static TTarget Map<TTarget>(object source)
         {
-            Mapper mapper = _mappers[TypePair.Create(source.GetType(), typeof(TTarget))];
+            TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
+
+            Mapper mapper = GetMapper(typePair);
             var result = (TTarget)mapper.MapMembers(source);
+
             return result;
+        }
+
+        private static Mapper CreateMapper(TypePair typePair)
+        {
+            TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
+            Mapper mapper = targetMapperBuilder.Build(typePair);
+            return mapper;
+        }
+
+        private static Mapper GetMapper(TypePair typePair)
+        {
+            Mapper mapper;
+            if (_mappers.TryGetValue(typePair, out mapper) == false)
+            {
+                mapper = CreateMapper(typePair);
+                _mappers[typePair] = mapper;
+            }
+            return mapper;
         }
     }
 }
