@@ -58,6 +58,11 @@ namespace TinyMapper.TypeConverters
             //                                                 .MakeGenericMethod(sourceType, targetType);
         }
 
+        private static bool IsTypePrimitive(Type type)
+        {
+            return type.IsPrimitive || type == typeof(string);
+        }
+
         private static Func<object, object> GetConverter(TypePair pair)
         {
             if (pair.Source == pair.Target)
@@ -86,7 +91,7 @@ namespace TinyMapper.TypeConverters
 
         private static MethodInfo GetConverter1(TypePair pair)
         {
-            if (pair.Source == pair.Target)
+            if (pair.Source == pair.Target && IsTypePrimitive(pair.Source))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertNothing", BindingFlags.Static | BindingFlags.Public)
                                                      .MakeGenericMethod(pair.Source);
