@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers;
 using TinyMapper.Mappers.Builders.Types;
 using TinyMapper.Reflection;
 

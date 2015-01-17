@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
     <Compile Include="Mappers\Builders\Members\MappingMember.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Types\TargetMapperBuilder.cs" />
-    <Compile Include="Mappers\Builders\Types\MapperTypeNameBuilder.cs" />
+    <Compile Include="Mappers\Builders\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="Mappers\ClassMapper.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Mappers\PrimitiveTypeMapper.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
-    <Compile Include="Mappers\Builders\Types\Mapper.cs" />
+    <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
     <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />

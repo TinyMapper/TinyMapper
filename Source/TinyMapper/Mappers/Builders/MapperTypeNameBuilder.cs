@@ -1,7 +1,7 @@
 ﻿using System;
 using TinyMapper.DataStructures;
 
-namespace TinyMapper.Mappers.Builders.Types
+namespace TinyMapper.Mappers.Builders
 {
     internal static class MapperTypeNameBuilder
     {

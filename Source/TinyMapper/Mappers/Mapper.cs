@@ -1,4 +1,4 @@
-﻿namespace TinyMapper.Mappers.Builders.Types
+﻿namespace TinyMapper.Mappers
 {
     public abstract class Mapper
     {
