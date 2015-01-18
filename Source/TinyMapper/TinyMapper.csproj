@@ -38,10 +38,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\Builders\MapperBuilder.cs" />
+    <Compile Include="Mappers\Builders\Members\CompositeMappingMember.cs" />
+    <Compile Include="Mappers\Builders\Members\IMappingMember.cs" />
     <Compile Include="Mappers\CollectionMapper.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
-    <Compile Include="Mappers\Builders\Members\MappingMember.cs" />
+    <Compile Include="Mappers\Builders\Members\SimpleMappingMember.cs" />
     <Compile Include="Mappers\Builders\Members\MemberBuilder.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterBox.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterMethod.cs" />

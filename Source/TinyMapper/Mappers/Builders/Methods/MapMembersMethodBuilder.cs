@@ -26,7 +26,7 @@ namespace TinyMapper.Mappers.Builders.Methods
             astComposite.Add(LoadMethodArgument(_localSource, 1))
                         .Add(LoadMethodArgument(_localTarget, 2));
 
-            List<MappingMember> mappingMembers = _memberSelector.GetMappingMembers();
+            List<SimpleMappingMember> mappingMembers = _memberSelector.GetMappingMembers();
 
             IEmitter node = EmitMappingMembers(mappingMembers);
 
@@ -41,7 +41,7 @@ namespace TinyMapper.Mappers.Builders.Methods
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 
-        private IEmitter EmitMappingMembers(List<MappingMember> mappingMembers)
+        private IEmitter EmitMappingMembers(List<SimpleMappingMember> mappingMembers)
         {
             MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
             {

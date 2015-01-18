@@ -4,9 +4,9 @@ using TinyMapper.Extensions;
 
 namespace TinyMapper.Mappers.Builders.Members
 {
-    internal sealed class MappingMember
+    internal sealed class SimpleMappingMember : IMappingMember
     {
-        public MappingMember(MemberInfo source, MemberInfo target)
+        public SimpleMappingMember(MemberInfo source, MemberInfo target)
         {
             Source = source;
             Target = target;

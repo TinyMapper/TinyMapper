@@ -20,7 +20,7 @@ namespace TinyMapper.Mappers.Builders.Members
             _targetType = typePair.Target;
         }
 
-        internal List<MappingMember> GetMappingMembers()
+        internal List<SimpleMappingMember> GetMappingMembers()
         {
             List<MemberInfo> sourceMembers = GetSourceMembers(_sourceType);
             List<MemberInfo> targetMembers = GetTargetMembers(_targetType);
@@ -35,10 +35,10 @@ namespace TinyMapper.Mappers.Builders.Members
                        .ToList();
         }
 
-        private List<MappingMember> GetMappingMembers(List<MemberInfo> source, List<MemberInfo> target,
+        private List<SimpleMappingMember> GetMappingMembers(List<MemberInfo> source, List<MemberInfo> target,
             Func<string, string, bool> memberMatcher)
         {
-            var result = new List<MappingMember>();
+            var result = new List<SimpleMappingMember>();
 
             foreach (MemberInfo targetMember in target)
             {
@@ -47,7 +47,7 @@ namespace TinyMapper.Mappers.Builders.Members
                 {
                     continue;
                 }
-                var mappingMember = new MappingMember(sourceMember, targetMember);
+                var mappingMember = new SimpleMappingMember(sourceMember, targetMember);
                 result.Add(mappingMember);
             }
             return result;
