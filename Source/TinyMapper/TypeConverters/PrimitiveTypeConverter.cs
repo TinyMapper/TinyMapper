@@ -29,13 +29,13 @@ namespace TinyMapper.TypeConverters
             return (TTarget)converter.ConvertTo(value, typeof(TTarget));
         }
 
-        public static MethodInfo GetConverter(Type sourceType, Type targetType)
+        public static MethodInfo GetConverter(TypePair typePair)
         {
-            MethodInfo result = GetConverter(new TypePair(sourceType, targetType));
+            MethodInfo result = GetConverterImpl(typePair);
             return result;
         }
 
-        private static MethodInfo GetConverter(TypePair pair)
+        private static MethodInfo GetConverterImpl(TypePair pair)
         {
             if (pair.Source == pair.Target && IsTypePrimitive(pair.Source))
             {

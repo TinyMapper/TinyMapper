@@ -1,6 +1,6 @@
 ﻿namespace TinyMapper.Mappers
 {
-    public abstract class Mapper
+    internal abstract class Mapper
     {
         /// <summary>
         /// public object CreateTargetInstance().

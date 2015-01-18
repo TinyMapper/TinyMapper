@@ -2,7 +2,7 @@
 
 namespace TestAssembly
 {
-    public class TestMapper : Mapper
+    internal class TestMapper : Mapper
     {
         internal override object CreateTargetInstanceCore()
         {

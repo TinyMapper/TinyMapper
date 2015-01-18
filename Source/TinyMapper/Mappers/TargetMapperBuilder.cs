@@ -8,11 +8,11 @@ namespace TinyMapper.Mappers
 {
     internal sealed class TargetMapperBuilder
     {
-        private readonly List<IMapperBuilder> _mapperBuilders;
+        private readonly List<MapperBuilder> _mapperBuilders;
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
-            _mapperBuilders = new List<IMapperBuilder>
+            _mapperBuilders = new List<MapperBuilder>
             {
                 new PrimitiveTypeMapperBuilder(assembly, this),
                 new CollectionMapperBuilder(assembly, this),
@@ -22,7 +22,7 @@ namespace TinyMapper.Mappers
 
         public Mapper Build(TypePair typePair)
         {
-            foreach (IMapperBuilder mapperBuilder in _mapperBuilders)
+            foreach (MapperBuilder mapperBuilder in _mapperBuilders)
             {
                 if (mapperBuilder.IsSupported(typePair))
                 {

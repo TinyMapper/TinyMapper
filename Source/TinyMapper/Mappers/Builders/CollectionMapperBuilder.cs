@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Reflection;
+using System.Reflection.Emit;
 using TinyMapper.DataStructures;
 using TinyMapper.Reflection;
 
@@ -7,6 +9,9 @@ namespace TinyMapper.Mappers.Builders
 {
     internal sealed class CollectionMapperBuilder : MapperBuilder
     {
+        private const string MapperNamePrefix = "TinyCollection";
+        private const MethodAttributes MethodAttribute = MethodAttributes.Assembly | MethodAttributes.Virtual;
+
         public CollectionMapperBuilder(IDynamicAssembly dynamicAssembly, TargetMapperBuilder targetMapperBuilder)
             : base(dynamicAssembly, targetMapperBuilder)
         {
@@ -20,7 +25,15 @@ namespace TinyMapper.Mappers.Builders
 
         protected override Mapper CreateCore(TypePair typePair)
         {
+            string mapperTypeName = GetMapperName();
+            TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(CollectionMapper));
+            typeBuilder.DefineMethod("CopyToCore", MethodAttribute, typeof(object), new[] { typeof(IEnumerable) });
             throw new NotImplementedException();
+        }
+
+        private string GetMapperName()
+        {
+            return string.Format("{0}_{1}", MapperNamePrefix, Guid.NewGuid().ToString("N"));
         }
     }
 }

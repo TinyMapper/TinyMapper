@@ -76,8 +76,7 @@ namespace TinyMapper.Mappers.Builders.Members
 
         private MethodInfo GetTypeConverter(MappingMember mappingMember)
         {
-            MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.Source.GetMemberType(),
-                mappingMember.Target.GetMemberType());
+            MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.TypePair);
             return result;
         }
 
