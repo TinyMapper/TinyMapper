@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers;
+using TinyMapper.Nelibur.Sword.Core;
+using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.Reflection;
 
 namespace TinyMapper
@@ -20,6 +22,16 @@ namespace TinyMapper
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target)
         {
+            if (source.IsNull())
+            {
+                throw Error.ArgumentNull("source");
+            }
+
+            if (target.IsNull())
+            {
+                throw Error.ArgumentNull("target");
+            }
+
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
             Mapper mapper = GetMapper(typePair);
@@ -30,6 +42,11 @@ namespace TinyMapper
 
         public static TTarget Map<TTarget>(object source)
         {
+            if (source.IsNull())
+            {
+                throw Error.ArgumentNull("source");
+            }
+
             TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
 
             Mapper mapper = GetMapper(typePair);

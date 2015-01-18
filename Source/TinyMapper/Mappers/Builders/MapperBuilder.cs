@@ -1,5 +1,4 @@
-﻿using System;
-using TinyMapper.DataStructures;
+﻿using TinyMapper.DataStructures;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders
@@ -22,7 +21,5 @@ namespace TinyMapper.Mappers.Builders
 
         public abstract bool IsSupported(TypePair typePair);
         protected abstract Mapper CreateCore(TypePair typePair);
-
-
     }
 }

@@ -2,7 +2,7 @@
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Mappers.Builders.Members
+namespace TinyMapper.Mappers.Types.Members
 {
     internal abstract class MappingMember
     {

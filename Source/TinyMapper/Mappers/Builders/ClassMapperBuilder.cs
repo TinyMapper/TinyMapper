@@ -38,16 +38,11 @@ namespace TinyMapper.Mappers.Builders
             return result;
         }
 
-        private static string GetFullName(Type type)
-        {
-            return type == null ? "Empty" : type.FullName;
-        }
-
         private string GetMapperName(TypePair pair)
         {
             string random = Guid.NewGuid().ToString("N");
-            string sourceFullName = GetFullName(pair.Source);
-            string targetFullName = GetFullName(pair.Target);
+            string sourceFullName = pair.Source.FullName;
+            string targetFullName = pair.Target.FullName;
             return string.Format("{0}_{1}_{2}_{3}", MapperNamePrefix, sourceFullName, targetFullName, random);
         }
     }

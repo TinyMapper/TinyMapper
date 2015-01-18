@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using TinyMapper.Configs;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Types.Members;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.Mappers.Builders.Members

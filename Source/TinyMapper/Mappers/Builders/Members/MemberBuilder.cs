@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Extensions;
+using TinyMapper.Mappers.Types.Members;
 using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.TypeConverters;
 

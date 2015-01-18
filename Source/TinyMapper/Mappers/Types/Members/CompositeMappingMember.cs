@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace TinyMapper.Mappers.Builders.Members
+namespace TinyMapper.Mappers.Types.Members
 {
     internal sealed class CompositeMappingMember : MappingMember
     {

@@ -3,6 +3,7 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders.Members;
+using TinyMapper.Mappers.Types.Members;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {

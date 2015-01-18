@@ -75,12 +75,8 @@ namespace TinyMapper.TypeConverters
             return type.IsPrimitive
                    || type.IsEnum
                    || type == typeof(string)
-                   || type == typeof(double)
                    || type == typeof(Guid)
-                   || type == typeof(long)
-                   || type == typeof(float)
-                   || type == typeof(short)
-                   || type == typeof(ulong);
+                   || type == typeof(decimal);
         }
     }
 }
