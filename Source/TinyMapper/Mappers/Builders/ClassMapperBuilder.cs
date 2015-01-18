@@ -21,7 +21,7 @@ namespace TinyMapper.Mappers.Builders
 
         protected override Mapper CreateCore(TypePair typePair)
         {
-            string mapperTypeName = MapperTypeNameBuilder.Build(typePair);
+            string mapperTypeName = GetMapperName(typePair);
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(Mapper));
 
             var methodBuilders = new List<EmitMethodBuilder>

@@ -63,7 +63,6 @@
     <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
-    <Compile Include="Mappers\Builders\MapperTypeNameBuilder.cs" />
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
