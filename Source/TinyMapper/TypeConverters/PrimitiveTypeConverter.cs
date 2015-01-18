@@ -35,6 +35,12 @@ namespace TinyMapper.TypeConverters
             return result;
         }
 
+        public static bool IsSupported(TypePair typePair)
+        {
+            return IsTypePrimitive(typePair.Target)
+                   || HasTypeConverter(typePair);
+        }
+
         private static MethodInfo GetConverterImpl(TypePair pair)
         {
             if (pair.Source == pair.Target && IsTypePrimitive(pair.Source))
@@ -63,6 +69,22 @@ namespace TinyMapper.TypeConverters
                                                      .MakeGenericMethod(pair.Source, pair.Target);
             }
             return null;
+        }
+
+        private static bool HasTypeConverter(TypePair pair)
+        {
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
+            if (fromConverter.CanConvertTo(pair.Target))
+            {
+                return true;
+            }
+
+            TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
+            if (toConverter.CanConvertFrom(pair.Source))
+            {
+                return true;
+            }
+            return false;
         }
 
         private static bool IsEnumToEnumConversion(Type source, Type target)

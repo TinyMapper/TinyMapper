@@ -10,7 +10,15 @@ namespace TinyMapper.Mappers.Types.Members
         {
             Source = source;
             Target = target;
-            TypePair = new TypePair(Source.GetMemberType(), Target.GetMemberType());
+            if (source != null && target != null)
+            {
+                TypePair = new TypePair(Source.GetMemberType(), Target.GetMemberType());
+            }
+        }
+
+        public bool IsRoot
+        {
+            get { return Source == null && Target == null; }
         }
 
         public MemberInfo Source { get; private set; }

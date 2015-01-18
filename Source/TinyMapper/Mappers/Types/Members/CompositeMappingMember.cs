@@ -11,9 +11,18 @@ namespace TinyMapper.Mappers.Types.Members
         {
         }
 
-        public void AddRange(List<MappingMember> members)
+        public CompositeMappingMember() : this(null, null)
         {
-            _members.AddRange(members);
+        }
+
+        public IEnumerable<MappingMember> Members
+        {
+            get { return _members; }
+        }
+
+        public void Add(MappingMember member)
+        {
+            _members.Add(member);
         }
     }
 }

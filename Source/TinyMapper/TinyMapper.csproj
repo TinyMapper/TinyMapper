@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\Builders\MapperBuilder.cs" />
+    <Compile Include="Mappers\Types\MappingTypeBuilder.cs" />
     <Compile Include="Mappers\Types\Members\CompositeMappingMember.cs" />
     <Compile Include="Mappers\Types\Members\MappingMember.cs" />
     <Compile Include="Mappers\CollectionMapper.cs" />
