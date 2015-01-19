@@ -1,5 +1,6 @@
-﻿using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Types.Members;
+﻿using System;
+using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Types;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders
@@ -15,12 +16,12 @@ namespace TinyMapper.Mappers.Builders
             _targetMapperBuilder = targetMapperBuilder;
         }
 
-        public Mapper Create(CompositeMappingMember member)
+        public Mapper Create(MappingType mappingType)
         {
-            return CreateCore(member);
+            return CreateCore(mappingType);
         }
 
         public abstract bool IsSupported(TypePair typePair);
-        protected abstract Mapper CreateCore(CompositeMappingMember member);
+        protected abstract Mapper CreateCore(MappingType mappingType);
     }
 }

@@ -3,13 +3,13 @@ using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Extensions;
-using TinyMapper.Mappers.Types.Members;
+using TinyMapper.Mappers.Types;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
     internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {
-        public CreateInstanceMethodBuilder(CompositeMappingMember member, TypeBuilder typeBuilder)
+        public CreateInstanceMethodBuilder(MappingType member, TypeBuilder typeBuilder)
             : base(member, typeBuilder)
         {
         }

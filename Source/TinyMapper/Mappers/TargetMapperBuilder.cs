@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders;
 using TinyMapper.Mappers.Types;
-using TinyMapper.Mappers.Types.Members;
 using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.Reflection;
 
@@ -18,27 +17,26 @@ namespace TinyMapper.Mappers
         {
             _mapperBuilders = new List<MapperBuilder>
             {
-                new CollectionMapperBuilder(assembly, this),
                 new ClassMapperBuilder(assembly, this)
             };
         }
 
         public Mapper Build(TypePair typePair)
         {
-            CompositeMappingMember member = _mappingTypeBuilder.Build(typePair);
-            MapperBuilder mapperBuilder = GetMapperBuilder(member);
+            MappingType mappingType = _mappingTypeBuilder.Build(typePair);
+            MapperBuilder mapperBuilder = GetMapperBuilder(mappingType.TypePair);
             if (mapperBuilder.IsNull())
             {
                 throw new NullReferenceException();
             }
-            return mapperBuilder.Create(member);
+            return mapperBuilder.Create(mappingType);
         }
 
-        private MapperBuilder GetMapperBuilder(CompositeMappingMember mappingType)
+        private MapperBuilder GetMapperBuilder(TypePair typePair)
         {
             foreach (MapperBuilder mapperBuilder in _mapperBuilders)
             {
-                if (mapperBuilder.IsSupported(mappingType.TypePair))
+                if (mapperBuilder.IsSupported(typePair))
                 {
                     return mapperBuilder;
                 }

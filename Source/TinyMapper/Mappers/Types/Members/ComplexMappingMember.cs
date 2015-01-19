@@ -1,21 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
 
 namespace TinyMapper.Mappers.Types.Members
 {
-    internal sealed class CompositeMappingMember : MappingMember
+    internal sealed class ComplexMappingMember : MappingMember
     {
         private readonly List<MappingMember> _members = new List<MappingMember>();
 
-        public CompositeMappingMember(MemberInfo source, MemberInfo target)
+        public ComplexMappingMember(MemberInfo source, MemberInfo target)
             : base(source, target)
         {
             TypePair = new TypePair(Source.GetMemberType(), Target.GetMemberType());
         }
 
-        public CompositeMappingMember(TypePair typePair)
+        public ComplexMappingMember(TypePair typePair)
             : base(null, null)
         {
             TypePair = typePair;

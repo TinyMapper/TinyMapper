@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Mappers.Builders.Members;
+using TinyMapper.Mappers.Types;
 using TinyMapper.Mappers.Types.Members;
 
 namespace TinyMapper.Mappers.Builders.Methods
@@ -12,7 +14,7 @@ namespace TinyMapper.Mappers.Builders.Methods
         private readonly LocalBuilder _localSource;
         private readonly LocalBuilder _localTarget;
 
-        public MapMembersMethodBuilder(CompositeMappingMember member, TypeBuilder typeBuilder)
+        public MapMembersMethodBuilder(MappingType member, TypeBuilder typeBuilder)
             : base(member, typeBuilder)
         {
             _localSource = _codeGenerator.DeclareLocal(member.TypePair.Source);
@@ -25,9 +27,9 @@ namespace TinyMapper.Mappers.Builders.Methods
             astComposite.Add(LoadMethodArgument(_localSource, 1))
                         .Add(LoadMethodArgument(_localTarget, 2));
 
-            List<SimpleMappingMember> mappingMembers = _member.Members
-                                                                .OfType<SimpleMappingMember>()
-                                                                .ToList();
+            List<PrimitiveMappingMember> mappingMembers = _member.Members
+                                                                 .OfType<PrimitiveMappingMember>()
+                                                                 .ToList();
 
             IEmitter node = EmitMappingMembers(mappingMembers);
 
@@ -42,7 +44,7 @@ namespace TinyMapper.Mappers.Builders.Methods
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 
-        private IEmitter EmitMappingMembers(List<SimpleMappingMember> mappingMembers)
+        private IEmitter EmitMappingMembers(List<PrimitiveMappingMember> mappingMembers)
         {
             MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
             {

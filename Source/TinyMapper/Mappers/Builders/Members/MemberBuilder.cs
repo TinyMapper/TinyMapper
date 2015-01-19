@@ -27,7 +27,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return new MemberBuilderConfig().Config(action);
         }
 
-        public IEmitter Build(List<SimpleMappingMember> mappingMembers)
+        public IEmitter Build(List<PrimitiveMappingMember> mappingMembers)
         {
             var result = new EmitterComposite();
             mappingMembers.ForEach(x => result.Add(Build(x)));
@@ -44,7 +44,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return EmitterProperty.Store(property, targetObject, value);
         }
 
-        private static IEmitterType StoreTargetObjectMember(SimpleMappingMember mappingMember, IEmitterType targetObject, IEmitterType convertedMember)
+        private static IEmitterType StoreTargetObjectMember(PrimitiveMappingMember mappingMember, IEmitterType targetObject, IEmitterType convertedMember)
         {
             IEmitterType result = null;
             mappingMember.Target
@@ -54,7 +54,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return result;
         }
 
-        private IEmitter Build(SimpleMappingMember mappingMember)
+        private IEmitter Build(PrimitiveMappingMember mappingMember)
         {
             IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
 
@@ -68,14 +68,14 @@ namespace TinyMapper.Mappers.Builders.Members
             return result;
         }
 
-        private IEmitterType ConvertMember(SimpleMappingMember mappingMember, IEmitterType memberValue)
+        private IEmitterType ConvertMember(PrimitiveMappingMember mappingMember, IEmitterType memberValue)
         {
             MethodInfo converter = GetTypeConverter(mappingMember);
             IEmitterType convertedMember = EmitterMethod.Call(converter, null, memberValue);
             return convertedMember;
         }
 
-        private MethodInfo GetTypeConverter(SimpleMappingMember mappingMember)
+        private MethodInfo GetTypeConverter(PrimitiveMappingMember mappingMember)
         {
             MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.TypePair);
             return result;
@@ -91,7 +91,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return EmitterProperty.Load(source, property);
         }
 
-        private IEmitterType LoadSourceObjectMember(SimpleMappingMember mappingMember, IEmitterType sourceObject)
+        private IEmitterType LoadSourceObjectMember(PrimitiveMappingMember mappingMember, IEmitterType sourceObject)
         {
             IEmitterType result = null;
             mappingMember.Source

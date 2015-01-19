@@ -21,12 +21,9 @@ namespace TinyMapper.Mappers.Types
             _memberMatcher = _config.Match;
         }
 
-        public CompositeMappingMember Build(TypePair typePair)
+        public MappingType Build(TypePair typePair)
         {
-            var result = new CompositeMappingMember(typePair);
-
-            SelectMembers(result, typePair, new HashSet<TypePair>());
-            return result;
+            return ParseMappingTypes(typePair);
         }
 
         private static List<MemberInfo> GetPublicMembers(Type type)
@@ -81,7 +78,36 @@ namespace TinyMapper.Mappers.Types
             return PrimitiveTypeConverter.IsSupported(typePair);
         }
 
-        private void SelectMembers(CompositeMappingMember composite, TypePair typePair, HashSet<TypePair> processed)
+        private MappingType ParseMappingTypes(TypePair typePair)
+        {
+            var mappingType = new MappingType(typePair);
+
+            List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
+            List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
+
+            foreach (MemberInfo targetMember in targetMembers)
+            {
+                MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => _memberMatcher(x.Name, targetMember.Name));
+                if (sourceMember.IsNull())
+                {
+                    continue;
+                }
+                var mappingPair = new TypePair(sourceMember.GetMemberType(), targetMember.GetMemberType());
+                if (IsPrimitiveMember(mappingPair))
+                {
+                    MappingMember primitive = new PrimitiveMappingMember(sourceMember, targetMember);
+                    mappingType.AddMember(primitive);
+                }
+                else
+                {
+                    MappingMember complex = new ComplexMappingMember(sourceMember, targetMember);
+                    mappingType.AddMember(complex);
+                }
+            }
+            return mappingType;
+        }
+
+        private void SelectMembers(ComplexMappingMember complex, TypePair typePair, HashSet<TypePair> processed)
         {
             processed.Add(typePair);
 
@@ -98,8 +124,8 @@ namespace TinyMapper.Mappers.Types
                 var mappingPair = new TypePair(sourceMember.GetMemberType(), targetMember.GetMemberType());
                 if (IsPrimitiveMember(mappingPair))
                 {
-                    MappingMember mappingMember = new SimpleMappingMember(sourceMember, targetMember);
-                    composite.Add(mappingMember);
+                    MappingMember mappingMember = new PrimitiveMappingMember(sourceMember, targetMember);
+                    complex.Add(mappingMember);
                 }
                 else
                 {
@@ -107,9 +133,9 @@ namespace TinyMapper.Mappers.Types
                     {
                         return;
                     }
-                    MappingMember mappingMember = new CompositeMappingMember(sourceMember, targetMember);
-                    composite.Add(mappingMember);
-                    SelectMembers(composite, mappingPair, processed);
+                    MappingMember mappingMember = new ComplexMappingMember(sourceMember, targetMember);
+                    complex.Add(mappingMember);
+                    SelectMembers(complex, mappingPair, processed);
                 }
             }
             processed.Remove(typePair);

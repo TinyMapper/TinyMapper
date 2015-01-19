@@ -1,14 +1,16 @@
-﻿namespace TinyMapper.Mappers
+﻿using System;
+
+namespace TinyMapper.Mappers
 {
     internal abstract class Mapper
     {
         /// <summary>
-        /// public object CreateTargetInstance().
+        ///     public object CreateTargetInstance().
         /// </summary>
         public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
 
         /// <summary>
-        /// public object MapMembers(object source, object target)
+        ///     public object MapMembers(object source, object target)
         /// </summary>
         public const string MapMembersMethodName = "MapMembersCore";
 

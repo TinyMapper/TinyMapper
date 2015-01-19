@@ -4,7 +4,7 @@ using TinyMapper.Nelibur.Sword.Core;
 namespace TinyMapper.Nelibur.Sword.DataStructures
 {
     /// <summary>
-    /// https://github.com/Nelibur/Nelibur.
+    ///     https://github.com/Nelibur/Nelibur.
     /// </summary>
     internal sealed class Option<T>
     {
