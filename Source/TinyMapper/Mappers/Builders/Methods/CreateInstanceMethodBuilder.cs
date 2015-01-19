@@ -9,14 +9,14 @@ namespace TinyMapper.Mappers.Builders.Methods
 {
     internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {
-        public CreateInstanceMethodBuilder(MappingType member, TypeBuilder typeBuilder)
-            : base(member, typeBuilder)
+        public CreateInstanceMethodBuilder(MappingType mappingType, TypeBuilder typeBuilder)
+            : base(mappingType, typeBuilder)
         {
         }
 
         protected override void BuildCore()
         {
-            EmitMethod(_member.TypePair.Target);
+            EmitMethod(_mappingType.TypePair.Target);
         }
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)

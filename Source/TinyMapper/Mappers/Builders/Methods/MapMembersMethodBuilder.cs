@@ -14,28 +14,28 @@ namespace TinyMapper.Mappers.Builders.Methods
         private readonly LocalBuilder _localSource;
         private readonly LocalBuilder _localTarget;
 
-        public MapMembersMethodBuilder(MappingType member, TypeBuilder typeBuilder)
-            : base(member, typeBuilder)
+        public MapMembersMethodBuilder(MappingType mappingType, TypeBuilder typeBuilder)
+            : base(mappingType, typeBuilder)
         {
-            _localSource = _codeGenerator.DeclareLocal(member.TypePair.Source);
-            _localTarget = _codeGenerator.DeclareLocal(member.TypePair.Target);
+            _localSource = _codeGenerator.DeclareLocal(mappingType.TypePair.Source);
+            _localTarget = _codeGenerator.DeclareLocal(mappingType.TypePair.Target);
         }
 
         protected override void BuildCore()
         {
-            var astComposite = new EmitterComposite();
-            astComposite.Add(LoadMethodArgument(_localSource, 1))
-                        .Add(LoadMethodArgument(_localTarget, 2));
+            var emitterComposite = new EmitterComposite();
+            emitterComposite.Add(LoadMethodArgument(_localSource, 1))
+                            .Add(LoadMethodArgument(_localTarget, 2));
 
-            List<PrimitiveMappingMember> mappingMembers = _member.Members
-                                                                 .OfType<PrimitiveMappingMember>()
-                                                                 .ToList();
+            List<PrimitiveMappingMember> mappingMembers = _mappingType.Members
+                                                                      .OfType<PrimitiveMappingMember>()
+                                                                      .ToList();
 
             IEmitter node = EmitMappingMembers(mappingMembers);
 
-            astComposite.Add(node);
-            astComposite.Add(EmitterReturn.Return(EmitterLocal.Load(_localTarget)));
-            astComposite.Emit(_codeGenerator);
+            emitterComposite.Add(node);
+            emitterComposite.Add(EmitterReturn.Return(EmitterLocal.Load(_localTarget)));
+            emitterComposite.Emit(_codeGenerator);
         }
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)

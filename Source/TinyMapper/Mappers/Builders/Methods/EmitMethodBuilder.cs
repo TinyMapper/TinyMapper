@@ -10,11 +10,11 @@ namespace TinyMapper.Mappers.Builders.Methods
     {
         protected const MethodAttributes MethodAttribute = MethodAttributes.Assembly | MethodAttributes.Virtual;
         protected readonly CodeGenerator _codeGenerator;
-        protected readonly MappingType _member;
+        protected readonly MappingType _mappingType;
 
-        protected EmitMethodBuilder(MappingType member, TypeBuilder typeBuilder)
+        protected EmitMethodBuilder(MappingType mappingType, TypeBuilder typeBuilder)
         {
-            _member = member;
+            _mappingType = mappingType;
             _codeGenerator = CreateCodeGenerator(typeBuilder);
         }
 
