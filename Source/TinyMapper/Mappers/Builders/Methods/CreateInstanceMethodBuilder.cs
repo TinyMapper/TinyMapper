@@ -2,21 +2,21 @@
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
+using TinyMapper.Mappers.Types.Members;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
     internal sealed class CreateInstanceMethodBuilder : EmitMethodBuilder
     {
-        public CreateInstanceMethodBuilder(TypePair typePair, TypeBuilder typeBuilder)
-            : base(typePair, typeBuilder)
+        public CreateInstanceMethodBuilder(CompositeMappingMember member, TypeBuilder typeBuilder)
+            : base(member, typeBuilder)
         {
         }
 
         protected override void BuildCore()
         {
-            EmitMethod(_typePair.Target);
+            EmitMethod(_member.TypePair.Target);
         }
 
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)

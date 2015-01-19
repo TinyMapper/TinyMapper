@@ -15,8 +15,8 @@ namespace UnitTests
             var source = new Class1
             {
                 //                                Field = 10,
-                //                Property = 4
-                List = new List<int> { 1 }
+                                Property = 4
+//                List = new List<int> { 1 }
             };
             var t = ObjectMapper.Map<Class2>(source);
 
@@ -56,16 +56,16 @@ namespace UnitTests
         public class Class1
         {
             //                        public int Field;
-            //            public int Property { get; set; }
-            public List<int> List { get; set; }
+                        public int Property { get; set; }
+//            public List<int> List { get; set; }
         }
 
 
         public class Class2
         {
             //                        public int Field;
-            //            public int Property { get; set; }
-            public List<int> List { get; set; }
+                        public int Property { get; set; }
+//            public List<int> List { get; set; }
         }
     }
 }

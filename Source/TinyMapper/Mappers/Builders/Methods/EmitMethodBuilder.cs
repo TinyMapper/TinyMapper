@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
-using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Types.Members;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
@@ -9,11 +9,11 @@ namespace TinyMapper.Mappers.Builders.Methods
     {
         protected const MethodAttributes MethodAttribute = MethodAttributes.Assembly | MethodAttributes.Virtual;
         protected readonly CodeGenerator _codeGenerator;
-        protected readonly TypePair _typePair;
+        protected readonly CompositeMappingMember _member;
 
-        protected EmitMethodBuilder(TypePair typePair, TypeBuilder typeBuilder)
+        protected EmitMethodBuilder(CompositeMappingMember member, TypeBuilder typeBuilder)
         {
-            _typePair = typePair;
+            _member = member;
             _codeGenerator = CreateCodeGenerator(typeBuilder);
         }
 

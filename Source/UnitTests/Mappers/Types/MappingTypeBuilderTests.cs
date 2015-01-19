@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Types;
+using TinyMapper.Mappers.Types.Members;
 using Xunit;
 
 namespace UnitTests.Mappers.Types
@@ -11,8 +12,8 @@ namespace UnitTests.Mappers.Types
         public void Buid_Recursion_Ok()
         {
             var builder = new MappingTypeBuilder();
-            MappingType mappingType = builder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
-            Assert.Equal(2, mappingType.RootMember.Members.Count());
+            CompositeMappingMember member = builder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            Assert.Equal(2, member.Members.Count());
         }
     }
 

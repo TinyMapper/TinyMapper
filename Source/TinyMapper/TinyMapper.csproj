@@ -42,7 +42,6 @@
     <Compile Include="Mappers\Types\Members\CompositeMappingMember.cs" />
     <Compile Include="Mappers\Types\Members\MappingMember.cs" />
     <Compile Include="Mappers\CollectionMapper.cs" />
-    <Compile Include="Mappers\Types\MappingType.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
     <Compile Include="Mappers\Types\Members\SimpleMappingMember.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="CodeGenerators\Emitters\EmitterLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Reflection\DynamicAssemblyBuilder.cs" />
-    <Compile Include="Mappers\Builders\Members\MemberSelector.cs" />
     <Compile Include="Mappers\Builders\Methods\CreateInstanceMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
@@ -71,7 +69,6 @@
     <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Builders\CollectionMapperBuilder.cs" />
-    <Compile Include="Mappers\Builders\PrimitiveTypeMapperBuilder.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />

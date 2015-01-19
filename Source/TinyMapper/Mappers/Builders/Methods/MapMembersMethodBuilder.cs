@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders.Members;
 using TinyMapper.Mappers.Types.Members;
 
@@ -11,14 +11,12 @@ namespace TinyMapper.Mappers.Builders.Methods
     {
         private readonly LocalBuilder _localSource;
         private readonly LocalBuilder _localTarget;
-        private readonly MemberSelector _memberSelector;
 
-        public MapMembersMethodBuilder(TypePair typePair, TypeBuilder typeBuilder)
-            : base(typePair, typeBuilder)
+        public MapMembersMethodBuilder(CompositeMappingMember member, TypeBuilder typeBuilder)
+            : base(member, typeBuilder)
         {
-            _memberSelector = new MemberSelector(typePair);
-            _localSource = _codeGenerator.DeclareLocal(typePair.Source);
-            _localTarget = _codeGenerator.DeclareLocal(typePair.Target);
+            _localSource = _codeGenerator.DeclareLocal(member.TypePair.Source);
+            _localTarget = _codeGenerator.DeclareLocal(member.TypePair.Target);
         }
 
         protected override void BuildCore()
@@ -27,7 +25,9 @@ namespace TinyMapper.Mappers.Builders.Methods
             astComposite.Add(LoadMethodArgument(_localSource, 1))
                         .Add(LoadMethodArgument(_localTarget, 2));
 
-            List<SimpleMappingMember> mappingMembers = _memberSelector.GetMappingMembers();
+            List<SimpleMappingMember> mappingMembers = _member.Members
+                                                                .OfType<SimpleMappingMember>()
+                                                                .ToList();
 
             IEmitter node = EmitMappingMembers(mappingMembers);
 

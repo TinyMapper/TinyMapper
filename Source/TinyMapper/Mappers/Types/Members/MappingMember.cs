@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using TinyMapper.DataStructures;
-using TinyMapper.Extensions;
 
 namespace TinyMapper.Mappers.Types.Members
 {
@@ -10,10 +9,6 @@ namespace TinyMapper.Mappers.Types.Members
         {
             Source = source;
             Target = target;
-            if (source != null && target != null)
-            {
-                TypePair = new TypePair(Source.GetMemberType(), Target.GetMemberType());
-            }
         }
 
         public bool IsRoot
@@ -23,6 +18,6 @@ namespace TinyMapper.Mappers.Types.Members
 
         public MemberInfo Source { get; private set; }
         public MemberInfo Target { get; private set; }
-        public TypePair TypePair { get; private set; }
+        public abstract TypePair TypePair { get; protected set; }
     }
 }

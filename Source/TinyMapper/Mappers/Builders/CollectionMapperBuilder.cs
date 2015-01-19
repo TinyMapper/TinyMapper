@@ -3,6 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.DataStructures;
+using TinyMapper.Mappers.Types.Members;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders
@@ -23,7 +24,7 @@ namespace TinyMapper.Mappers.Builders
                    || typeof(IEnumerable).IsAssignableFrom(typePair.Target);
         }
 
-        protected override Mapper CreateCore(TypePair typePair)
+        protected override Mapper CreateCore(CompositeMappingMember member)
         {
             string mapperTypeName = GetMapperName();
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(CollectionMapper));

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders.Methods;
+using TinyMapper.Mappers.Types.Members;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders
@@ -21,15 +22,15 @@ namespace TinyMapper.Mappers.Builders
             return true;
         }
 
-        protected override Mapper CreateCore(TypePair typePair)
+        protected override Mapper CreateCore(CompositeMappingMember member)
         {
-            string mapperTypeName = GetMapperName(typePair);
+            string mapperTypeName = GetMapperName(member.TypePair);
             TypeBuilder typeBuilder = _assembly.DefineType(mapperTypeName, typeof(Mapper));
 
             var methodBuilders = new List<EmitMethodBuilder>
             {
-                new CreateInstanceMethodBuilder(typePair, typeBuilder),
-                new MapMembersMethodBuilder(typePair, typeBuilder),
+                new CreateInstanceMethodBuilder(member, typeBuilder),
+                new MapMembersMethodBuilder(member, typeBuilder),
             };
             methodBuilders.ForEach(x => x.Build());
 

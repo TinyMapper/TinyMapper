@@ -21,11 +21,11 @@ namespace TinyMapper.Mappers.Types
             _memberMatcher = _config.Match;
         }
 
-        public MappingType Build(TypePair typePair)
+        public CompositeMappingMember Build(TypePair typePair)
         {
-            var result = new MappingType(typePair);
+            var result = new CompositeMappingMember(typePair);
 
-            SelectMembers(result.RootMember, typePair, new HashSet<TypePair>());
+            SelectMembers(result, typePair, new HashSet<TypePair>());
             return result;
         }
 
