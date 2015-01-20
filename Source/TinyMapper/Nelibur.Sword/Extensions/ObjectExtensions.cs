@@ -1,5 +1,4 @@
-﻿using System;
-using TinyMapper.Nelibur.Sword.DataStructures;
+﻿using TinyMapper.Nelibur.Sword.DataStructures;
 
 namespace TinyMapper.Nelibur.Sword.Extensions
 {

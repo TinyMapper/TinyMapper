@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TinyMapper.Mappers
+﻿namespace TinyMapper.Mappers
 {
     internal abstract class Mapper
     {

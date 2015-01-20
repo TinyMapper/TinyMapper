@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.Mappers.Types;

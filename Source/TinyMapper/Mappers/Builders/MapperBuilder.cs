@@ -1,5 +1,4 @@
-﻿using System;
-using TinyMapper.DataStructures;
+﻿using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Types;
 using TinyMapper.Reflection;
 

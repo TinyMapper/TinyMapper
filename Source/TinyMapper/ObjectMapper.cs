@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers;
 using TinyMapper.Nelibur.Sword.Core;
