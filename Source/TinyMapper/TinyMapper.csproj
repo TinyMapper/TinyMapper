@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Builders\MapperBuilder.cs" />
     <Compile Include="Mappers\Types\MappingType.cs" />
     <Compile Include="Mappers\Types\MappingTypeBuilder.cs" />
