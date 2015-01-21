@@ -41,32 +41,32 @@ namespace TinyMapper.TypeConverters
                    || HasTypeConverter(typePair);
         }
 
-        private static MethodInfo GetConverterImpl(TypePair pair)
+        private static MethodInfo GetConverterImpl(TypePair typePair)
         {
-            if (pair.Source == pair.Target && IsTypePrimitive(pair.Source))
+            if (typePair.Source == typePair.Target && IsTypePrimitive(typePair.Source))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertNothing", BindingFlags.Static | BindingFlags.Public)
-                                                     .MakeGenericMethod(pair.Source);
+                                                     .MakeGenericMethod(typePair.Source);
             }
 
-            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
-            if (fromConverter.CanConvertTo(pair.Target))
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(typePair.Source);
+            if (fromConverter.CanConvertTo(typePair.Target))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertTo", BindingFlags.Static | BindingFlags.Public)
-                                                     .MakeGenericMethod(pair.Source, pair.Target);
+                                                     .MakeGenericMethod(typePair.Source, typePair.Target);
             }
 
-            TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
-            if (toConverter.CanConvertFrom(pair.Source))
+            TypeConverter toConverter = TypeDescriptor.GetConverter(typePair.Target);
+            if (toConverter.CanConvertFrom(typePair.Source))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertFrom", BindingFlags.Static | BindingFlags.Public)
-                                                     .MakeGenericMethod(pair.Source, pair.Target);
+                                                     .MakeGenericMethod(typePair.Source, typePair.Target);
             }
 
-            if (IsEnumToEnumConversion(pair.Source, pair.Target))
+            if (IsEnumToEnumConversion(typePair.Source, typePair.Target))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertEnumToEnum", BindingFlags.Static | BindingFlags.Public)
-                                                     .MakeGenericMethod(pair.Source, pair.Target);
+                                                     .MakeGenericMethod(typePair.Source, typePair.Target);
             }
             return null;
         }
