@@ -27,7 +27,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return new MemberBuilderConfig().Config(action);
         }
 
-        public IEmitter Build(List<PrimitiveMappingMember> mappingMembers)
+        public IEmitter Build(List<MappingMember> mappingMembers)
         {
             var result = new EmitterComposite();
             mappingMembers.ForEach(x => result.Add(Build(x)));
@@ -44,7 +44,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return EmitterProperty.Store(property, targetObject, value);
         }
 
-        private static IEmitterType StoreTargetObjectMember(PrimitiveMappingMember mappingMember, IEmitterType targetObject, IEmitterType convertedMember)
+        private static IEmitterType StoreTargetObjectMember(MappingMember mappingMember, IEmitterType targetObject, IEmitterType convertedMember)
         {
             IEmitterType result = null;
             mappingMember.Target
@@ -54,7 +54,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return result;
         }
 
-        private IEmitter Build(PrimitiveMappingMember mappingMember)
+        private IEmitter Build(MappingMember mappingMember)
         {
             IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
 
@@ -68,17 +68,27 @@ namespace TinyMapper.Mappers.Builders.Members
             return result;
         }
 
-        private IEmitterType ConvertMember(PrimitiveMappingMember mappingMember, IEmitterType memberValue)
+        private IEmitterType ConvertMember(MappingMember mappingMember, IEmitterType memberValue)
         {
             MethodInfo converter = GetTypeConverter(mappingMember);
             IEmitterType convertedMember = EmitterMethod.Call(converter, null, memberValue);
             return convertedMember;
         }
 
-        private MethodInfo GetTypeConverter(PrimitiveMappingMember mappingMember)
+        private MethodInfo GetTypeConverter(MappingMember mappingMember)
         {
-            MethodInfo result = PrimitiveTypeConverter.GetConverter(mappingMember.TypePair);
-            return result;
+            if (mappingMember is PrimitiveMappingMember)
+            {
+                return PrimitiveTypeConverter.GetConverter(mappingMember.TypePair);
+            }
+            else if (mappingMember is ComplexMappingMember)
+            {
+                if (CollectionTypeConverter.IsSupported(mappingMember.TypePair))
+                {
+                    return CollectionTypeConverter.GetConverter(mappingMember.TypePair);
+                }
+            }
+            throw new NotSupportedException();
         }
 
         private IEmitterType LoadField(IEmitterType source, FieldInfo field)
@@ -91,7 +101,7 @@ namespace TinyMapper.Mappers.Builders.Members
             return EmitterProperty.Load(source, property);
         }
 
-        private IEmitterType LoadSourceObjectMember(PrimitiveMappingMember mappingMember, IEmitterType sourceObject)
+        private IEmitterType LoadSourceObjectMember(MappingMember mappingMember, IEmitterType sourceObject)
         {
             IEmitterType result = null;
             mappingMember.Source

@@ -26,11 +26,7 @@ namespace TinyMapper.Mappers.Builders.Methods
             emitterComposite.Add(LoadMethodArgument(_localSource, 1))
                             .Add(LoadMethodArgument(_localTarget, 2));
 
-            List<PrimitiveMappingMember> mappingMembers = _mappingType.Members
-                                                                      .OfType<PrimitiveMappingMember>()
-                                                                      .ToList();
-
-            IEmitter node = EmitMappingMembers(mappingMembers);
+            IEmitter node = EmitMappingMembers(_mappingType.Members);
 
             emitterComposite.Add(node);
             emitterComposite.Add(EmitterReturn.Return(EmitterLocal.Load(_localTarget)));
@@ -43,7 +39,7 @@ namespace TinyMapper.Mappers.Builders.Methods
                 MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
         }
 
-        private IEmitter EmitMappingMembers(List<PrimitiveMappingMember> mappingMembers)
+        private IEmitter EmitMappingMembers(List<MappingMember> mappingMembers)
         {
             MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
             {

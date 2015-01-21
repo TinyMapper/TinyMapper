@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TinyMapper.DataStructures;
 
@@ -29,19 +31,32 @@ namespace TinyMapper.TypeConverters
                    || typeof(IEnumerable).IsAssignableFrom(typePair.Target);
         }
 
-        private static MethodInfo GetConverterImpl(TypePair typePair)
+        private static Type GetCollectionItemType(Type type)
         {
-            if (IsTargetTypeList(typePair))
+            if (type.IsArray)
             {
-                return typeof(CollectionTypeConverter).GetMethod("ConvertToList", BindingFlags.Static | BindingFlags.Public)
-                                                      .MakeGenericMethod(typePair.Target);
+                return type.GetElementType();
             }
-            return null;
+            else if (IsList(type))
+            {
+                return type.GetGenericArguments().First();
+            }
+            throw new NotSupportedException();
         }
 
-        private static bool IsTargetTypeList(TypePair typePair)
+        private static MethodInfo GetConverterImpl(TypePair typePair)
         {
-            return typePair.Target.IsGenericType && typePair.Target.GetGenericTypeDefinition() == typeof(List<>);
+            if (IsList(typePair.Target))
+            {
+                return typeof(CollectionTypeConverter).GetMethod("ConvertToList", BindingFlags.Static | BindingFlags.Public)
+                                                      .MakeGenericMethod(GetCollectionItemType(typePair.Target));
+            }
+            throw new NotSupportedException();
+        }
+
+        private static bool IsList(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
         }
     }
 }

@@ -96,12 +96,12 @@ namespace TinyMapper.Mappers.Types
                 if (IsPrimitiveMember(mappingPair))
                 {
                     MappingMember primitive = new PrimitiveMappingMember(sourceMember, targetMember);
-                    mappingType.AddMember(primitive);
+                    mappingType.Members.Add(primitive);
                 }
                 else
                 {
                     MappingMember complex = new ComplexMappingMember(sourceMember, targetMember);
-                    mappingType.AddMember(complex);
+                    mappingType.Members.Add(complex);
                 }
             }
             return mappingType;

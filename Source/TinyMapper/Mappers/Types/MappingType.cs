@@ -6,23 +6,14 @@ namespace TinyMapper.Mappers.Types
 {
     internal sealed class MappingType
     {
-        private readonly List<MappingMember> _members = new List<MappingMember>();
-
         public MappingType(TypePair typePair)
         {
+            Members = new List<MappingMember>();
             TypePair = typePair;
         }
 
-        public IEnumerable<MappingMember> Members
-        {
-            get { return _members; }
-        }
+        public List<MappingMember> Members { get; private set; }
 
         public TypePair TypePair { get; private set; }
-
-        public void AddMember(MappingMember member)
-        {
-            _members.Add(member);
-        }
     }
 }
