@@ -106,39 +106,5 @@ namespace TinyMapper.Mappers.Types
             }
             return mappingType;
         }
-
-        private void SelectMembers(ComplexMappingMember complex, TypePair typePair, HashSet<TypePair> processed)
-        {
-            processed.Add(typePair);
-
-            List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
-            List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
-
-            foreach (MemberInfo targetMember in targetMembers)
-            {
-                MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => _memberMatcher(x.Name, targetMember.Name));
-                if (sourceMember.IsNull())
-                {
-                    continue;
-                }
-                var mappingPair = new TypePair(sourceMember.GetMemberType(), targetMember.GetMemberType());
-                if (IsPrimitiveMember(mappingPair))
-                {
-                    MappingMember mappingMember = new PrimitiveMappingMember(sourceMember, targetMember);
-                    complex.Add(mappingMember);
-                }
-                else
-                {
-                    if (processed.Contains(mappingPair))
-                    {
-                        return;
-                    }
-                    MappingMember mappingMember = new ComplexMappingMember(sourceMember, targetMember);
-                    complex.Add(mappingMember);
-                    SelectMembers(complex, mappingPair, processed);
-                }
-            }
-            processed.Remove(typePair);
-        }
     }
 }
