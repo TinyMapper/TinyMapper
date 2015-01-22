@@ -1,4 +1,8 @@
-﻿namespace TinyMapper.Mappers
+﻿using System.Collections.Generic;
+using TinyMapper.Mappers.Types.Members;
+using TinyMapper.TypeConverters;
+
+namespace TinyMapper.Mappers
 {
     internal abstract class Mapper
     {
@@ -11,6 +15,13 @@
         ///     public object MapMembers(object source, object target)
         /// </summary>
         public const string MapMembersMethodName = "MapMembersCore";
+
+        protected readonly Dictionary<MappingMember, ITypeConverter> _converters;
+
+        protected Mapper()
+        {
+            _converters = new Dictionary<MappingMember, ITypeConverter>();
+        }
 
         public object MapMembers(object source, object target = null)
         {

@@ -9,12 +9,12 @@ namespace TinyMapper.TypeConverters
 {
     internal sealed class CollectionTypeConverter
     {
-        public static List<T> ConvertToList<T>(IEnumerable source)
+        public static List<TTarget> ConvertToList<TTarget>(IEnumerable source)
         {
-            var result = new List<T>();
+            var result = new List<TTarget>();
             foreach (object item in source)
             {
-                result.Add((T)item);
+                result.Add((TTarget)item);
             }
             return result;
         }
@@ -48,8 +48,9 @@ namespace TinyMapper.TypeConverters
         {
             if (IsList(typePair.Target))
             {
+                Type targetItemType = GetCollectionItemType(typePair.Target);
                 return typeof(CollectionTypeConverter).GetMethod("ConvertToList", BindingFlags.Static | BindingFlags.Public)
-                                                      .MakeGenericMethod(GetCollectionItemType(typePair.Target));
+                                                      .MakeGenericMethod(targetItemType);
             }
             throw new NotSupportedException();
         }

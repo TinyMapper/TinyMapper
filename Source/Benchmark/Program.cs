@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
 using TinyMapper;
@@ -28,7 +29,8 @@ namespace Benchmark
         {
             return new Class1
             {
-                Field1 = 1,
+                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }
+                //                Field1 = 1,
                 //                Field2 = 2,
                 //                Field3 = 3,
                 //                Field4 = 4,
@@ -39,23 +41,6 @@ namespace Benchmark
                 //                Property4 = "4",
                 //                Property5 = "5"
             };
-        }
-
-        private static void HandmadeMapper()
-        {
-            Class1 source = CreateSource();
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < Iterations; i++)
-            {
-                var t = new Class2
-                {
-                    Field1 = source.Field1
-                };
-            }
-            stopwatch.Stop();
-            Console.WriteLine("Handmade: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
         }
 
         private static void Initialise()
@@ -69,7 +54,7 @@ namespace Benchmark
             Initialise();
 
             //            HandmadeMapper();
-            const int Repeat = 5;
+            const int Repeat = 3;
             for (int i = 0; i < Repeat; i++)
             {
                 TinyMapper();
@@ -103,7 +88,8 @@ namespace Benchmark
 
     public class Class1
     {
-        public int Field1;
+        //        public int Field1;
+        public List<int> List { get; set; }
         //        public int Field2;
         //        public int Field3;
         //        public int Field4;
@@ -119,7 +105,8 @@ namespace Benchmark
 
     public class Class2
     {
-        public int Field1;
+        //        public int Field1;
+        public List<int> List { get; set; }
         //        public int Field2;
         //        public int Field3;
         //        public int Field4;
