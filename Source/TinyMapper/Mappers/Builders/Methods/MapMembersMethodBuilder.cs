@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators.Emitters;
+using TinyMapper.Core;
 using TinyMapper.Mappers.Builders.Members;
-using TinyMapper.Mappers.Types;
-using TinyMapper.Mappers.Types.Members;
+using TinyMapper.Mappers.Types1;
+using TinyMapper.Mappers.Types1.Members;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
@@ -36,7 +36,7 @@ namespace TinyMapper.Mappers.Builders.Methods
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
             return typeBuilder.DefineMethod(Mapper.MapMembersMethodName,
-                MethodAttribute, typeof(object), new[] { typeof(object), typeof(object) });
+                MethodAttribute, Types.Object, new[] { Types.Object, Types.Object });
         }
 
         private IEmitter EmitMappingMembers(List<MappingMember> mappingMembers)
@@ -64,7 +64,7 @@ namespace TinyMapper.Mappers.Builders.Methods
         {
             var result = new EmitterComposite();
             result.Add(EmitterLocalVariable.Declare(builder))
-                  .Add(EmitterLocal.Store(builder, EmitterArgument.Load(typeof(object), argumentIndex)));
+                  .Add(EmitterLocal.Store(builder, EmitterArgument.Load(Types.Object, argumentIndex)));
             return result;
         }
     }

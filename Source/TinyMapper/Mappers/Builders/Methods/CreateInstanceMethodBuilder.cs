@@ -2,8 +2,9 @@
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
+using TinyMapper.Core;
 using TinyMapper.Extensions;
-using TinyMapper.Mappers.Types;
+using TinyMapper.Mappers.Types1;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {
@@ -22,7 +23,7 @@ namespace TinyMapper.Mappers.Builders.Methods
         protected override MethodBuilder CreateMethodBuilder(TypeBuilder typeBuilder)
         {
             return typeBuilder.DefineMethod(Mapper.CreateTargetInstanceMethodName,
-                MethodAttribute, typeof(object), Type.EmptyTypes);
+                MethodAttribute, Types.Object, Type.EmptyTypes);
         }
 
         private IEmitterType CreateRefType(Type type)

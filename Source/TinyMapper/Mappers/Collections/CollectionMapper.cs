@@ -6,32 +6,33 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
+using TinyMapper.Core;
 using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Types.Members;
+using TinyMapper.Mappers.Types1.Members;
 using TinyMapper.Reflection;
 
-namespace TinyMapper.Mappers.Collection
+namespace TinyMapper.Mappers.Collections
 {
     internal abstract class CollectionMapper
     {
         private const string MapperNamePrefix = "TinyCollection";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
-        public static CollectionMapper Create(IDynamicAssembly dynamicAssembly, MappingMember member)
+        public static CollectionMapper Create(IDynamicAssembly assembly, MappingMember member)
         {
             TypePair typePair = member.TypePair;
 
-            TypeBuilder typeBuilder = dynamicAssembly.DefineType(GetMapperName(), typeof(CollectionMapper));
+            TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), typeof(CollectionMapper));
             if (IsList(typePair.Target))
             {
-                MethodBuilder methodBuilder = typeBuilder.DefineMethod("ConvertToList", OverrideProtected, typeof(object),
+                MethodBuilder methodBuilder = typeBuilder.DefineMethod("ConvertToList", OverrideProtected, Types.Object,
                     new[] { typeof(IEnumerable) });
 
                 Type targetItemType = GetCollectionItemType(typePair.Target);
                 MethodInfo methodTemplate = ThisType().GetMethod("ConvertToListTemplate", BindingFlags.NonPublic)
                                                       .MakeGenericMethod(targetItemType);
 
-                IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(typeof(object), 1));
+                IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
                 EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
             }
 

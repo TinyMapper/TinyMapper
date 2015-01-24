@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
-using TinyMapper.Mappers.Types;
+using TinyMapper.Mappers.Types1;
 
 namespace TinyMapper.Mappers.Builders.Methods
 {

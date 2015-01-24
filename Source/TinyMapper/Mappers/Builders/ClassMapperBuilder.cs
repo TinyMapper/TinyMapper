@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using TinyMapper.DataStructures;
 using TinyMapper.Mappers.Builders.Methods;
-using TinyMapper.Mappers.Types;
+using TinyMapper.Mappers.Types1;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Builders

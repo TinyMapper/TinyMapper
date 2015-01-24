@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Types;
+using TinyMapper.Mappers.Types1;
 using Xunit;
 
 namespace UnitTests.Mappers.Types

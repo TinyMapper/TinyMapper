@@ -20,13 +20,7 @@ namespace TinyMapper.CodeGenerators.Emitters
 
         public void Emit(CodeGenerator generator)
         {
-            EmitRefType(generator);
-        }
-
-        private void EmitRefType(CodeGenerator generator)
-        {
             ConstructorInfo ctor = ObjectType.GetDefaultCtor();
-
             generator.EmitNewObject(ctor);
         }
     }

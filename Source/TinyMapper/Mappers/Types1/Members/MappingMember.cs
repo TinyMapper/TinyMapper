@@ -3,7 +3,7 @@ using System.Reflection;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
 
-namespace TinyMapper.Mappers.Types.Members
+namespace TinyMapper.Mappers.Types1.Members
 {
     internal abstract class MappingMember : IEquatable<MappingMember>
     {

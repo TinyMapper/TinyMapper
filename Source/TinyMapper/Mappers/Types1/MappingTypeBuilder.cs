@@ -5,11 +5,11 @@ using System.Reflection;
 using TinyMapper.Configs;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
-using TinyMapper.Mappers.Types.Members;
+using TinyMapper.Mappers.Types1.Members;
 using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.TypeConverters;
 
-namespace TinyMapper.Mappers.Types
+namespace TinyMapper.Mappers.Types1
 {
     internal sealed class MappingTypeBuilder
     {

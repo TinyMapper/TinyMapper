@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TinyMapper.Mappers.Collection;
+using TinyMapper.Mappers.Collections;
 
 namespace TinyMapper.Mappers
 {
