@@ -37,9 +37,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
+    <Compile Include="CodeGenerators\Emitters\EmitterThis.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Builders\MapperBuilder.cs" />
+    <Compile Include="Mappers\Collection\CollectionMapper.cs" />
     <Compile Include="Mappers\Types\MappingType.cs" />
     <Compile Include="Mappers\Types\MappingTypeBuilder.cs" />
     <Compile Include="Mappers\Types\Members\ComplexMappingMember.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
-    <Compile Include="Mappers\Builders\CollectionMapperBuilder.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />

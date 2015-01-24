@@ -1,5 +1,4 @@
-﻿using System;
-using TinyMapper.Mappers;
+﻿using TinyMapper.Mappers;
 
 namespace TestAssembly
 {
@@ -10,7 +9,7 @@ namespace TestAssembly
             return new Class2();
         }
 
-        internal override object MapMembersCore(object source, object target)
+        internal override object MapCore(object source, object target)
         {
             var class1 = (Class1)source;
             var class2 = (Class2)target;

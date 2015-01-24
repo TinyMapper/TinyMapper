@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using TinyMapper.Mappers.Types.Members;
-using TinyMapper.TypeConverters;
+using TinyMapper.Mappers.Collection;
 
 namespace TinyMapper.Mappers
 {
@@ -12,29 +11,29 @@ namespace TinyMapper.Mappers
         public const string CreateTargetInstanceMethodName = "CreateTargetInstanceCore";
 
         /// <summary>
-        ///     public object MapMembers(object source, object target)
+        ///     public object Map(object source, object target)
         /// </summary>
-        public const string MapMembersMethodName = "MapMembersCore";
+        public const string MapMembersMethodName = "MapCore";
 
-        protected readonly Dictionary<MappingMember, ITypeConverter> _converters;
+        protected readonly List<CollectionMapper> _mappers = new List<CollectionMapper>();
 
-        protected Mapper()
+        public void AddMapper(CollectionMapper mapper)
         {
-            _converters = new Dictionary<MappingMember, ITypeConverter>();
+            _mappers.Add(mapper);
         }
 
-        public object MapMembers(object source, object target = null)
+        public object Map(object source, object target = null)
         {
             if (target == null)
             {
                 target = CreateTargetInstanceCore();
             }
 
-            object result = MapMembersCore(source, target);
+            object result = MapCore(source, target);
             return result;
         }
 
         internal abstract object CreateTargetInstanceCore();
-        internal abstract object MapMembersCore(object source, object target);
+        internal abstract object MapCore(object source, object target);
     }
 }
