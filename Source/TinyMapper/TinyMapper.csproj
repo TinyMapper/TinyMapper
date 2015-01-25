@@ -70,7 +70,6 @@
     <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
     <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
-    <Compile Include="Configs\MapConfig.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
     <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
     <Compile Include="ObjectMapper.cs" />
@@ -87,7 +86,9 @@
     <Compile Include="Nelibur.Sword\Patterns\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Configs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

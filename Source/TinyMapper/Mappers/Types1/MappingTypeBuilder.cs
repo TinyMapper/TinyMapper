@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TinyMapper.Configs;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
 using TinyMapper.Mappers.Types1.Members;
@@ -13,15 +12,7 @@ namespace TinyMapper.Mappers.Types1
 {
     internal sealed class MappingTypeBuilder
     {
-        private readonly MapConfig _config = new MapConfig();
-        private readonly Func<string, string, bool> _memberMatcher;
-
-        public MappingTypeBuilder()
-        {
-            _memberMatcher = _config.Match;
-        }
-
-        public MappingType Build(TypePair typePair)
+        public static MappingType Build(TypePair typePair)
         {
             return ParseMappingTypes(typePair);
         }
@@ -33,7 +24,7 @@ namespace TinyMapper.Mappers.Types1
                        .ToList();
         }
 
-        private List<MemberInfo> GetSourceMembers(Type sourceType)
+        private static List<MemberInfo> GetSourceMembers(Type sourceType)
         {
             var result = new List<MemberInfo>();
 
@@ -53,7 +44,7 @@ namespace TinyMapper.Mappers.Types1
             return result;
         }
 
-        private List<MemberInfo> GetTargetMembers(Type targetType)
+        private static List<MemberInfo> GetTargetMembers(Type targetType)
         {
             var result = new List<MemberInfo>();
 
@@ -73,12 +64,17 @@ namespace TinyMapper.Mappers.Types1
             return result;
         }
 
-        private bool IsPrimitiveMember(TypePair typePair)
+        private static bool IsPrimitiveMember(TypePair typePair)
         {
             return PrimitiveTypeConverter.IsSupported(typePair);
         }
 
-        private MappingType ParseMappingTypes(TypePair typePair)
+        private static bool Match(string valueA, string valueB)
+        {
+            return string.Equals(valueA, valueB, StringComparison.Ordinal);
+        }
+
+        private static MappingType ParseMappingTypes(TypePair typePair)
         {
             var mappingType = new MappingType(typePair);
 
@@ -87,7 +83,7 @@ namespace TinyMapper.Mappers.Types1
 
             foreach (MemberInfo targetMember in targetMembers)
             {
-                MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => _memberMatcher(x.Name, targetMember.Name));
+                MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => Match(x.Name, targetMember.Name));
                 if (sourceMember.IsNull())
                 {
                     continue;

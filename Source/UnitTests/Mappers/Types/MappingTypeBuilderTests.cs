@@ -10,8 +10,7 @@ namespace UnitTests.Mappers.Types
         [Fact]
         public void Buid_Recursion_Ok()
         {
-            var builder = new MappingTypeBuilder();
-            MappingType member = builder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            MappingType member = MappingTypeBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
             Assert.Equal(2, member.Members.Count());
         }
     }
