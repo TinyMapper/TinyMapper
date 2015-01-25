@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TinyMapper.DataStructures;
 
 namespace TinyMapper.Mappers
@@ -6,6 +7,22 @@ namespace TinyMapper.Mappers
     internal sealed class MapperCache
     {
         private readonly Dictionary<TypePair, MapperCacheItem> _cache = new Dictionary<TypePair, MapperCacheItem>();
+
+        public bool IsEmpty
+        {
+            get { return _cache.Count == 0; }
+        }
+
+        public List<Mapper> Mappers
+        {
+            get
+            {
+                return _cache.Values
+                             .OrderBy(x => x.Id)
+                             .Select(x => x.Mapper)
+                             .ToList();
+            }
+        }
 
         public MapperCacheItem Add(TypePair key, Mapper value)
         {

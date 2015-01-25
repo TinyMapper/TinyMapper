@@ -37,20 +37,24 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerators\Emitters\EmitterArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterThis.cs" />
     <Compile Include="Core\Types.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Builders\MapperBuilder.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
+    <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
     <Compile Include="Mappers\Collections\CollectionMapper.cs" />
+    <Compile Include="Mappers\MapperCache.cs" />
+    <Compile Include="Mappers\MapperCacheItem.cs" />
     <Compile Include="Mappers\Types1\MappingType.cs" />
     <Compile Include="Mappers\Types1\MappingTypeBuilder.cs" />
     <Compile Include="Mappers\Types1\Members\ComplexMappingMember.cs" />
     <Compile Include="Mappers\Types1\Members\MappingMember.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
-    <Compile Include="Mappers\Builders\Members\IMemberBuilderConfig.cs" />
+    <Compile Include="Mappers\Classes\Members\IMemberMapperConfig.cs" />
     <Compile Include="Mappers\Types1\Members\PrimitiveMappingMember.cs" />
-    <Compile Include="Mappers\Builders\Members\MemberBuilder.cs" />
+    <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterBox.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterMethod.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitterComposite.cs" />
@@ -86,9 +90,7 @@
     <Compile Include="Nelibur.Sword\Patterns\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

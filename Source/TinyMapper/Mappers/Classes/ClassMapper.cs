@@ -7,9 +7,11 @@ using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Core;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
-using TinyMapper.Mappers.Builders.Members;
+using TinyMapper.Mappers.Classes.Members;
 using TinyMapper.Mappers.Types1;
 using TinyMapper.Mappers.Types1.Members;
+using TinyMapper.Nelibur.Sword.DataStructures;
+using TinyMapper.Nelibur.Sword.Extensions;
 using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Classes
@@ -18,15 +20,18 @@ namespace TinyMapper.Mappers.Classes
     {
         private const string MapperNamePrefix = "TinyClass";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
+        private static IDynamicAssembly _assembly;
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
+            _assembly = assembly;
             string mapperTypeName = GetMapperName(typePair);
             TypeBuilder typeBuilder = assembly.DefineType(mapperTypeName, typeof(ClassMapper));
             EmitCreateTargetInstance(typePair.Target, typeBuilder);
-            EmitMapClass(typePair, typeBuilder);
+            Option<MapperCache> mappers = EmitMapClass(typePair, typeBuilder);
 
             var result = (ClassMapper)Activator.CreateInstance(typeBuilder.CreateType());
+            mappers.Do(x => result.AddMapper(x.Mappers));
             return result;
         }
 
@@ -57,7 +62,7 @@ namespace TinyMapper.Mappers.Classes
             EmitterReturn.Return(result, targetType).Emit(codeGenerator);
         }
 
-        private static void EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
+        private static Option<MapperCache> EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
         {
             MappingType mappingType = MappingTypeBuilder.Build(typePair);
 
@@ -72,24 +77,26 @@ namespace TinyMapper.Mappers.Classes
             emitterComposite.Add(LoadMethodArgument(localSource, 1))
                             .Add(LoadMethodArgument(localTarget, 2));
 
-            IEmitter node = EmitMappingMembers(localSource, localTarget, mappingType.Members, codeGenerator);
+            MemberEmitterDescription members = EmitMappingMembers(localSource, localTarget, mappingType.Members, codeGenerator);
 
-            emitterComposite.Add(node);
+            emitterComposite.Add(members.Emitter);
             emitterComposite.Add(EmitterReturn.Return(EmitterLocal.Load(localTarget)));
             emitterComposite.Emit(codeGenerator);
+            return members.MapperCache;
         }
 
-        private static IEmitter EmitMappingMembers(LocalBuilder localSource, LocalBuilder localTarget,
+        private static MemberEmitterDescription EmitMappingMembers(LocalBuilder localSource, LocalBuilder localTarget,
             List<MappingMember> members, CodeGenerator codeGenerator)
         {
-            MemberBuilder memberBuilder = MemberBuilder.Configure(x =>
+            MemberMapper memberMapper = MemberMapper.Configure(x =>
             {
+                x.Assembly = _assembly;
+                x.CodeGenerator = codeGenerator;
                 x.LocalSource = localSource;
                 x.LocalTarget = localTarget;
-                x.CodeGenerator = codeGenerator;
             }).Create();
 
-            IEmitter result = memberBuilder.Build(members);
+            MemberEmitterDescription result = memberMapper.Build(members);
             return result;
         }
 

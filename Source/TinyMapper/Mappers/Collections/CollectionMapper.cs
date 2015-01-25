@@ -13,7 +13,7 @@ using TinyMapper.Reflection;
 
 namespace TinyMapper.Mappers.Collections
 {
-    internal abstract class CollectionMapper
+    internal abstract class CollectionMapper : Mapper
     {
         private const string MapperNamePrefix = "TinyCollection";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
@@ -40,7 +40,7 @@ namespace TinyMapper.Mappers.Collections
             return result;
         }
 
-        internal object Map(object source, object target)
+        internal override object MapCore(object source, object target)
         {
             return ConvertToList((IEnumerable)source);
         }
