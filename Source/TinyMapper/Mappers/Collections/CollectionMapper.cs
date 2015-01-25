@@ -29,8 +29,9 @@ namespace TinyMapper.Mappers.Collections
                     new[] { typeof(IEnumerable) });
 
                 Type targetItemType = GetCollectionItemType(typePair.Target);
-                MethodInfo methodTemplate = ThisType().GetMethod("ConvertToListTemplate", BindingFlags.NonPublic)
-                                                      .MakeGenericMethod(targetItemType);
+                MethodInfo methodTemplate = ThisType()
+                    .GetMethod("ConvertToListTemplate", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .MakeGenericMethod(targetItemType);
 
                 IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
                 EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));

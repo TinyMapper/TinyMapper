@@ -41,7 +41,6 @@
     <Compile Include="CodeGenerators\Emitters\EmitterThis.cs" />
     <Compile Include="Core\Types.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
-    <Compile Include="Mappers\Builders\MapperBuilder.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
     <Compile Include="Mappers\Collections\CollectionMapper.cs" />
@@ -70,12 +69,8 @@
     <Compile Include="CodeGenerators\Emitters\EmitterLocal.cs" />
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Reflection\DynamicAssemblyBuilder.cs" />
-    <Compile Include="Mappers\Builders\Methods\CreateInstanceMethodBuilder.cs" />
-    <Compile Include="Mappers\Builders\Methods\MapMembersMethodBuilder.cs" />
-    <Compile Include="Mappers\Builders\Methods\EmitMethodBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
-    <Compile Include="Mappers\Builders\ClassMapperBuilder.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />

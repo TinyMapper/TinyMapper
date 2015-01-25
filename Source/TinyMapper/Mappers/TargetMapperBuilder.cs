@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Builders;
 using TinyMapper.Mappers.Classes;
 using TinyMapper.Mappers.Types1;
 using TinyMapper.Nelibur.Sword.Extensions;

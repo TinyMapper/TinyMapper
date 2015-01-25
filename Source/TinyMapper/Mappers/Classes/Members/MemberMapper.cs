@@ -65,9 +65,9 @@ namespace TinyMapper.Mappers.Classes.Members
         {
             IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
 
-            IEmitterType memberValue = LoadSourceObjectMember(member, sourceObject);
+            IEmitterType sourceMember = LoadSourceObjectMember(member, sourceObject);
 
-            IEmitterType convertedMember = ConvertMember(member, memberValue);
+            IEmitterType convertedMember = ConvertMember(member, sourceMember);
 
             IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
 
@@ -75,30 +75,31 @@ namespace TinyMapper.Mappers.Classes.Members
             return result;
         }
 
-        private IEmitterType ConvertComplexType(ComplexMappingMember member)
+        private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber)
         {
             CollectionMapper mapper = CollectionMapper.Create(_config.Assembly, member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
-            return CallMapMethod(mapperCacheItem);
+            return CallMapMethod(mapperCacheItem, sourceMemeber);
         }
 
-        private IEmitterType CallMapMethod(MapperCacheItem mapperCacheItem)
+        private IEmitterType CallMapMethod(MapperCacheItem mapperCacheItem, IEmitterType sourceMemeber)
         {
             Type mapperType = typeof(Mapper);
-            MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Public);
-            IEmitterType mappers = EmitterField.Load(EmitterThis.Load(mapperType), mapperType.GetField("_mappers"));
+            MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Instance |BindingFlags.Public);
+            FieldInfo mappersField = mapperType.GetField("_mappers", BindingFlags.Instance | BindingFlags.NonPublic);
+            IEmitterType mappers = EmitterField.Load(EmitterThis.Load(mapperType), mappersField);
             IEmitterType mapper = EmitterArray.Load(mappers, mapperCacheItem.Id);
-            IEmitterType result = EmitterMethod.Call(mapMethod, mapper, EmitterLocal.Load(_config.LocalSource), EmitterLocal.Load(_config.LocalTarget));
+            IEmitterType result = EmitterMethod.Call(mapMethod, mapper, sourceMemeber, EmitterLocal.Load(_config.LocalTarget));
             return result;
         }
 
-        private IEmitterType ConvertMember(MappingMember member, IEmitterType memberValue)
+        private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber)
         {
             if (member is PrimitiveMappingMember)
             {
-                return ConvertPrimitiveType((PrimitiveMappingMember)member, memberValue);
+                return ConvertPrimitiveType((PrimitiveMappingMember)member, sourceMemeber);
             }
-            return ConvertComplexType((ComplexMappingMember)member);
+            return ConvertComplexType((ComplexMappingMember)member, sourceMemeber);
         }
 
         private IEmitterType ConvertPrimitiveType(PrimitiveMappingMember member, IEmitterType memberValue)
