@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using TinyMapper.DataStructures;
-using TinyMapper.Extensions;
+using TinyMappers.DataStructures;
+using TinyMappers.Extensions;
 
-namespace TinyMapper.Mappers.Types1.Members
+namespace TinyMappers.Mappers.Types1.Members
 {
     internal abstract class MappingMember : IEquatable<MappingMember>
     {

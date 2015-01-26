@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TinyMapper.DataStructures;
+using TinyMappers.DataStructures;
 
-namespace TinyMapper.Mappers.Caches
+namespace TinyMappers.Mappers.Caches
 {
     internal sealed class MapperCache
     {

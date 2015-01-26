@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.Nelibur.Sword.Extensions;
+using TinyMappers.CodeGenerators.Emitters;
+using TinyMappers.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.CodeGenerators
+namespace TinyMappers.CodeGenerators
 {
     internal sealed class CodeGenerator
     {

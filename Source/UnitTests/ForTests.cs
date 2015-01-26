@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper;
+using TinyMappers;
 using Xunit;
 
 namespace UnitTests
@@ -11,14 +11,14 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            ObjectMapper.Bind<Class1, Class2>();
+            TinyMapper.Bind<Class1, Class2>();
             var source = new Class1
             {
                 //                                Field = 10,
                 //                Property = 4
                 List = new List<int> { 1 }
             };
-            var t = ObjectMapper.Map<Class2>(source);
+            var t = TinyMapper.Map<Class2>(source);
             //            CallDynamicMethod();
         }
 

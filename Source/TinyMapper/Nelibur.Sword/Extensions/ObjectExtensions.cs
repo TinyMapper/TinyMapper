@@ -1,7 +1,6 @@
-﻿using System;
-using TinyMapper.Nelibur.Sword.DataStructures;
+﻿using TinyMappers.Nelibur.Sword.DataStructures;
 
-namespace TinyMapper.Nelibur.Sword.Extensions
+namespace TinyMappers.Nelibur.Sword.Extensions
 {
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.

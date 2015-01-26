@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
-using TinyMapper.DataStructures;
+using TinyMappers.DataStructures;
 
-namespace TinyMapper.TypeConverters
+namespace TinyMappers.TypeConverters
 {
     internal static class PrimitiveTypeConverter
     {

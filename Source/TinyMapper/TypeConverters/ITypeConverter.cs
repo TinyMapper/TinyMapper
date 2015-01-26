@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TinyMapper.TypeConverters
+﻿namespace TinyMappers.TypeConverters
 {
     internal interface ITypeConverter
     {

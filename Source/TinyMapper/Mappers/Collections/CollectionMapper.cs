@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators;
-using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.Core;
-using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Types1.Members;
-using TinyMapper.Reflection;
+using TinyMappers.CodeGenerators;
+using TinyMappers.CodeGenerators.Emitters;
+using TinyMappers.Core;
+using TinyMappers.DataStructures;
+using TinyMappers.Mappers.Types1.Members;
+using TinyMappers.Reflection;
 
-namespace TinyMapper.Mappers.Collections
+namespace TinyMappers.Mappers.Collections
 {
     internal abstract class CollectionMapper : Mapper
     {

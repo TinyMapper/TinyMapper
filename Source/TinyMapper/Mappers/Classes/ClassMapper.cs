@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators;
-using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.Core;
-using TinyMapper.DataStructures;
-using TinyMapper.Extensions;
-using TinyMapper.Mappers.Caches;
-using TinyMapper.Mappers.Classes.Members;
-using TinyMapper.Mappers.Types1;
-using TinyMapper.Mappers.Types1.Members;
-using TinyMapper.Nelibur.Sword.DataStructures;
-using TinyMapper.Nelibur.Sword.Extensions;
-using TinyMapper.Reflection;
+using TinyMappers.CodeGenerators;
+using TinyMappers.CodeGenerators.Emitters;
+using TinyMappers.Core;
+using TinyMappers.DataStructures;
+using TinyMappers.Extensions;
+using TinyMappers.Mappers.Caches;
+using TinyMappers.Mappers.Classes.Members;
+using TinyMappers.Mappers.Types1;
+using TinyMappers.Mappers.Types1.Members;
+using TinyMappers.Nelibur.Sword.DataStructures;
+using TinyMappers.Nelibur.Sword.Extensions;
+using TinyMappers.Reflection;
 
-namespace TinyMapper.Mappers.Classes
+namespace TinyMappers.Mappers.Classes
 {
     internal abstract class ClassMapper : Mapper
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection.Emit;
-using TinyMapper.Nelibur.Sword.DataStructures;
-using TinyMapper.Nelibur.Sword.Extensions;
+using TinyMappers.Nelibur.Sword.DataStructures;
+using TinyMappers.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.CodeGenerators.Emitters
+namespace TinyMappers.CodeGenerators.Emitters
 {
     internal sealed class EmitterLocalVariable : IEmitterType
     {

@@ -1,8 +1,8 @@
 using System;
 using System.Reflection.Emit;
-using TinyMapper.Mappers;
+using TinyMappers.Mappers;
 
-namespace TinyMapper.Reflection
+namespace TinyMappers.Reflection
 {
     internal interface IDynamicAssembly
     {

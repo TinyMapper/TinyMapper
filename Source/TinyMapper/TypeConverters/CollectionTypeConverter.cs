@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TinyMapper.Core;
-using TinyMapper.DataStructures;
+using TinyMappers.Core;
+using TinyMappers.DataStructures;
 
-namespace TinyMapper.TypeConverters
+namespace TinyMappers.TypeConverters
 {
     internal sealed class CollectionTypeConverter
     {

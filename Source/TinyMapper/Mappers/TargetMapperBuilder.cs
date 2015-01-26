@@ -1,9 +1,8 @@
-﻿using System;
-using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Classes;
-using TinyMapper.Reflection;
+﻿using TinyMappers.DataStructures;
+using TinyMappers.Mappers.Classes;
+using TinyMappers.Reflection;
 
-namespace TinyMapper.Mappers
+namespace TinyMappers.Mappers
 {
     internal sealed class TargetMapperBuilder
     {

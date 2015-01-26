@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
-using TinyMapper;
 
 namespace Benchmark
 {
@@ -45,7 +44,7 @@ namespace Benchmark
 
         private static void Initialise()
         {
-            ObjectMapper.Bind<Class1, Class2>();
+            TinyMappers.TinyMapper.Bind<Class1, Class2>();
             Mapper.CreateMap<Class1, Class2>();
         }
 
@@ -72,13 +71,13 @@ namespace Benchmark
         private static void TinyMapper()
         {
             Class1 source = CreateSource();
-            var temp = ObjectMapper.Map<Class2>(source);
+            var temp = TinyMappers.TinyMapper.Map<Class2>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
-                var t = ObjectMapper.Map<Class2>(source);
+                var t = TinyMappers.TinyMapper.Map<Class2>(source);
             }
             stopwatch.Stop();
             Console.WriteLine("TinyMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);

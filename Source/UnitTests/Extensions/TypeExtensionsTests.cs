@@ -1,6 +1,5 @@
-﻿using System;
-using System.IO;
-using TinyMapper.Extensions;
+﻿using System.IO;
+using TinyMappers.Extensions;
 using Xunit;
 
 namespace UnitTests.Extensions

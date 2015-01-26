@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace TinyMapper.Core
+namespace TinyMappers.Core
 {
     internal static class Types
     {

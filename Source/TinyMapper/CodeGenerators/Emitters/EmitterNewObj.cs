@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using TinyMapper.Extensions;
+using TinyMappers.Extensions;
 
-namespace TinyMapper.CodeGenerators.Emitters
+namespace TinyMappers.CodeGenerators.Emitters
 {
     internal sealed class EmitterNewObj : IEmitterType
     {

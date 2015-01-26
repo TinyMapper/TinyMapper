@@ -1,7 +1,6 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace TinyMapper.Mappers.Types1.Members
+namespace TinyMappers.Mappers.Types1.Members
 {
     internal sealed class ComplexMappingMember : MappingMember
     {

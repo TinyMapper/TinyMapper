@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TinyMapper.DataStructures;
-using TinyMapper.Extensions;
-using TinyMapper.Mappers.Types1.Members;
-using TinyMapper.Nelibur.Sword.Extensions;
-using TinyMapper.TypeConverters;
+using TinyMappers.DataStructures;
+using TinyMappers.Extensions;
+using TinyMappers.Mappers.Types1.Members;
+using TinyMappers.Nelibur.Sword.Extensions;
+using TinyMappers.TypeConverters;
 
-namespace TinyMapper.Mappers.Types1
+namespace TinyMappers.Mappers.Types1
 {
     internal sealed class MappingTypeBuilder
     {

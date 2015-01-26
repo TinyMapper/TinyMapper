@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TinyMapper.Extensions
+namespace TinyMappers.Extensions
 {
     internal static class MemberInfoExtensions
     {

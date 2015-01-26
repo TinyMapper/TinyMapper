@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TinyMapper.Nelibur.Sword.Patterns
+namespace TinyMappers.Nelibur.Sword.Patterns
 {
     /// <summary>
     ///     Visitor pattern.

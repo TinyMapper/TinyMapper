@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using TinyMapper.DataStructures;
-using TinyMapper.Mappers;
-using TinyMapper.Nelibur.Sword.Core;
-using TinyMapper.Nelibur.Sword.Extensions;
-using TinyMapper.Reflection;
+﻿using System.Collections.Generic;
+using TinyMappers.DataStructures;
+using TinyMappers.Mappers;
+using TinyMappers.Nelibur.Sword.Core;
+using TinyMappers.Nelibur.Sword.Extensions;
+using TinyMappers.Reflection;
 
-namespace TinyMapper
+namespace TinyMappers
 {
-    public sealed class ObjectMapper
+    public sealed class TinyMapper
     {
         private static readonly IDynamicAssembly _assembly = DynamicAssemblyBuilder.Get();
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
@@ -36,7 +35,7 @@ namespace TinyMapper
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
             Mapper mapper = GetMapper(typePair);
-            var result = mapper.Map(source, target);
+            TTarget result = mapper.Map(source, target);
 
             return result;
         }
@@ -51,7 +50,7 @@ namespace TinyMapper
             TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
 
             Mapper mapper = GetMapper(typePair);
-            var result = mapper.Map<object, TTarget>(source);
+            TTarget result = mapper.Map<object, TTarget>(source);
 
             return result;
         }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using TinyMapper.Nelibur.Sword.Extensions;
+﻿using System.Collections.Generic;
+using TinyMappers.Nelibur.Sword.Extensions;
 
-namespace TinyMapper.CodeGenerators.Emitters
+namespace TinyMappers.CodeGenerators.Emitters
 {
     internal sealed class EmitterComposite : IEmitter
     {

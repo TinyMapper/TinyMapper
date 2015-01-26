@@ -1,9 +1,8 @@
-using System;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators;
-using TinyMapper.Reflection;
+using TinyMappers.CodeGenerators;
+using TinyMappers.Reflection;
 
-namespace TinyMapper.Mappers.Classes.Members
+namespace TinyMappers.Mappers.Classes.Members
 {
     internal interface IMemberMapperConfig
     {

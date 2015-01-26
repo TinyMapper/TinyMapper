@@ -2,11 +2,10 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using TinyMapper.Reflection;
+using TinyMappers.Reflection;
 
 [assembly: AssemblyTitle("TinyMapper")]
 [assembly: AssemblyDescription("")]

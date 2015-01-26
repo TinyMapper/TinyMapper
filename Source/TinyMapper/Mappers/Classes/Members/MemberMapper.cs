@@ -4,17 +4,17 @@ using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMapper.CodeGenerators;
-using TinyMapper.CodeGenerators.Emitters;
-using TinyMapper.Extensions;
-using TinyMapper.Mappers.Caches;
-using TinyMapper.Mappers.Collections;
-using TinyMapper.Mappers.Types1.Members;
-using TinyMapper.Nelibur.Sword.Extensions;
-using TinyMapper.Reflection;
-using TinyMapper.TypeConverters;
+using TinyMappers.CodeGenerators;
+using TinyMappers.CodeGenerators.Emitters;
+using TinyMappers.Extensions;
+using TinyMappers.Mappers.Caches;
+using TinyMappers.Mappers.Collections;
+using TinyMappers.Mappers.Types1.Members;
+using TinyMappers.Nelibur.Sword.Extensions;
+using TinyMappers.Reflection;
+using TinyMappers.TypeConverters;
 
-namespace TinyMapper.Mappers.Classes.Members
+namespace TinyMappers.Mappers.Classes.Members
 {
     internal sealed class MemberMapper
     {

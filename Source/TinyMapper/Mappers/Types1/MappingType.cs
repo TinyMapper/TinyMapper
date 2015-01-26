@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using TinyMapper.DataStructures;
-using TinyMapper.Mappers.Types1.Members;
+﻿using System.Collections.Generic;
+using TinyMappers.DataStructures;
+using TinyMappers.Mappers.Types1.Members;
 
-namespace TinyMapper.Mappers.Types1
+namespace TinyMappers.Mappers.Types1
 {
     internal sealed class MappingType
     {

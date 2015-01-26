@@ -7,7 +7,7 @@
     <ProjectGuid>{C7EBD676-248B-484A-A5CB-DF879670652A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TinyMapper</RootNamespace>
+    <RootNamespace>TinyMappers</RootNamespace>
     <AssemblyName>TinyMapper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -71,7 +71,7 @@
     <Compile Include="Reflection\DynamicAssemblyBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
     <Compile Include="DataStructures\TypePair.cs" />
-    <Compile Include="ObjectMapper.cs" />
+    <Compile Include="TinyMapper.cs" />
     <Compile Include="Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />

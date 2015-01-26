@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TinyMapper.CodeGenerators.Emitters
+﻿namespace TinyMappers.CodeGenerators.Emitters
 {
     internal interface IEmitter
     {
