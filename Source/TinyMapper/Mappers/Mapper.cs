@@ -11,7 +11,7 @@ namespace TinyMapper.Mappers
         protected const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
         protected Mapper[] _mappers;
 
-        public void AddMapper(List<Mapper> mappers)
+        public void AddMappers(List<Mapper> mappers)
         {
             _mappers = mappers.ToArray();
         }

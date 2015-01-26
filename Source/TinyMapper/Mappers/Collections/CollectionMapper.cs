@@ -37,17 +37,23 @@ namespace TinyMapper.Mappers.Collections
             return EnumerableToList((IEnumerable)source);
         }
 
+        protected virtual TTarget ConvertItem<TSource, TTarget>(TSource source)
+        {
+            throw new NotImplementedException();
+        }
+
         protected virtual object EnumerableToList(IEnumerable value)
         {
             throw new NotImplementedException();
         }
 
-        protected List<TTarget> EnumerableToListTemplate<TTarget>(IEnumerable source)
+        protected List<TTarget> EnumerableToListTemplate<TSource, TTarget>(IEnumerable source)
         {
             var result = new List<TTarget>();
-            foreach (object item in source)
+            foreach (TSource item in source)
             {
-                result.Add((TTarget)item);
+                var convertItem = ConvertItem<TSource, TTarget>(item);
+                result.Add(convertItem);
             }
             return result;
         }

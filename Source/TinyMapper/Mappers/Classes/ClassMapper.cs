@@ -30,7 +30,7 @@ namespace TinyMapper.Mappers.Classes
             Option<MapperCache> mappers = EmitMapClass(typePair, typeBuilder);
 
             var result = (ClassMapper)Activator.CreateInstance(typeBuilder.CreateType());
-            mappers.Do(x => result.AddMapper(x.Mappers));
+            mappers.Do(x => result.AddMappers(x.Mappers));
             return result;
         }
 
