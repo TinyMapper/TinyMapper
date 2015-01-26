@@ -17,7 +17,6 @@ namespace TinyMapper.Mappers.Collections
     {
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
         private const string MapperNamePrefix = "TinyCollection";
-        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
         public static CollectionMapper Create(IDynamicAssembly assembly, MappingMember member)
         {

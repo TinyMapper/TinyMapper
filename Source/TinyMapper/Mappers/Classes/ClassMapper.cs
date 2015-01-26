@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using TinyMapper.CodeGenerators;
 using TinyMapper.CodeGenerators.Emitters;
 using TinyMapper.Core;
 using TinyMapper.DataStructures;
 using TinyMapper.Extensions;
+using TinyMapper.Mappers.Caches;
 using TinyMapper.Mappers.Classes.Members;
 using TinyMapper.Mappers.Types1;
 using TinyMapper.Mappers.Types1.Members;
@@ -19,7 +19,6 @@ namespace TinyMapper.Mappers.Classes
     internal abstract class ClassMapper : Mapper
     {
         private const string MapperNamePrefix = "TinyClass";
-        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
         private static IDynamicAssembly _assembly;
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)

@@ -8,7 +8,7 @@ namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 1000000;
+        private const int Iterations = 100;
 
         private static void AutoMapper()
         {

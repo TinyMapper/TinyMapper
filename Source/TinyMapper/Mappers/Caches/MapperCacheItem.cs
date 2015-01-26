@@ -1,4 +1,6 @@
-﻿namespace TinyMapper.Mappers
+﻿using System;
+
+namespace TinyMapper.Mappers.Caches
 {
     internal sealed class MapperCacheItem
     {

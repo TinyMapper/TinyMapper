@@ -19,7 +19,6 @@ namespace UnitTests
                 List = new List<int> { 1 }
             };
             var t = ObjectMapper.Map<Class2>(source);
-
             //            CallDynamicMethod();
         }
 

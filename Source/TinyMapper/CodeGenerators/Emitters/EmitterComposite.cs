@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TinyMapper.Nelibur.Sword.Extensions;
 
 namespace TinyMapper.CodeGenerators.Emitters

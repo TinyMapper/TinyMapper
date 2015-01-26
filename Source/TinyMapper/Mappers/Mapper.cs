@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace TinyMapper.Mappers
 {
@@ -6,6 +8,7 @@ namespace TinyMapper.Mappers
     {
         public const string MapMethodName = "Map";
         public const string MappersFieldName = "_mappers";
+        protected const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
         protected Mapper[] _mappers;
 
         public void AddMapper(List<Mapper> mappers)
