@@ -15,6 +15,7 @@ namespace TinyMapper.Mappers.Collections
 {
     internal abstract class CollectionMapper : Mapper
     {
+        private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
         private const string MapperNamePrefix = "TinyCollection";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
@@ -25,16 +26,7 @@ namespace TinyMapper.Mappers.Collections
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), typeof(CollectionMapper));
             if (IsList(typePair.Target))
             {
-                MethodBuilder methodBuilder = typeBuilder.DefineMethod("ConvertToList", OverrideProtected, Types.Object,
-                    new[] { typeof(IEnumerable) });
-
-                Type targetItemType = GetCollectionItemType(typePair.Target);
-                MethodInfo methodTemplate = ThisType()
-                    .GetMethod("ConvertToListTemplate", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .MakeGenericMethod(targetItemType);
-
-                IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
-                EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+                EmitToList(typeBuilder, typePair);
             }
 
             var result = (CollectionMapper)Activator.CreateInstance(typeBuilder.CreateType());
@@ -43,15 +35,15 @@ namespace TinyMapper.Mappers.Collections
 
         internal override object MapCore(object source, object target)
         {
-            return ConvertToList((IEnumerable)source);
+            return EnumerableToList((IEnumerable)source);
         }
 
-        protected virtual object ConvertToList(IEnumerable value)
+        protected virtual object EnumerableToList(IEnumerable value)
         {
             throw new NotImplementedException();
         }
 
-        protected List<TTarget> ConvertToListTemplate<TTarget>(IEnumerable source)
+        protected List<TTarget> EnumerableToListTemplate<TTarget>(IEnumerable source)
         {
             var result = new List<TTarget>();
             foreach (object item in source)
@@ -59,6 +51,20 @@ namespace TinyMapper.Mappers.Collections
                 result.Add((TTarget)item);
             }
             return result;
+        }
+
+        private static void EmitToList(TypeBuilder typeBuilder, TypePair typePair)
+        {
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, Types.Object, new[] { Types.IEnumerable });
+
+            Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            MethodInfo methodTemplate = ThisType()
+                .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
+                .MakeGenericMethod(targetItemType);
+
+            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
+            EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
         private static Type GetCollectionItemType(Type type)

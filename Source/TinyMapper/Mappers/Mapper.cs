@@ -5,6 +5,7 @@ namespace TinyMapper.Mappers
     internal abstract class Mapper
     {
         public const string MapMethodName = "Map";
+        public const string MappersFieldName = "_mappers";
         protected Mapper[] _mappers;
 
         public void AddMapper(List<Mapper> mappers)

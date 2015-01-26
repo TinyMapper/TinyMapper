@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TinyMapper.Core;
 using TinyMapper.DataStructures;
 
 namespace TinyMapper.TypeConverters
@@ -28,7 +29,7 @@ namespace TinyMapper.TypeConverters
         public static bool IsSupported(TypePair typePair)
         {
             return typePair.Target.IsArray
-                   || typeof(IEnumerable).IsAssignableFrom(typePair.Target);
+                   || Types.IEnumerable.IsAssignableFrom(typePair.Target);
         }
 
         private static Type GetCollectionItemType(Type type)
@@ -49,7 +50,7 @@ namespace TinyMapper.TypeConverters
             if (IsList(typePair.Target))
             {
                 Type targetItemType = GetCollectionItemType(typePair.Target);
-                return typeof(CollectionTypeConverter).GetMethod("ConvertToList", BindingFlags.Static | BindingFlags.Public)
+                return typeof(CollectionTypeConverter).GetMethod("EnumerableToList", BindingFlags.Static | BindingFlags.Public)
                                                       .MakeGenericMethod(targetItemType);
             }
             throw new NotSupportedException();

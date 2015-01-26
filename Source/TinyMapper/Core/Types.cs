@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 
 namespace TinyMapper.Core
 {
     internal static class Types
     {
-        public static Type Object = typeof(object);
+        public static readonly Type IEnumerable = typeof(IEnumerable);
+        public static readonly Type Object = typeof(object);
     }
 }
