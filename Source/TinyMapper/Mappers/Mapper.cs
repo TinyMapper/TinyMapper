@@ -16,11 +16,11 @@ namespace TinyMapper.Mappers
             _mappers = mappers.ToArray();
         }
 
-        public object Map(object source, object target = null)
+        public TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
         {
             return MapCore(source, target);
         }
 
-        internal abstract object MapCore(object source, object target);
+        internal abstract TTarget MapCore<TSource, TTarget>(TSource source, TTarget target);
     }
 }

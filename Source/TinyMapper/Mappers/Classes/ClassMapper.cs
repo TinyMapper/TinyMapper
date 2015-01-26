@@ -34,22 +34,22 @@ namespace TinyMapper.Mappers.Classes
             return result;
         }
 
-        internal override object MapCore(object source, object target)
+        internal override TTarget MapCore<TSource, TTarget>(TSource source, TTarget target)
         {
-            if (target == null)
+            if (target.Equals(null))
             {
-                target = CreateTargetInstance();
+                target = CreateTargetInstance<TTarget>();
             }
-            object result = MapClass(source, target);
+            TTarget result = MapClass(source, target);
             return result;
         }
 
-        protected virtual object CreateTargetInstance()
+        protected virtual TTarget CreateTargetInstance<TTarget>()
         {
             throw new NotImplementedException();
         }
 
-        protected abstract object MapClass(object source, object target);
+        protected abstract TTarget MapClass<TSource, TTarget>(TSource source, TTarget target);
 
         private static void EmitCreateTargetInstance(Type targetType, TypeBuilder typeBuilder)
         {

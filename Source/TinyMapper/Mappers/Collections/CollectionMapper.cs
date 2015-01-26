@@ -32,9 +32,9 @@ namespace TinyMapper.Mappers.Collections
             return result;
         }
 
-        internal override object MapCore(object source, object target)
+        internal override TTarget MapCore<TSource, TTarget>(TSource source, TTarget target)
         {
-            return EnumerableToList((IEnumerable)source);
+            return EnumerableToList<TTarget>((IEnumerable)source);
         }
 
         protected virtual TTarget ConvertItem<TSource, TTarget>(TSource source)
@@ -42,7 +42,7 @@ namespace TinyMapper.Mappers.Collections
             throw new NotImplementedException();
         }
 
-        protected virtual object EnumerableToList(IEnumerable value)
+        protected virtual TTarget EnumerableToList<TTarget>(IEnumerable value)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace TinyMapper.Mappers.Collections
             var result = new List<TTarget>();
             foreach (TSource item in source)
             {
-                var convertItem = ConvertItem<TSource, TTarget>(item);
+                TTarget convertItem = ConvertItem<TSource, TTarget>(item);
                 result.Add(convertItem);
             }
             return result;

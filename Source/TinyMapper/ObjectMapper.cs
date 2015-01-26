@@ -36,7 +36,7 @@ namespace TinyMapper
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
             Mapper mapper = GetMapper(typePair);
-            var result = (TTarget)mapper.Map(source, target);
+            var result = mapper.Map(source, target);
 
             return result;
         }
@@ -51,7 +51,7 @@ namespace TinyMapper
             TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
 
             Mapper mapper = GetMapper(typePair);
-            var result = (TTarget)mapper.Map(source);
+            var result = mapper.Map<object, TTarget>(source);
 
             return result;
         }
