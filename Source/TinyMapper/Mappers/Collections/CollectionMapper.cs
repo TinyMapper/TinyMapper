@@ -62,11 +62,12 @@ namespace TinyMapper.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, Types.Object, new[] { Types.IEnumerable });
 
+            Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
 
             MethodInfo methodTemplate = ThisType()
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
-                .MakeGenericMethod(targetItemType);
+                .MakeGenericMethod(sourceItemType, targetItemType);
 
             IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
             EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
