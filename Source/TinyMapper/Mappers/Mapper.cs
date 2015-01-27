@@ -15,11 +15,11 @@ namespace TinyMappers.Mappers
             _mappers = mappers.ToArray();
         }
 
-        public TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
+        public object Map(object source, object target = null)
         {
             return MapCore(source, target);
         }
 
-        internal abstract TTarget MapCore<TSource, TTarget>(TSource source, TTarget target);
+        internal abstract object MapCore(object source, object target);
     }
 }

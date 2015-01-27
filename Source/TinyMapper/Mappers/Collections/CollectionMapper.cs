@@ -32,28 +32,29 @@ namespace TinyMappers.Mappers.Collections
             return result;
         }
 
-        internal override TTarget MapCore<TSource, TTarget>(TSource source, TTarget target)
+        internal override object MapCore(object source, object target)
         {
-            return EnumerableToList<TTarget>((IEnumerable)source);
+            return EnumerableToList((IEnumerable)source);
         }
 
-        protected virtual TTarget ConvertItem<TSource, TTarget>(TSource source)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected virtual TTarget EnumerableToList<TTarget>(IEnumerable value)
+        protected virtual object ConvertItem(object source)
         {
             throw new NotImplementedException();
         }
 
-        protected List<TTarget> EnumerableToListTemplate<TSource, TTarget>(IEnumerable source)
+        protected virtual object EnumerableToList(IEnumerable value)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected List<TTarget> EnumerableToListTemplate<TTarget>(IEnumerable source)
         {
             var result = new List<TTarget>();
-            foreach (TSource item in source)
+            foreach (object item in source)
             {
-                TTarget convertItem = ConvertItem<TSource, TTarget>(item);
-                result.Add(convertItem);
+                //                var convertItem = (TTarget)ConvertItem(item);
+                //                result.Add(convertItem);
+                result.Add((TTarget)item);
             }
             return result;
         }
@@ -62,12 +63,11 @@ namespace TinyMappers.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, Types.Object, new[] { Types.IEnumerable });
 
-            Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
 
             MethodInfo methodTemplate = ThisType()
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
-                .MakeGenericMethod(sourceItemType, targetItemType);
+                .MakeGenericMethod(targetItemType);
 
             IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(ThisType()), EmitterArgument.Load(Types.Object, 1));
             EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
