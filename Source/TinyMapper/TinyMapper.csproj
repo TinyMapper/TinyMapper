@@ -42,6 +42,7 @@
     <Compile Include="Core\Types.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
+    <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
     <Compile Include="Mappers\Collections\CollectionMapper.cs" />
     <Compile Include="Mappers\Caches\MapperCache.cs" />

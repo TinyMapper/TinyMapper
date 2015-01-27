@@ -15,7 +15,7 @@ namespace TinyMappers.Mappers
 
         public Mapper Build(TypePair typePair)
         {
-            Mapper mapper = ClassMapper<int, int>.Create(_assembly, typePair);
+            Mapper mapper = ClassMapperBuilder.Create(_assembly, typePair);
             return mapper;
         }
     }

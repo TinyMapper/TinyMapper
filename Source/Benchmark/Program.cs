@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
 
@@ -7,7 +6,7 @@ namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 100;
+        private const int Iterations = 1000000;
 
         private static void AutoMapper()
         {
@@ -28,17 +27,17 @@ namespace Benchmark
         {
             return new Class1
             {
-                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }
-                //                Field1 = 1,
-                //                Field2 = 2,
-                //                Field3 = 3,
-                //                Field4 = 4,
-                //                Field5 = 5,
-                //                Property1 = "1",
-                //                Property2 = "2",
-                //                Property3 = "3",
-                //                Property4 = "4",
-                //                Property5 = "5"
+                //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }
+                Field1 = 1,
+                Field2 = 2,
+                Field3 = 3,
+                Field4 = 4,
+                Field5 = 5,
+                Property1 = "1",
+                Property2 = "2",
+                Property3 = "3",
+                Property4 = "4",
+                Property5 = "5"
             };
         }
 
@@ -87,34 +86,34 @@ namespace Benchmark
 
     public class Class1
     {
-        //        public int Field1;
-        public List<int> List { get; set; }
-        //        public int Field2;
-        //        public int Field3;
-        //        public int Field4;
-        //        public int Field5;
-        //
-        //        public string Property1 { get; set; }
-        //        public string Property2 { get; set; }
-        //        public string Property3 { get; set; }
-        //        public string Property4 { get; set; }
-        //        public string Property5 { get; set; }
+        public int Field1;
+        //        public List<int> List { get; set; }
+        public int Field2;
+        public int Field3;
+        public int Field4;
+        public int Field5;
+
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+        public string Property4 { get; set; }
+        public string Property5 { get; set; }
     }
 
 
     public class Class2
     {
-        //        public int Field1;
-        public List<int> List { get; set; }
-        //        public int Field2;
-        //        public int Field3;
-        //        public int Field4;
-        //        public int Field5;
-        //
-        //        public string Property1 { get; set; }
-        //        public string Property2 { get; set; }
-        //        public string Property3 { get; set; }
-        //        public string Property4 { get; set; }
-        //        public string Property5 { get; set; }
+        public int Field1;
+        //        public List<int> List { get; set; }
+        public int Field2;
+        public int Field3;
+        public int Field4;
+        public int Field5;
+
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+        public string Property4 { get; set; }
+        public string Property5 { get; set; }
     }
 }
