@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using AutoMapper;
+using TinyMappers;
 
 namespace Benchmark
 {
@@ -27,23 +28,23 @@ namespace Benchmark
         {
             return new Class1
             {
-                //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }
-                Field1 = 1,
-                Field2 = 2,
-                Field3 = 3,
-                Field4 = 4,
-                Field5 = 5,
-                Property1 = "1",
-                Property2 = "2",
-                Property3 = "3",
-                Property4 = "4",
-                Property5 = "5"
+                //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
+                Int1 = 1,
+                Int2 = 2,
+                Int3 = 3,
+                Int4 = 4,
+                Int5 = 5,
+                String1 = "1",
+                String2 = "2",
+                String3 = "3",
+                String4 = "4",
+                String5 = "5"
             };
         }
 
         private static void Initialise()
         {
-            TinyMappers.TinyMapper.Bind<Class1, Class2>();
+            TinyMapper.Bind<Class1, Class2>();
             Mapper.CreateMap<Class1, Class2>();
         }
 
@@ -55,7 +56,7 @@ namespace Benchmark
             const int Repeat = 3;
             for (int i = 0; i < Repeat; i++)
             {
-                TinyMapper();
+                TinyMapperTest();
             }
             Console.WriteLine();
             for (int i = 0; i < Repeat; i++)
@@ -67,16 +68,16 @@ namespace Benchmark
             Console.ReadLine();
         }
 
-        private static void TinyMapper()
+        private static void TinyMapperTest()
         {
             Class1 source = CreateSource();
-            var temp = TinyMappers.TinyMapper.Map<Class2>(source);
+            var temp = TinyMapper.Map<Class2>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < Iterations; i++)
             {
-                var t = TinyMappers.TinyMapper.Map<Class2>(source);
+                var t = TinyMapper.Map<Class2>(source);
             }
             stopwatch.Stop();
             Console.WriteLine("TinyMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
@@ -86,34 +87,34 @@ namespace Benchmark
 
     public class Class1
     {
-        public int Field1;
+        public int Int1;
+        public int Int2;
+        public int Int3;
+        public int Int4;
+        public int Int5;
         //        public List<int> List { get; set; }
-        public int Field2;
-        public int Field3;
-        public int Field4;
-        public int Field5;
 
-        public string Property1 { get; set; }
-        public string Property2 { get; set; }
-        public string Property3 { get; set; }
-        public string Property4 { get; set; }
-        public string Property5 { get; set; }
+        public string String1 { get; set; }
+        public string String2 { get; set; }
+        public string String3 { get; set; }
+        public string String4 { get; set; }
+        public string String5 { get; set; }
     }
 
 
     public class Class2
     {
-        public int Field1;
+        public int Int1;
+        public int Int2;
+        public int Int3;
+        public int Int4;
+        public int Int5;
         //        public List<int> List { get; set; }
-        public int Field2;
-        public int Field3;
-        public int Field4;
-        public int Field5;
 
-        public string Property1 { get; set; }
-        public string Property2 { get; set; }
-        public string Property3 { get; set; }
-        public string Property4 { get; set; }
-        public string Property5 { get; set; }
+        public string String1 { get; set; }
+        public string String2 { get; set; }
+        public string String3 { get; set; }
+        public string String4 { get; set; }
+        public string String5 { get; set; }
     }
 }

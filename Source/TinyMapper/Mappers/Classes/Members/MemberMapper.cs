@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
+using TinyMappers.DataStructures;
 using TinyMappers.Extensions;
 using TinyMappers.Mappers.Caches;
 using TinyMappers.Mappers.Collections;
@@ -88,7 +89,7 @@ namespace TinyMappers.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            var mapper = CollectionMapper.Create(_config.Assembly, member);
+            CollectionMapper mapper = CollectionMapper.Create(_config.Assembly, member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }
@@ -104,7 +105,12 @@ namespace TinyMappers.Mappers.Classes.Members
 
         private IEmitterType ConvertPrimitiveType(PrimitiveMappingMember member, IEmitterType memberValue)
         {
-            MethodInfo converter = PrimitiveTypeConverter.GetConverter(member.TypePair);
+            TypePair typePair = member.TypePair;
+            if (typePair.IsDeepCloneable)
+            {
+                return memberValue;
+            }
+            MethodInfo converter = PrimitiveTypeConverter.GetConverter(typePair);
             IEmitterType result = EmitterMethod.Call(converter, null, memberValue);
             return result;
         }

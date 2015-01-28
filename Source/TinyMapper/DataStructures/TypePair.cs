@@ -10,8 +10,43 @@ namespace TinyMappers.DataStructures
             Source = source;
         }
 
+        public bool IsDeepCloneable
+        {
+            get
+            {
+                if (IsEqualTypes == false)
+                {
+                    return false;
+                }
+                if (IsValueType && IsPrimitiveType)
+                {
+                    return true;
+                }
+                if (Source == typeof(string))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public Type Source { get; private set; }
         public Type Target { get; private set; }
+
+        private bool IsEqualTypes
+        {
+            get { return Source == Target; }
+        }
+
+        private bool IsPrimitiveType
+        {
+            get { return Source.IsPrimitive && Target.IsPrimitive; }
+        }
+
+        private bool IsValueType
+        {
+            get { return Source.IsValueType && Target.IsValueType; }
+        }
 
         public static TypePair Create(Type source, Type target)
         {
