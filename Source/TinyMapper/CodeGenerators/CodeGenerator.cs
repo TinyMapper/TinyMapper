@@ -103,14 +103,7 @@ namespace TinyMappers.CodeGenerators
 
         private void EmitCall(MethodInfo method)
         {
-            if (method.IsVirtual)
-            {
-                _ilGenerator.EmitCall(OpCodes.Callvirt, method, Type.EmptyTypes);
-            }
-            else
-            {
-                _ilGenerator.EmitCall(OpCodes.Call, method, Type.EmptyTypes);
-            }
+            _ilGenerator.EmitCall(OpCodes.Callvirt, method, Type.EmptyTypes);
         }
     }
 }

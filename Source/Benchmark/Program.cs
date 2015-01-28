@@ -9,7 +9,7 @@ namespace Benchmark
     {
         private const int Iterations = 1000000;
 
-        private static void AutoMapper()
+        private static void AutoMapperTest()
         {
             Class1 source = CreateSource();
             var temp = Mapper.Map<Class2>(source);
@@ -42,6 +42,38 @@ namespace Benchmark
             };
         }
 
+        private static Class2 HandmadeMap(Class1 source)
+        {
+            var result = new Class2
+            {
+                Int1 = source.Int1,
+                Int2 = source.Int2,
+                Int3 = source.Int3,
+                Int4 = source.Int4,
+                Int5 = source.Int5,
+                String1 = source.String1,
+                String2 = source.String2,
+                String3 = source.String3,
+                String4 = source.String4,
+                String5 = source.String5
+            };
+            return result;
+        }
+
+        private static void HandmadeTest()
+        {
+            Class1 source = CreateSource();
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            for (int i = 0; i < Iterations; i++)
+            {
+                Class2 t = HandmadeMap(source);
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Handmade: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
+        }
+
         private static void Initialise()
         {
             TinyMapper.Bind<Class1, Class2>();
@@ -53,7 +85,7 @@ namespace Benchmark
             Initialise();
 
             //            HandmadeMapper();
-            const int Repeat = 3;
+            const int Repeat = 2;
             for (int i = 0; i < Repeat; i++)
             {
                 TinyMapperTest();
@@ -61,7 +93,13 @@ namespace Benchmark
             Console.WriteLine();
             for (int i = 0; i < Repeat; i++)
             {
-                AutoMapper();
+                AutoMapperTest();
+            }
+
+            Console.WriteLine();
+            for (int i = 0; i < Repeat; i++)
+            {
+                HandmadeTest();
             }
 
             Console.WriteLine("Press any key to Exit");
