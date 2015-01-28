@@ -21,6 +21,10 @@ namespace TinyMappers.CodeGenerators
             {
                 return this;
             }
+            if (stackType.IsValueType == false && targetType == typeof(object))
+            {
+                return this;
+            }
             if (stackType.IsValueType && !targetType.IsValueType)
             {
                 _ilGenerator.Emit(OpCodes.Box, stackType);
