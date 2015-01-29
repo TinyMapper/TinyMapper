@@ -57,8 +57,8 @@ namespace TinyMappers.Mappers.Classes
             LocalBuilder localTarget = codeGenerator.DeclareLocal(typePair.Target);
 
             var emitterComposite = new EmitterComposite();
-            emitterComposite.Add(LoadMethodArgument(localSource, 1))
-                            .Add(LoadMethodArgument(localTarget, 2));
+//            emitterComposite.Add(LoadMethodArgument(localSource, 1))
+//                            .Add(LoadMethodArgument(localTarget, 2));
 
             MemberEmitterDescription members = EmitMappingMembers(assembly, localSource, localTarget, mappingType.Members, codeGenerator);
 

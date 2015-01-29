@@ -64,8 +64,14 @@ namespace TinyMappers.Mappers.Classes.Members
 
         private IEmitter Build(MappingMember member)
         {
-            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
-            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
+//            EmitterArgument.Load(member.Source.GetMemberType(), 1);
+//            EmitterArgument.Load(member.Target.GetMemberType(), 2);
+
+            IEmitterType sourceObject = EmitterArgument.Load(member.Source.GetMemberType(), 1);
+            IEmitterType targetObject = EmitterArgument.Load(member.Target.GetMemberType(), 2);
+
+//            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
+//            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
 
             IEmitterType sourceMember = LoadMember(member.Source, sourceObject);
             IEmitterType targetMember = LoadMember(member.Target, targetObject);

@@ -7,7 +7,7 @@ namespace Benchmark
 {
     internal class Program
     {
-        private const int Iterations = 1000000;
+        private const int Iterations = 5000000;
 
         private static void AutoMapperTest()
         {
@@ -30,34 +30,33 @@ namespace Benchmark
             {
                 //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
                 Int1 = 1,
-                Int2 = 2,
-                Int3 = 3,
-                Int4 = 4,
-                Int5 = 5,
-                String1 = "1",
-                String2 = "2",
-                String3 = "3",
-                String4 = "4",
-                String5 = "5"
+//                Int2 = 2,
+//                Int3 = 3,
+//                Int4 = 4,
+//                Int5 = 5,
+//                Int6 = 6,
+//                String1 = "1",
+//                String2 = "2",
+//                String3 = "3",
+//                String4 = "4",
+//                String5 = "5"
             };
         }
 
-        private static Class2 HandmadeMap(Class1 source)
+        private static Class2 HandmadeMap(Class1 source, Class2 class2)
         {
-            var result = new Class2
-            {
-                Int1 = source.Int1,
-                Int2 = source.Int2,
-                Int3 = source.Int3,
-                Int4 = source.Int4,
-                Int5 = source.Int5,
-                String1 = source.String1,
-                String2 = source.String2,
-                String3 = source.String3,
-                String4 = source.String4,
-                String5 = source.String5
-            };
-            return result;
+            class2.Int1 = source.Int1;
+//            class2.Int2 = source.Int2;
+//            class2.Int3 = source.Int3;
+//            class2.Int4 = source.Int4;
+//            class2.Int5 = source.Int5;
+//            class2.Int6 = source.Int6;
+//            class2.String1 = source.String1;
+//            class2.String2 = source.String2;
+//            class2.String3 = source.String3;
+//            class2.String4 = source.String4;
+//            class2.String5 = source.String5;
+            return class2;
         }
 
         private static void HandmadeTest()
@@ -68,7 +67,8 @@ namespace Benchmark
 
             for (int i = 0; i < Iterations; i++)
             {
-                Class2 t = HandmadeMap(source);
+                var t = new Class2();
+                t = HandmadeMap(source, t);
             }
             stopwatch.Stop();
             Console.WriteLine("Handmade: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
@@ -82,25 +82,27 @@ namespace Benchmark
 
         private static void Main()
         {
-            Initialise();
-
-            //            HandmadeMapper();
             const int Repeat = 2;
-            for (int i = 0; i < Repeat; i++)
-            {
-                TinyMapperTest();
-            }
-            Console.WriteLine();
-            for (int i = 0; i < Repeat; i++)
-            {
-                AutoMapperTest();
-            }
+
+            Initialise();
 
             Console.WriteLine();
             for (int i = 0; i < Repeat; i++)
             {
                 HandmadeTest();
             }
+
+            //            HandmadeMapper();
+            for (int i = 0; i < Repeat; i++)
+            {
+                TinyMapperTest();
+            }
+//            Console.WriteLine();
+//            for (int i = 0; i < Repeat; i++)
+//            {
+//                AutoMapperTest();
+//            }
+
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
@@ -126,17 +128,18 @@ namespace Benchmark
     public class Class1
     {
         public int Int1;
-        public int Int2;
-        public int Int3;
-        public int Int4;
-        public int Int5;
+//        public int Int2;
+//        public int Int3;
+//        public int Int4;
+//        public int Int5;
+//        public int Int6;
         //        public List<int> List { get; set; }
 
-        public string String1 { get; set; }
-        public string String2 { get; set; }
-        public string String3 { get; set; }
-        public string String4 { get; set; }
-        public string String5 { get; set; }
+//        public string String1 { get; set; }
+//        public string String2 { get; set; }
+//        public string String3 { get; set; }
+//        public string String4 { get; set; }
+//        public string String5 { get; set; }
     }
 
 
@@ -147,12 +150,13 @@ namespace Benchmark
         public int Int3;
         public int Int4;
         public int Int5;
+        public int Int6;
         //        public List<int> List { get; set; }
 
-        public string String1 { get; set; }
-        public string String2 { get; set; }
-        public string String3 { get; set; }
-        public string String4 { get; set; }
-        public string String5 { get; set; }
+//        public string String1 { get; set; }
+//        public string String2 { get; set; }
+//        public string String3 { get; set; }
+//        public string String4 { get; set; }
+//        public string String5 { get; set; }
     }
 }
