@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
 using TinyMappers.DataStructures;
@@ -64,14 +63,8 @@ namespace TinyMappers.Mappers.Classes.Members
 
         private IEmitter Build(MappingMember member)
         {
-//            EmitterArgument.Load(member.Source.GetMemberType(), 1);
-//            EmitterArgument.Load(member.Target.GetMemberType(), 2);
-
             IEmitterType sourceObject = EmitterArgument.Load(member.Source.GetMemberType(), 1);
             IEmitterType targetObject = EmitterArgument.Load(member.Target.GetMemberType(), 2);
-
-//            IEmitterType sourceObject = EmitterLocal.Load(_config.LocalSource);
-//            IEmitterType targetObject = EmitterLocal.LoadAddress(_config.LocalTarget);
 
             IEmitterType sourceMember = LoadMember(member.Source, sourceObject);
             IEmitterType targetMember = LoadMember(member.Target, targetObject);
@@ -145,8 +138,6 @@ namespace TinyMappers.Mappers.Classes.Members
         {
             public IDynamicAssembly Assembly { get; set; }
             public CodeGenerator CodeGenerator { get; set; }
-            public LocalBuilder LocalSource { get; set; }
-            public LocalBuilder LocalTarget { get; set; }
 
             public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
             {
@@ -164,7 +155,7 @@ namespace TinyMappers.Mappers.Classes.Members
             {
                 var nullCheck = new List<object>
                 {
-                    LocalSource, LocalTarget, CodeGenerator, Assembly
+                    CodeGenerator, Assembly
                 };
 
                 if (nullCheck.Any(x => x.IsNull()))

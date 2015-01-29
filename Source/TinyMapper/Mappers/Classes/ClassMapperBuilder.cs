@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
-using TinyMappers.Core;
 using TinyMappers.DataStructures;
 using TinyMappers.Extensions;
 using TinyMappers.Mappers.Caches;
@@ -50,33 +49,25 @@ namespace TinyMappers.Mappers.Classes
             MappingType mappingType = MappingTypeBuilder.Build(typePair);
 
             MethodBuilder methodBuilder = typeBuilder.DefineMethod("MapClass", OverrideProtected, typePair.Target,
-                new[] { typePair.Source, typePair.Target});
+                new[] { typePair.Source, typePair.Target });
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 
-            LocalBuilder localSource = codeGenerator.DeclareLocal(typePair.Source);
-            LocalBuilder localTarget = codeGenerator.DeclareLocal(typePair.Target);
-
             var emitterComposite = new EmitterComposite();
-//            emitterComposite.Add(LoadMethodArgument(localSource, 1))
-//                            .Add(LoadMethodArgument(localTarget, 2));
 
-            MemberEmitterDescription members = EmitMappingMembers(assembly, localSource, localTarget, mappingType.Members, codeGenerator);
+            MemberEmitterDescription members = EmitMappingMembers(assembly, mappingType.Members, codeGenerator);
 
             emitterComposite.Add(members.Emitter);
-            emitterComposite.Add(EmitterReturn.Return(EmitterLocal.Load(localTarget)));
+            emitterComposite.Add(EmitterReturn.Return(EmitterArgument.Load(typePair.Target, 2)));
             emitterComposite.Emit(codeGenerator);
             return members.MapperCache;
         }
 
-        private static MemberEmitterDescription EmitMappingMembers(IDynamicAssembly assembly, LocalBuilder localSource,
-            LocalBuilder localTarget, List<MappingMember> members, CodeGenerator codeGenerator)
+        private static MemberEmitterDescription EmitMappingMembers(IDynamicAssembly assembly, List<MappingMember> members, CodeGenerator codeGenerator)
         {
             MemberMapper memberMapper = MemberMapper.Configure(x =>
             {
                 x.Assembly = assembly;
                 x.CodeGenerator = codeGenerator;
-                x.LocalSource = localSource;
-                x.LocalTarget = localTarget;
             }).Create();
 
             MemberEmitterDescription result = memberMapper.Build(members);
@@ -101,22 +92,6 @@ namespace TinyMappers.Mappers.Classes
             string sourceFullName = pair.Source.FullName;
             string targetFullName = pair.Target.FullName;
             return string.Format("{0}_{1}_{2}_{3}", MapperNamePrefix, sourceFullName, targetFullName, random);
-        }
-
-        /// <summary>
-        ///     Loads the method argument.
-        /// </summary>
-        /// <param name="builder">The builder.</param>
-        /// <param name="argumentIndex">Index of the argument. 0 - This! (start from 1)</param>
-        /// <returns>
-        ///     <see cref="EmitterComposite" />
-        /// </returns>
-        private static EmitterComposite LoadMethodArgument(LocalBuilder builder, int argumentIndex)
-        {
-            var result = new EmitterComposite();
-            result.Add(EmitterLocalVariable.Declare(builder))
-                  .Add(EmitterLocal.Store(builder, EmitterArgument.Load(Types.Object, argumentIndex)));
-            return result;
         }
     }
 }
