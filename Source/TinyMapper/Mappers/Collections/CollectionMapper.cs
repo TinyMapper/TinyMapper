@@ -20,27 +20,28 @@ namespace TinyMappers.Mappers.Collections
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
-            TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), typeof(CollectionMapper));
+            Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
+            TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
             if (IsList(typePair.Target))
             {
-                EmitToList(typeBuilder, typePair);
+                EmitToList(parentType, typeBuilder, typePair);
             }
 
-            var result = (CollectionMapper)Activator.CreateInstance(typeBuilder.CreateType());
+            var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             return result;
         }
 
-        private static void EmitToList(TypeBuilder typeBuilder, TypePair typePair)
+        private static void EmitToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, Types.Object, new[] { Types.IEnumerable });
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
 
             Type targetItemType = GetCollectionItemType(typePair.Target);
 
-            MethodInfo methodTemplate = typeof(CollectionMapper)
+            MethodInfo methodTemplate = parentType
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
                 .MakeGenericMethod(targetItemType);
 
-            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(typeof(CollectionMapper)), EmitterArgument.Load(Types.Object, 1));
+            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.Object, 1));
             EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
@@ -70,24 +71,29 @@ namespace TinyMappers.Mappers.Collections
     }
 
 
-    internal abstract class CollectionMapper : Mapper
+    internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {
-        internal override object MapCore(object source, object target)
+        internal override TTarget MapCore(TSource source, TTarget target)
         {
             return EnumerableToList((IEnumerable)source);
         }
 
-        protected virtual object EnumerableToList(IEnumerable value)
+//        internal override object MapCore(object source, object target)
+//        {
+//            return EnumerableToList((IEnumerable)source);
+//        }
+
+        protected virtual TTarget EnumerableToList(IEnumerable value)
         {
             throw new NotImplementedException();
         }
 
-        protected List<TTarget> EnumerableToListTemplate<TTarget>(IEnumerable source)
+        protected List<TItem> EnumerableToListTemplate<TItem>(IEnumerable source)
         {
-            var result = new List<TTarget>();
+            var result = new List<TItem>();
             foreach (object item in source)
             {
-                result.Add((TTarget)item);
+                result.Add((TItem)item);
             }
             return result;
         }

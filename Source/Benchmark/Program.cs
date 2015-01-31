@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
 using TinyMappers;
@@ -28,7 +29,7 @@ namespace Benchmark
         {
             return new Class1
             {
-                //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
+                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
                 Int1 = 1,
                 Int2 = 2,
                 Int3 = 3,
@@ -42,19 +43,20 @@ namespace Benchmark
             };
         }
 
-        private static Class2 HandmadeMap(Class1 source, Class2 class2)
+        private static Class2 HandmadeMap(Class1 source, Class2 target)
         {
-            class2.Int1 = source.Int1;
-            class2.Int2 = source.Int2;
-            class2.Int3 = source.Int3;
-            class2.Int4 = source.Int4;
-            class2.Int5 = source.Int5;
-            class2.String1 = source.String1;
-            class2.String2 = source.String2;
-            class2.String3 = source.String3;
-            class2.String4 = source.String4;
-            class2.String5 = source.String5;
-            return class2;
+            target.Int1 = source.Int1;
+            target.Int2 = source.Int2;
+            target.Int3 = source.Int3;
+            target.Int4 = source.Int4;
+            target.Int5 = source.Int5;
+            target.String1 = source.String1;
+            target.String2 = source.String2;
+            target.String3 = source.String3;
+            target.String4 = source.String4;
+            target.String5 = source.String5;
+            target.List = new List<int>(source.List);
+            return target;
         }
 
         private static void HandmadeTest()
@@ -128,7 +130,7 @@ namespace Benchmark
         public int Int3;
         public int Int4;
         public int Int5;
-        //        public List<int> List { get; set; }
+        public List<int> List { get; set; }
 
         public string String1 { get; set; }
         public string String2 { get; set; }
@@ -146,7 +148,7 @@ namespace Benchmark
         public int Int4;
         public int Int5;
         public int Int6;
-        //        public List<int> List { get; set; }
+        public List<int> List { get; set; }
 
         public string String1 { get; set; }
         public string String2 { get; set; }
