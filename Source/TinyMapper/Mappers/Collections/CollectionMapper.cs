@@ -52,8 +52,6 @@ namespace TinyMappers.Mappers.Collections
             var result = new List<TTarget>();
             foreach (object item in source)
             {
-                //                var convertItem = (TTarget)ConvertItem(item);
-                //                result.Add(convertItem);
                 result.Add((TTarget)item);
             }
             return result;

@@ -22,20 +22,4 @@ namespace TinyMappers.Mappers
 
         internal abstract object MapCore(object source, object target);
     }
-
-
-    internal abstract class MapperOf<TSource, TTarget> : Mapper
-    {
-        public TTarget Map(TSource source, TTarget target = default(TTarget))
-        {
-            return MapCore(source, target);
-        }
-
-        internal override object MapCore(object source, object target)
-        {
-            return MapCore((TSource)source, (TTarget)target);
-        }
-
-        internal abstract TTarget MapCore(TSource source, TTarget target);
-    }
 }

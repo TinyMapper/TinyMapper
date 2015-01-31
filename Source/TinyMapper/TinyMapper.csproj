@@ -47,6 +47,7 @@
     <Compile Include="Mappers\Collections\CollectionMapper.cs" />
     <Compile Include="Mappers\Caches\MapperCache.cs" />
     <Compile Include="Mappers\Caches\MapperCacheItem.cs" />
+    <Compile Include="Mappers\MapperOf.cs" />
     <Compile Include="Mappers\Types1\MappingType.cs" />
     <Compile Include="Mappers\Types1\MappingTypeBuilder.cs" />
     <Compile Include="Mappers\Types1\Members\ComplexMappingMember.cs" />
