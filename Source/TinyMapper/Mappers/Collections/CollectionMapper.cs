@@ -8,6 +8,7 @@ using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
 using TinyMappers.Core;
 using TinyMappers.DataStructures;
+using TinyMappers.Nelibur.Sword.Extensions;
 using TinyMappers.Reflection;
 
 namespace TinyMappers.Mappers.Collections
@@ -31,6 +32,21 @@ namespace TinyMappers.Mappers.Collections
             return result;
         }
 
+        private static void EmitEnumerableOfToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
+        {
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableOfToList", OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
+
+            Type sourceItemType = GetCollectionItemType(typePair.Source);
+            Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            MethodInfo methodTemplate = parentType
+                .GetMethod("EnumerableOfToListTemplate", InstanceNonPublic)
+                .MakeGenericMethod(sourceItemType, targetItemType);
+
+            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.IEnumerable, 1));
+            EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+        }
+
         private static void EmitToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
@@ -41,7 +57,7 @@ namespace TinyMappers.Mappers.Collections
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
                 .MakeGenericMethod(targetItemType);
 
-            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.Object, 1));
+            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.IEnumerable, 1));
             EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
@@ -68,6 +84,11 @@ namespace TinyMappers.Mappers.Collections
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
         }
+
+        private static bool IsGenericList(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+        }
     }
 
 
@@ -78,22 +99,38 @@ namespace TinyMappers.Mappers.Collections
             return EnumerableToList((IEnumerable)source);
         }
 
-//        internal override object MapCore(object source, object target)
-//        {
-//            return EnumerableToList((IEnumerable)source);
-//        }
+        protected virtual TTargetItem ConvertItem<TSourceItem, TTargetItem>(TSourceItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual TTarget EnumerableOfToList<TSourceItem>(IEnumerable<TSourceItem> value)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected List<TTargetItem> EnumerableOfToListTemplate<TSourceItem, TTargetItem>(IEnumerable<TSourceItem> source)
+        {
+            return source.Select(ConvertItem<TSourceItem, TTargetItem>).ToList();
+            //            var result = new List<TTargetItem>();
+            //            foreach (TSourceItem item in source)
+            //            {
+            //                result.Add(ConvertItem<TSourceItem, TTargetItem>(item));
+            //            }
+            //            return result;
+        }
 
         protected virtual TTarget EnumerableToList(IEnumerable value)
         {
             throw new NotImplementedException();
         }
 
-        protected List<TItem> EnumerableToListTemplate<TItem>(IEnumerable source)
+        protected List<TTargetItem> EnumerableToListTemplate<TTargetItem>(IEnumerable source)
         {
-            var result = new List<TItem>();
+            var result = new List<TTargetItem>();
             foreach (object item in source)
             {
-                result.Add((TItem)item);
+                result.Add((TTargetItem)item);
             }
             return result;
         }
