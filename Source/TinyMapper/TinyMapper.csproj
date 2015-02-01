@@ -79,8 +79,6 @@
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Nelibur.Sword\Core\Error.cs" />
     <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
-    <Compile Include="TypeConverters\CollectionTypeConverter.cs" />
-    <Compile Include="TypeConverters\ITypeConverter.cs" />
     <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Nelibur.Sword\Extensions\ObjectExtensions.cs" />

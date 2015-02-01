@@ -16,9 +16,9 @@ namespace UnitTests
             {
                 //                                Field = 10,
                 //                Property = 4
-                List = new List<int> { 1 }
+                List = new List<int> { 1, 2 }
             };
-            var target = TinyMapper.Map<Class1, Class2>(source);
+            var target = TinyMapper.Map<Class2>(source);
             //            CallDynamicMethod();
         }
 

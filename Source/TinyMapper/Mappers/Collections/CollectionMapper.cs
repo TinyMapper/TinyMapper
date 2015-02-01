@@ -10,6 +10,7 @@ using TinyMappers.Core;
 using TinyMappers.DataStructures;
 using TinyMappers.Extensions;
 using TinyMappers.Reflection;
+using TinyMappers.TypeConverters;
 
 namespace TinyMappers.Mappers.Collections
 {
@@ -21,22 +22,24 @@ namespace TinyMappers.Mappers.Collections
         private const string EnumerableOfToListMethod = "EnumerableOfToList";
         private const string EnumerableOfToListTemplateMethod = "EnumerableOfToListTemplate";
         private const string MapCoreMethod = "MapCore";
+        private const string ConvertItemMethod = "ConvertItem";
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
-            MethodBuilder mapCoreBuilder = EmitMapCore(typeBuilder, typePair);
-            IEmitterType mapCoreBody;
+//            MethodBuilder mapCoreBuilder = EmitMapCore(typeBuilder, typePair);
+//            IEmitterType mapCoreBody;
             if (IsIEnumerableOfToList(typePair))
             {
-                mapCoreBody = EmitEnumerableOfToList(parentType, typeBuilder, typePair);
+                EmitToList(parentType, typeBuilder, typePair);
+                //                mapCoreBody = EmitEnumerableOfToList(parentType, typeBuilder, typePair);
             }
-            else
-            {
-                mapCoreBody = EmitNull.Load();
-            }
-            EmitReturn.Return(mapCoreBody).Emit(new CodeGenerator(mapCoreBuilder.GetILGenerator()));
+//            else
+//            {
+//                mapCoreBody = EmitNull.Load();
+//            }
+//            EmitReturn.Return(mapCoreBody).Emit(new CodeGenerator(mapCoreBuilder.GetILGenerator()));
 
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             return result;
@@ -46,6 +49,8 @@ namespace TinyMappers.Mappers.Collections
         {
             Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
 
             MethodBuilder methodBuilder = DefineEnumerableOfToList(typeBuilder, typePair);
 
@@ -60,6 +65,24 @@ namespace TinyMappers.Mappers.Collections
 
             var result = EmitMethod.Call(method, EmitThis.Load(parentType), EmitArgument.Load(sourceType, 1));
             return result;
+        }
+
+        private static void EmitConvertItem(TypeBuilder typeBuilder, TypePair typePair)
+        {
+            var methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
+
+            IEmitterType converter;
+
+            if (PrimitiveTypeConverter.IsSupported(typePair))
+            {
+                MethodInfo converterMethod = PrimitiveTypeConverter.GetConverter(typePair);
+                converter = EmitMethod.Call(converterMethod, null, EmitArgument.Load(typePair.Source, 1));
+            }
+            else
+            {
+                converter = EmitNull.Load();
+            }
+            EmitReturn.Return(converter).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
         private static MethodBuilder DefineEnumerableOfToList(TypeBuilder typeBuilder, TypePair typePair)
@@ -83,7 +106,11 @@ namespace TinyMappers.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableToList", OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
 
+            Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
+
 
             MethodInfo methodTemplate = parentType
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
@@ -134,13 +161,12 @@ namespace TinyMappers.Mappers.Collections
     {
         protected override TTarget MapCore(TSource source, TTarget target)
         {
-            throw new NotImplementedException();
+            return EnumerableToList((IEnumerable)source);
         }
 
-        protected virtual TTargetItem ConvertItem<TSourceItem, TTargetItem>(TSourceItem item)
+        protected virtual object ConvertItem(object item)
         {
-            return (TTargetItem)((object)item);
-            //            throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected virtual TTarget EnumerableOfToList<TSourceItem>(IEnumerable<TSourceItem> value)
@@ -153,7 +179,7 @@ namespace TinyMappers.Mappers.Collections
             var result = new List<TTargetItem>();
             foreach (TSourceItem item in source)
             {
-                result.Add(ConvertItem<TSourceItem, TTargetItem>(item));
+                result.Add((TTargetItem)ConvertItem(item));
             }
             return result;
         }
@@ -168,7 +194,7 @@ namespace TinyMappers.Mappers.Collections
             var result = new List<TTargetItem>();
             foreach (object item in source)
             {
-                result.Add((TTargetItem)item);
+                result.Add((TTargetItem)ConvertItem(item));
             }
             return result;
         }
