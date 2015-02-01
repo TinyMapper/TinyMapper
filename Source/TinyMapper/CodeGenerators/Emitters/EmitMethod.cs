@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal static class EmitterMethod
+    internal static class EmitMethod
     {
         public static IEmitterType Call(MethodInfo method, IEmitterType invocationObject, params IEmitterType[] arguments)
         {

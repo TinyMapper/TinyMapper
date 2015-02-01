@@ -8,7 +8,6 @@ using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
 using TinyMappers.Core;
 using TinyMappers.DataStructures;
-using TinyMappers.Nelibur.Sword.Extensions;
 using TinyMappers.Reflection;
 
 namespace TinyMappers.Mappers.Collections
@@ -23,9 +22,13 @@ namespace TinyMappers.Mappers.Collections
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
-            if (IsList(typePair.Target))
+            var mapCoreBuilder = EmitMapCore(typeBuilder, typePair);
+            if (IsIEnumerableOfToList(typePair))
             {
-                EmitToList(parentType, typeBuilder, typePair);
+                EmitEnumerableOfToList(parentType, typeBuilder, typePair);
+            }
+            else
+            {
             }
 
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
@@ -34,17 +37,25 @@ namespace TinyMappers.Mappers.Collections
 
         private static void EmitEnumerableOfToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableOfToList", OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
-
             Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            Type sourceType = Types.IEnumerableOf.MakeGenericType(sourceItemType);
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableOfToList", OverrideProtected, typePair.Target, new[] { sourceType });
 
             MethodInfo methodTemplate = parentType
                 .GetMethod("EnumerableOfToListTemplate", InstanceNonPublic)
                 .MakeGenericMethod(sourceItemType, targetItemType);
 
-            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.IEnumerable, 1));
-            EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
+            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+        }
+
+        private static MethodBuilder EmitMapCore(TypeBuilder typeBuilder, TypePair typePair)
+        {
+            var methodArgs = new[] { typePair.Source, typePair.Target };
+            var methodBuilder = typeBuilder.DefineMethod("MapCore", OverrideProtected, typePair.Target, methodArgs);
+            return methodBuilder;
         }
 
         private static void EmitToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
@@ -57,8 +68,8 @@ namespace TinyMappers.Mappers.Collections
                 .GetMethod("EnumerableToListTemplate", InstanceNonPublic)
                 .MakeGenericMethod(targetItemType);
 
-            IEmitterType returnValue = EmitterMethod.Call(methodTemplate, EmitterThis.Load(parentType), EmitterArgument.Load(Types.IEnumerable, 1));
-            EmitterReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
+            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
         private static Type GetCollectionItemType(Type type)
@@ -80,12 +91,18 @@ namespace TinyMappers.Mappers.Collections
             return string.Format("{0}_{1}", MapperNamePrefix, random);
         }
 
-        private static bool IsList(Type type)
+        private static bool IsIEnumerableOf(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+            return type.GetInterfaces()
+                       .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == Types.IEnumerableOf);
         }
 
-        private static bool IsGenericList(Type type)
+        private static bool IsIEnumerableOfToList(TypePair typePair)
+        {
+            return IsList(typePair.Target) && IsIEnumerableOf(typePair.Source);
+        }
+
+        private static bool IsList(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
         }
@@ -96,12 +113,14 @@ namespace TinyMappers.Mappers.Collections
     {
         internal override TTarget MapCore(TSource source, TTarget target)
         {
-            return EnumerableToList((IEnumerable)source);
+            throw new NotImplementedException();
+            //            return EnumerableToList((IEnumerable)source);
         }
 
         protected virtual TTargetItem ConvertItem<TSourceItem, TTargetItem>(TSourceItem item)
         {
-            throw new NotImplementedException();
+            return (TTargetItem)((object)item);
+            //            throw new NotImplementedException();
         }
 
         protected virtual TTarget EnumerableOfToList<TSourceItem>(IEnumerable<TSourceItem> value)
@@ -111,13 +130,12 @@ namespace TinyMappers.Mappers.Collections
 
         protected List<TTargetItem> EnumerableOfToListTemplate<TSourceItem, TTargetItem>(IEnumerable<TSourceItem> source)
         {
-            return source.Select(ConvertItem<TSourceItem, TTargetItem>).ToList();
-            //            var result = new List<TTargetItem>();
-            //            foreach (TSourceItem item in source)
-            //            {
-            //                result.Add(ConvertItem<TSourceItem, TTargetItem>(item));
-            //            }
-            //            return result;
+            var result = new List<TTargetItem>();
+            foreach (TSourceItem item in source)
+            {
+                result.Add(ConvertItem<TSourceItem, TTargetItem>(item));
+            }
+            return result;
         }
 
         protected virtual TTarget EnumerableToList(IEnumerable value)

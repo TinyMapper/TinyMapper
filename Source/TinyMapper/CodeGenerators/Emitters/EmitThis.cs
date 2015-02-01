@@ -2,11 +2,11 @@
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal static class EmitterThis
+    internal static class EmitThis
     {
         public static IEmitterType Load(Type thisType)
         {
-            return EmitterArgument.Load(thisType, 0);
+            return EmitArgument.Load(thisType, 0);
         }
     }
 }

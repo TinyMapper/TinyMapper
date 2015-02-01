@@ -4,26 +4,26 @@ using System.Reflection.Emit;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal static class EmitterField
+    internal static class EmitField
     {
         public static IEmitterType Load(IEmitterType source, FieldInfo field)
         {
-            var result = new EmitterLoadField(source, field);
+            var result = new EmitLoadField(source, field);
             return result;
         }
 
         public static IEmitterType Store(FieldInfo field, IEmitterType targetObject, IEmitterType value)
         {
-            return new EmitterStoreField(field, targetObject, value);
+            return new EmitStoreField(field, targetObject, value);
         }
 
 
-        private sealed class EmitterLoadField : IEmitterType
+        private sealed class EmitLoadField : IEmitterType
         {
             private readonly FieldInfo _field;
             private readonly IEmitterType _source;
 
-            public EmitterLoadField(IEmitterType source, FieldInfo field)
+            public EmitLoadField(IEmitterType source, FieldInfo field)
             {
                 _source = source;
                 _field = field;
@@ -40,13 +40,13 @@ namespace TinyMappers.CodeGenerators.Emitters
         }
 
 
-        private sealed class EmitterStoreField : IEmitterType
+        private sealed class EmitStoreField : IEmitterType
         {
             private readonly FieldInfo _field;
             private readonly IEmitterType _targetObject;
             private readonly IEmitterType _value;
 
-            public EmitterStoreField(FieldInfo field, IEmitterType targetObject, IEmitterType value)
+            public EmitStoreField(FieldInfo field, IEmitterType targetObject, IEmitterType value)
             {
                 _field = field;
                 _targetObject = targetObject;

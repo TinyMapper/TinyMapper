@@ -3,20 +3,20 @@ using System.Reflection.Emit;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal static class EmitterArgument
+    internal static class EmitArgument
     {
         public static IEmitterType Load(Type type, int index)
         {
-            var result = new EmitterLoadArgument(type, index);
+            var result = new EmitLoadArgument(type, index);
             return result;
         }
 
 
-        private sealed class EmitterLoadArgument : IEmitterType
+        private sealed class EmitLoadArgument : IEmitterType
         {
             private readonly int _index;
 
-            public EmitterLoadArgument(Type type, int index)
+            public EmitLoadArgument(Type type, int index)
             {
                 ObjectType = type;
                 _index = index;

@@ -3,11 +3,11 @@ using System.Reflection.Emit;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal sealed class EmitterBox : IEmitterType
+    internal sealed class EmitBox : IEmitterType
     {
         private readonly IEmitterType _value;
 
-        private EmitterBox(IEmitterType value)
+        private EmitBox(IEmitterType value)
         {
             _value = value;
             ObjectType = value.ObjectType;
@@ -17,7 +17,7 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public static IEmitterType Box(IEmitterType value)
         {
-            return new EmitterBox(value);
+            return new EmitBox(value);
         }
 
         public void Emit(CodeGenerator generator)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
 using TinyMappers;
 using Xunit;
@@ -12,9 +11,6 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            var r = typeof(List<int>).GetInterfaces().Any(x =>x.IsGenericType && x.GetGenericTypeDefinition() == typeof(List<>));
-
-
             TinyMapper.Bind<Class1, Class2>();
             var source = new Class1
             {

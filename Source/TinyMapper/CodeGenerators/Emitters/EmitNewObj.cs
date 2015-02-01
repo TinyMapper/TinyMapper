@@ -4,9 +4,9 @@ using TinyMappers.Extensions;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal sealed class EmitterNewObj : IEmitterType
+    internal sealed class EmitNewObj : IEmitterType
     {
-        private EmitterNewObj(Type objectType)
+        private EmitNewObj(Type objectType)
         {
             ObjectType = objectType;
         }
@@ -15,7 +15,7 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public static IEmitterType NewObj(Type objectType)
         {
-            return new EmitterNewObj(objectType);
+            return new EmitNewObj(objectType);
         }
 
         public void Emit(CodeGenerator generator)

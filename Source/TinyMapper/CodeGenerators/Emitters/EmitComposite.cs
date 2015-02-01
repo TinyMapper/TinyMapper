@@ -3,11 +3,11 @@ using TinyMappers.Nelibur.Sword.Extensions;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal sealed class EmitterComposite : IEmitter
+    internal sealed class EmitComposite : IEmitter
     {
         private readonly List<IEmitter> _nodes = new List<IEmitter>();
 
-        public EmitterComposite Add(IEmitter node)
+        public EmitComposite Add(IEmitter node)
         {
             if (node.IsNotNull())
             {

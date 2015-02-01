@@ -3,9 +3,9 @@ using System.Reflection.Emit;
 
 namespace TinyMappers.CodeGenerators.Emitters
 {
-    internal sealed class EmitterNull : IEmitterType
+    internal sealed class EmitNull : IEmitterType
     {
-        private EmitterNull()
+        private EmitNull()
         {
             ObjectType = typeof(object);
         }
@@ -14,7 +14,7 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public static IEmitterType Load()
         {
-            return new EmitterNull();
+            return new EmitNull();
         }
 
         public void Emit(CodeGenerator generator)

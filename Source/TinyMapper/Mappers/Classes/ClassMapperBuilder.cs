@@ -41,7 +41,7 @@ namespace TinyMappers.Mappers.Classes
 
             IEmitterType result = targetType.IsValueType ? EmitValueType(targetType, codeGenerator) : EmitRefType(targetType);
 
-            EmitterReturn.Return(result, targetType).Emit(codeGenerator);
+            EmitReturn.Return(result, targetType).Emit(codeGenerator);
         }
 
         private static Option<MapperCache> EmitMapClass(IDynamicAssembly assembly, TypePair typePair, TypeBuilder typeBuilder)
@@ -52,12 +52,12 @@ namespace TinyMappers.Mappers.Classes
                 new[] { typePair.Source, typePair.Target });
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 
-            var emitterComposite = new EmitterComposite();
+            var emitterComposite = new EmitComposite();
 
             MemberEmitterDescription members = EmitMappingMembers(assembly, mappingType.Members, codeGenerator);
 
             emitterComposite.Add(members.Emitter);
-            emitterComposite.Add(EmitterReturn.Return(EmitterArgument.Load(typePair.Target, 2)));
+            emitterComposite.Add(EmitReturn.Return(EmitArgument.Load(typePair.Target, 2)));
             emitterComposite.Emit(codeGenerator);
             return members.MapperCache;
         }
@@ -76,14 +76,14 @@ namespace TinyMappers.Mappers.Classes
 
         private static IEmitterType EmitRefType(Type type)
         {
-            return type.HasDefaultCtor() ? EmitterNewObj.NewObj(type) : EmitterNull.Load();
+            return type.HasDefaultCtor() ? EmitNewObj.NewObj(type) : EmitNull.Load();
         }
 
         private static IEmitterType EmitValueType(Type type, CodeGenerator codeGenerator)
         {
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
-            EmitterLocalVariable.Declare(builder).Emit(codeGenerator);
-            return EmitterBox.Box(EmitterLocal.Load(builder));
+            EmitLocalVariable.Declare(builder).Emit(codeGenerator);
+            return EmitBox.Box(EmitLocal.Load(builder));
         }
 
         private static string GetMapperName(TypePair pair)
