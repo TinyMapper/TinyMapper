@@ -15,11 +15,6 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public Type ObjectType { get; private set; }
 
-        public static IEmitterType Box(IEmitterType value)
-        {
-            return new EmitBox(value);
-        }
-
         public void Emit(CodeGenerator generator)
         {
             _value.Emit(generator);
@@ -28,6 +23,11 @@ namespace TinyMappers.CodeGenerators.Emitters
             {
                 generator.Emit(OpCodes.Box, ObjectType);
             }
+        }
+
+        public static IEmitterType Box(IEmitterType value)
+        {
+            return new EmitBox(value);
         }
     }
 }

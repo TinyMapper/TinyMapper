@@ -13,7 +13,6 @@ namespace TinyMappers.Mappers.Types1
         }
 
         public List<MappingMember> Members { get; private set; }
-
         public TypePair TypePair { get; private set; }
     }
 }

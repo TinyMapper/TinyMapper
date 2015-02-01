@@ -97,10 +97,10 @@ namespace Benchmark
                 TinyMapperTest();
             }
             Console.WriteLine();
-//            for (int i = 0; i < Repeat; i++)
-//            {
-//                AutoMapperTest();
-//            }
+            //            for (int i = 0; i < Repeat; i++)
+            //            {
+            //                AutoMapperTest();
+            //            }
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
@@ -131,7 +131,6 @@ namespace Benchmark
         public int Int4;
         public int Int5;
         public List<int> List { get; set; }
-
         public string String1 { get; set; }
         public string String2 { get; set; }
         public string String3 { get; set; }
@@ -149,7 +148,6 @@ namespace Benchmark
         public int Int5;
         public int Int6;
         public List<int> List { get; set; }
-
         public string String1 { get; set; }
         public string String2 { get; set; }
         public string String3 { get; set; }

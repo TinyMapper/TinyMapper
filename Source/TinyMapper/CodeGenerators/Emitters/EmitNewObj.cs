@@ -13,15 +13,15 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public Type ObjectType { get; private set; }
 
-        public static IEmitterType NewObj(Type objectType)
-        {
-            return new EmitNewObj(objectType);
-        }
-
         public void Emit(CodeGenerator generator)
         {
             ConstructorInfo ctor = ObjectType.GetDefaultCtor();
             generator.EmitNewObject(ctor);
+        }
+
+        public static IEmitterType NewObj(Type objectType)
+        {
+            return new EmitNewObj(objectType);
         }
     }
 }

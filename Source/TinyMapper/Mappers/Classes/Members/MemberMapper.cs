@@ -19,7 +19,6 @@ namespace TinyMappers.Mappers.Classes.Members
     internal sealed class MemberMapper
     {
         private readonly IMemberMapperConfig _config;
-
         private readonly MapperCache _mappers = new MapperCache();
 
         private MemberMapper(IMemberMapperConfig config)
@@ -140,16 +139,16 @@ namespace TinyMappers.Mappers.Classes.Members
             public IDynamicAssembly Assembly { get; set; }
             public CodeGenerator CodeGenerator { get; set; }
 
-            public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
-            {
-                action(this);
-                return this;
-            }
-
             public MemberMapper Create()
             {
                 Validate();
                 return new MemberMapper(this);
+            }
+
+            public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
+            {
+                action(this);
+                return this;
             }
 
             private void Validate()
