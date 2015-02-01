@@ -18,6 +18,6 @@ namespace TinyMappers.Mappers
             return MapCore(source, target);
         }
 
-        internal abstract object MapCore(object source, object target);
+        protected abstract object MapCore(object source, object target);
     }
 }

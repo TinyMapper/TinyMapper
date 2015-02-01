@@ -97,10 +97,10 @@ namespace Benchmark
                 TinyMapperTest();
             }
             Console.WriteLine();
-            for (int i = 0; i < Repeat; i++)
-            {
-                AutoMapperTest();
-            }
+//            for (int i = 0; i < Repeat; i++)
+//            {
+//                AutoMapperTest();
+//            }
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();

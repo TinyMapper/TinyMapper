@@ -20,16 +20,11 @@ namespace TinyMappers
             _assembly.Save();
         }
 
-        public static TTarget Map<TSource, TTarget>(TSource source, TTarget target)
+        public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
         {
             if (source.IsNull())
             {
                 throw Error.ArgumentNull("source");
-            }
-
-            if (target.IsNull())
-            {
-                throw Error.ArgumentNull("target");
             }
 
             TypePair typePair = TypePair.Create<TSource, TTarget>();

@@ -12,7 +12,7 @@ namespace TestAssembly
             _b.Id = _a.Id;
         }
 
-        internal override object MapCore(object source, object target)
+        protected override object MapCore(object source, object target)
         {
             return null;
         }

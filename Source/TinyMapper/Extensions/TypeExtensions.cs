@@ -19,5 +19,11 @@ namespace TinyMappers.Extensions
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+
+        public static MethodInfo GetGenericMethod(this Type type, string methodName, params Type[] arguments)
+        {
+            return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)
+                       .MakeGenericMethod(arguments);
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace TinyMappers.Mappers.Classes
 {
     internal abstract class ClassMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {
-        internal override TTarget MapCore(TSource source, TTarget target)
+        protected override TTarget MapCore(TSource source, TTarget target)
         {
             if (target.IsNull())
             {

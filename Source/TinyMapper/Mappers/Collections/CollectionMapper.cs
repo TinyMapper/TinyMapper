@@ -8,6 +8,7 @@ using TinyMappers.CodeGenerators;
 using TinyMappers.CodeGenerators.Emitters;
 using TinyMappers.Core;
 using TinyMappers.DataStructures;
+using TinyMappers.Extensions;
 using TinyMappers.Reflection;
 
 namespace TinyMappers.Mappers.Collections
@@ -17,44 +18,64 @@ namespace TinyMappers.Mappers.Collections
         private const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
         private const string MapperNamePrefix = "TinyCollection";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
+        private const string EnumerableOfToListMethod = "EnumerableOfToList";
+        private const string EnumerableOfToListTemplateMethod = "EnumerableOfToListTemplate";
+        private const string MapCoreMethod = "MapCore";
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
-            var mapCoreBuilder = EmitMapCore(typeBuilder, typePair);
+            MethodBuilder mapCoreBuilder = EmitMapCore(typeBuilder, typePair);
+            IEmitterType mapCoreBody;
             if (IsIEnumerableOfToList(typePair))
             {
-                EmitEnumerableOfToList(parentType, typeBuilder, typePair);
+                mapCoreBody = EmitEnumerableOfToList(parentType, typeBuilder, typePair);
             }
             else
             {
+                mapCoreBody = EmitNull.Load();
             }
+            EmitReturn.Return(mapCoreBody).Emit(new CodeGenerator(mapCoreBuilder.GetILGenerator()));
 
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             return result;
         }
 
-        private static void EmitEnumerableOfToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
+        private static IEmitterType EmitEnumerableOfToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
             Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
 
-            Type sourceType = Types.IEnumerableOf.MakeGenericType(sourceItemType);
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod("EnumerableOfToList", OverrideProtected, typePair.Target, new[] { sourceType });
+            MethodBuilder methodBuilder = DefineEnumerableOfToList(typeBuilder, typePair);
 
-            MethodInfo methodTemplate = parentType
-                .GetMethod("EnumerableOfToListTemplate", InstanceNonPublic)
-                .MakeGenericMethod(sourceItemType, targetItemType);
+            Type sourceType = Types.IEnumerableOf.MakeGenericType(sourceItemType);
+
+            MethodInfo methodTemplate = parentType.GetGenericMethod(EnumerableOfToListTemplateMethod, sourceItemType, targetItemType);
 
             IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
             EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+
+            MethodInfo method = parentType.GetGenericMethod(EnumerableOfToListMethod, sourceItemType);
+
+            var result = EmitMethod.Call(method, EmitThis.Load(parentType), EmitArgument.Load(sourceType, 1));
+            return result;
+        }
+
+        private static MethodBuilder DefineEnumerableOfToList(TypeBuilder typeBuilder, TypePair typePair)
+        {
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(EnumerableOfToListMethod, OverrideProtected);
+            GenericTypeParameterBuilder sourceItem = methodBuilder.DefineGenericParameters("TSourceItem")[0];
+            Type sourceType = Types.IEnumerableOf.MakeGenericType(sourceItem);
+            methodBuilder.SetParameters(sourceType);
+            methodBuilder.SetReturnType(typePair.Target);
+            return methodBuilder;
         }
 
         private static MethodBuilder EmitMapCore(TypeBuilder typeBuilder, TypePair typePair)
         {
             var methodArgs = new[] { typePair.Source, typePair.Target };
-            var methodBuilder = typeBuilder.DefineMethod("MapCore", OverrideProtected, typePair.Target, methodArgs);
+            var methodBuilder = typeBuilder.DefineMethod(MapCoreMethod, OverrideProtected, typePair.Target, methodArgs);
             return methodBuilder;
         }
 
@@ -111,10 +132,9 @@ namespace TinyMappers.Mappers.Collections
 
     internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {
-        internal override TTarget MapCore(TSource source, TTarget target)
+        protected override TTarget MapCore(TSource source, TTarget target)
         {
             throw new NotImplementedException();
-            //            return EnumerableToList((IEnumerable)source);
         }
 
         protected virtual TTargetItem ConvertItem<TSourceItem, TTargetItem>(TSourceItem item)
