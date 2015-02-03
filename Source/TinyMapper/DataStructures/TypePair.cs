@@ -48,11 +48,6 @@ namespace TinyMappers.DataStructures
             get { return Source.IsValueType && Target.IsValueType; }
         }
 
-        public bool Equals(TypePair other)
-        {
-            return Source == other.Source && Target == other.Target;
-        }
-
         public static TypePair Create(Type source, Type target)
         {
             return new TypePair(source, target);
@@ -78,6 +73,11 @@ namespace TinyMappers.DataStructures
             {
                 return ((Source != null ? Source.GetHashCode() : 0) * 397) ^ (Target != null ? Target.GetHashCode() : 0);
             }
+        }
+
+        public bool Equals(TypePair other)
+        {
+            return Source == other.Source && Target == other.Target;
         }
     }
 }

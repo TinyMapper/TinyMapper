@@ -4,6 +4,22 @@ namespace UnitTests.TypeConverters
 {
     public sealed class PrimitiveTypeConverterTests
     {
+        private enum Enum1
+        {
+            Item1,
+            Item2,
+            Item3
+        }
+
+
+        private enum Enum2
+        {
+            Item1,
+            Item2,
+            Item3
+        }
+
+
         [Fact]
         public void Map_EnumToEnum_Success()
         {
@@ -32,22 +48,6 @@ namespace UnitTests.TypeConverters
         {
             //            int value = PrimitiveTypeConverter.Convert<string, int>("2");
             //            Assert.Equal(2, value);
-        }
-
-
-        private enum Enum1
-        {
-            Item1,
-            Item2,
-            Item3
-        }
-
-
-        private enum Enum2
-        {
-            Item1,
-            Item2,
-            Item3
         }
 
 

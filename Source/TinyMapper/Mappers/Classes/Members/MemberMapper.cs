@@ -139,16 +139,16 @@ namespace TinyMappers.Mappers.Classes.Members
             public IDynamicAssembly Assembly { get; set; }
             public CodeGenerator CodeGenerator { get; set; }
 
-            public MemberMapper Create()
-            {
-                Validate();
-                return new MemberMapper(this);
-            }
-
             public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
             {
                 action(this);
                 return this;
+            }
+
+            public MemberMapper Create()
+            {
+                Validate();
+                return new MemberMapper(this);
             }
 
             private void Validate()

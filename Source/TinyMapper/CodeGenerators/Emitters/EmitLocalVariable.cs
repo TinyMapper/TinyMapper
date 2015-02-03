@@ -17,16 +17,16 @@ namespace TinyMappers.CodeGenerators.Emitters
 
         public Type ObjectType { get; private set; }
 
+        public static IEmitterType Declare(LocalBuilder localBuilder)
+        {
+            return new EmitLocalVariable(localBuilder);
+        }
+
         public void Emit(CodeGenerator generator)
         {
             _localBuilder.Where(x => x.LocalType.IsValueType)
                          .Do(x => generator.Emit(OpCodes.Ldloca, x.LocalIndex))
                          .Do(x => generator.Emit(OpCodes.Initobj, x.LocalType));
-        }
-
-        public static IEmitterType Declare(LocalBuilder localBuilder)
-        {
-            return new EmitLocalVariable(localBuilder);
         }
     }
 }
