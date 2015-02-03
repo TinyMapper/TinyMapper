@@ -16,11 +16,11 @@ namespace TinyMappers.Mappers.Collections
 {
     internal sealed class CollectionMapperBuilder
     {
-        private const string MapperNamePrefix = "TinyCollection";
-        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
         private const string ConvertItemMethod = "ConvertItem";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
+        private const string MapperNamePrefix = "TinyCollection";
+        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
         public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
@@ -36,14 +36,14 @@ namespace TinyMappers.Mappers.Collections
 
         private static void EmitConvertItem(TypeBuilder typeBuilder, TypePair typePair)
         {
-            var methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
 
             IEmitterType converter;
 
             if (PrimitiveTypeConverter.IsSupported(typePair))
             {
                 MethodInfo converterMethod = PrimitiveTypeConverter.GetConverter(typePair);
-                converter = EmitMethod.Call(converterMethod, null, EmitArgument.Load(typePair.Source, 1));
+                converter = EmitMethod.CallStatic(converterMethod, EmitArgument.Load(typePair.Source, 1));
             }
             else
             {
@@ -106,11 +106,6 @@ namespace TinyMappers.Mappers.Collections
 
     internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {
-        protected override TTarget MapCore(TSource source, TTarget target)
-        {
-            return EnumerableToList((IEnumerable)source);
-        }
-
         protected virtual object ConvertItem(object item)
         {
             throw new NotImplementedException();
@@ -129,6 +124,11 @@ namespace TinyMappers.Mappers.Collections
                 result.Add((TTargetItem)ConvertItem(item));
             }
             return result;
+        }
+
+        protected override TTarget MapCore(TSource source, TTarget target)
+        {
+            return EnumerableToList((IEnumerable)source);
         }
     }
 }

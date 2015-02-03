@@ -110,7 +110,7 @@ namespace TinyMappers.Mappers.Classes.Members
                 return memberValue;
             }
             MethodInfo converter = PrimitiveTypeConverter.GetConverter(typePair);
-            IEmitterType result = EmitMethod.Call(converter, null, memberValue);
+            IEmitterType result = EmitMethod.CallStatic(converter, memberValue);
             return result;
         }
 

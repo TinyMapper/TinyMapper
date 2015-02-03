@@ -22,10 +22,6 @@ namespace UnitTests
             //            CallDynamicMethod();
         }
 
-        private void Test1(IEnumerable<int> t)
-        {
-        }
-
         private static void CallDynamicMethod()
         {
             var multiplyMethod = new DynamicMethod("MultiplyMethod", typeof(int), new[] { typeof(int) },
@@ -53,6 +49,10 @@ namespace UnitTests
             int result = calcMethodDelegate(10, 10);
 
             Console.WriteLine(result);
+        }
+
+        private void Test1(IEnumerable<int> t)
+        {
         }
 
 

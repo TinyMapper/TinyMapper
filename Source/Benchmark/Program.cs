@@ -29,7 +29,7 @@ namespace Benchmark
         {
             return new Class1
             {
-                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
+//                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
                 Int1 = 1,
                 Int2 = 2,
                 Int3 = 3,
@@ -55,7 +55,7 @@ namespace Benchmark
             target.String3 = source.String3;
             target.String4 = source.String4;
             target.String5 = source.String5;
-            target.List = new List<int>(source.List);
+//            target.List = new List<int>(source.List);
             return target;
         }
 
@@ -130,7 +130,7 @@ namespace Benchmark
         public int Int3;
         public int Int4;
         public int Int5;
-        public List<int> List { get; set; }
+//        public List<int> List { get; set; }
         public string String1 { get; set; }
         public string String2 { get; set; }
         public string String3 { get; set; }
@@ -147,7 +147,7 @@ namespace Benchmark
         public int Int4;
         public int Int5;
         public int Int6;
-        public List<int> List { get; set; }
+//        public List<int> List { get; set; }
         public string String1 { get; set; }
         public string String2 { get; set; }
         public string String3 { get; set; }

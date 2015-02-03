@@ -10,6 +10,11 @@ namespace TinyMappers.CodeGenerators.Emitters
             return new EmitterCallMethod(method, invocationObject, arguments);
         }
 
+        public static IEmitterType CallStatic(MethodInfo method, params IEmitterType[] arguments)
+        {
+            return new EmitterCallMethod(method, null, arguments);
+        }
+
 
         private sealed class EmitterCallMethod : IEmitterType
         {
