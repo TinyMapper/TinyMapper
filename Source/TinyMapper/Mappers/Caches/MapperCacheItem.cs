@@ -1,4 +1,4 @@
-﻿namespace TinyMappers.Mappers.Caches
+﻿namespace Nelibur.Mapper.Mappers.Caches
 {
     internal sealed class MapperCacheItem
     {

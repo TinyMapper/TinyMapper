@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using TinyMappers.DataStructures;
-using TinyMappers.Extensions;
+using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Core.Extensions;
 
-namespace TinyMappers.Mappers.Types1.Members
+namespace Nelibur.Mapper.Mappers.Types1.Members
 {
     internal abstract class MappingMember
     {

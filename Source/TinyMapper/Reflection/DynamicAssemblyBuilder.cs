@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMappers.Mappers;
+using Nelibur.Mapper.Mappers;
 
-namespace TinyMappers.Reflection
+namespace Nelibur.Mapper.Reflection
 {
     internal class DynamicAssemblyBuilder
     {

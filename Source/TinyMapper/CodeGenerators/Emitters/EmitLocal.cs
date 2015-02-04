@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 
-namespace TinyMappers.CodeGenerators.Emitters
+namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal static class EmitLocal
     {

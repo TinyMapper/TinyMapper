@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using TinyMappers.Extensions;
+using Nelibur.Mapper.Core.Extensions;
 
-namespace TinyMappers.CodeGenerators.Emitters
+namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal sealed class EmitNewObj : IEmitterType
     {

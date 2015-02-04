@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace TinyMappers.Nelibur.Sword.Core
+namespace Nelibur.Mapper.Core
 {
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.

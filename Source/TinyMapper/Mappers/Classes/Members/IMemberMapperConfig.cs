@@ -1,7 +1,7 @@
-using TinyMappers.CodeGenerators;
-using TinyMappers.Reflection;
+using Nelibur.Mapper.CodeGenerators;
+using Nelibur.Mapper.Reflection;
 
-namespace TinyMappers.Mappers.Classes.Members
+namespace Nelibur.Mapper.Mappers.Classes.Members
 {
     internal interface IMemberMapperConfig
     {

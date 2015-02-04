@@ -1,4 +1,4 @@
-﻿namespace TinyMappers.Mappers
+﻿namespace Nelibur.Mapper.Mappers
 {
     internal abstract class MapperOf<TSource, TTarget> : Mapper
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{C7EBD676-248B-484A-A5CB-DF879670652A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TinyMappers</RootNamespace>
+    <RootNamespace>Nelibur.Mapper</RootNamespace>
     <AssemblyName>TinyMapper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,7 +40,7 @@
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
     <Compile Include="Core\Types.cs" />
-    <Compile Include="Extensions\MethodInfoExtensions.cs" />
+    <Compile Include="Core\Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="Mappers\Types1\MappingTypeBuilder.cs" />
     <Compile Include="Mappers\Types1\Members\ComplexMappingMember.cs" />
     <Compile Include="Mappers\Types1\Members\MappingMember.cs" />
-    <Compile Include="Nelibur.Sword\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Classes\Members\IMemberMapperConfig.cs" />
     <Compile Include="Mappers\Types1\Members\PrimitiveMappingMember.cs" />
@@ -73,17 +73,17 @@
     <Compile Include="CodeGenerators\CodeGenerator.cs" />
     <Compile Include="Reflection\DynamicAssemblyBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
-    <Compile Include="DataStructures\TypePair.cs" />
+    <Compile Include="Core\DataStructures\TypePair.cs" />
     <Compile Include="TinyMapper.cs" />
-    <Compile Include="Extensions\MemberInfoExtensions.cs" />
+    <Compile Include="Core\Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />
-    <Compile Include="Nelibur.Sword\Core\Error.cs" />
-    <Compile Include="Nelibur.Sword\DataStructures\Option.cs" />
+    <Compile Include="Core\Error.cs" />
+    <Compile Include="Core\DataStructures\Option.cs" />
     <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Nelibur.Sword\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Nelibur.Sword\Extensions\OptionExtensions.cs" />
-    <Compile Include="Nelibur.Sword\Patterns\Visitor.cs" />
+    <Compile Include="Core\Extensions\TypeExtensions.cs" />
+    <Compile Include="Core\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Core\Extensions\OptionExtensions.cs" />
+    <Compile Include="Core\Patterns\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

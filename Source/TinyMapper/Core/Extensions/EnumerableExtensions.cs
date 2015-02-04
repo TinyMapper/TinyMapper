@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TinyMappers.Nelibur.Sword.DataStructures;
+using Nelibur.Mapper.Core.DataStructures;
 
-namespace TinyMappers.Nelibur.Sword.Extensions
+namespace Nelibur.Mapper.Core.Extensions
 {
     internal static class EnumerableExtensions
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TinyMappers.DataStructures;
+using Nelibur.Mapper.Core.DataStructures;
 
-namespace TinyMappers.Mappers.Caches
+namespace Nelibur.Mapper.Mappers.Caches
 {
     internal sealed class MapperCache
     {

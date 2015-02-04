@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TinyMappers.Mappers
+namespace Nelibur.Mapper.Mappers
 {
     internal abstract class Mapper
     {

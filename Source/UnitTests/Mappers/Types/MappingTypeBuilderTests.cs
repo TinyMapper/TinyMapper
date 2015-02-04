@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using TinyMappers.DataStructures;
-using TinyMappers.Mappers.Types1;
+using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Mappers.Types1;
 using Xunit;
 
 namespace UnitTests.Mappers.Types

@@ -1,4 +1,4 @@
-﻿namespace TinyMappers.CodeGenerators.Emitters
+﻿namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal interface IEmitter
     {

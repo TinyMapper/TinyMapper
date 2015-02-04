@@ -1,9 +1,9 @@
-﻿using TinyMappers.CodeGenerators.Emitters;
-using TinyMappers.Mappers.Caches;
-using TinyMappers.Nelibur.Sword.DataStructures;
-using TinyMappers.Nelibur.Sword.Extensions;
+﻿using Nelibur.Mapper.CodeGenerators.Emitters;
+using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Core.Extensions;
+using Nelibur.Mapper.Mappers.Caches;
 
-namespace TinyMappers.Mappers.Classes.Members
+namespace Nelibur.Mapper.Mappers.Classes.Members
 {
     internal sealed class MemberEmitterDescription
     {

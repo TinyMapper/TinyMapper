@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
-using TinyMappers.DataStructures;
+using Nelibur.Mapper.Core.DataStructures;
 
-namespace TinyMappers.TypeConverters
+namespace Nelibur.Mapper.TypeConverters
 {
     internal static class PrimitiveTypeConverter
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
-using TinyMappers;
+using Nelibur.Mapper;
 
 namespace Benchmark
 {

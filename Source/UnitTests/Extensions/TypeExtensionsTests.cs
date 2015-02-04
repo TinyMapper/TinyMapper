@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using TinyMappers.Extensions;
+using Nelibur.Mapper.Core.Extensions;
 using Xunit;
 
 namespace UnitTests.Extensions

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TinyMappers.DataStructures
+namespace Nelibur.Mapper.Core.DataStructures
 {
     internal struct TypePair : IEquatable<TypePair>
     {

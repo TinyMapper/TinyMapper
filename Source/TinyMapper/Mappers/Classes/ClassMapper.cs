@@ -1,7 +1,7 @@
 ﻿using System;
-using TinyMappers.Nelibur.Sword.Extensions;
+using Nelibur.Mapper.Core.Extensions;
 
-namespace TinyMappers.Mappers.Classes
+namespace Nelibur.Mapper.Mappers.Classes
 {
     internal abstract class ClassMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {

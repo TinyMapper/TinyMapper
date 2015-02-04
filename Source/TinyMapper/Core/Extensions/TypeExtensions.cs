@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TinyMappers.Extensions
+namespace Nelibur.Mapper.Core.Extensions
 {
     internal static class TypeExtensions
     {

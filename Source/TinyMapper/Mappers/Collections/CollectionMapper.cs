@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using TinyMappers.CodeGenerators;
-using TinyMappers.CodeGenerators.Emitters;
-using TinyMappers.Core;
-using TinyMappers.DataStructures;
-using TinyMappers.Extensions;
-using TinyMappers.Reflection;
-using TinyMappers.TypeConverters;
+using Nelibur.Mapper.CodeGenerators;
+using Nelibur.Mapper.CodeGenerators.Emitters;
+using Nelibur.Mapper.Core;
+using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Core.Extensions;
+using Nelibur.Mapper.Reflection;
+using Nelibur.Mapper.TypeConverters;
 
-namespace TinyMappers.Mappers.Collections
+namespace Nelibur.Mapper.Mappers.Collections
 {
     internal sealed class CollectionMapperBuilder
     {

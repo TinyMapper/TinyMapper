@@ -1,8 +1,8 @@
-﻿using TinyMappers.DataStructures;
-using TinyMappers.Mappers.Classes;
-using TinyMappers.Reflection;
+﻿using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Mappers.Classes;
+using Nelibur.Mapper.Reflection;
 
-namespace TinyMappers.Mappers
+namespace Nelibur.Mapper.Mappers
 {
     internal sealed class TargetMapperBuilder
     {

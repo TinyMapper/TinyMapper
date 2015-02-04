@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace TinyMappers.CodeGenerators.Emitters
+namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal sealed class EmitProperty
     {

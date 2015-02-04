@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TinyMappers.Core
+namespace Nelibur.Mapper.Core
 {
     internal static class Types
     {

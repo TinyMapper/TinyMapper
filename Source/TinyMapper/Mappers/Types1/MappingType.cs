@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using TinyMappers.DataStructures;
-using TinyMappers.Mappers.Types1.Members;
+using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Mappers.Types1.Members;
 
-namespace TinyMappers.Mappers.Types1
+namespace Nelibur.Mapper.Mappers.Types1
 {
     internal sealed class MappingType
     {

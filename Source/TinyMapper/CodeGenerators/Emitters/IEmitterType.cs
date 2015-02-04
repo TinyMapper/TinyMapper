@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TinyMappers.CodeGenerators.Emitters
+namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal interface IEmitterType : IEmitter
     {
