@@ -1,4 +1,5 @@
-﻿using Nelibur.Mapper.Core.DataStructures;
+﻿using System;
+using Nelibur.Mapper.Core.DataStructures;
 
 namespace Nelibur.Mapper.Core.Extensions
 {

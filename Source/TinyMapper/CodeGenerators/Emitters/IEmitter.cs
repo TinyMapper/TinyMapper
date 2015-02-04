@@ -1,4 +1,6 @@
-﻿namespace Nelibur.Mapper.CodeGenerators.Emitters
+﻿using System;
+
+namespace Nelibur.Mapper.CodeGenerators.Emitters
 {
     internal interface IEmitter
     {

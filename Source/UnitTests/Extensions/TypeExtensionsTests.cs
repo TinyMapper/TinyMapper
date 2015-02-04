@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Nelibur.Mapper.Core.Extensions;
 using Xunit;
 

@@ -27,14 +27,14 @@ namespace Nelibur.Mapper.Core.Extensions
             return value.MemberType == MemberTypes.Field;
         }
 
-        public static bool IsMethod(this MemberInfo value)
-        {
-            return value.MemberType == MemberTypes.Method;
-        }
-
         public static bool IsProperty(this MemberInfo value)
         {
             return value.MemberType == MemberTypes.Property;
+        }
+
+        private static bool IsMethod(this MemberInfo value)
+        {
+            return value.MemberType == MemberTypes.Method;
         }
     }
 }

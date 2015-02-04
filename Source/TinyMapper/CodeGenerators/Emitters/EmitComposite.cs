@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Nelibur.Mapper.Core.Extensions;
 
 namespace Nelibur.Mapper.CodeGenerators.Emitters

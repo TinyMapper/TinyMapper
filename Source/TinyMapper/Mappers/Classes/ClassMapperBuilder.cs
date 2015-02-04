@@ -62,11 +62,7 @@ namespace Nelibur.Mapper.Mappers.Classes
 
         private static MemberEmitterDescription EmitMappingMembers(IDynamicAssembly assembly, List<MappingMember> members, CodeGenerator codeGenerator)
         {
-            MemberMapper memberMapper = MemberMapper.Configure(x =>
-            {
-                x.Assembly = assembly;
-                x.CodeGenerator = codeGenerator;
-            }).Create();
+            MemberMapper memberMapper = MemberMapper.Configure(x => { x.Assembly = assembly; }).Create();
 
             MemberEmitterDescription result = memberMapper.Build(members);
             return result;

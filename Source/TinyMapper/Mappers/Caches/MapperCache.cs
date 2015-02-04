@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.Mapper.Core.Extensions;
 
 namespace Nelibur.Mapper.Mappers.Caches
 {
@@ -19,8 +21,7 @@ namespace Nelibur.Mapper.Mappers.Caches
             {
                 return _cache.Values
                              .OrderBy(x => x.Id)
-                             .Select(x => x.Mapper)
-                             .ToList();
+                             .ConvertAll(x => x.Mapper);
             }
         }
 

@@ -2,6 +2,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

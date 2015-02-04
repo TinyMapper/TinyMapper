@@ -40,7 +40,6 @@
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
     <Compile Include="Core\Types.cs" />
-    <Compile Include="Core\Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Core\Extensions\OptionExtensions.cs" />
-    <Compile Include="Core\Patterns\Visitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Nelibur.Mapper.Core.DataStructures;
 using Nelibur.Mapper.Mappers.Types1;
 using Xunit;
