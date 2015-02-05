@@ -7,7 +7,7 @@
     <ProjectGuid>{C7EBD676-248B-484A-A5CB-DF879670652A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nelibur.Mapper</RootNamespace>
+    <RootNamespace>Nelibur.ObjectMapper</RootNamespace>
     <AssemblyName>TinyMapper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

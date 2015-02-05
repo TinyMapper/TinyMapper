@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nelibur.Mapper.Mappers
+namespace Nelibur.ObjectMapper.Mappers
 {
     internal abstract class MapperOf<TSource, TTarget> : Mapper
     {

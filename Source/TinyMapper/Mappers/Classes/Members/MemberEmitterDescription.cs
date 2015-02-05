@@ -1,10 +1,10 @@
 ﻿using System;
-using Nelibur.Mapper.CodeGenerators.Emitters;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
-using Nelibur.Mapper.Mappers.Caches;
+using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Caches;
 
-namespace Nelibur.Mapper.Mappers.Classes.Members
+namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MemberEmitterDescription
     {

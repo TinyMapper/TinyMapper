@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using AutoMapper;
-using Nelibur.Mapper;
+using Nelibur.ObjectMapper;
 
 namespace Benchmark
 {

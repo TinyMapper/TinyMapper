@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nelibur.Mapper.CodeGenerators.Emitters
+namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 {
     internal static class EmitThis
     {

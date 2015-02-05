@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nelibur.Mapper.Mappers
+namespace Nelibur.ObjectMapper.Mappers
 {
     internal abstract class Mapper
     {

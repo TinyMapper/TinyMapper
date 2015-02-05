@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
-using Nelibur.Mapper.Mappers.Types1.Members;
-using Nelibur.Mapper.TypeConverters;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Types1.Members;
+using Nelibur.ObjectMapper.TypeConverters;
 
-namespace Nelibur.Mapper.Mappers.Types1
+namespace Nelibur.ObjectMapper.Mappers.Types1
 {
     internal sealed class MappingTypeBuilder
     {

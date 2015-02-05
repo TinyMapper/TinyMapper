@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nelibur.Mapper.CodeGenerators;
-using Nelibur.Mapper.CodeGenerators.Emitters;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
-using Nelibur.Mapper.Mappers.Caches;
-using Nelibur.Mapper.Mappers.Classes.Members;
-using Nelibur.Mapper.Mappers.Types1;
-using Nelibur.Mapper.Mappers.Types1.Members;
-using Nelibur.Mapper.Reflection;
+using Nelibur.ObjectMapper.CodeGenerators;
+using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Caches;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
+using Nelibur.ObjectMapper.Mappers.Types1;
+using Nelibur.ObjectMapper.Mappers.Types1.Members;
+using Nelibur.ObjectMapper.Reflection;
 
-namespace Nelibur.Mapper.Mappers.Classes
+namespace Nelibur.ObjectMapper.Mappers.Classes
 {
     internal class ClassMapperBuilder
     {

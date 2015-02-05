@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nelibur.Mapper.CodeGenerators;
-using Nelibur.Mapper.CodeGenerators.Emitters;
-using Nelibur.Mapper.Core;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
-using Nelibur.Mapper.Reflection;
-using Nelibur.Mapper.TypeConverters;
+using Nelibur.ObjectMapper.CodeGenerators;
+using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Reflection;
+using Nelibur.ObjectMapper.TypeConverters;
 
-namespace Nelibur.Mapper.Mappers.Collections
+namespace Nelibur.ObjectMapper.Mappers.Collections
 {
     internal sealed class CollectionMapperBuilder
     {

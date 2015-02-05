@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nelibur.Mapper.CodeGenerators.Emitters;
-using Nelibur.Mapper.Core.Extensions;
+using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.Mapper.CodeGenerators
+namespace Nelibur.ObjectMapper.CodeGenerators
 {
     internal sealed class CodeGenerator
     {

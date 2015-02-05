@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Nelibur.Mapper.Core.Extensions;
+using Nelibur.ObjectMapper.Core.Extensions;
 using Xunit;
 
 namespace UnitTests.Extensions

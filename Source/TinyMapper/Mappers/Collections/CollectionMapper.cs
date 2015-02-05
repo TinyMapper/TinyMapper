@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nelibur.Mapper.Mappers.Collections
+namespace Nelibur.ObjectMapper.Mappers.Collections
 {
     internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
     {

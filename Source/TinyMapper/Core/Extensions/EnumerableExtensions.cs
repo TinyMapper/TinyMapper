@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.DataStructures;
 
-namespace Nelibur.Mapper.Core.Extensions
+namespace Nelibur.ObjectMapper.Core.Extensions
 {
     internal static class EnumerableExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Mappers.Types1;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Mappers.Types1;
 using Xunit;
 
 namespace UnitTests.Mappers.Types

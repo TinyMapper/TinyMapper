@@ -1,9 +1,9 @@
 ﻿using System;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Mappers.Classes;
-using Nelibur.Mapper.Reflection;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Mappers.Classes;
+using Nelibur.ObjectMapper.Reflection;
 
-namespace Nelibur.Mapper.Mappers
+namespace Nelibur.ObjectMapper.Mappers
 {
     internal sealed class TargetMapperBuilder
     {

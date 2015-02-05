@@ -6,7 +6,7 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Nelibur.Mapper.Reflection;
+using Nelibur.ObjectMapper.Reflection;
 
 [assembly: AssemblyTitle("TinyMapper")]
 [assembly: AssemblyDescription("")]

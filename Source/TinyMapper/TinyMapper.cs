@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nelibur.Mapper.Core;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
-using Nelibur.Mapper.Mappers;
-using Nelibur.Mapper.Reflection;
+using Nelibur.ObjectMapper.Core;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers;
+using Nelibur.ObjectMapper.Reflection;
 
-namespace Nelibur.Mapper
+namespace Nelibur.ObjectMapper
 {
     public sealed class TinyMapper
     {
         private static readonly IDynamicAssembly _assembly = DynamicAssemblyBuilder.Get();
-        private static readonly Dictionary<TypePair, Mappers.Mapper> _mappers = new Dictionary<TypePair, Mappers.Mapper>();
+        private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
 
         public static void Bind<TSource, TTarget>()
         {
@@ -30,7 +30,7 @@ namespace Nelibur.Mapper
 
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
-            Mappers.Mapper mapper = GetMapper(typePair);
+            Mapper mapper = GetMapper(typePair);
             var result = (TTarget)mapper.Map(source, target);
 
             return result;
@@ -45,22 +45,22 @@ namespace Nelibur.Mapper
 
             TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
 
-            Mappers.Mapper mapper = GetMapper(typePair);
+            Mapper mapper = GetMapper(typePair);
             var result = (TTarget)mapper.Map(source);
 
             return result;
         }
 
-        private static Mappers.Mapper CreateMapper(TypePair typePair)
+        private static Mapper CreateMapper(TypePair typePair)
         {
             TargetMapperBuilder targetMapperBuilder = _assembly.GetTypeBuilder();
-            Mappers.Mapper mapper = targetMapperBuilder.Build(typePair);
+            Mapper mapper = targetMapperBuilder.Build(typePair);
             return mapper;
         }
 
-        private static Mappers.Mapper GetMapper(TypePair typePair)
+        private static Mapper GetMapper(TypePair typePair)
         {
-            Mappers.Mapper mapper;
+            Mapper mapper;
             if (_mappers.TryGetValue(typePair, out mapper) == false)
             {
                 mapper = CreateMapper(typePair);

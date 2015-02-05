@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nelibur.Mapper.Core
+namespace Nelibur.ObjectMapper.Core
 {
     internal static class Types
     {

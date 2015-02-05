@@ -1,5 +1,5 @@
 ﻿using System;
-using Nelibur.Mapper.Mappers;
+using Nelibur.ObjectMapper.Mappers;
 
 namespace TestAssembly
 {

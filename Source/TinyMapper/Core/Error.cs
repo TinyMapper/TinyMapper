@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Nelibur.Mapper.Core
+namespace Nelibur.ObjectMapper.Core
 {
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.

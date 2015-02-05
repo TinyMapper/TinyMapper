@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.Mapper.Mappers.Types1.Members
+namespace Nelibur.ObjectMapper.Mappers.Types1.Members
 {
     internal abstract class MappingMember
     {

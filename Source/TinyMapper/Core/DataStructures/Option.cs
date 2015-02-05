@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nelibur.Mapper.Core.DataStructures
+namespace Nelibur.ObjectMapper.Core.DataStructures
 {
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.

@@ -1,8 +1,8 @@
 using System;
 using System.Reflection.Emit;
-using Nelibur.Mapper.Mappers;
+using Nelibur.ObjectMapper.Mappers;
 
-namespace Nelibur.Mapper.Reflection
+namespace Nelibur.ObjectMapper.Reflection
 {
     internal interface IDynamicAssembly
     {

@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Nelibur.Mapper.CodeGenerators.Emitters
+namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 {
     internal static class EmitField
     {

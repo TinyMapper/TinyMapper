@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Core.Extensions;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.Mapper.Mappers.Caches
+namespace Nelibur.ObjectMapper.Mappers.Caches
 {
     internal sealed class MapperCache
     {

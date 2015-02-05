@@ -1,7 +1,7 @@
 using System;
-using Nelibur.Mapper.Reflection;
+using Nelibur.ObjectMapper.Reflection;
 
-namespace Nelibur.Mapper.Mappers.Classes.Members
+namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal interface IMemberMapperConfig
     {

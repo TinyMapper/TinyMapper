@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Nelibur.Mapper.Core.Extensions
+namespace Nelibur.ObjectMapper.Core.Extensions
 {
     internal static class TypeExtensions
     {

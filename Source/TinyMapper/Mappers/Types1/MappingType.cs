@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nelibur.Mapper.Core.DataStructures;
-using Nelibur.Mapper.Mappers.Types1.Members;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Mappers.Types1.Members;
 
-namespace Nelibur.Mapper.Mappers.Types1
+namespace Nelibur.ObjectMapper.Mappers.Types1
 {
     internal sealed class MappingType
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nelibur.Mapper.Mappers.Caches
+namespace Nelibur.ObjectMapper.Mappers.Caches
 {
     internal sealed class MapperCacheItem
     {

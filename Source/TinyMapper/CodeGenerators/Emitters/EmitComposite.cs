@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nelibur.Mapper.Core.Extensions;
+using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.Mapper.CodeGenerators.Emitters
+namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 {
     internal sealed class EmitComposite : IEmitter
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Nelibur.Mapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.DataStructures;
 
-namespace Nelibur.Mapper.Core.Extensions
+namespace Nelibur.ObjectMapper.Core.Extensions
 {
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.

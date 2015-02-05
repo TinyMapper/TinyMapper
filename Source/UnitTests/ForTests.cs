@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using Nelibur.Mapper;
+using Nelibur.ObjectMapper;
 using Xunit;
 
 namespace UnitTests
