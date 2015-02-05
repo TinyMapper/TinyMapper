@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using Nelibur.ObjectMapper.CodeGenerators;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
@@ -86,7 +85,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            Mapper mapper = CollectionMapperBuilder.Create(_config.Assembly, member.TypePair);
+            Mapper mapper = CollectionMapperBuilder.Create(_config, member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }
@@ -135,7 +134,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         private sealed class MemberMapperConfig : IMemberMapperConfig
         {
             public IDynamicAssembly Assembly { get; set; }
-            public CodeGenerator CodeGenerator { get; set; }
 
             public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
             {
@@ -153,7 +151,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             {
                 var nullCheck = new List<object>
                 {
-                    CodeGenerator, Assembly
+                    Assembly
                 };
 
                 if (nullCheck.Any(x => x.IsNull()))

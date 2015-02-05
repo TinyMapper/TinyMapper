@@ -43,7 +43,7 @@ namespace Nelibur.ObjectMapper.TypeConverters
 
         private static MethodInfo GetConverterImpl(TypePair typePair)
         {
-            if (typePair.Source == typePair.Target && IsTypePrimitive(typePair.Source))
+            if (typePair.IsEqualTypes && IsTypePrimitive(typePair.Source))
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertNothing", BindingFlags.Static | BindingFlags.Public)
                                                      .MakeGenericMethod(typePair.Source);
@@ -63,7 +63,7 @@ namespace Nelibur.ObjectMapper.TypeConverters
                                                      .MakeGenericMethod(typePair.Source, typePair.Target);
             }
 
-            if (IsEnumToEnumConversion(typePair.Source, typePair.Target))
+            if (typePair.IsEnumTypes)
             {
                 return typeof(PrimitiveTypeConverter).GetMethod("ConvertEnumToEnum", BindingFlags.Static | BindingFlags.Public)
                                                      .MakeGenericMethod(typePair.Source, typePair.Target);
@@ -85,11 +85,6 @@ namespace Nelibur.ObjectMapper.TypeConverters
                 return true;
             }
             return false;
-        }
-
-        private static bool IsEnumToEnumConversion(Type source, Type target)
-        {
-            return source.IsEnum && target.IsEnum;
         }
 
         private static bool IsTypePrimitive(Type type)

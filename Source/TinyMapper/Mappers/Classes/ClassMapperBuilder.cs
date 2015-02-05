@@ -16,6 +16,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 {
     internal class ClassMapperBuilder
     {
+        private const string CreateTargetInstanceMethod = "CreateTargetInstance";
+        private const string MapClassMethod = "MapClass";
         private const string MapperNamePrefix = "TinyClass";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
@@ -34,7 +36,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private static void EmitCreateTargetInstance(Type targetType, TypeBuilder typeBuilder)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod("CreateTargetInstance", OverrideProtected, targetType, Type.EmptyTypes);
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(CreateTargetInstanceMethod, OverrideProtected, targetType, Type.EmptyTypes);
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 
             IEmitterType result = targetType.IsValueType ? EmitValueType(targetType, codeGenerator) : EmitRefType(targetType);
@@ -46,7 +48,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
         {
             MappingType mappingType = MappingTypeBuilder.Build(typePair);
 
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod("MapClass", OverrideProtected, typePair.Target,
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
                 new[] { typePair.Source, typePair.Target });
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 

@@ -18,7 +18,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 {
                     return false;
                 }
-                if (IsValueType && IsPrimitiveType)
+                if (IsValueTypes && IsPrimitiveTypes)
                 {
                     return true;
                 }
@@ -30,20 +30,25 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             }
         }
 
-        public Type Source { get; private set; }
-        public Type Target { get; private set; }
+        public bool IsEnumTypes
+        {
+            get { return Source.IsEnum && Target.IsEnum; }
+        }
 
-        private bool IsEqualTypes
+        public bool IsEqualTypes
         {
             get { return Source == Target; }
         }
 
-        private bool IsPrimitiveType
+        public Type Source { get; private set; }
+        public Type Target { get; private set; }
+
+        private bool IsPrimitiveTypes
         {
             get { return Source.IsPrimitive && Target.IsPrimitive; }
         }
 
-        private bool IsValueType
+        private bool IsValueTypes
         {
             get { return Source.IsValueType && Target.IsValueType; }
         }

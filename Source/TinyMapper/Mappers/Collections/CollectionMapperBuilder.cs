@@ -8,6 +8,8 @@ using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
+using Nelibur.ObjectMapper.Mappers.Types1.Members;
 using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
 
@@ -21,8 +23,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string MapperNamePrefix = "TinyCollection";
         private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
-        public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
+        public static Mapper Create(IMemberMapperConfig config, ComplexMappingMember member)
         {
+            IDynamicAssembly assembly = config.Assembly;
+            TypePair typePair = member.TypePair;
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
             if (IsIEnumerableOfToList(typePair))
