@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
@@ -14,14 +13,13 @@ using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes
 {
-    internal class ClassMapperBuilder
+    internal sealed class ClassMapperBuilder : MapperBuilder
     {
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
         private const string MapperNamePrefix = "TinyClass";
-        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
-        public static Mapper Create(IDynamicAssembly assembly, TypePair typePair)
+        public Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
             string mapperTypeName = GetMapperName(typePair);
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);

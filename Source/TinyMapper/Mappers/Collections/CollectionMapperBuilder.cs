@@ -15,15 +15,14 @@ using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
-    internal sealed class CollectionMapperBuilder
+    internal sealed class CollectionMapperBuilder : MapperBuilder
     {
         private const string ConvertItemMethod = "ConvertItem";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
         private const string MapperNamePrefix = "TinyCollection";
-        private const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
 
-        public static Mapper Create(IMemberMapperConfig config, ComplexMappingMember member)
+        public Mapper Create(IMemberMapperConfig config, ComplexMappingMember member)
         {
             IDynamicAssembly assembly = config.Assembly;
             TypePair typePair = member.TypePair;

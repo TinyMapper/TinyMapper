@@ -8,6 +8,7 @@ namespace Nelibur.ObjectMapper.Mappers
     internal sealed class TargetMapperBuilder
     {
         private readonly IDynamicAssembly _assembly;
+        private readonly ClassMapperBuilder _classMapperBuilder = new ClassMapperBuilder();
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
@@ -16,7 +17,7 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public Mapper Build(TypePair typePair)
         {
-            Mapper mapper = ClassMapperBuilder.Create(_assembly, typePair);
+            Mapper mapper = _classMapperBuilder.Create(_assembly, typePair);
             return mapper;
         }
     }

@@ -18,6 +18,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
     {
         private readonly IMemberMapperConfig _config;
         private readonly MapperCache _mappers = new MapperCache();
+        private CollectionMapperBuilder _collectionMapperBuilder = new CollectionMapperBuilder();
 
         private MemberMapper(IMemberMapperConfig config)
         {
@@ -85,7 +86,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            Mapper mapper = CollectionMapperBuilder.Create(_config, member);
+            Mapper mapper = _collectionMapperBuilder.Create(_config, member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }
