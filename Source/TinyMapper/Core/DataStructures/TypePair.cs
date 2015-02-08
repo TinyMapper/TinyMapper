@@ -35,6 +35,15 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             get { return Source.IsEnum && Target.IsEnum; }
         }
 
+        public bool IsEnumerableTypes
+        {
+            get
+            {
+                return Types.IEnumerable.IsAssignableFrom(Source) &&
+                       Types.IEnumerable.IsAssignableFrom(Target);
+            }
+        }
+
         public bool IsEqualTypes
         {
             get { return Source == Target; }

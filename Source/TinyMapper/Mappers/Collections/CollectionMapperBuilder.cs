@@ -20,20 +20,29 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string ConvertItemMethod = "ConvertItem";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
-        private const string MapperNamePrefix = "TinyCollection";
+
+        protected override string ScopeName
+        {
+            get { return "CollectionMappers"; }
+        }
 
         public Mapper Create(IMemberMapperConfig config, ComplexMappingMember member)
         {
             IDynamicAssembly assembly = config.Assembly;
             TypePair typePair = member.TypePair;
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
-            TypeBuilder typeBuilder = assembly.DefineType(GetMapperName(), parentType);
+            TypeBuilder typeBuilder = assembly.DefineType(GetMapperFullName(), parentType);
             if (IsIEnumerableOfToList(typePair))
             {
                 EmitEnumerableToList(parentType, typeBuilder, typePair);
             }
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             return result;
+        }
+
+        protected override bool IsSupportedCore(TypePair typePair)
+        {
+            return typePair.IsEnumerableTypes;
         }
 
         private static void EmitConvertItem(TypeBuilder typeBuilder, TypePair typePair)
@@ -80,12 +89,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 return type.GetGenericArguments().First();
             }
             throw new NotSupportedException();
-        }
-
-        private static string GetMapperName()
-        {
-            string random = Guid.NewGuid().ToString("N");
-            return string.Format("{0}_{1}", MapperNamePrefix, random);
         }
 
         private static bool IsIEnumerableOf(Type type)

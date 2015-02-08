@@ -17,19 +17,27 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
     {
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
-        private const string MapperNamePrefix = "TinyClass";
+
+        protected override string ScopeName
+        {
+            get { return "ClassMappers"; }
+        }
 
         public Mapper Create(IDynamicAssembly assembly, TypePair typePair)
         {
-            string mapperTypeName = GetMapperName(typePair);
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
-            TypeBuilder typeBuilder = assembly.DefineType(mapperTypeName, parentType);
+            TypeBuilder typeBuilder = assembly.DefineType(GetMapperFullName(), parentType);
             EmitCreateTargetInstance(typePair.Target, typeBuilder);
             Option<MapperCache> mappers = EmitMapClass(assembly, typePair, typeBuilder);
 
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             mappers.Do(x => result.AddMappers(x.Mappers));
             return result;
+        }
+
+        protected override bool IsSupportedCore(TypePair typePair)
+        {
+            return true;
         }
 
         private static void EmitCreateTargetInstance(Type targetType, TypeBuilder typeBuilder)
@@ -78,14 +86,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
             EmitLocalVariable.Declare(builder).Emit(codeGenerator);
             return EmitBox.Box(EmitLocal.Load(builder));
-        }
-
-        private static string GetMapperName(TypePair pair)
-        {
-            string random = Guid.NewGuid().ToString("N");
-            string sourceFullName = pair.Source.FullName;
-            string targetFullName = pair.Target.FullName;
-            return string.Format("{0}_{1}_{2}_{3}", MapperNamePrefix, sourceFullName, targetFullName, random);
         }
     }
 }
