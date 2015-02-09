@@ -8,7 +8,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Collections;
-using Nelibur.ObjectMapper.Mappers.Types1.Members;
+using Nelibur.ObjectMapper.Mappers.MappingTypes.Members;
 using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
 

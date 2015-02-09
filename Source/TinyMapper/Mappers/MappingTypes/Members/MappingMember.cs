@@ -3,7 +3,7 @@ using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.ObjectMapper.Mappers.Types1.Members
+namespace Nelibur.ObjectMapper.Mappers.MappingTypes.Members
 {
     internal abstract class MappingMember
     {

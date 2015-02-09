@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
-using Nelibur.ObjectMapper.Mappers.Types1.Members;
+using Nelibur.ObjectMapper.Mappers.MappingTypes.Members;
 using Nelibur.ObjectMapper.TypeConverters;
 
-namespace Nelibur.ObjectMapper.Mappers.Types1
+namespace Nelibur.ObjectMapper.Mappers.MappingTypes
 {
     internal sealed class MappingTypeBuilder
     {
