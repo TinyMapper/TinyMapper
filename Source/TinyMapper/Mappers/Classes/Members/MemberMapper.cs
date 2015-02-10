@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Reflection;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core.DataStructures;
@@ -150,12 +149,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
             private void Validate()
             {
-                var nullCheck = new List<object>
-                {
-                    Assembly
-                };
-
-                if (nullCheck.Any(x => x.IsNull()))
+                if (Assembly.IsNull())
                 {
                     throw new ConfigurationErrorsException();
                 }

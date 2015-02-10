@@ -4,9 +4,9 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Xunit;
 
-namespace UnitTests.Mappers.Types
+namespace UnitTests.Mappers.MappingMembers
 {
-    public sealed class MappingTypeBuilderTests
+    public sealed class MappingMemberBuilderTests
     {
         [Fact]
         public void Buid_Recursion_Ok()
@@ -14,19 +14,19 @@ namespace UnitTests.Mappers.Types
             List<MappingMember> members = MappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
             Assert.Equal(2, members.Count);
         }
-    }
 
 
-    public class MyClass
-    {
-        public MyClass1 Class { get; set; }
-        public int Id { get; set; }
-    }
+        public class MyClass
+        {
+            public MyClass1 Class { get; set; }
+            public int Id { get; set; }
+        }
 
 
-    public class MyClass1
-    {
-        public MyClass Class { get; set; }
-        public int Id { get; set; }
+        public class MyClass1
+        {
+            public MyClass Class { get; set; }
+            public int Id { get; set; }
+        }
     }
 }

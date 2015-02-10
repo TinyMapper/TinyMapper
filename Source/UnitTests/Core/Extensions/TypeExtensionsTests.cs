@@ -3,7 +3,7 @@ using System.IO;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Xunit;
 
-namespace UnitTests.Extensions
+namespace UnitTests.Core.Extensions
 {
     public sealed class TypeExtensionsTests
     {
