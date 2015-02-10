@@ -17,10 +17,12 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
         private readonly IDynamicAssembly _assembly;
+        private readonly MemberMapper _memberMapper;
 
-        public ClassMapperBuilder(IDynamicAssembly assembly)
+        public ClassMapperBuilder(IDynamicAssembly assembly, IMapperBuilderSelector mapperBuilderSelector)
         {
             _assembly = assembly;
+            _memberMapper = new MemberMapper(mapperBuilderSelector);
         }
 
         protected override string ScopeName
@@ -87,9 +89,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private MemberEmitterDescription EmitMappingMembers(List<MappingMember> members)
         {
-            MemberMapper memberMapper = MemberMapper.Configure(x => { x.Assembly = _assembly; }).Create();
-
-            MemberEmitterDescription result = memberMapper.Build(members);
+            MemberEmitterDescription result = _memberMapper.Build(members);
             return result;
         }
     }

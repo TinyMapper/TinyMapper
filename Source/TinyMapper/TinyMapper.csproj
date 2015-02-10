@@ -54,7 +54,6 @@
     <Compile Include="Mappers\MappingMembers\MappingMember.cs" />
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
-    <Compile Include="Mappers\Classes\Members\IMemberMapperConfig.cs" />
     <Compile Include="Mappers\MappingMembers\PrimitiveMappingMember.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitBox.cs" />

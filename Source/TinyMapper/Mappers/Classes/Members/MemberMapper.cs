@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Reflection;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core.DataStructures;
@@ -8,25 +7,18 @@ using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Collections;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
-using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MemberMapper
     {
-        private readonly CollectionMapperBuilder _collectionMapperBuilder = new CollectionMapperBuilder();
-        private readonly IMemberMapperConfig _config;
+        private readonly IMapperBuilderSelector _mapperBuilderSelector;
         private readonly MapperCache _mappers = new MapperCache();
 
-        private MemberMapper(IMemberMapperConfig config)
+        public MemberMapper(IMapperBuilderSelector mapperBuilderSelector)
         {
-            _config = config;
-        }
-
-        public static IMemberMapperConfig Configure(Action<IMemberMapperConfig> action)
-        {
-            return new MemberMapperConfig().Config(action);
+            _mapperBuilderSelector = mapperBuilderSelector;
         }
 
         public MemberEmitterDescription Build(List<MappingMember> members)
@@ -85,7 +77,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            Mapper mapper = _collectionMapperBuilder.Create(_config.Assembly, member);
+            MapperBuilder mapperBuilder = _mapperBuilderSelector.GetMapperBuilder(member.TypePair);
+            Mapper mapper = ((CollectionMapperBuilder)mapperBuilder).Create(member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }
@@ -128,32 +121,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         private IEmitterType LoadProperty(IEmitterType source, PropertyInfo property)
         {
             return EmitProperty.Load(source, property);
-        }
-
-
-        private sealed class MemberMapperConfig : IMemberMapperConfig
-        {
-            public IDynamicAssembly Assembly { get; set; }
-
-            public IMemberMapperConfig Config(Action<IMemberMapperConfig> action)
-            {
-                action(this);
-                return this;
-            }
-
-            public MemberMapper Create()
-            {
-                Validate();
-                return new MemberMapper(this);
-            }
-
-            private void Validate()
-            {
-                if (Assembly.IsNull())
-                {
-                    throw new ConfigurationErrorsException();
-                }
-            }
         }
     }
 }

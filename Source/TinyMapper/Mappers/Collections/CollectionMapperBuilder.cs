@@ -8,7 +8,6 @@ using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
-using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
@@ -20,17 +19,23 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string ConvertItemMethod = "ConvertItem";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
+        private readonly IDynamicAssembly _assembly;
+
+        public CollectionMapperBuilder(IDynamicAssembly assembly, IMapperBuilderSelector targetMapperBuilder)
+        {
+            _assembly = assembly;
+        }
 
         protected override string ScopeName
         {
             get { return "CollectionMappers"; }
         }
 
-        public Mapper Create(IDynamicAssembly assembly, ComplexMappingMember member)
+        public Mapper Create(ComplexMappingMember member)
         {
             TypePair typePair = member.TypePair;
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
-            TypeBuilder typeBuilder = assembly.DefineType(GetMapperFullName(), parentType);
+            TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
             if (IsIEnumerableOfToList(typePair))
             {
                 EmitEnumerableToList(parentType, typeBuilder, typePair);
