@@ -4,14 +4,13 @@ using System.Linq;
 using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
-using Nelibur.ObjectMapper.Mappers.MappingTypes.Members;
 using Nelibur.ObjectMapper.TypeConverters;
 
-namespace Nelibur.ObjectMapper.Mappers.MappingTypes
+namespace Nelibur.ObjectMapper.Mappers.MappingMembers
 {
-    internal sealed class MappingTypeBuilder
+    internal sealed class MappingMemberBuilder
     {
-        public static MappingType Build(TypePair typePair)
+        public static List<MappingMember> Build(TypePair typePair)
         {
             return ParseMappingTypes(typePair);
         }
@@ -73,9 +72,9 @@ namespace Nelibur.ObjectMapper.Mappers.MappingTypes
             return string.Equals(valueA, valueB, StringComparison.Ordinal);
         }
 
-        private static MappingType ParseMappingTypes(TypePair typePair)
+        private static List<MappingMember> ParseMappingTypes(TypePair typePair)
         {
-            var mappingType = new MappingType(typePair);
+            var result = new List<MappingMember>();
 
             List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
             List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
@@ -91,15 +90,15 @@ namespace Nelibur.ObjectMapper.Mappers.MappingTypes
                 if (IsPrimitiveMember(mappingPair))
                 {
                     MappingMember primitive = new PrimitiveMappingMember(sourceMember, targetMember);
-                    mappingType.Members.Add(primitive);
+                    result.Add(primitive);
                 }
                 else
                 {
                     MappingMember complex = new ComplexMappingMember(sourceMember, targetMember);
-                    mappingType.Members.Add(complex);
+                    result.Add(complex);
                 }
             }
-            return mappingType;
+            return result;
         }
     }
 }

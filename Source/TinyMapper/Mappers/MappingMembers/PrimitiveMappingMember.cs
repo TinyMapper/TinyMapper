@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Nelibur.ObjectMapper.Mappers.MappingTypes.Members
+namespace Nelibur.ObjectMapper.Mappers.MappingMembers
 {
     internal sealed class PrimitiveMappingMember : MappingMember
     {

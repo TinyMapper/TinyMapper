@@ -7,8 +7,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
-using Nelibur.ObjectMapper.Mappers.MappingTypes;
-using Nelibur.ObjectMapper.Mappers.MappingTypes.Members;
+using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes
@@ -52,7 +51,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private static Option<MapperCache> EmitMapClass(IDynamicAssembly assembly, TypePair typePair, TypeBuilder typeBuilder)
         {
-            MappingType mappingType = MappingTypeBuilder.Build(typePair);
+            List<MappingMember> members = MappingMemberBuilder.Build(typePair);
 
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
                 new[] { typePair.Source, typePair.Target });
@@ -60,12 +59,12 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
             var emitterComposite = new EmitComposite();
 
-            MemberEmitterDescription members = EmitMappingMembers(assembly, mappingType.Members, codeGenerator);
+            MemberEmitterDescription emitterDescription = EmitMappingMembers(assembly, members, codeGenerator);
 
-            emitterComposite.Add(members.Emitter);
+            emitterComposite.Add(emitterDescription.Emitter);
             emitterComposite.Add(EmitReturn.Return(EmitArgument.Load(typePair.Target, 2)));
             emitterComposite.Emit(codeGenerator);
-            return members.MapperCache;
+            return emitterDescription.MapperCache;
         }
 
         private static MemberEmitterDescription EmitMappingMembers(IDynamicAssembly assembly, List<MappingMember> members, CodeGenerator codeGenerator)

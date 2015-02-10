@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper.Core.DataStructures;
-using Nelibur.ObjectMapper.Mappers.MappingTypes;
+using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Xunit;
 
 namespace UnitTests.Mappers.Types
@@ -11,8 +11,8 @@ namespace UnitTests.Mappers.Types
         [Fact]
         public void Buid_Recursion_Ok()
         {
-            MappingType member = MappingTypeBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
-            Assert.Equal(2, member.Members.Count());
+            List<MappingMember> members = MappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            Assert.Equal(2, members.Count);
         }
     }
 

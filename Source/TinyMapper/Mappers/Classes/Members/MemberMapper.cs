@@ -8,7 +8,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Collections;
-using Nelibur.ObjectMapper.Mappers.MappingTypes.Members;
+using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
 
@@ -16,9 +16,9 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MemberMapper
     {
+        private readonly CollectionMapperBuilder _collectionMapperBuilder = new CollectionMapperBuilder();
         private readonly IMemberMapperConfig _config;
         private readonly MapperCache _mappers = new MapperCache();
-        private CollectionMapperBuilder _collectionMapperBuilder = new CollectionMapperBuilder();
 
         private MemberMapper(IMemberMapperConfig config)
         {
