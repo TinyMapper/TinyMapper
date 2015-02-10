@@ -8,7 +8,7 @@ using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper
 {
-    public sealed class TinyMapper
+    public static class TinyMapper
     {
         private static readonly IDynamicAssembly _assembly = DynamicAssemblyBuilder.Get();
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();

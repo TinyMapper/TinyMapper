@@ -16,18 +16,24 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
     {
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
+        private readonly IDynamicAssembly _assembly;
+
+        public ClassMapperBuilder(IDynamicAssembly assembly)
+        {
+            _assembly = assembly;
+        }
 
         protected override string ScopeName
         {
             get { return "ClassMappers"; }
         }
 
-        public Mapper Create(IDynamicAssembly assembly, TypePair typePair)
+        public Mapper Create(TypePair typePair)
         {
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
-            TypeBuilder typeBuilder = assembly.DefineType(GetMapperFullName(), parentType);
+            TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
             EmitCreateTargetInstance(typePair.Target, typeBuilder);
-            Option<MapperCache> mappers = EmitMapClass(assembly, typePair, typeBuilder);
+            Option<MapperCache> mappers = EmitMapClass(typePair, typeBuilder);
 
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             mappers.Do(x => result.AddMappers(x.Mappers));
@@ -49,32 +55,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             EmitReturn.Return(result, targetType).Emit(codeGenerator);
         }
 
-        private static Option<MapperCache> EmitMapClass(IDynamicAssembly assembly, TypePair typePair, TypeBuilder typeBuilder)
-        {
-            List<MappingMember> members = MappingMemberBuilder.Build(typePair);
-
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
-                new[] { typePair.Source, typePair.Target });
-            var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
-
-            var emitterComposite = new EmitComposite();
-
-            MemberEmitterDescription emitterDescription = EmitMappingMembers(assembly, members, codeGenerator);
-
-            emitterComposite.Add(emitterDescription.Emitter);
-            emitterComposite.Add(EmitReturn.Return(EmitArgument.Load(typePair.Target, 2)));
-            emitterComposite.Emit(codeGenerator);
-            return emitterDescription.MapperCache;
-        }
-
-        private static MemberEmitterDescription EmitMappingMembers(IDynamicAssembly assembly, List<MappingMember> members, CodeGenerator codeGenerator)
-        {
-            MemberMapper memberMapper = MemberMapper.Configure(x => { x.Assembly = assembly; }).Create();
-
-            MemberEmitterDescription result = memberMapper.Build(members);
-            return result;
-        }
-
         private static IEmitterType EmitRefType(Type type)
         {
             return type.HasDefaultCtor() ? EmitNewObj.NewObj(type) : EmitNull.Load();
@@ -85,6 +65,32 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             LocalBuilder builder = codeGenerator.DeclareLocal(type);
             EmitLocalVariable.Declare(builder).Emit(codeGenerator);
             return EmitBox.Box(EmitLocal.Load(builder));
+        }
+
+        private Option<MapperCache> EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
+        {
+            List<MappingMember> members = MappingMemberBuilder.Build(typePair);
+
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
+                new[] { typePair.Source, typePair.Target });
+            var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
+
+            var emitterComposite = new EmitComposite();
+
+            MemberEmitterDescription emitterDescription = EmitMappingMembers(members);
+
+            emitterComposite.Add(emitterDescription.Emitter);
+            emitterComposite.Add(EmitReturn.Return(EmitArgument.Load(typePair.Target, 2)));
+            emitterComposite.Emit(codeGenerator);
+            return emitterDescription.MapperCache;
+        }
+
+        private MemberEmitterDescription EmitMappingMembers(List<MappingMember> members)
+        {
+            MemberMapper memberMapper = MemberMapper.Configure(x => { x.Assembly = _assembly; }).Create();
+
+            MemberEmitterDescription result = memberMapper.Build(members);
+            return result;
         }
     }
 }

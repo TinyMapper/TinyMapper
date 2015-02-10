@@ -85,7 +85,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            Mapper mapper = _collectionMapperBuilder.Create(_config, member);
+            Mapper mapper = _collectionMapperBuilder.Create(_config.Assembly, member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }

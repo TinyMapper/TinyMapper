@@ -26,9 +26,8 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             get { return "CollectionMappers"; }
         }
 
-        public Mapper Create(IMemberMapperConfig config, ComplexMappingMember member)
+        public Mapper Create(IDynamicAssembly assembly, ComplexMappingMember member)
         {
-            IDynamicAssembly assembly = config.Assembly;
             TypePair typePair = member.TypePair;
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = assembly.DefineType(GetMapperFullName(), parentType);
