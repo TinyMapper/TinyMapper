@@ -20,7 +20,6 @@ namespace Nelibur.ObjectMapper.Reflection
         private sealed class DynamicAssembly : IDynamicAssembly
         {
             private readonly AssemblyBuilder _assemblyBuilder;
-            private readonly object _locker = new object();
             private readonly ModuleBuilder _moduleBuilder;
             private readonly TargetMapperBuilder _targetMapperBuilder;
 
@@ -35,10 +34,7 @@ namespace Nelibur.ObjectMapper.Reflection
 
             public TypeBuilder DefineType(string typeName, Type parentType)
             {
-                lock (_locker)
-                {
-                    return _moduleBuilder.DefineType(typeName, TypeAttributes.Public | TypeAttributes.Sealed, parentType);
-                }
+                return _moduleBuilder.DefineType(typeName, TypeAttributes.Public | TypeAttributes.Sealed, parentType);
             }
 
             public TargetMapperBuilder GetTypeBuilder()
@@ -48,10 +44,7 @@ namespace Nelibur.ObjectMapper.Reflection
 
             public void Save()
             {
-                lock (_locker)
-                {
-                    _assemblyBuilder.Save(AssemblyNameFileName);
-                }
+                _assemblyBuilder.Save(AssemblyNameFileName);
             }
         }
     }
