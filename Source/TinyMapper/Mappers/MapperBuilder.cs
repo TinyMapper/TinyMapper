@@ -18,10 +18,17 @@ namespace Nelibur.ObjectMapper.Mappers
 
         protected abstract string ScopeName { get; }
 
+        public Mapper Create(TypePair typePair)
+        {
+            return CreateCore(typePair);
+        }
+
         public bool IsSupported(TypePair typePair)
         {
             return IsSupportedCore(typePair);
         }
+
+        protected abstract Mapper CreateCore(TypePair typePair);
 
         protected string GetMapperFullName()
         {

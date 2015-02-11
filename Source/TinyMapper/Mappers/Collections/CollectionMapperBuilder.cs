@@ -31,6 +31,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         public Mapper Create(ComplexMappingMember member)
         {
             TypePair typePair = member.TypePair;
+            return CreateCore(typePair);
+        }
+
+        protected override Mapper CreateCore(TypePair typePair)
+        {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
             if (IsIEnumerableOfToList(typePair))

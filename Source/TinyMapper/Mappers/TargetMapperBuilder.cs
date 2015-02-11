@@ -23,7 +23,8 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public Mapper Build(TypePair typePair)
         {
-            Mapper mapper = _classMapperBuilder.Create(typePair);
+            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
+            Mapper mapper = mapperBuilder.Create(typePair);
             return mapper;
         }
 

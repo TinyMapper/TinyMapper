@@ -27,7 +27,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             get { return "ClassMappers"; }
         }
 
-        public Mapper Create(TypePair typePair)
+        protected override Mapper CreateCore(TypePair typePair)
         {
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
