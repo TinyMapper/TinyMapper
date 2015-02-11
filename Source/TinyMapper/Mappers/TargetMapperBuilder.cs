@@ -35,7 +35,7 @@ namespace Nelibur.ObjectMapper.Mappers
             {
                 return _collectionMapperBuilder;
             }
-            return _collectionMapperBuilder;
+            return _classMapperBuilder;
         }
     }
 }
