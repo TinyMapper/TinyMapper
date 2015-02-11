@@ -6,22 +6,20 @@ using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers
 {
-    internal interface IMapperBuilderSelector
-    {
-        MapperBuilder GetMapperBuilder(TypePair typePair);
-    }
-
-
-    internal sealed class TargetMapperBuilder : IMapperBuilderSelector
+    internal sealed class TargetMapperBuilder : IMapperBuilderConfig
     {
         private readonly ClassMapperBuilder _classMapperBuilder;
         private readonly CollectionMapperBuilder _collectionMapperBuilder;
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
-            _classMapperBuilder = new ClassMapperBuilder(assembly, this);
-            _collectionMapperBuilder = new CollectionMapperBuilder(assembly, this);
+            Assembly = assembly;
+
+            _classMapperBuilder = new ClassMapperBuilder(this);
+            _collectionMapperBuilder = new CollectionMapperBuilder(this);
         }
+
+        public IDynamicAssembly Assembly { get; private set; }
 
         public Mapper Build(TypePair typePair)
         {

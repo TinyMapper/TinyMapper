@@ -47,6 +47,7 @@
     <Compile Include="Mappers\Caches\MapperCache.cs" />
     <Compile Include="Mappers\Caches\MapperCacheItem.cs" />
     <Compile Include="Mappers\Collections\CollectionMapperBuilder.cs" />
+    <Compile Include="Mappers\IMapperBuilderConfig.cs" />
     <Compile Include="Mappers\MapperBuilder.cs" />
     <Compile Include="Mappers\MapperOf.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilder.cs" />

@@ -1,0 +1,13 @@
+﻿using System;
+using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Reflection;
+
+namespace Nelibur.ObjectMapper.Mappers
+{
+    internal interface IMapperBuilderConfig
+    {
+        IDynamicAssembly Assembly { get; }
+
+        MapperBuilder GetMapperBuilder(TypePair typePair);
+    }
+}

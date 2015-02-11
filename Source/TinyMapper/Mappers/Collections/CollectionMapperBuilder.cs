@@ -9,7 +9,6 @@ using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
-using Nelibur.ObjectMapper.Reflection;
 using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
@@ -19,11 +18,9 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string ConvertItemMethod = "ConvertItem";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
-        private readonly IDynamicAssembly _assembly;
 
-        public CollectionMapperBuilder(IDynamicAssembly assembly, IMapperBuilderSelector targetMapperBuilder)
+        public CollectionMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
-            _assembly = assembly;
         }
 
         protected override string ScopeName

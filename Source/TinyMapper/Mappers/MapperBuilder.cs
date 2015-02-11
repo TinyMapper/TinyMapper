@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers
 {
     internal abstract class MapperBuilder
     {
         protected const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
+        protected readonly IDynamicAssembly _assembly;
         private const string AssemblyName = "DynamicTinyMapper";
+
+        protected MapperBuilder(IMapperBuilderConfig config)
+        {
+            _assembly = config.Assembly;
+        }
+
         protected abstract string ScopeName { get; }
 
         public bool IsSupported(TypePair typePair)

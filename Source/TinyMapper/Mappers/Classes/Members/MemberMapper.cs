@@ -13,12 +13,12 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MemberMapper
     {
-        private readonly IMapperBuilderSelector _mapperBuilderSelector;
+        private readonly IMapperBuilderConfig _config;
         private readonly MapperCache _mappers = new MapperCache();
 
-        public MemberMapper(IMapperBuilderSelector mapperBuilderSelector)
+        public MemberMapper(IMapperBuilderConfig config)
         {
-            _mapperBuilderSelector = mapperBuilderSelector;
+            _config = config;
         }
 
         public MemberEmitterDescription Build(List<MappingMember> members)
@@ -77,7 +77,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            MapperBuilder mapperBuilder = _mapperBuilderSelector.GetMapperBuilder(member.TypePair);
+            MapperBuilder mapperBuilder = _config.GetMapperBuilder(member.TypePair);
             Mapper mapper = ((CollectionMapperBuilder)mapperBuilder).Create(member);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);

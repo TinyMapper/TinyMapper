@@ -8,7 +8,6 @@ using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
-using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes
 {
@@ -16,13 +15,11 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
     {
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
-        private readonly IDynamicAssembly _assembly;
         private readonly MemberMapper _memberMapper;
 
-        public ClassMapperBuilder(IDynamicAssembly assembly, IMapperBuilderSelector mapperBuilderSelector)
+        public ClassMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
-            _assembly = assembly;
-            _memberMapper = new MemberMapper(mapperBuilderSelector);
+            _memberMapper = new MemberMapper(config);
         }
 
         protected override string ScopeName
