@@ -5,7 +5,6 @@ using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
-using Nelibur.ObjectMapper.Mappers.Collections;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Nelibur.ObjectMapper.TypeConverters;
 
@@ -78,7 +77,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
             MapperBuilder mapperBuilder = _config.GetMapperBuilder(member.TypePair);
-            Mapper mapper = ((CollectionMapperBuilder)mapperBuilder).Create(member);
+            Mapper mapper = mapperBuilder.Create(member.TypePair);
             MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }

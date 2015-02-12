@@ -8,7 +8,6 @@ using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
-using Nelibur.ObjectMapper.Mappers.MappingMembers;
 using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
@@ -26,12 +25,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         protected override string ScopeName
         {
             get { return "CollectionMappers"; }
-        }
-
-        public Mapper Create(ComplexMappingMember member)
-        {
-            TypePair typePair = member.TypePair;
-            return CreateCore(typePair);
         }
 
         protected override Mapper CreateCore(TypePair typePair)
