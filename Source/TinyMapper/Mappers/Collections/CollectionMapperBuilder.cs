@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -83,27 +82,16 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             {
                 return type.GetElementType();
             }
-            else if (IsList(type))
+            else if (type.IsListOf())
             {
                 return type.GetGenericArguments().First();
             }
             throw new NotSupportedException();
         }
 
-        private static bool IsIEnumerableOf(Type type)
-        {
-            return type.GetInterfaces()
-                       .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == Types.IEnumerableOf);
-        }
-
         private static bool IsIEnumerableOfToList(TypePair typePair)
         {
-            return IsList(typePair.Target) && IsIEnumerableOf(typePair.Source);
-        }
-
-        private static bool IsList(Type type)
-        {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+            return typePair.Target.IsListOf() && typePair.Source.IsIEnumerable();
         }
     }
 }

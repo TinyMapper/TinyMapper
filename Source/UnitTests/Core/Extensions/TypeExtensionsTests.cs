@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Xunit;
+using Xunit.Extensions;
 
 namespace UnitTests.Core.Extensions
 {
@@ -17,6 +19,14 @@ namespace UnitTests.Core.Extensions
         public void HasDefaultCtor_String_False()
         {
             Assert.False((typeof(string)).HasDefaultCtor());
+        }
+
+        [InlineData(typeof(List<int>), true)]
+        [InlineData(typeof(int[]), false)]
+        [Theory]
+        public void IsListOf_Types_True(Type type, bool result)
+        {
+            Assert.Equal(result, type.IsListOf());
         }
 
         [Fact]

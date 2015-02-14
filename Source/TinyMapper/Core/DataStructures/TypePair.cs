@@ -1,4 +1,5 @@
 ﻿using System;
+using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Core.DataStructures
 {
@@ -37,11 +38,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
 
         public bool IsEnumerableTypes
         {
-            get
-            {
-                return Types.IEnumerable.IsAssignableFrom(Source) &&
-                       Types.IEnumerable.IsAssignableFrom(Target);
-            }
+            get { return Source.IsIEnumerable() && Target.IsIEnumerable(); }
         }
 
         public bool IsEqualTypes
