@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Nelibur.ObjectMapper.Core.Extensions;
@@ -19,6 +20,26 @@ namespace UnitTests.Core.Extensions
         public void HasDefaultCtor_String_False()
         {
             Assert.False((typeof(string)).HasDefaultCtor());
+        }
+
+        [InlineData(typeof(List<int>), true)]
+        [InlineData(typeof(int[]), true)]
+        [InlineData(typeof(ArrayList), false)]
+        [InlineData(typeof(int), false)]
+        [Theory]
+        public void IsIEnumerableOf_Types_True(Type type, bool result)
+        {
+            Assert.Equal(result, type.IsIEnumerableOf());
+        }
+
+        [InlineData(typeof(List<int>), true)]
+        [InlineData(typeof(int[]), true)]
+        [InlineData(typeof(ArrayList), true)]
+        [InlineData(typeof(int), false)]
+        [Theory]
+        public void IsIEnumerable_Types_True(Type type, bool result)
+        {
+            Assert.Equal(result, type.IsIEnumerable());
         }
 
         [InlineData(typeof(List<int>), true)]
