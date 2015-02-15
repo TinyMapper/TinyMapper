@@ -14,6 +14,8 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
     internal sealed class CollectionMapperBuilder : MapperBuilder
     {
         private const string ConvertItemMethod = "ConvertItem";
+        private const string EnumerableToArrayMethod = "EnumerableToArray";
+        private const string EnumerableToArrayTemplateMethod = "EnumerableToArrayTemplate";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
 
@@ -67,7 +69,17 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
         private static void EmitEnumerableToArray(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            throw new NotImplementedException();
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(EnumerableToArrayMethod, OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
+
+            Type sourceItemType = GetCollectionItemType(typePair.Source);
+            Type targetItemType = GetCollectionItemType(typePair.Target);
+
+            EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
+
+            MethodInfo methodTemplate = parentType.GetGenericMethod(EnumerableToArrayTemplateMethod, targetItemType);
+
+            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
+            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 
         private static void EmitEnumerableToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)

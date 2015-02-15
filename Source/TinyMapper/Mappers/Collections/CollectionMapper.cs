@@ -23,7 +23,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             int index = 0;
             foreach (object item in source)
             {
-                result.SetValue((TTargetItem)ConvertItem(item), index++);
+                result[index++] = ((TTargetItem)ConvertItem(item));
             }
             return result;
         }
