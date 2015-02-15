@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Nelibur.ObjectMapper.Core.DataStructures;
@@ -11,6 +12,22 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             this IEnumerable<TFrom> value, Func<TFrom, TResult> converter)
         {
             return value.Select(converter).ToList();
+        }
+
+        public static int Count(this IEnumerable source)
+        {
+            var collection = source as ICollection;
+            if (collection != null)
+            {
+                return collection.Count;
+            }
+
+            int count = 0;
+            foreach (object item in source)
+            {
+                count++;
+            }
+            return count;
         }
 
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> value)

@@ -34,6 +34,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             {
                 EmitEnumerableToList(parentType, typeBuilder, typePair);
             }
+            else if (IsIEnumerableToArray(typePair))
+            {
+                EmitEnumerableToArray(parentType, typeBuilder, typePair);
+            }
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             return result;
         }
@@ -59,6 +63,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 throw new NotSupportedException();
             }
             EmitReturn.Return(converter).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+        }
+
+        private static void EmitEnumerableToArray(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
+        {
+            throw new NotImplementedException();
         }
 
         private static void EmitEnumerableToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
@@ -92,6 +101,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private static bool IsIEnumerableToList(TypePair typePair)
         {
             return typePair.Source.IsIEnumerable() && typePair.Target.IsListOf();
+        }
+
+        private bool IsIEnumerableToArray(TypePair typePair)
+        {
+            return typePair.Source.IsIEnumerable() && typePair.Target.IsArray;
         }
     }
 }
