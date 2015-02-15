@@ -69,29 +69,25 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
         private static void EmitEnumerableToArray(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(EnumerableToArrayMethod, OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
-
-            Type sourceItemType = GetCollectionItemType(typePair.Source);
-            Type targetItemType = GetCollectionItemType(typePair.Target);
-
-            EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
-
-            MethodInfo methodTemplate = parentType.GetGenericMethod(EnumerableToArrayTemplateMethod, targetItemType);
-
-            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
-            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToArrayMethod, EnumerableToArrayTemplateMethod);
         }
 
         private static void EmitEnumerableToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(EnumerableToListMethod, OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
+        }
+
+        private static void EmitEnumerableToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
+            string methodName, string templateMethodName)
+        {
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
 
             Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
 
             EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
 
-            MethodInfo methodTemplate = parentType.GetGenericMethod(EnumerableToListTemplateMethod, targetItemType);
+            MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, targetItemType);
 
             IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
             EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
