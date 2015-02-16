@@ -13,7 +13,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
     internal sealed class MemberMapper
     {
         private readonly IMapperBuilderConfig _config;
-        private readonly MapperCache _mappers = new MapperCache();
+        private readonly MapperCache _mapperCache = new MapperCache();
 
         public MemberMapper(IMapperBuilderConfig config)
         {
@@ -24,8 +24,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         {
             var emitter = new EmitComposite();
             members.ForEach(x => emitter.Add(Build(x)));
-            var result = new MemberEmitterDescription(emitter, _mappers);
-            result.AddMapper(_mappers);
+            var result = new MemberEmitterDescription(emitter, _mapperCache);
+            result.AddMapper(_mapperCache);
             return result;
         }
 
@@ -78,7 +78,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         {
             MapperBuilder mapperBuilder = _config.GetMapperBuilder(member.TypePair);
             Mapper mapper = mapperBuilder.Create(member.TypePair);
-            MapperCacheItem mapperCacheItem = _mappers.Add(member.TypePair, mapper);
+            MapperCacheItem mapperCacheItem = _mapperCache.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
         }
 
