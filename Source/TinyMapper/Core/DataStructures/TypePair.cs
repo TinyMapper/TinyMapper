@@ -27,6 +27,10 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 {
                     return true;
                 }
+                if (Source == typeof(decimal))
+                {
+                    return true;
+                }
                 return false;
             }
         }
