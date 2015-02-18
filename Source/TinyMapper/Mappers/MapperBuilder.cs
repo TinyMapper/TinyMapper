@@ -30,10 +30,10 @@ namespace Nelibur.ObjectMapper.Mappers
 
         protected abstract Mapper CreateCore(TypePair typePair);
 
-        protected string GetMapperFullName(TypePair typePair)
+        protected string GetMapperFullName()
         {
             string random = Guid.NewGuid().ToString("N");
-            return string.Format("{0}.{1}.Mapper{2}To{3}{4}", AssemblyName, ScopeName, typePair.Source.Name, typePair.Target.Name, random);
+            return string.Format("{0}.{1}.Mapper{2}", AssemblyName, ScopeName, random);
         }
 
         protected abstract bool IsSupportedCore(TypePair typePair);
