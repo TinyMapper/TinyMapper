@@ -25,7 +25,7 @@ namespace Nelibur.ObjectMapper
             TypePair typePair = TypePair.Create<TSource, TTarget>();
             _mappers[typePair] = CreateMapper(typePair);
 
-            _assembly.Save();
+            //            _assembly.Save();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))

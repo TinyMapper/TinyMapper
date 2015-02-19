@@ -2,9 +2,9 @@
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mapping
 {
-    public sealed class TinyMapperTests
+    public sealed class PrimitiveTypeMappingTests
     {
         [Fact]
         public void Map_ClassWithPrimitiveTypes_Success()
