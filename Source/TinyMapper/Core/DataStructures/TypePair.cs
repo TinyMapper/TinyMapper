@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Core.DataStructures
@@ -88,6 +89,22 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             {
                 return ((Source != null ? Source.GetHashCode() : 0) * 397) ^ (Target != null ? Target.GetHashCode() : 0);
             }
+        }
+
+        public bool HasTypeConverter()
+        {
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(Source);
+            if (fromConverter.CanConvertTo(Target))
+            {
+                return true;
+            }
+
+            TypeConverter toConverter = TypeDescriptor.GetConverter(Target);
+            if (toConverter.CanConvertFrom(Source))
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool Equals(TypePair other)
