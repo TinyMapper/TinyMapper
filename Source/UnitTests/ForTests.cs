@@ -18,7 +18,8 @@ namespace UnitTests
                 //                Property = 4
                 //                List = new List<int> { 1, 2 }
                 //                Class3 = new Class3 { Id = 1 }
-                Array = new int[] { 0, 1 }
+                //                Array = new int[] { 0, 1 }
+                Bools = new List<bool> { true, false }
             };
             var target = TinyMapper.Map<Class2>(source);
             //            CallDynamicMethod();
@@ -64,7 +65,8 @@ namespace UnitTests
             //            public int Property { get; set; }
             //            public List<int> List { get; set; }
             //            public Class3 Class3 { get; set; }
-            public int[] Array { get; set; }
+            //            public int[] Array { get; set; }
+            public List<bool> Bools { get; set; }
         }
 
 
@@ -74,7 +76,8 @@ namespace UnitTests
             //            public int Property { get; set; }
             //            public List<int> List { get; set; }
             //            public Class3 Class3 { get; set; }
-            public int[] Array { get; set; }
+            //            public int[] Array { get; set; }
+            public List<bool> Bools { get; set; }
         }
 
 

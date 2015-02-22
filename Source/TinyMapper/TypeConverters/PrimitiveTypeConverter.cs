@@ -18,9 +18,9 @@ namespace Nelibur.ObjectMapper.TypeConverters
             return (TTarget)converter.ConvertFrom(value);
         }
 
-        public static TSource ConvertNothing<TSource>(TSource value)
+        public static TSource ConvertNothing<TSource>(object value)
         {
-            return value;
+            return (TSource)value;
         }
 
         public static TTarget ConvertTo<TSource, TTarget>(TSource value)

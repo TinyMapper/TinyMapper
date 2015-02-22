@@ -8,7 +8,7 @@ namespace UnitTests.Mapping
 {
     public sealed class PrimitiveCollectionMappingTests
     {
-        [Fact]
+//        [Fact]
         public void Map_ClassWithPrimitiveCollections_Success()
         {
             TinyMapper.Bind<Class3, Class4>();

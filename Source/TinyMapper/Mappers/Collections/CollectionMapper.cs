@@ -38,7 +38,20 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             var result = new List<TTargetItem>();
             foreach (object item in source)
             {
-                result.Add((TTargetItem)ConvertItem(item));
+                try
+                {
+                    Console.WriteLine(item);
+                    var targetItem = (TTargetItem)ConvertItem(item);
+                    if (targetItem.IsNull())
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    result.Add(targetItem);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
             return result;
         }

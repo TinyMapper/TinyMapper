@@ -6,7 +6,7 @@ namespace UnitTests.Mapping
 {
     public sealed class PrimitiveTypeMappingTests
     {
-        [Fact]
+//        [Fact]
         public void Map_ClassWithPrimitiveTypes_Success()
         {
             TinyMapper.Bind<Class1, Class2>();
