@@ -33,13 +33,13 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public MapperBuilder GetMapperBuilder(TypePair typePair)
         {
-            if (_collectionMapperBuilder.IsSupported(typePair))
-            {
-                return _collectionMapperBuilder;
-            }
-            else if (_primitiveTypeMapperBuilder.IsSupported(typePair))
+            if (_primitiveTypeMapperBuilder.IsSupported(typePair))
             {
                 return _primitiveTypeMapperBuilder;
+            }
+            else if (_collectionMapperBuilder.IsSupported(typePair))
+            {
+                return _collectionMapperBuilder;
             }
             return _classMapperBuilder;
         }

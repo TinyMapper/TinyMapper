@@ -50,7 +50,7 @@
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="ForTests.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilderTests.cs" />
-    <Compile Include="Mappers\PrimitiveTypes\PrimitiveTypeMapperTests.cs" />
+    <Compile Include="Mappers\Types\PrimitiveTypeMapperTests.cs" />
     <Compile Include="Mapping\PrimitiveCollectionMappingTests.cs" />
     <Compile Include="Mapping\PrimitiveTypeMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

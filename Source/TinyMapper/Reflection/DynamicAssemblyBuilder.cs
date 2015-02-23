@@ -25,7 +25,7 @@ namespace Nelibur.ObjectMapper.Reflection
             {
                 var assemblyName = new AssemblyName(AssemblyName);
                 //                _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName,  AssemblyBuilderAccess.RunAndSave);
 
                 //                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name);
                 _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
@@ -33,12 +33,12 @@ namespace Nelibur.ObjectMapper.Reflection
 
             public TypeBuilder DefineType(string typeName, Type parentType)
             {
-                return _moduleBuilder.DefineType(typeName, TypeAttributes.Public | TypeAttributes.Sealed, parentType);
+                return _moduleBuilder.DefineType(typeName, TypeAttributes.Public | TypeAttributes.Sealed, parentType,null);
             }
 
             public void Save()
             {
-                _assemblyBuilder.Save(AssemblyNameFileName);
+//                _assemblyBuilder.Save(AssemblyNameFileName);
             }
         }
     }

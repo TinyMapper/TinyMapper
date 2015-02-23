@@ -6,7 +6,7 @@ using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 using Xunit.Extensions;
 
-namespace UnitTests.Mappers.PrimitiveTypes
+namespace UnitTests.Mappers.Types
 {
     public sealed class PrimitiveTypeMapperTests
     {
