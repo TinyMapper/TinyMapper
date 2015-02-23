@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper;
-using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests
@@ -22,7 +21,7 @@ namespace UnitTests
                 //                Array = new int[] { 0, 1 }
                 Bools = new List<bool> { true, false }
             };
-            DynamicAssemblyBuilder.Get().Save();
+            //            DynamicAssemblyBuilder.Get().Save();
             var target = TinyMapper.Map<Class2>(source);
             //            CallDynamicMethod();
         }

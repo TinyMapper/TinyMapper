@@ -1,13 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 13.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Source\UnitTests\UnitTests.csproj", "{0537D08C-3A73-4F2A-866B-2219E6A336DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyMapper", "Source\TinyMapper\TinyMapper.csproj", "{C7EBD676-248B-484A-A5CB-DF879670652A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Source\Benchmark\Benchmark.csproj", "{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugDynamicAssembly", "Source\DebugDynamicAssembly\DebugDynamicAssembly.csproj", "{36CBC863-92D2-4E0E-8530-C758AC418B6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36CBC863-92D2-4E0E-8530-C758AC418B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36CBC863-92D2-4E0E-8530-C758AC418B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36CBC863-92D2-4E0E-8530-C758AC418B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36CBC863-92D2-4E0E-8530-C758AC418B6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
