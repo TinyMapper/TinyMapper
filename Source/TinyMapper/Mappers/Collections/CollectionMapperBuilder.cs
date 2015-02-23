@@ -86,7 +86,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             IEmitterType sourceMemeber = EmitArgument.Load(Types.Object, 1);
             IEmitterType targetMember = EmitNull.Load();
 
-            IEmitterType callMapMethod = mapperCacheItem.CallMapMethod(sourceMemeber, targetMember);
+            IEmitterType callMapMethod = mapperCacheItem.EmitMapMethod(sourceMemeber, targetMember);
 
             EmitReturn.Return(callMapMethod).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }

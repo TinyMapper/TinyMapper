@@ -9,7 +9,7 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
         public int Id { get; set; }
         public Mapper Mapper { get; set; }
 
-        public IEmitterType CallMapMethod(IEmitterType sourceMemeber, IEmitterType targetMember)
+        public IEmitterType EmitMapMethod(IEmitterType sourceMemeber, IEmitterType targetMember)
         {
             Type mapperType = typeof(Mapper);
             MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Instance | BindingFlags.Public);

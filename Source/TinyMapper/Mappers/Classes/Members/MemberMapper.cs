@@ -78,7 +78,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
             MapperCacheItem mapperCacheItem = CreateMapperCacheItem(member.TypePair);
 
-            IEmitterType result = mapperCacheItem.CallMapMethod(sourceMemeber, targetMember);
+            IEmitterType result = mapperCacheItem.EmitMapMethod(sourceMemeber, targetMember);
             return result;
         }
 
