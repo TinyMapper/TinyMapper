@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="ForTests.cs" />
+    <Compile Include="Mappers\Classes\ClassMapperTests.cs" />
+    <Compile Include="Mappers\Classes\MappingBuilderConfigStub.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilderTests.cs" />
     <Compile Include="Mappers\Types\PrimitiveTypeMapperTests.cs" />
     <Compile Include="Mapping\PrimitiveCollectionMappingTests.cs" />

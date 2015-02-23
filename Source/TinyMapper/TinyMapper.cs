@@ -10,22 +10,19 @@ namespace Nelibur.ObjectMapper
 {
     public static class TinyMapper
     {
-        private static readonly IDynamicAssembly _assembly;
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
         private static readonly TargetMapperBuilder _targetMapperBuilder;
 
         static TinyMapper()
         {
-            _assembly = DynamicAssemblyBuilder.Get();
-            _targetMapperBuilder = new TargetMapperBuilder(_assembly);
+            IDynamicAssembly assembly = DynamicAssemblyBuilder.Get();
+            _targetMapperBuilder = new TargetMapperBuilder(assembly);
         }
 
         public static void Bind<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
             _mappers[typePair] = CreateMapper(typePair);
-
-            //            _assembly.Save();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
