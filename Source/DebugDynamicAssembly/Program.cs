@@ -18,7 +18,7 @@ namespace DebugDynamicAssembly
         {
             try
             {
-//                Bind();
+                //                Bind();
                 Map();
             }
             catch (Exception ex)
