@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,13 +26,13 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsIEnumerable(this Type type)
         {
-            return Types.IEnumerable.IsAssignableFrom(type);
+            return typeof(IEnumerable).IsAssignableFrom(type);
         }
 
         public static bool IsIEnumerableOf(this Type type)
         {
             return type.GetInterfaces()
-                       .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == Types.IEnumerableOf);
+                       .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
         }
 
         public static bool IsListOf(this Type type)

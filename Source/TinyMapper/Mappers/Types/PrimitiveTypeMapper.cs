@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nelibur.ObjectMapper.Mappers.PrimitiveTypes
+namespace Nelibur.ObjectMapper.Mappers.Types
 {
     internal sealed class PrimitiveTypeMapper : Mapper
     {

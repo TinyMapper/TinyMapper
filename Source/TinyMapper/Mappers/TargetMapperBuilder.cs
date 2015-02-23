@@ -2,7 +2,7 @@
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers.Classes;
 using Nelibur.ObjectMapper.Mappers.Collections;
-using Nelibur.ObjectMapper.Mappers.PrimitiveTypes;
+using Nelibur.ObjectMapper.Mappers.Types;
 using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers

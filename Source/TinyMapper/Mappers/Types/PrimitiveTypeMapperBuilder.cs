@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
 
-namespace Nelibur.ObjectMapper.Mappers.PrimitiveTypes
+namespace Nelibur.ObjectMapper.Mappers.Types
 {
     internal sealed class PrimitiveTypeMapperBuilder : MapperBuilder
     {

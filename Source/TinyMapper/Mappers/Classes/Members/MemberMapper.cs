@@ -62,13 +62,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        /// <summary>
-        /// Converts the member.
-        /// </summary>
-        /// <param name="member">The member.</param>
-        /// <param name="sourceMemeber">The source memeber.</param>
-        /// <param name="targetMember">The target member.</param>
-        /// <returns></returns>
         private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
             if (member.TypePair.IsDeepCloneable)

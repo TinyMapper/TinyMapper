@@ -1,10 +1,10 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
-using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
@@ -81,9 +81,9 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             MapperCacheItem mapperCacheItem = CreateMapperCacheItem(typePair);
 
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, typeof(object), new[] { typeof(object) });
 
-            IEmitterType sourceMemeber = EmitArgument.Load(Types.Object, 1);
+            IEmitterType sourceMemeber = EmitArgument.Load(typeof(object), 1);
             IEmitterType targetMember = EmitNull.Load();
 
             IEmitterType callMapMethod = mapperCacheItem.EmitMapMethod(sourceMemeber, targetMember);
@@ -104,7 +104,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private void EmitEnumerableToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
             string methodName, string templateMethodName)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { Types.IEnumerable });
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
             Type sourceItemType = GetCollectionItemType(typePair.Source);
             Type targetItemType = GetCollectionItemType(typePair.Target);
@@ -113,7 +113,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
             MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, targetItemType);
 
-            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(Types.IEnumerable, 1));
+            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));
             EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 

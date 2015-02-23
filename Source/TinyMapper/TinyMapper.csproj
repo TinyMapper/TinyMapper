@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
-    <Compile Include="Core\Types.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
@@ -53,8 +52,8 @@
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilder.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMember.cs" />
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Mappers\PrimitiveTypes\PrimitiveTypeMapper.cs" />
-    <Compile Include="Mappers\PrimitiveTypes\PrimitiveTypeMapperBuilder.cs" />
+    <Compile Include="Mappers\Types\PrimitiveTypeMapper.cs" />
+    <Compile Include="Mappers\Types\PrimitiveTypeMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitBox.cs" />
