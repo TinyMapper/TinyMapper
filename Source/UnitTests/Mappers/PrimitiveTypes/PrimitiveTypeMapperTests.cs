@@ -12,6 +12,8 @@ namespace UnitTests.Mappers.PrimitiveTypes
     {
         [InlineData(typeof(bool), typeof(bool), true, true)]
         [InlineData(typeof(int), typeof(int), 1, 1)]
+        [InlineData(typeof(string), typeof(int), "1", 1)]
+        [InlineData(typeof(int), typeof(string), 1, "1")]
         [Theory]
         public void Test(Type sourceType, Type targetType, object source, object expected)
         {
