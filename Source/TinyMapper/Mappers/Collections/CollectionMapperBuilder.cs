@@ -69,18 +69,22 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             return typePair.Source.IsIEnumerable() && typePair.Target.IsListOf();
         }
 
-        private void EmitConvertItem(TypeBuilder typeBuilder, TypePair typePair)
+        private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
-
-            //            IEmitterType converter;
-
-            IEmitterType sourceObject = EmitArgument.Load(Types.Object, 1);
-            IEmitterType targetObject = EmitNull.Load();
-
             MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
             Mapper mapper = mapperBuilder.Create(typePair);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);
+            return mapperCacheItem;
+        }
+
+        private void EmitConvertItem(TypeBuilder typeBuilder, TypePair typePair)
+        {
+            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(typePair);
+
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
+
+            IEmitterType sourceObject = EmitArgument.Load(Types.Object, 1);
+            IEmitterType targetObject = EmitNull.Load();
 
             Type mapperType = typeof(Mapper);
             MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Instance | BindingFlags.Public);
@@ -89,16 +93,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             IEmitterType emitMapper = EmitArray.Load(emitMappers, mapperCacheItem.Id);
             IEmitterType callMapMethod = EmitMethod.Call(mapMethod, emitMapper, sourceObject, targetObject);
 
-            //            if (PrimitiveTypeConverter.IsSupported(typePair))
-            //            {
-            //                MethodInfo converterMethod = PrimitiveTypeConverter.GetConverter(typePair);
-            //                converter = EmitMethod.CallStatic(converterMethod, EmitArgument.Load(typePair.Source, 1));
-            //            }
-            //            else
-            //            {
-            //                throw new NotSupportedException();
-            //            }
-            //            EmitReturn.Return(converter).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
             EmitReturn.Return(callMapMethod).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
 

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
-using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
-using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
@@ -74,33 +72,25 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        private IEmitterType ConvertComplexType(ComplexMappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
+        /// <summary>
+        /// Converts the member.
+        /// </summary>
+        /// <param name="member">The member.</param>
+        /// <param name="sourceMemeber">The source memeber.</param>
+        /// <param name="targetMember">The target member.</param>
+        /// <returns></returns>
+        private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
+            if (member.TypePair.IsDeepCloneable)
+            {
+                return sourceMemeber;
+            }
+
             MapperBuilder mapperBuilder = _config.GetMapperBuilder(member.TypePair);
             Mapper mapper = mapperBuilder.Create(member.TypePair);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(member.TypePair, mapper);
             return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
-        }
 
-        private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
-        {
-            IEmitterType result = null;
-            member.ToOption()
-                  .MatchType<PrimitiveMappingMember>(x => result = ConvertPrimitiveType(x, sourceMemeber))
-                  .MatchType<ComplexMappingMember>(x => result = ConvertComplexType(x, sourceMemeber, targetMember));
-            return result;
-        }
-
-        private IEmitterType ConvertPrimitiveType(PrimitiveMappingMember member, IEmitterType memberValue)
-        {
-            TypePair typePair = member.TypePair;
-            if (typePair.IsDeepCloneable)
-            {
-                return memberValue;
-            }
-            MethodInfo converter = PrimitiveTypeConverter.GetConverter(typePair);
-            IEmitterType result = EmitMethod.CallStatic(converter, memberValue);
-            return result;
         }
 
         private IEmitterType LoadField(IEmitterType source, FieldInfo field)

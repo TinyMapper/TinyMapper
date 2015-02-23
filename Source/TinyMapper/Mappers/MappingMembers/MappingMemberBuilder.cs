@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
-using Nelibur.ObjectMapper.TypeConverters;
 
 namespace Nelibur.ObjectMapper.Mappers.MappingMembers
 {
@@ -62,11 +61,6 @@ namespace Nelibur.ObjectMapper.Mappers.MappingMembers
             return result;
         }
 
-        private static bool IsPrimitiveMember(TypePair typePair)
-        {
-            return PrimitiveTypeConverter.IsSupported(typePair);
-        }
-
         private static bool Match(string valueA, string valueB)
         {
             return string.Equals(valueA, valueB, StringComparison.Ordinal);
@@ -86,17 +80,7 @@ namespace Nelibur.ObjectMapper.Mappers.MappingMembers
                 {
                     continue;
                 }
-                var mappingPair = new TypePair(sourceMember.GetMemberType(), targetMember.GetMemberType());
-                if (IsPrimitiveMember(mappingPair))
-                {
-                    MappingMember primitive = new PrimitiveMappingMember(sourceMember, targetMember);
-                    result.Add(primitive);
-                }
-                else
-                {
-                    MappingMember complex = new ComplexMappingMember(sourceMember, targetMember);
-                    result.Add(complex);
-                }
+                result.Add(new MappingMember(sourceMember, targetMember));
             }
             return result;
         }

@@ -5,9 +5,9 @@ using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.MappingMembers
 {
-    internal abstract class MappingMember
+    internal class MappingMember
     {
-        protected MappingMember(MemberInfo source, MemberInfo target)
+        public MappingMember(MemberInfo source, MemberInfo target)
         {
             Source = source;
             Target = target;

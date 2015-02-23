@@ -51,13 +51,11 @@
     <Compile Include="Mappers\MapperBuilder.cs" />
     <Compile Include="Mappers\MapperOf.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilder.cs" />
-    <Compile Include="Mappers\MappingMembers\ComplexMappingMember.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMember.cs" />
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Mappers\PrimitiveTypes\PrimitiveTypeMapper.cs" />
     <Compile Include="Mappers\PrimitiveTypes\PrimitiveTypeMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
-    <Compile Include="Mappers\MappingMembers\PrimitiveMappingMember.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitBox.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitMethod.cs" />
@@ -81,7 +79,6 @@
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Core\Error.cs" />
     <Compile Include="Core\DataStructures\Option.cs" />
-    <Compile Include="TypeConverters\PrimitiveTypeConverter.cs" />
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Core\Extensions\OptionExtensions.cs" />
