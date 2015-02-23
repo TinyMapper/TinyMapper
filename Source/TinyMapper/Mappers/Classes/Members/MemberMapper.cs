@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.MappingMembers;
@@ -61,17 +62,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        private IEmitterType CallMapMethod(MapperCacheItem mapperCacheItem, IEmitterType sourceMemeber, IEmitterType targetMember)
-        {
-            Type mapperType = typeof(Mapper);
-            MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Instance | BindingFlags.Public);
-            FieldInfo mappersField = mapperType.GetField(Mapper.MappersFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-            IEmitterType mappers = EmitField.Load(EmitThis.Load(mapperType), mappersField);
-            IEmitterType mapper = EmitArray.Load(mappers, mapperCacheItem.Id);
-            IEmitterType result = EmitMethod.Call(mapMethod, mapper, sourceMemeber, targetMember);
-            return result;
-        }
-
         /// <summary>
         /// Converts the member.
         /// </summary>
@@ -86,11 +76,19 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 return sourceMemeber;
             }
 
-            MapperBuilder mapperBuilder = _config.GetMapperBuilder(member.TypePair);
-            Mapper mapper = mapperBuilder.Create(member.TypePair);
-            MapperCacheItem mapperCacheItem = _mapperCache.Add(member.TypePair, mapper);
-            return CallMapMethod(mapperCacheItem, sourceMemeber, targetMember);
+            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(member.TypePair);
 
+            IEmitterType result = mapperCacheItem.CallMapMethod(sourceMemeber, targetMember);
+            return result;
+        }
+
+        private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
+        {
+            MapperBuilder mapperBuilder = _config.GetMapperBuilder(typePair);
+            Mapper mapper = mapperBuilder.Create(typePair);
+            MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);
+
+            return mapperCacheItem;
         }
 
         private IEmitterType LoadField(IEmitterType source, FieldInfo field)

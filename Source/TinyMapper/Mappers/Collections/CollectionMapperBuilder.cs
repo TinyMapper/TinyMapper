@@ -83,15 +83,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(ConvertItemMethod, OverrideProtected, Types.Object, new[] { Types.Object });
 
-            IEmitterType sourceObject = EmitArgument.Load(Types.Object, 1);
-            IEmitterType targetObject = EmitNull.Load();
+            IEmitterType sourceMemeber = EmitArgument.Load(Types.Object, 1);
+            IEmitterType targetMember = EmitNull.Load();
 
-            Type mapperType = typeof(Mapper);
-            MethodInfo mapMethod = mapperType.GetMethod(Mapper.MapMethodName, BindingFlags.Instance | BindingFlags.Public);
-            FieldInfo mappersField = mapperType.GetField(Mapper.MappersFieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-            IEmitterType emitMappers = EmitField.Load(EmitThis.Load(mapperType), mappersField);
-            IEmitterType emitMapper = EmitArray.Load(emitMappers, mapperCacheItem.Id);
-            IEmitterType callMapMethod = EmitMethod.Call(mapMethod, emitMapper, sourceObject, targetObject);
+            IEmitterType callMapMethod = mapperCacheItem.CallMapMethod(sourceMemeber, targetMember);
 
             EmitReturn.Return(callMapMethod).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
         }
