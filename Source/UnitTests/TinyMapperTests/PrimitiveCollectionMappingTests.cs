@@ -8,6 +8,25 @@ namespace UnitTests.TinyMapperTests
     public sealed class PrimitiveCollectionMappingTests
     {
         [Fact]
+        public void Map_ClassWithPrimitiveArrays_Success()
+        {
+            TinyMapper.Bind<Class5, Class6>();
+
+            var source = new Class5
+            {
+                Ints = new[] { 0, 1 },
+                Bools = new[] { true },
+                Strings = new[] { "Nelibur", "TinyMapper" }
+            };
+
+            var target = TinyMapper.Map<Class6>(source);
+
+            Assert.Equal(target.Ints, source.Ints);
+            Assert.Equal(target.Bools, source.Bools);
+            Assert.Equal(target.Strings, source.Strings);
+        }
+
+        [Fact]
         public void Map_ClassWithPrimitiveCollections_Success()
         {
             TinyMapper.Bind<Class3, Class4>();
@@ -83,6 +102,22 @@ namespace UnitTests.TinyMapperTests
             public List<uint> Uint { get; set; }
             public List<ulong> Ulong { get; set; }
             public List<ushort> Ushort { get; set; }
+        }
+
+
+        public class Class5
+        {
+            public bool[] Bools { get; set; }
+            public int[] Ints { get; set; }
+            public string[] Strings { get; set; }
+        }
+
+
+        public class Class6
+        {
+            public bool[] Bools { get; set; }
+            public int[] Ints { get; set; }
+            public string[] Strings { get; set; }
         }
     }
 }
