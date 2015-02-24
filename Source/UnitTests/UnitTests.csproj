@@ -53,8 +53,8 @@
     <Compile Include="Mappers\Classes\MappingBuilderConfigStub.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilderTests.cs" />
     <Compile Include="Mappers\Types\PrimitiveTypeMapperTests.cs" />
-    <Compile Include="Mapping\PrimitiveCollectionMappingTests.cs" />
-    <Compile Include="Mapping\PrimitiveTypeMappingTests.cs" />
+    <Compile Include="TinyMapperTests\PrimitiveCollectionMappingTests.cs" />
+    <Compile Include="TinyMapperTests\PrimitiveTypeMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

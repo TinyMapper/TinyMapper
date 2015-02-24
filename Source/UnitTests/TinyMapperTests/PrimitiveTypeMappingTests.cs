@@ -2,11 +2,11 @@
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests.Mapping
+namespace UnitTests.TinyMapperTests
 {
     public sealed class PrimitiveTypeMappingTests
     {
-        //        [Fact]
+        [Fact]
         public void Map_ClassWithPrimitiveTypes_Success()
         {
             TinyMapper.Bind<Class1, Class2>();

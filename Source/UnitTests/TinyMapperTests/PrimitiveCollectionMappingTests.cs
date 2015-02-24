@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests.Mapping
+namespace UnitTests.TinyMapperTests
 {
     public sealed class PrimitiveCollectionMappingTests
     {
