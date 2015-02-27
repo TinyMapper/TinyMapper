@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Reflection.Emit;
+using Xunit;
 
 namespace UnitTests.Snippets
 {
-    public class DynamicMethodSnippet
+    public sealed class DynamicMethodSnippet
     {
+        [Fact]
+        public void Snitppet()
+        {
+            CallDynamicMethod();
+        }
+
         private static void CallDynamicMethod()
         {
             var multiplyMethod = new DynamicMethod("MultiplyMethod", typeof(int), new[] { typeof(int) },
