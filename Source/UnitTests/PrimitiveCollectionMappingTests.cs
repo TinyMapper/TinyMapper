@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests.TinyMapperTests
+namespace UnitTests
 {
     public sealed class PrimitiveCollectionMappingTests
     {
         [Fact]
-        public void Map_ClassWithPrimitiveArrays_Success()
+        public void Map_PrimitiveArrays_Success()
         {
             TinyMapper.Bind<Class5, Class6>();
 
@@ -27,7 +27,7 @@ namespace UnitTests.TinyMapperTests
         }
 
         [Fact]
-        public void Map_ClassWithPrimitiveCollections_Success()
+        public void Map_PrimitiveCollections_Success()
         {
             TinyMapper.Bind<Class3, Class4>();
             var source = new Class3
