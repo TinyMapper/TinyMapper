@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
@@ -10,21 +9,6 @@ using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper
 {
-    public interface IBindingConfig<TTarget>
-    {
-        void Ignore(Expression<Func<TTarget, object>> expression);
-    }
-
-
-    internal sealed class BindingConfig<TTarget> : IBindingConfig<TTarget>
-    {
-        public void Ignore(Expression<Func<TTarget, object>> expression)
-        {
-            Console.WriteLine("1");
-            //            throw new NotImplementedException();
-        }
-    }
-
     public static class TinyMapper
     {
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
@@ -39,16 +23,18 @@ namespace Nelibur.ObjectMapper
         public static void Bind<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-            _mappers[typePair] = CreateMapper(typePair);
+            var bindingConfig = new BindingConfig(typePair);
+            _mappers[typePair] = CreateMapper(bindingConfig);
         }
 
         public static void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config)
         {
-            Console.WriteLine("0");
-            var bindingConfig = new BindingConfig<TTarget>();
-            config(bindingConfig);
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-            _mappers[typePair] = CreateMapper(typePair);
+
+            var bindingConfig = new BindingConfigOf<TTarget>(typePair);
+            config(bindingConfig);
+
+            _mappers[typePair] = CreateMapper(bindingConfig);
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
@@ -81,9 +67,9 @@ namespace Nelibur.ObjectMapper
             return result;
         }
 
-        private static Mapper CreateMapper(TypePair typePair)
+        private static Mapper CreateMapper(BindingConfig config)
         {
-            Mapper mapper = _targetMapperBuilder.Build(typePair);
+            Mapper mapper = _targetMapperBuilder.Build(config.TypePair);
             return mapper;
         }
 
@@ -92,7 +78,9 @@ namespace Nelibur.ObjectMapper
             Mapper mapper;
             if (_mappers.TryGetValue(typePair, out mapper) == false)
             {
-                mapper = CreateMapper(typePair);
+                var bindingConfig = new BindingConfig(typePair);
+                mapper = CreateMapper(bindingConfig);
+
                 _mappers[typePair] = mapper;
             }
             return mapper;

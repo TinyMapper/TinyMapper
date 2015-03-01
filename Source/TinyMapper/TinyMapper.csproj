@@ -41,6 +41,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Bindings\BindingConfig.cs" />
+    <Compile Include="Bindings\BindingConfigOf.cs" />
     <Compile Include="Bindings\IBindingConfig.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />

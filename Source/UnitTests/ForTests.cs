@@ -57,7 +57,7 @@ namespace UnitTests
 
         public class Class2
         {
-                        public int Field;
+            public int Field;
             //            public int Property { get; set; }
             //            public List<int> List { get; set; }
             //            public Class3 Class3 { get; set; }
