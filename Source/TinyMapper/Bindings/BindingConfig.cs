@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper.Core.DataStructures;
 
 namespace Nelibur.ObjectMapper.Bindings
@@ -17,7 +18,7 @@ namespace Nelibur.ObjectMapper.Bindings
 
         public bool IsIgnoreField(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrEmpty(name))
             {
                 return true;
             }

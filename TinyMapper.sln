@@ -12,24 +12,31 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release 3.5|Any CPU = Release 3.5|Any CPU
 		Release 4.0|Any CPU = Release 4.0|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release 3.5|Any CPU.ActiveCfg = Release 3.5|Any CPU
+		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release 3.5|Any CPU.Build.0 = Release 3.5|Any CPU
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release 4.0|Any CPU.ActiveCfg = Release 4.0|Any CPU
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release 4.0|Any CPU.Build.0 = Release 4.0|Any CPU
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0537D08C-3A73-4F2A-866B-2219E6A336DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release 3.5|Any CPU.ActiveCfg = Release 3.5|Any CPU
+		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release 3.5|Any CPU.Build.0 = Release 3.5|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release 4.0|Any CPU.ActiveCfg = Release 4.0|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release 4.0|Any CPU.Build.0 = Release 4.0|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7EBD676-248B-484A-A5CB-DF879670652A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release 3.5|Any CPU.ActiveCfg = Release 3.5|Any CPU
+		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release 3.5|Any CPU.Build.0 = Release 3.5|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release 4.0|Any CPU.ActiveCfg = Release 4.0|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release 4.0|Any CPU.Build.0 = Release 4.0|Any CPU
 		{49058BB5-61A5-4FE3-B64F-B1F9FD5DCB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
