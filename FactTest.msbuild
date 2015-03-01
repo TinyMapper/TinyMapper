@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="RunUnitTests">
+    <PropertyGroup>
+        <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+        <XUnitMsbuildPath Condition="'$(XUnitMsbuildPath)' == ''">$(MSBuildProjectDirectory)\packages\xunit.1.9.2\lib\net20</XUnitMsbuildPath>
+        <FactTestsPath Condition="'$(FactTestsPath)' == ''">$(MSBuildProjectDirectory)\Out\$(Configuration)\UnitTests</FactTestsPath>
+    </PropertyGroup>
+    
+    <UsingTask AssemblyFile="$(XUnitMsbuildPath)\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
+
+    <Target Name="RunUnitTests" DependsOnTargets="RunXUnitTests" />
+
+    <Target Name="RunXUnitTests">
+        <ItemGroup>
+            <XUnitAssemblies Include="$(FactTestsPath)\UnitTests.dll" />
+        </ItemGroup>
+        <xunit Assemblies="@(XUnitAssemblies)"
+               Html="$(FactTestsPath)\FactTestResults.html"
+               WorkingFolder="$(XUnitMsbuildPath)"/>
+    </Target>
+</Project>
