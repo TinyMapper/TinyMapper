@@ -37,6 +37,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
