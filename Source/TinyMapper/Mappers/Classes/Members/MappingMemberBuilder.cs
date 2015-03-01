@@ -5,7 +5,7 @@ using System.Reflection;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 
-namespace Nelibur.ObjectMapper.Mappers.MappingMembers
+namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MappingMemberBuilder
     {

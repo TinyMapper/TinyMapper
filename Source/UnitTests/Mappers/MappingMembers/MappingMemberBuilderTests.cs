@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nelibur.ObjectMapper.Core.DataStructures;
-using Nelibur.ObjectMapper.Mappers.MappingMembers;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Xunit;
 
 namespace UnitTests.Mappers.MappingMembers

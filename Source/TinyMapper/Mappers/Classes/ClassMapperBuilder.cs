@@ -7,7 +7,6 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
-using Nelibur.ObjectMapper.Mappers.MappingMembers;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes
 {

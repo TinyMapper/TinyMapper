@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
@@ -8,6 +10,21 @@ using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper
 {
+    public interface IBindingConfig<TTarget>
+    {
+        void Ignore(Expression<Func<TTarget, object>> expression);
+    }
+
+
+    internal sealed class BindingConfig<TTarget> : IBindingConfig<TTarget>
+    {
+        public void Ignore(Expression<Func<TTarget, object>> expression)
+        {
+            Console.WriteLine("1");
+            //            throw new NotImplementedException();
+        }
+    }
+
     public static class TinyMapper
     {
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
@@ -21,6 +38,15 @@ namespace Nelibur.ObjectMapper
 
         public static void Bind<TSource, TTarget>()
         {
+            TypePair typePair = TypePair.Create<TSource, TTarget>();
+            _mappers[typePair] = CreateMapper(typePair);
+        }
+
+        public static void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config)
+        {
+            Console.WriteLine("0");
+            var bindingConfig = new BindingConfig<TTarget>();
+            config(bindingConfig);
             TypePair typePair = TypePair.Create<TSource, TTarget>();
             _mappers[typePair] = CreateMapper(typePair);
         }

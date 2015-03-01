@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -9,6 +10,24 @@ namespace UnitTests
     {
         [Fact]
         public void Test()
+        {
+            //            Map();
+
+            TinyMapper.Bind<Class1, Class2>(config =>
+            {
+                config.Ignore(x => x.Bools);
+                config.Ignore(x => x.Field);
+            });
+        }
+
+        private static string GetPropertyName<T>(Expression<Func<T>> action)
+        {
+            var expression = (MemberExpression)action.Body;
+            string propertyName = expression.Member.Name;
+            return propertyName;
+        }
+
+        private static void Map()
         {
             TinyMapper.Bind<Class1, Class2>();
             var source = new Class1
@@ -22,13 +41,12 @@ namespace UnitTests
             };
             //            DynamicAssemblyBuilder.Get().Save();
             var target = TinyMapper.Map<Class2>(source);
-            //            CallDynamicMethod();
         }
 
 
         public class Class1
         {
-            //            public int Field;
+            public int Field;
             //            public int Property { get; set; }
             //            public List<int> List { get; set; }
             //            public Class3 Class3 { get; set; }
@@ -39,7 +57,7 @@ namespace UnitTests
 
         public class Class2
         {
-            //            public int Field;
+                        public int Field;
             //            public int Property { get; set; }
             //            public List<int> List { get; set; }
             //            public Class3 Class3 { get; set; }
