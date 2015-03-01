@@ -24,8 +24,8 @@ namespace Nelibur.ObjectMapper.Reflection
             public DynamicAssembly()
             {
                 var assemblyName = new AssemblyName(AssemblyName);
-                //                _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                _assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                //                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
 
                 //                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name);
                 _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
