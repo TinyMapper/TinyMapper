@@ -17,7 +17,7 @@ namespace Nelibur.ObjectMapper.Mappers.Types
             get { return "PrimitiveTypeMappers"; }
         }
 
-        protected override Mapper CreateCore(TypePair typePair)
+        protected override Mapper BuildCore(TypePair typePair)
         {
             Func<object, object> converter = GetConverter(typePair);
             return new PrimitiveTypeMapper(converter);

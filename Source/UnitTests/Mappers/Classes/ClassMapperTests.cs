@@ -12,7 +12,7 @@ namespace UnitTests.Mappers.Classes
         public void Map_PrimitiveField_Success()
         {
             var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Create(new TypePair(typeof(ClassFiledSource1), typeof(ClassFiledTarget1)));
+            Mapper mapper = builder.Build(new TypePair(typeof(ClassFiledSource1), typeof(ClassFiledTarget1)));
 
             var source = new ClassFiledSource1
             {
@@ -50,7 +50,7 @@ namespace UnitTests.Mappers.Classes
         public void Map_PrimitiveProperty_Success()
         {
             var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Create(new TypePair(typeof(ClassPropertySource1), typeof(ClassPropertyTarget1)));
+            Mapper mapper = builder.Build(new TypePair(typeof(ClassPropertySource1), typeof(ClassPropertyTarget1)));
 
             var source = new ClassPropertySource1
             {

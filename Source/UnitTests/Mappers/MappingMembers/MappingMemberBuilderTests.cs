@@ -11,14 +11,16 @@ namespace UnitTests.Mappers.MappingMembers
         [Fact]
         public void Buid_Recursion_Success()
         {
-            List<MappingMember> members = MappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
             Assert.Equal(2, members.Count);
         }
 
         [Fact]
         public void Build_CommonFileds_Success()
         {
-            List<MappingMember> members = MappingMemberBuilder.Build(new TypePair(typeof(MyClass2), typeof(MyClass3)));
+            var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass2), typeof(MyClass3)));
             Assert.Equal(2, members.Count);
         }
 

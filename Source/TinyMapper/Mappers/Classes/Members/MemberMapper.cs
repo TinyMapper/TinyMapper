@@ -77,7 +77,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
             MapperBuilder mapperBuilder = _config.GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Create(typePair);
+            Mapper mapper = mapperBuilder.Build(typePair);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);
 
             return mapperCacheItem;

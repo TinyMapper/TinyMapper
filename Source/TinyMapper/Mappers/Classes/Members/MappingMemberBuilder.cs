@@ -9,7 +9,14 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MappingMemberBuilder
     {
-        public static List<MappingMember> Build(TypePair typePair)
+        private readonly IMapperBuilderConfig _config;
+
+        public MappingMemberBuilder(IMapperBuilderConfig config)
+        {
+            _config = config;
+        }
+
+        public List<MappingMember> Build(TypePair typePair)
         {
             return ParseMappingTypes(typePair);
         }

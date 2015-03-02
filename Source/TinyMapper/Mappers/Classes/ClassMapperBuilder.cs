@@ -14,11 +14,13 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
     {
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
+        private readonly MappingMemberBuilder _mappingMemberBuilder;
         private readonly MemberMapper _memberMapper;
 
         public ClassMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
             _memberMapper = new MemberMapper(config);
+            _mappingMemberBuilder = new MappingMemberBuilder(config);
         }
 
         protected override string ScopeName
@@ -26,7 +28,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             get { return "ClassMappers"; }
         }
 
-        protected override Mapper CreateCore(TypePair typePair)
+        protected override Mapper BuildCore(TypePair typePair)
         {
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
@@ -67,7 +69,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private Option<MapperCache> EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
         {
-            List<MappingMember> members = MappingMemberBuilder.Build(typePair);
+            List<MappingMember> members = _mappingMemberBuilder.Build(typePair);
 
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
                 new[] { typePair.Source, typePair.Target });

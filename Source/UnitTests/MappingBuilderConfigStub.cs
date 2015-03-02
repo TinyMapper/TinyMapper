@@ -3,7 +3,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Reflection;
 
-namespace UnitTests.Mappers.Classes
+namespace UnitTests
 {
     internal class MappingBuilderConfigStub : IMapperBuilderConfig
     {

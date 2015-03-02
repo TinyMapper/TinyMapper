@@ -20,9 +20,9 @@ namespace Nelibur.ObjectMapper.Mappers
 
         protected abstract string ScopeName { get; }
 
-        public Mapper Create(TypePair typePair)
+        public Mapper Build(TypePair typePair)
         {
-            return CreateCore(typePair);
+            return BuildCore(typePair);
         }
 
         public bool IsSupported(TypePair typePair)
@@ -30,7 +30,7 @@ namespace Nelibur.ObjectMapper.Mappers
             return IsSupportedCore(typePair);
         }
 
-        protected abstract Mapper CreateCore(TypePair typePair);
+        protected abstract Mapper BuildCore(TypePair typePair);
 
         protected MapperBuilder GetMapperBuilder(TypePair typePair)
         {

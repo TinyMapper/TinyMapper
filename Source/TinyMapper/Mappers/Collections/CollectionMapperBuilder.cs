@@ -29,7 +29,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             get { return "CollectionMappers"; }
         }
 
-        protected override Mapper CreateCore(TypePair typePair)
+        protected override Mapper BuildCore(TypePair typePair)
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
@@ -72,7 +72,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
             MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Create(typePair);
+            Mapper mapper = mapperBuilder.Build(typePair);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);
             return mapperCacheItem;
         }

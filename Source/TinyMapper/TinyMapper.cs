@@ -23,8 +23,8 @@ namespace Nelibur.ObjectMapper
         public static void Bind<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-            var bindingConfig = new BindingConfig(typePair);
-            _mappers[typePair] = CreateMapper(bindingConfig);
+
+            _mappers[typePair] = _targetMapperBuilder.Build(typePair);
         }
 
         public static void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config)
@@ -34,7 +34,7 @@ namespace Nelibur.ObjectMapper
             var bindingConfig = new BindingConfigOf<TTarget>(typePair);
             config(bindingConfig);
 
-            _mappers[typePair] = CreateMapper(bindingConfig);
+            _mappers[typePair] = _targetMapperBuilder.Build(typePair);
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
@@ -67,20 +67,12 @@ namespace Nelibur.ObjectMapper
             return result;
         }
 
-        private static Mapper CreateMapper(BindingConfig config)
-        {
-            Mapper mapper = _targetMapperBuilder.Build(config.TypePair);
-            return mapper;
-        }
-
         private static Mapper GetMapper(TypePair typePair)
         {
             Mapper mapper;
             if (_mappers.TryGetValue(typePair, out mapper) == false)
             {
-                var bindingConfig = new BindingConfig(typePair);
-                mapper = CreateMapper(bindingConfig);
-
+                mapper = _targetMapperBuilder.Build(typePair);
                 _mappers[typePair] = mapper;
             }
             return mapper;

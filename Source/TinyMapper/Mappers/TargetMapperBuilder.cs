@@ -27,7 +27,7 @@ namespace Nelibur.ObjectMapper.Mappers
         public Mapper Build(TypePair typePair)
         {
             MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Create(typePair);
+            Mapper mapper = mapperBuilder.Build(typePair);
             return mapper;
         }
 

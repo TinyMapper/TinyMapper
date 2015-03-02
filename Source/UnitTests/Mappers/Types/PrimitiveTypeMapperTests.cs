@@ -14,7 +14,7 @@ namespace UnitTests.Mappers.Types
         public void Map_Enum_Success()
         {
             var builder = new PrimitiveTypeMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Create(new TypePair(typeof(EnumA), typeof(EnumB)));
+            Mapper mapper = builder.Build(new TypePair(typeof(EnumA), typeof(EnumB)));
 
             var actual = (EnumB)mapper.Map(EnumA.B);
             Assert.Equal(EnumB.B, actual);
@@ -38,7 +38,7 @@ namespace UnitTests.Mappers.Types
         public void Map_PrimitiveTypes_Success(Type sourceType, Type targetType, object source, object expected)
         {
             var builder = new PrimitiveTypeMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Create(new TypePair(sourceType, targetType));
+            Mapper mapper = builder.Build(new TypePair(sourceType, targetType));
             object actual = mapper.Map(source);
             Assert.Equal(expected, actual);
         }
