@@ -1,40 +1,20 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Infotecs.Zulu.WPF;
-using Infotecs.Pki.X509;
-
-namespace Infotecs.Pki.CA.CertificateServiceManagmentConsole.ViewModels
-{
-    /// <summary>
-    /// Представляет информацию о запросе на сертификат.
+﻿    /// <summary>
+    /// Viewmodel for person to see.
     /// </summary>
-    public sealed class OfficialRequestViewModel<T> : BaseViewModel
+public sealed class PersonViewModel<T> : ViewModel
+{
+    private string firstName;
+
+    /// <summary>
+    /// Persons first name.
+    /// </summary>
+    public string FirstName
     {
-        private string commonName;
-
-        /// <summary>
-        /// Общее имя для имени субъекта запроса на сертификат.
-        /// </summary>
-        public string CommonName
+        get { return firstName; }
+        set
         {
-            get { return commonName; }
-            set
-            {
-                commonName = value;
-                OnPropertyChanged(() => CommonName);
-            }
-        }
-
-        /// <summary>
-        /// Конструирует объект имени.
-        /// </summary>
-        /// <returns>
-        /// Отличающееся имя.
-        /// </returns>
-        public X500DistinguishedName GetSubjectName<T>()
-        {
-            var subject = new DistinguishedNameBuilder();
-            subject.AddCommonName(commonName);
-            return new X500DistinguishedName(subject.Encode());
+            firstName = value;
+            OnPropertyChanged(() => FirstName);
         }
     }
 }
