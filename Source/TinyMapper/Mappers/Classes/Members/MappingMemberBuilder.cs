@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 
@@ -73,15 +74,21 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return string.Equals(valueA, valueB, StringComparison.Ordinal);
         }
 
-        private static List<MappingMember> ParseMappingTypes(TypePair typePair)
+        private List<MappingMember> ParseMappingTypes(TypePair typePair)
         {
             var result = new List<MappingMember>();
 
             List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
             List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
 
+            Option<BindingConfig> bindingConfig = _config.GetBindingConfig(typePair);
+
             foreach (MemberInfo targetMember in targetMembers)
             {
+                if (bindingConfig.Map(x => x.IsIgnoreField(targetMember.Name)).Value)
+                {
+                    continue;
+                }
                 MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => Match(x.Name, targetMember.Name));
                 if (sourceMember.IsNull())
                 {
