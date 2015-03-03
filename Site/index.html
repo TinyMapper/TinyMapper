@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+        <title>TinyMapper</title>
+
+        <!-- CSS  -->
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    </head>
+    <body>
+        <nav class="white" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">TinyMapper</a>
+                <ul class="right">
+                    <li><a href="https://github.com/GSerjo/TinyMapper">GitHub</a></li>
+                    <li><a href="https://github.com/GSerjo/TinyMapper">NuGet</a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="side-nav">
+                    <li class="github-link"><a href="https://github.com/GSerjo/TinyMapper">GitHub</a></li>
+                    <li><a href="https://github.com/GSerjo/TinyMapper">NuGet</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            </div>
+        </nav>
+
+        <div id="index-banner" class="parallax-container">
+            <div class="section no-pad-bot">
+                <div class="container">
+                    <br><br>
+                    <h1 class="header center brown-text text-lighten-4">Tiny Mapper</h1>
+                    <div class="row center">
+                        <h5 class="header col s12 light">The fastest object mapper for .NET</h5>
+                    </div>
+                    <div class="row center">
+                        <a href="#example" id="example-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+                    </div>
+                    <br><br>
+
+                </div>
+            </div>
+            <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 2"></div>
+        </div>
+
+
+        <div class="container">
+            <div class="section">
+
+                <!--   Icon Section   -->
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center brown-text"><i class="mdi-image-flash-on"></i></h2>
+                            <h5 class="center">Incredibly quick</h5>
+                            <p class="light">Map thousands of objects in a jiffy.</p>
+                            <p class="light">We have compared TinyMapper with AutoMapper.</p>
+                            <a style="cursor: pointer;" onclick="scrollToAnchor('comparison')">see comparison results</a>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center brown-text"><i class="mdi-social-group"></i></h2>
+                            <h5 class="center">User Friendly</h5>
+
+                            <p class="light">Usage of TinyMapper is very straightforward. It was designed to be simple and effective. NuGet package allows simple and quick installation of library.</p>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center brown-text"><i class="mdi-action-settings"></i></h2>
+                            <h5 class="center">Open Source</h5>
+
+                            <p class="light">TinyMapper is an open-source project. This means that you can check out source code, fork it and participate in project.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="parallax-container valign-wrapper">
+            <div class="section no-pad-bot">
+                <div class="container">
+                    <div class="row center">
+                        <h5 class="header col s12 light">250 times quicker than the next leading product</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="parallax"><img src="background2.jpg" alt="Unsplashed background img 2"></div>
+        </div>
+
+        <div class="container">
+            <div class="section">
+
+                <div class="row center">
+                    <div class="center" id="comparison"><h4><!--<i class="mdi-content-send brown-text"></i>-->Speed comparison results</h4>
+                    </div>
+                    <canvas id="myChart" width="800" height="400"></canvas>
+                    <div class="center">
+                        <div id="legend"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="section">
+
+                <div class="row">
+                    <div class="col s12">
+                        <div class="center">
+                            <h3><i class="mdi-content-send brown-text"></i></h3>
+                            <h4>Code example</h4>
+                        </div>
+                        <pre>
+                        <code id="code" class="cs">
+
+                        </code>
+                        </pre>
+                        <p class="left-align light">For more information please check out our <a href="https://github.com/GSerjo/TinyMapper/wiki">Wiki page</a>. If you have any questions regarding library usage and development you can ask them on the <a href="https://github.com/GSerjo/TinyMapper/issues">issue page.</a></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="parallax-container valign-wrapper">
+            <div class="section no-pad-bot">
+                <div class="container">
+                    <div class="row center">
+                        <h5 class="header col s12 light">Don't spend your time doing useless tedious tasks. be<b>productive</b></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 3"></div>
+        </div>
+
+        <footer class="page-footer brown">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Part of Nelibur project</h5>
+                        <p class="grey-text text-lighten-4">Check out our other products that help you create powerful solutions in a few moments</p>
+
+
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Related projects</h5>
+                        <ul>
+                            <li><a class="white-text" href="https://github.com/Nelibur/Nelibur">Nelibur</a></li>
+                            <li><a class="white-text" href="https://github.com/Nelibur/Nelibur">Nelibur.Sword</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="white-text" href="https://github.com/GSerjo/TinyMapper">GitHub site</a></li>
+                            <li><a class="white-text" href="#!">NuGet package</a></li>
+                            <li><a class="white-text" href="https://github.com/GSerjo/TinyMapper/wiki">Wiki</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+
+        <!--  Scripts-->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/init.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+        <script>
+            var data = {
+                labels: ["Handwritten", "TinyMapper", "AutoMapper.NET"],
+                datasets: [
+                    {
+                        label: "Simple object mapping",
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,0.8)",
+                        highlightFill: "rgba(220,220,220,0.75)",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: [2,12,33]
+                    },
+                    {
+                        label: "Complex object mapping",
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "rgba(151,187,205,0.75)",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [2,15,37]
+                    }
+                ]
+            };
+            // Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#myChart").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+
+            var options = {
+                barShowStroke: false,
+                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><div style='margin:5px;width:20px;height:20px;display:inline-block;background-color:<%=datasets[i].fillColor%>'></div><span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
+            };
+
+            var chart = new Chart(ctx).Bar(data, options);
+            document.getElementById('legend').innerHTML = chart.generateLegend();
+
+        </script>
+        <script>
+            function scrollToAnchor(anchor_id) {
+                var tag = $("#"+anchor_id+"");
+                $('html,body').animate({scrollTop: tag.offset().top},'slow');
+            }    
+
+            function loadCode(data)
+            {
+                $("#code").text(data);
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
+            }
+
+            $(document).ready(function() {
+                $.ajax({ url: 'code.cs', encoding:"UTF-8", success: loadCode });
+
+            });
+
+
+
+        </script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+        <script></script>
+    </body>
+</html>
