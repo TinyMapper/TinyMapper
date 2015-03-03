@@ -1,20 +1,10 @@
-﻿    /// <summary>
-    /// Viewmodel for person to see.
-    /// </summary>
-public sealed class PersonViewModel<T> : ViewModel
-{
-    private string firstName;
+﻿TinyMapper.Bind<Person, PersonDto>();
 
-    /// <summary>
-    /// Persons first name.
-    /// </summary>
-    public string FirstName
-    {
-        get { return firstName; }
-        set
-        {
-            firstName = value;
-            OnPropertyChanged(() => FirstName);
-        }
-    }
-}
+var person = new Person
+{
+    Id = Guid.NewGuid(),
+    FirstName = "John",
+    LastName = "Doe"
+};
+
+var personDto = TinyMapper.Map<PersonDto>(person);

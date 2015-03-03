@@ -24,11 +24,9 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 {
                     return true;
                 }
-                if (Source == typeof(string))
-                {
-                    return true;
-                }
-                if (Source == typeof(decimal))
+                if (Source == typeof(string) || Source == typeof(decimal) ||
+                    Source == typeof(DateTime) || Source == typeof(DateTimeOffset) ||
+                    Source == typeof(TimeSpan) || Source == typeof(Guid))
                 {
                     return true;
                 }

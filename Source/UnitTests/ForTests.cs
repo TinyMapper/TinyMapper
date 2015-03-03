@@ -18,6 +18,8 @@ namespace UnitTests
                 config.Ignore(x => x.Bools);
                 config.Ignore(x => x.Field);
             });
+
+            SiteSample();
         }
 
         private static string GetPropertyName<T>(Expression<Func<T>> action)
@@ -43,6 +45,20 @@ namespace UnitTests
             var target = TinyMapper.Map<Class2>(source);
         }
 
+        private static void SiteSample()
+        {
+            TinyMapper.Bind<Person, PersonDto>();
+
+            var person = new Person
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            var personDto = TinyMapper.Map<PersonDto>(person);
+        }
+
 
         public class Class1
         {
@@ -64,5 +80,21 @@ namespace UnitTests
             //            public int[] Array { get; set; }
             public List<bool> Bools { get; set; }
         }
+    }
+
+
+    public sealed class Person
+    {
+        public string FirstName { get; set; }
+        public Guid Id { get; set; }
+        public string LastName { get; set; }
+    }
+
+
+    public sealed class PersonDto
+    {
+        public string FirstName { get; set; }
+        public Guid Id { get; set; }
+        public string LastName { get; set; }
     }
 }
