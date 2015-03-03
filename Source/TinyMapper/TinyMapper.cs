@@ -31,7 +31,7 @@ namespace Nelibur.ObjectMapper
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
-            var bindingConfig = new BindingConfigOf<TTarget>(typePair);
+            var bindingConfig = new BindingConfigOf<TTarget>();
             config(bindingConfig);
 
             _mappers[typePair] = _targetMapperBuilder.Build(typePair, bindingConfig);

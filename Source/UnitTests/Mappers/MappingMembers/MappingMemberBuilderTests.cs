@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Xunit;
@@ -22,6 +23,18 @@ namespace UnitTests.Mappers.MappingMembers
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
             List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass2), typeof(MyClass3)));
             Assert.Equal(2, members.Count);
+        }
+
+        [Fact]
+        public void Build_IgnoreProperty_Success()
+        {
+            var bindingConfig = new BindingConfig();
+            bindingConfig.IgnoreField("Id");
+
+            var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub(bindingConfig));
+
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            Assert.Equal(1, members.Count);
         }
 
 

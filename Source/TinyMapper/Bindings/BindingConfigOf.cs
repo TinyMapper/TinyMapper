@@ -6,10 +6,6 @@ namespace Nelibur.ObjectMapper.Bindings
 {
     internal sealed class BindingConfigOf<TTarget> : BindingConfig, IBindingConfig<TTarget>
     {
-        public BindingConfigOf(TypePair typePair)
-            : base(typePair)
-        {
-        }
 
         public void Ignore(Expression<Func<TTarget, object>> expression)
         {
