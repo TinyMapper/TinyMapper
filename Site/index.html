@@ -6,13 +6,15 @@
         <title>TinyMapper</title>
 
         <!-- CSS  -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.5/styles/tomorrow.min.css">
     </head>
     <body>
         <nav class="white" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="#" class="brand-logo">TinyMapper</a>
+                <a id="logo-container" href="#" class="brand-logo"><img src="images/logo.png"></img></a>
                 <ul class="right">
                     <li><a href="https://github.com/GSerjo/TinyMapper">GitHub</a></li>
                     <li><a href="https://github.com/GSerjo/TinyMapper">NuGet</a></li>
@@ -35,7 +37,7 @@
                         <h5 class="header col s12 light">The fastest object mapper for .NET</h5>
                     </div>
                     <div class="row center">
-                        <a href="#example" id="example-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+                        <a style="cursor: pointer;" onclick="scrollToAnchor('code-section')" id="example-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
                     </div>
                     <br><br>
 
@@ -113,7 +115,7 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <div class="center">
+                        <div id="code-section" class="center">
                             <h3><i class="mdi-content-send brown-text"></i></h3>
                             <h4>Code example</h4>
                         </div>
@@ -204,7 +206,8 @@
 
             var options = {
                 barShowStroke: false,
-                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><div style='margin:5px;width:20px;height:20px;display:inline-block;background-color:<%=datasets[i].fillColor%>'></div><span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
+                responsive: true,
+                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li class=\"left\"><div style='margin: 0 5px;width:16px;height:16px;display:inline-block;background-color:<%=datasets[i].fillColor%>'></div><span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
             };
 
             var chart = new Chart(ctx).Bar(data, options);
@@ -233,8 +236,8 @@
 
 
         </script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.5/highlight.min.js"></script>
         <script></script>
     </body>
 </html>
