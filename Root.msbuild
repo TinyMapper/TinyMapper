@@ -26,7 +26,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Solutions Include="Solution.sln"/>
+        <Solutions Include="TinyMapper.sln"/>
     </ItemGroup>
     
     <Target Name = "Rebuild" DependsOnTargets="Version">
