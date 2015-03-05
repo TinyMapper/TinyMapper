@@ -19,7 +19,6 @@ namespace UnitTests
                 config.Ignore(x => x.Field);
             });
 
-            SiteSample();
         }
 
         private static string GetPropertyName<T>(Expression<Func<T>> action)
