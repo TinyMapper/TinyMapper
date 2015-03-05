@@ -32,34 +32,38 @@ namespace Benchmark
         {
             return new Class1
             {
-                //                Bools = new List<bool> { true, false }
-                //                List = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 },
-                Int1 = 1,
-                Int2 = 2,
-                Int3 = 3,
-                Int4 = 4,
-                Int5 = 5,
-                String1 = "1",
-                String2 = "2",
-                String3 = "3",
-                String4 = "4",
-                String5 = "5"
+                FirstName = "John",
+                LastName = "Doe",
+                Nickname = "TinyMapper",
+                Email = "support@TinyMapper.net",
+                Short = 3,
+                Long = 10,
+                Int = 5,
+                Float = 4.9f,
+                Decimal = 4.0m,
+                DateTime = DateTime.Now,
+                Char = 'a',
+                Bool = true,
+                Byte = 0
             };
         }
 
         private static Class2 HandmadeMap(Class1 source, Class2 target)
         {
-            target.Int1 = source.Int1;
-            target.Int2 = source.Int2;
-            target.Int3 = source.Int3;
-            target.Int4 = source.Int4;
-            target.Int5 = source.Int5;
-            target.String1 = source.String1;
-            target.String2 = source.String2;
-            target.String3 = source.String3;
-            target.String4 = source.String4;
-            target.String5 = source.String5;
             //            target.List = new List<int>(source.List);
+            target.Bool = source.Bool;
+            target.Byte = source.Byte;
+            target.Char = source.Char;
+            target.DateTime = source.DateTime;
+            target.Decimal = source.Decimal;
+            target.Float = source.Float;
+            target.Int = source.Int;
+            target.Long = source.Long;
+            target.Short = source.Short;
+            target.FirstName = source.FirstName;
+            target.LastName = source.LastName;
+            target.Nickname = source.Nickname;
+            target.Email = source.Email;
             return target;
         }
 
@@ -129,34 +133,39 @@ namespace Benchmark
     public class Class1
     {
         //        public List<bool> Bools { get; set; }
-        public int Int1;
-        public int Int2;
-        public int Int3;
-        public int Int4;
-        public int Int5;
         //        public List<int> List { get; set; }
-        public string String1 { get; set; }
-        public string String2 { get; set; }
-        public string String3 { get; set; }
-        public string String4 { get; set; }
-        public string String5 { get; set; }
+        public bool Bool { get; set; }
+        public byte Byte { get; set; }
+        public char Char { get; set; }
+        public DateTime DateTime { get; set; }
+        public decimal Decimal { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public float Float { get; set; }
+        public int Int { get; set; }
+        public string LastName { get; set; }
+        public long Long { get; set; }
+        public string Nickname { get; set; }
+        public short Short { get; set; }
     }
 
 
     public class Class2
     {
-        public int Int1;
-        public int Int2;
-        public int Int3;
-        public int Int4;
-        public int Int5;
-        public int Int6;
         //        public List<bool> Bools { get; set; }
         //        public List<int> List { get; set; }
-        public string String1 { get; set; }
-        public string String2 { get; set; }
-        public string String3 { get; set; }
-        public string String4 { get; set; }
-        public string String5 { get; set; }
+        public bool Bool { get; set; }
+        public byte Byte { get; set; }
+        public char Char { get; set; }
+        public DateTime DateTime { get; set; }
+        public decimal Decimal { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public float Float { get; set; }
+        public int Int { get; set; }
+        public string LastName { get; set; }
+        public long Long { get; set; }
+        public string Nickname { get; set; }
+        public short Short { get; set; }
     }
 }

@@ -6,7 +6,7 @@
         <authors>Sergey Morenko</authors>
         <owners>Sergey Morenko</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>https://github.com/GSerjo/TinyMapper/blob/master/LICENSE</licenseUrl>
+        <licenseUrl>https://github.com/TinyMapper/TinyMapper/blob/master/LICENSE</licenseUrl>
         <projectUrl>http://tinymapper.net/</projectUrl>
         <description>
             TinyMapper - a tiny and quick object mapper for .Net.
