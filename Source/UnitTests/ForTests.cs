@@ -18,7 +18,6 @@ namespace UnitTests
                 config.Ignore(x => x.Bools);
                 config.Ignore(x => x.Field);
             });
-
         }
 
         private static string GetPropertyName<T>(Expression<Func<T>> action)
@@ -52,7 +51,27 @@ namespace UnitTests
             {
                 Id = Guid.NewGuid(),
                 FirstName = "John",
-                LastName = "Doe"
+                LastName = "Doe",
+                Email = "support@tinymapper.net"
+            };
+
+            var personDto = TinyMapper.Map<PersonDto>(person);
+        }
+
+        private static void SiteSampleIgnore()
+        {
+            TinyMapper.Bind<Person, PersonDto>(config =>
+            {
+                config.Ignore(x => x.Id);
+                config.Ignore(x => x.Email);
+            });
+
+            var person = new Person
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "support@tinymapper.net"
             };
 
             var personDto = TinyMapper.Map<PersonDto>(person);
@@ -84,6 +103,7 @@ namespace UnitTests
 
     public sealed class Person
     {
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public Guid Id { get; set; }
         public string LastName { get; set; }
@@ -92,6 +112,7 @@ namespace UnitTests
 
     public sealed class PersonDto
     {
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public Guid Id { get; set; }
         public string LastName { get; set; }
