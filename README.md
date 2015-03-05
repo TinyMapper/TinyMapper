@@ -1,8 +1,7 @@
 TinyMapper - a quick object mapper for .Net
 ======================================================
 
-Getting Started
-===============
+## Getting Started
 
 ```csharp
 TinyMapper.Bind<Person, PersonDto>();
