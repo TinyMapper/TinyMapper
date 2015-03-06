@@ -7,7 +7,7 @@ namespace Nelibur.ObjectMapper.Reflection
     internal class DynamicAssemblyBuilder
     {
         internal const string AssemblyName = "DynamicTinyMapper";
-        private const string AssemblyNameFileName = AssemblyName + ".dll";
+        //        private const string AssemblyNameFileName = AssemblyName + ".dll";
         private static readonly DynamicAssembly _dynamicAssembly = new DynamicAssembly();
 
         public static IDynamicAssembly Get()
@@ -18,17 +18,16 @@ namespace Nelibur.ObjectMapper.Reflection
 
         private sealed class DynamicAssembly : IDynamicAssembly
         {
-            private readonly AssemblyBuilder _assemblyBuilder;
             private readonly ModuleBuilder _moduleBuilder;
 
             public DynamicAssembly()
             {
                 var assemblyName = new AssemblyName(AssemblyName);
-                //                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+                //                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
 
-                //                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name);
-                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
+                //                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
             }
 
             public TypeBuilder DefineType(string typeName, Type parentType)
@@ -38,7 +37,7 @@ namespace Nelibur.ObjectMapper.Reflection
 
             public void Save()
             {
-                _assemblyBuilder.Save(AssemblyNameFileName);
+                //                _assemblyBuilder.Save(AssemblyNameFileName);
             }
         }
     }

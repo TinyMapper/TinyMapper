@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>TinyMapper</id>
+        <version>$version$</version>
+        <authors>Sergey Morenko</authors>
+        <owners>Sergey Morenko</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>https://github.com/TinyMapper/TinyMapper/blob/master/LICENSE</licenseUrl>
+        <projectUrl>http://tinymapper.net/</projectUrl>
+        <description>
+            TinyMapper - a tiny and quick object mapper for .Net.
+        </description>
+        <iconUrl>http://gravatar.com/avatar/d480d09db613465e3ad18b7552dfef4b</iconUrl>
+        <language>en-US</language>
+        <tags>TinyMapper Mapper</tags>
+    </metadata>
+    <files>
+        <file src="lib\**\*.*" target="lib" />
+    </files>
+</package>
