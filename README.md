@@ -39,4 +39,4 @@ var personDto = TinyMapper.Map<PersonDto>(person);
 
 ## Performance Comparison
 
-[Performance Comparison](https://raw.githubusercontent.com/TinyMapper/TinyMapper/master/Source/Benchmark/DataSource/PrimitiveTypeMapping.jpg)
+![Performance Comparison](https://raw.githubusercontent.com/TinyMapper/TinyMapper/master/Source/Benchmark/DataSource/PrimitiveTypeMapping.jpg)
