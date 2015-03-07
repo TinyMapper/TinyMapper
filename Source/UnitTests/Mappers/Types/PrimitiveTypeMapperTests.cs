@@ -2,7 +2,6 @@
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Mappers.Types;
-using UnitTests.Mappers.Classes;
 using Xunit;
 using Xunit.Extensions;
 
