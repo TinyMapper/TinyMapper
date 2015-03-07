@@ -17,9 +17,18 @@ namespace Benchmark.Benchmarks
 
         public void Measure()
         {
-            MeasureHandmade();
-            MeasureTinyMapper();
-            MeasureAutoMapper();
+            Console.WriteLine("Iterations: {0}", _iterations);
+
+            TimeSpan handmade = MeasureHandmade();
+            Console.WriteLine("Handmade: {0}ms", handmade.TotalMilliseconds);
+
+            TimeSpan tinyMapper = MeasureTinyMapper();
+            Console.WriteLine("TinyMapper: {0}ms", tinyMapper.TotalMilliseconds);
+
+            TimeSpan autoMapper = MeasureAutoMapper();
+            Console.WriteLine("AutoMapper: {0}ms", autoMapper.TotalMilliseconds);
+
+            Console.WriteLine(Environment.NewLine);
         }
 
         private static Class1 CreateSource()
@@ -79,11 +88,9 @@ namespace Benchmark.Benchmarks
             }
             stopwatch.Stop();
             return stopwatch.Elapsed;
-            //                Console.WriteLine("AutoMapper: Iterations: {0}, Time: {1}ms", Iterations, stopwatch.Elapsed.TotalMilliseconds);
-            //            Console.WriteLine();
         }
 
-        private TimeSpan MeasureHandmade(int repeat = 1)
+        private TimeSpan MeasureHandmade()
         {
             Class1 source = CreateSource();
 
@@ -102,18 +109,16 @@ namespace Benchmark.Benchmarks
         private TimeSpan MeasureTinyMapper()
         {
             Class1 source = CreateSource();
-            TinyMapper.Map<Benchmark.Class2>(source);
+            TinyMapper.Map<Class2>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < _iterations; i++)
             {
-                var target = TinyMapper.Map<Benchmark.Class2>(source);
+                var target = TinyMapper.Map<Class2>(source);
             }
             stopwatch.Stop();
             return stopwatch.Elapsed;
-            //                Console.WriteLine("TinyMapper: Iterations: {0}, Time: {1}ms", _iterations, stopwatch.Elapsed.TotalMilliseconds);
-            //            Console.WriteLine();
         }
     }
 
