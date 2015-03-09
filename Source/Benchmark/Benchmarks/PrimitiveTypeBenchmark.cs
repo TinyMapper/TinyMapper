@@ -5,30 +5,57 @@ using Nelibur.ObjectMapper;
 
 namespace Benchmark.Benchmarks
 {
-    public sealed class PrimitiveTypeBenchmark
+    public sealed class PrimitiveTypeBenchmark : Benchmark
     {
-        private readonly int _iterations;
-
-        public PrimitiveTypeBenchmark(int iterations)
+        public PrimitiveTypeBenchmark(int iterations) : base(iterations)
         {
-            _iterations = iterations;
             InitMappers();
         }
 
-        public void Measure()
+        protected override TimeSpan MeasureAutoMapper()
         {
-            Console.WriteLine("Iterations: {0}", _iterations);
+            Class1 source = CreateSource();
+            Mapper.Map<Class2>(source);
 
-            TimeSpan handmade = MeasureHandmade();
-            Console.WriteLine("Handmade: {0}ms", handmade.TotalMilliseconds);
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
-            TimeSpan tinyMapper = MeasureTinyMapper();
-            Console.WriteLine("TinyMapper: {0}ms", tinyMapper.TotalMilliseconds);
+            for (int i = 0; i < _iterations; i++)
+            {
+                var target = Mapper.Map<Class2>(source);
+            }
+            stopwatch.Stop();
+            return stopwatch.Elapsed;
+        }
 
-            TimeSpan autoMapper = MeasureAutoMapper();
-            Console.WriteLine("AutoMapper: {0}ms", autoMapper.TotalMilliseconds);
+        protected override TimeSpan MeasureHandmade()
+        {
+            Class1 source = CreateSource();
 
-            Console.WriteLine(Environment.NewLine);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            for (int i = 0; i < _iterations; i++)
+            {
+                var target = new Class2();
+                target = HandmadeMap(source, target);
+            }
+
+            stopwatch.Stop();
+            return stopwatch.Elapsed;
+        }
+
+        protected override TimeSpan MeasureTinyMapper()
+        {
+            Class1 source = CreateSource();
+            TinyMapper.Map<Class2>(source);
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            for (int i = 0; i < _iterations; i++)
+            {
+                var target = TinyMapper.Map<Class2>(source);
+            }
+            stopwatch.Stop();
+            return stopwatch.Elapsed;
         }
 
         private static Class1 CreateSource()
@@ -73,52 +100,6 @@ namespace Benchmark.Benchmarks
         {
             TinyMapper.Bind<Class1, Class2>();
             Mapper.CreateMap<Class1, Class2>();
-        }
-
-        private TimeSpan MeasureAutoMapper()
-        {
-            Class1 source = CreateSource();
-            Mapper.Map<Class2>(source);
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = Mapper.Map<Class2>(source);
-            }
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
-
-        private TimeSpan MeasureHandmade()
-        {
-            Class1 source = CreateSource();
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = new Class2();
-                target = HandmadeMap(source, target);
-            }
-
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
-
-        private TimeSpan MeasureTinyMapper()
-        {
-            Class1 source = CreateSource();
-            TinyMapper.Map<Class2>(source);
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = TinyMapper.Map<Class2>(source);
-            }
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
         }
     }
 
