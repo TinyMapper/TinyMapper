@@ -12,6 +12,11 @@ namespace Benchmark.Benchmarks
             InitMappers();
         }
 
+        protected override string Name
+        {
+            get { return "PrimitiveType"; }
+        }
+
         protected override TimeSpan MeasureAutoMapper()
         {
             Class1 source = CreateSource();
@@ -101,41 +106,41 @@ namespace Benchmark.Benchmarks
             TinyMapper.Bind<Class1, Class2>();
             Mapper.CreateMap<Class1, Class2>();
         }
-    }
 
 
-    public class Class1
-    {
-        public bool Bool { get; set; }
-        public byte Byte { get; set; }
-        public char Char { get; set; }
-        public DateTime DateTime { get; set; }
-        public decimal Decimal { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public float Float { get; set; }
-        public int Int { get; set; }
-        public string LastName { get; set; }
-        public long Long { get; set; }
-        public string Nickname { get; set; }
-        public short Short { get; set; }
-    }
+        public class Class1
+        {
+            public bool Bool { get; set; }
+            public byte Byte { get; set; }
+            public char Char { get; set; }
+            public DateTime DateTime { get; set; }
+            public decimal Decimal { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public float Float { get; set; }
+            public int Int { get; set; }
+            public string LastName { get; set; }
+            public long Long { get; set; }
+            public string Nickname { get; set; }
+            public short Short { get; set; }
+        }
 
 
-    public class Class2
-    {
-        public bool Bool { get; set; }
-        public byte Byte { get; set; }
-        public char Char { get; set; }
-        public DateTime DateTime { get; set; }
-        public decimal Decimal { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public float Float { get; set; }
-        public int Int { get; set; }
-        public string LastName { get; set; }
-        public long Long { get; set; }
-        public string Nickname { get; set; }
-        public short Short { get; set; }
+        public class Class2
+        {
+            public bool Bool { get; set; }
+            public byte Byte { get; set; }
+            public char Char { get; set; }
+            public DateTime DateTime { get; set; }
+            public decimal Decimal { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public float Float { get; set; }
+            public int Int { get; set; }
+            public string LastName { get; set; }
+            public long Long { get; set; }
+            public string Nickname { get; set; }
+            public short Short { get; set; }
+        }
     }
 }

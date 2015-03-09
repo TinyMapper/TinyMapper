@@ -11,8 +11,11 @@ namespace Benchmark.Benchmarks
             _iterations = iterations;
         }
 
+        protected abstract string Name { get; }
+
         public void Measure()
         {
+            Console.WriteLine("Benchmark: {0}", Name);
             Console.WriteLine("Iterations: {0}", _iterations);
 
             TimeSpan handmade = MeasureHandmade();

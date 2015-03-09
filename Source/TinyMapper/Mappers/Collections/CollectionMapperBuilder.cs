@@ -33,7 +33,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
-            if (IsIEnumerableToList(typePair))
+            if (IsIEnumerableOfToList(typePair))
+            {
+            }
+            else if (IsIEnumerableToList(typePair))
             {
                 EmitEnumerableToList(parentType, typeBuilder, typePair);
             }
@@ -62,6 +65,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 return type.GetGenericArguments().First();
             }
             throw new NotSupportedException();
+        }
+
+        private static bool IsIEnumerableOfToList(TypePair typePair)
+        {
+            return typePair.Target.IsListOf() && typePair.Source.IsIEnumerableOf();
         }
 
         private static bool IsIEnumerableToList(TypePair typePair)

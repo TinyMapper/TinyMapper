@@ -12,6 +12,9 @@ namespace Benchmark
             var primitiveTypeBenchmark = new PrimitiveTypeBenchmark(Iterations);
             primitiveTypeBenchmark.Measure();
 
+            var collectionBenchmark = new CollectionBenchmark(Iterations);
+            collectionBenchmark.Measure();
+
             Console.WriteLine("Press any key to Exit");
             Console.ReadLine();
         }

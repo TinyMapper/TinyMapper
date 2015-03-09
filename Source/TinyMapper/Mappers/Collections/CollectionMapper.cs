@@ -33,6 +33,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             throw new NotImplementedException();
         }
 
+        protected virtual TTarget EnumerableToList<TSourceItem>(IEnumerable<TSourceItem> source)
+        {
+            throw new NotImplementedException();
+        }
+
         protected List<TTargetItem> EnumerableToListTemplate<TTargetItem>(IEnumerable source)
         {
             var result = new List<TTargetItem>();
@@ -44,6 +49,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         }
 
         protected override TTarget MapCore(TSource source, TTarget target)
+        {
+            return MapCoreDefault(source);
+        }
+
+        private TTarget MapCoreDefault(TSource source)
         {
             Type targetType = typeof(TTarget);
             var enumerable = (IEnumerable)source;
