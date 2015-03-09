@@ -22,7 +22,8 @@ namespace UnitTests.Snippets
 
             Type type = typeBuilder.CreateType();
             var instance = (ForeachBase)Activator.CreateInstance(type);
-            //            instance.Map();
+
+            instance.Map(new List<int>());
 
             assemblyBuilder.Save("Test.dll");
         }
@@ -31,18 +32,16 @@ namespace UnitTests.Snippets
         {
             MethodBuilder mapMethod = typeBuilder.DefineMethod("Map", MethodAttributes.Public | MethodAttributes.Virtual, typeof(void), new[] { typeof(IEnumerable) });
 
-            //                        var mapMethod = new DynamicMethod("Map", typeof(void), new[] { typeof(IEnumerable) }, typeof(ForeachSnippet).Module);
-
             ILGenerator il = mapMethod.GetILGenerator();
             LocalBuilder result = il.DeclareLocal(typeof(List<int>)); //0
             LocalBuilder item = il.DeclareLocal(typeof(object)); //1
-            LocalBuilder enumeartor = il.DeclareLocal(typeof(IEnumerable)); //2
-            LocalBuilder flag = il.DeclareLocal(typeof(bool)); //3
-            LocalBuilder dispose = il.DeclareLocal(typeof(IDisposable)); //4
+            LocalBuilder enumeartor = il.DeclareLocal(typeof(IEnumerator)); //2
+            LocalBuilder dispose = il.DeclareLocal(typeof(IDisposable)); //3
 
-            Label labelStartLoop = il.DefineLabel();
-            Label labelEndLoop = il.DefineLabel();
+            Label labelWhile = il.DefineLabel();
+            Label labelReturn = il.DefineLabel();
             Label labelMoveNext = il.DefineLabel();
+            Label labelEndFinally = il.DefineLabel();
 
             //Create result List
             ConstructorInfo constructorInfo = (typeof(List<int>).GetConstructor(Type.EmptyTypes));
@@ -55,32 +54,33 @@ namespace UnitTests.Snippets
 
             il.BeginExceptionBlock();
             il.Emit(OpCodes.Br_S, labelMoveNext);
-
-            il.MarkLabel(labelStartLoop);
+            il.MarkLabel(labelWhile);
 
             il.Emit(OpCodes.Ldloc_2);
             il.EmitCall(OpCodes.Callvirt, typeof(IEnumerator).GetProperty("Current").GetGetMethod(), Type.EmptyTypes);
             il.Emit(OpCodes.Stloc_1, item);
 
-
             il.MarkLabel(labelMoveNext);
             il.Emit(OpCodes.Ldloc_2);
             il.EmitCall(OpCodes.Callvirt, typeof(IEnumerator).GetMethod("MoveNext"), Type.EmptyTypes);
-            il.Emit(OpCodes.Stloc_3, item);
-            il.Emit(OpCodes.Ldloc_3);
-            il.Emit(OpCodes.Brtrue_S, labelStartLoop);
-            il.Emit(OpCodes.Leave_S, labelEndLoop);
+            il.Emit(OpCodes.Brtrue_S, labelWhile);
 
             il.BeginFinallyBlock();
 
+            il.Emit(OpCodes.Ldloc_2);
+            il.Emit(OpCodes.Isinst, typeof(IDisposable));
+            il.Emit(OpCodes.Stloc_3, dispose);
+            il.Emit(OpCodes.Ldloc_3);
+            il.Emit(OpCodes.Brfalse_S, labelEndFinally);
 
+            il.Emit(OpCodes.Ldloc_3);
+            il.EmitCall(OpCodes.Callvirt, typeof(IDisposable).GetMethod("Dispose"), Type.EmptyTypes);
+
+            il.MarkLabel(labelEndFinally);
             il.EndExceptionBlock();
-            il.MarkLabel(labelEndLoop);
 
+            il.MarkLabel(labelReturn);
             il.Emit(OpCodes.Ret);
-
-            //            var methodDelegate = (Action<IEnumerable>)mapMethod.CreateDelegate(typeof(Action<IEnumerable>));
-            //            methodDelegate(new List<int>());
         }
     }
 
@@ -91,13 +91,15 @@ namespace UnitTests.Snippets
     }
 
 
-    //        protected List<TTargetItem> EnumerableToListTemplate<TTargetItem>(IEnumerable source)
+    //Result Code
+    //public sealed class ForeachType : ForeachBase
+    //{
+    //    public override void Map(IEnumerable enumerable1)
+    //    {
+    //        List<int> list = new List<int>();
+    //        foreach (object obj2 in enumerable1)
     //        {
-    //            var result = new List<TTargetItem>();
-    //            foreach (object item in source)
-    //            {
-    //                result.Add((TTargetItem)ConvertItem(item));
-    //            }
-    //            return result;
     //        }
+    //    }
+    //}
 }
