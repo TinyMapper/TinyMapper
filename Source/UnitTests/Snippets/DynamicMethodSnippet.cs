@@ -7,7 +7,7 @@ namespace UnitTests.Snippets
     public sealed class DynamicMethodSnippet
     {
         [Fact]
-        public void Snitppet()
+        public void Snippet()
         {
             CallDynamicMethod();
         }

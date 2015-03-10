@@ -9,6 +9,7 @@ namespace Nelibur.ObjectMapper.Reflection
         internal const string AssemblyName = "DynamicTinyMapper";
         //        private const string AssemblyNameFileName = AssemblyName + ".dll";
         private static readonly DynamicAssembly _dynamicAssembly = new DynamicAssembly();
+        //        private static AssemblyBuilder _assemblyBuilder;
 
         public static IDynamicAssembly Get()
         {
