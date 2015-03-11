@@ -37,6 +37,12 @@ var person = new Person
 var personDto = TinyMapper.Map<PersonDto>(person);
 ```
 
+## Installation
+
+Available on [nuget](https://www.nuget.org/packages/TinyMapper/)
+
+	PM> Install-Package TinyMapper
+
 ## Performance Comparison
 
 ![Performance Comparison](https://raw.githubusercontent.com/TinyMapper/TinyMapper/master/Source/Benchmark/DataSource/PrimitiveTypeMapping.jpg)
