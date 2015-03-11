@@ -22,8 +22,8 @@
             </ul>
 
             <ul id="nav-mobile" class="side-nav">
-                <li class="github-link"><a href="https://github.com/GSerjo/TinyMapper">GitHub</a></li>
-                <li><a href="https://github.com/GSerjo/TinyMapper">NuGet</a></li>
+                <li class="github-link"><a href="https://github.com/TinyMapper/TinyMapper">GitHub</a></li>
+                <li><a href="https://github.com/TinyMapper/TinyMapper">NuGet</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
             </div>
@@ -90,7 +90,7 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <div class="row center">
-                    <h4 class="header col s12 light">250 times quicker than the next leading product</h4>
+                    <h4 class="header col s12 light">100 times quicker than the next leading product</h4>
                 </div>
             </div>
         </div>
@@ -101,12 +101,11 @@
         <div class="section">
 
             <div class="row center">
-                <div class="center" id="comparison"><h4><!--<i class="mdi-content-send brown-text"></i>-->Speed comparison results</h4>
+                <div class="center" id="comparison">
+                    <h4><!--<i class="mdi-content-send brown-text"></i>-->Speed comparison results</h4>
+                    <h5>(Lower is better)</h5>
                 </div>
                 <canvas id="myChart" width="800" height="400"></canvas>
-                <div class="center">
-                    <div id="legend"></div>
-                </div>
             </div>
 
         </div>
@@ -125,7 +124,7 @@
 
                         </code>
                         </pre>
-                    <p class="left-align light">For more information please check out our <a href="https://github.com/GSerjo/TinyMapper/wiki">Wiki page</a>. If you have any questions regarding library usage and development you can ask them on the <a href="https://github.com/GSerjo/TinyMapper/issues">issue page.</a></p>
+                    <p class="left-align light">For more information please check out our <a href="https://github.com/TinyMapper/TinyMapper/wiki">Wiki page</a>. If you have any questions regarding library usage and development you can ask them on the <a href="https://github.com/TinyMapper/TinyMapper/issues">issue page.</a></p>
                 </div>
             </div>
 
@@ -163,9 +162,9 @@
                 <div class="col l3 s12">
                     <h5 class="white-text">Links</h5>
                     <ul>
-                        <li><a class="white-text" href="https://github.com/GSerjo/TinyMapper">GitHub site</a></li>
+                        <li><a class="white-text" href="https://github.com/TinyMapper/TinyMapper">GitHub site</a></li>
                         <li><a class="white-text" href="#!">NuGet package</a></li>
-                        <li><a class="white-text" href="https://github.com/GSerjo/TinyMapper/wiki">Wiki</a></li>
+                        <li><a class="white-text" href="https://github.com/TinyMapper/TinyMapper/wiki">Wiki</a></li>
                     </ul>
                 </div>
             </div>
@@ -266,7 +265,7 @@
                             var tooltipPosition = bar.tooltipPosition();
                             new Chart.Tooltip({
                                 x: Math.round(tooltipPosition.x),
-                                y: Math.round(this.chart.height),
+                                y: bar.height() > this.chart.height ? 10 : Math.round(this.chart.height - bar.height() - 25), //Math.round(this.chart.height - 30),
                                 xPadding: this.options.tooltipXPadding,
                                 yPadding: this.options.tooltipYPadding,
                                 fillColor: this.options.tooltipFillColor,
@@ -276,7 +275,7 @@
                                 fontSize: this.options.tooltipFontSize,
                                 caretHeight: this.options.tooltipCaretSize,
                                 cornerRadius: this.options.tooltipCornerRadius,
-                                text: template(this.options.tooltipTemplate, bar),
+                                text: template(this.options.tooltipTemplate, bar) + " ms",
                                 chart: this.chart
                             }).draw();
                         });
