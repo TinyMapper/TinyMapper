@@ -8,3 +8,21 @@ var person = new Person
 };
 
 var personDto = TinyMapper.Map<PersonDto>(person);
+
+// with mapping members ignored
+
+TinyMapper.Bind<Person, PersonDto>(config =>
+{
+	config.Ignore(x => x.Id);
+	config.Ignore(x => x.Email);
+});
+
+var person = new Person
+{
+	Id = Guid.NewGuid(),
+	FirstName = "John",
+	LastName = "Doe",
+	Email = "support@tinymapper.net"
+};
+
+var personDto = TinyMapper.Map<PersonDto>(person);
