@@ -23,5 +23,4 @@ using Nelibur.ObjectMapper.Reflection;
 
 [assembly: Guid("97c85ab7-2580-4b03-b767-1e79088053d3")]
 [assembly: InternalsVisibleTo("UnitTests")]
-[assembly: InternalsVisibleTo("DebugDynamicAssembly")]
 [assembly: InternalsVisibleTo(DynamicAssemblyBuilder.AssemblyName)]
