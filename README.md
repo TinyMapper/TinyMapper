@@ -46,3 +46,7 @@ Available on [nuget](https://www.nuget.org/packages/TinyMapper/)
 ## Performance Comparison
 
 ![Performance Comparison](https://raw.githubusercontent.com/TinyMapper/TinyMapper/master/Source/Benchmark/DataSource/PrimitiveTypeMapping.jpg)
+
+## What to read
+
+ * [TinyMapper: yet another object to object mapper for .net](http://www.codeproject.com/Articles/886420/TinyMapper-yet-another-object-to-object-mapper-for)
