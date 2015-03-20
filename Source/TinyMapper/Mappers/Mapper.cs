@@ -16,6 +16,10 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public object Map(object source, object target = null)
         {
+            if (source == null)
+            {
+                return null;
+            }
             return MapCore(source, target);
         }
 

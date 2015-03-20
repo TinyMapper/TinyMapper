@@ -49,10 +49,38 @@ namespace UnitTests
             }
         }
 
+        [Fact]
+        public void Map_NullCollection_Success()
+        {
+            var source = new Class11
+            {
+                Int = 1
+            };
+
+            var actual = TinyMapper.Map<Class12>(source);
+
+            Assert.Equal(source.Ints, actual.Ints);
+            Assert.Equal(source.Int, actual.Int);
+        }
+
 
         public class Class10
         {
             public List<Item2> Items { get; set; }
+        }
+
+
+        public class Class11
+        {
+            public int Int { get; set; }
+            public List<int> Ints { get; set; }
+        }
+
+
+        public class Class12
+        {
+            public int Int { get; set; }
+            public List<int> Ints { get; set; }
         }
 
 
