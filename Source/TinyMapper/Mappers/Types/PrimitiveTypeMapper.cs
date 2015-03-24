@@ -17,6 +17,10 @@ namespace Nelibur.ObjectMapper.Mappers.Types
             {
                 return source;
             }
+            if (source == null)
+            {
+                return target;
+            }
             return _converter(source);
         }
     }

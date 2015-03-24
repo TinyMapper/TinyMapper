@@ -6,6 +6,10 @@ namespace Nelibur.ObjectMapper.Mappers
     {
         protected override object MapCore(object source, object target)
         {
+            if (source == null)
+            {
+                return default(TTarget);
+            }
             return MapCore((TSource)source, (TTarget)target);
         }
 

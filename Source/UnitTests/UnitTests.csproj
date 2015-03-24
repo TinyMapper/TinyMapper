@@ -69,13 +69,14 @@
   <ItemGroup>
     <Compile Include="ClassCollectionMappingTests.cs" />
     <Compile Include="ClassHierarchyMappingTests.cs" />
+    <Compile Include="ClassPrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="ForTests.cs" />
     <Compile Include="Mappers\Classes\ClassMapperTests.cs" />
     <Compile Include="MappingBuilderConfigStub.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilderTests.cs" />
     <Compile Include="Mappers\Types\PrimitiveTypeMapperTests.cs" />
-    <Compile Include="PrimitiveCollectionMappingTests.cs" />
+    <Compile Include="ClassPrimitiveCollectionMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snippets\DynamicMethodSnippet.cs" />
     <Compile Include="Snippets\ForeachSnippet.cs" />

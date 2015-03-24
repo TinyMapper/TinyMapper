@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public sealed class PrimitiveCollectionMappingTests
+    public sealed class ClassPrimitiveCollectionMappingTests
     {
         [Fact]
         public void Map_PrimitiveArrays_Success()

@@ -36,6 +36,7 @@ namespace UnitTests
             var actual = TinyMapper.Map<Class10>(source);
 
             Assert.Equal(source.Items.Count, actual.Items.Count);
+            Assert.Equal(source.Items1, actual.Items1);
 
             for (int i = 0; i < source.Items.Count; i++)
             {
@@ -67,6 +68,7 @@ namespace UnitTests
         public class Class10
         {
             public List<Item2> Items { get; set; }
+            public List<Item1> Items1 { get; set; }
         }
 
 
@@ -87,6 +89,7 @@ namespace UnitTests
         public class Class9
         {
             public List<Item1> Items { get; set; }
+            public List<Item1> Items1 { get; set; }
         }
 
 

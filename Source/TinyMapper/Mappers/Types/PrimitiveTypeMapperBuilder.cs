@@ -43,7 +43,7 @@ namespace Nelibur.ObjectMapper.Mappers.Types
             TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
             if (fromConverter.CanConvertTo(pair.Target))
             {
-                return x => fromConverter.ConvertTo(x, pair.Target);
+                return  x => fromConverter.ConvertTo(x, pair.Target);
             }
 
             TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
