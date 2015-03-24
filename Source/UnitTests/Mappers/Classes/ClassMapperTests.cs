@@ -67,7 +67,9 @@ namespace UnitTests.Mappers.Classes
                 Ulong = 3,
                 Ushort = 7,
                 DateTime = new DateTime(1990, 1, 1),
-                DateTimeOffset = new DateTimeOffset(new DateTime(1998, 3, 5))
+                DateTimeOffset = new DateTimeOffset(new DateTime(1998, 3, 5)),
+                DateTimeNullable = null,
+                DateTimeNullable1 = new DateTime(2020, 2, 4)
             };
 
             var actual = (ClassPropertyTarget1)mapper.Map(source);
@@ -86,6 +88,8 @@ namespace UnitTests.Mappers.Classes
             Assert.Equal(source.Ushort, actual.Ushort);
             Assert.Equal(source.DateTime, actual.DateTime);
             Assert.Equal(source.DateTimeOffset, actual.DateTimeOffset);
+            Assert.Equal(source.DateTimeNullable, actual.DateTimeNullable);
+            Assert.Equal(source.DateTimeNullable1, actual.DateTimeNullable1);
         }
     }
 
@@ -96,6 +100,8 @@ namespace UnitTests.Mappers.Classes
         public byte Byte { get; set; }
         public char Char { get; set; }
         public DateTime DateTime { get; set; }
+        public DateTime? DateTimeNullable { get; set; }
+        public DateTime? DateTimeNullable1 { get; set; }
         public DateTimeOffset DateTimeOffset { get; set; }
         public decimal Decimal { get; set; }
         public float Float { get; set; }
@@ -149,6 +155,8 @@ namespace UnitTests.Mappers.Classes
         public byte Byte { get; set; }
         public char Char { get; set; }
         public DateTime DateTime { get; set; }
+        public DateTime? DateTimeNullable { get; set; }
+        public DateTime? DateTimeNullable1 { get; set; }
         public DateTimeOffset DateTimeOffset { get; set; }
         public decimal Decimal { get; set; }
         public float Float { get; set; }

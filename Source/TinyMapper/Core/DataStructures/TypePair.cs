@@ -20,15 +20,20 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 {
                     return false;
                 }
-                if (IsValueTypes && IsPrimitiveTypes)
+                else if (IsValueTypes && IsPrimitiveTypes)
                 {
                     return true;
                 }
-                if (Source == typeof(string) || Source == typeof(decimal) ||
-                    Source == typeof(DateTime) || Source == typeof(DateTimeOffset) ||
-                    Source == typeof(TimeSpan) || Source == typeof(Guid))
+                else if (Source == typeof(string) || Source == typeof(decimal) ||
+                         Source == typeof(DateTime) || Source == typeof(DateTimeOffset) ||
+                         Source == typeof(TimeSpan) || Source == typeof(Guid))
                 {
                     return true;
+                }
+                else if (IsNullableTypes)
+                {
+                    var nullablePair = new TypePair(Nullable.GetUnderlyingType(Source), Nullable.GetUnderlyingType(Target));
+                    return nullablePair.IsDeepCloneable;
                 }
                 return false;
             }
@@ -44,13 +49,18 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             get { return Source.IsIEnumerable() && Target.IsIEnumerable(); }
         }
 
-        public bool IsEqualTypes
+        public Type Source { get; private set; }
+        public Type Target { get; private set; }
+
+        private bool IsEqualTypes
         {
             get { return Source == Target; }
         }
 
-        public Type Source { get; private set; }
-        public Type Target { get; private set; }
+        private bool IsNullableTypes
+        {
+            get { return Source.IsNullable() && Target.IsNullable(); }
+        }
 
         private bool IsPrimitiveTypes
         {
