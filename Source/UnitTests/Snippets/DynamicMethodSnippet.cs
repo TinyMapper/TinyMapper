@@ -40,5 +40,34 @@ namespace UnitTests.Snippets
 
             Console.WriteLine(result);
         }
+
+
+        public sealed class A
+        {
+        }
+
+
+        public sealed class B
+        {
+            public void Method()
+            {
+                var x = Cast<A>(this);
+                //                var x = this as A;
+            }
+
+            private static T Cast<T>(object value)
+                where T : class
+            {
+                var method = new DynamicMethod("CastMethod", typeof(T), new[] { typeof(object) });
+                ILGenerator il = method.GetILGenerator();
+
+                il.Emit(OpCodes.Ldarg_0);
+                il.Emit(OpCodes.Isinst, typeof(T));
+                il.Emit(OpCodes.Ret);
+
+                var methodDelegate = (Func<object, T>)method.CreateDelegate(typeof(Func<object, T>));
+                return methodDelegate(value);
+            }
+        }
     }
 }
