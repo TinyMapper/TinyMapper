@@ -24,37 +24,37 @@ namespace UnitTests.Snippets
             var target = (TargetClass)typeConverter.ConvertFrom(source);
             Assert.Equal(string.Format("{0} {1}", source.FirstName, source.LastName), target.FullName);
         }
-    }
 
 
-    public class TargetClass
-    {
-        public string FullName { get; set; }
-    }
-
-
-    public class SourceClass
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-
-
-    public sealed class SourceClassConverter : TypeConverter
-    {
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        private class TargetClass
         {
-            return sourceType == typeof(SourceClass);
+            public string FullName { get; set; }
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+
+        private class SourceClass
         {
-            var concreteValue = (SourceClass)value;
-            var result = new TargetClass
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+
+        private sealed class SourceClassConverter : TypeConverter
+        {
+            public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
             {
-                FullName = string.Format("{0} {1}", concreteValue.FirstName, concreteValue.LastName)
-            };
-            return result;
+                return sourceType == typeof(SourceClass);
+            }
+
+            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            {
+                var concreteValue = (SourceClass)value;
+                var result = new TargetClass
+                {
+                    FullName = string.Format("{0} {1}", concreteValue.FirstName, concreteValue.LastName)
+                };
+                return result;
+            }
         }
     }
 }
