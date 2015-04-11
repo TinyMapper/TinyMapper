@@ -4,7 +4,7 @@ using Nelibur.ObjectMapper.Bindings;
 
 namespace UnitTests.Snippets
 {
-    public sealed class ObjectMapper : IObjectMapper
+    public sealed class ObjectMapperSnippet : IObjectMapper
     {
         public void Bind<TSource, TTarget>()
         {
