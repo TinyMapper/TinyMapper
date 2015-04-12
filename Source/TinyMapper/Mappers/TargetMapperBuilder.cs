@@ -4,7 +4,7 @@ using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers.Classes;
 using Nelibur.ObjectMapper.Mappers.Collections;
-using Nelibur.ObjectMapper.Mappers.Types;
+using Nelibur.ObjectMapper.Mappers.Types.Primitive;
 using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers
@@ -27,19 +27,6 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public IDynamicAssembly Assembly { get; private set; }
 
-        public Mapper Build(TypePair typePair, BindingConfig bindingConfig)
-        {
-            _bindingConfigs[typePair] = bindingConfig;
-            return Build(typePair);
-        }
-
-        public Mapper Build(TypePair typePair)
-        {
-            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Build(typePair);
-            return mapper;
-        }
-
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {
             BindingConfig result;
@@ -58,6 +45,19 @@ namespace Nelibur.ObjectMapper.Mappers
                 return _collectionMapperBuilder;
             }
             return _classMapperBuilder;
+        }
+
+        public Mapper Build(TypePair typePair, BindingConfig bindingConfig)
+        {
+            _bindingConfigs[typePair] = bindingConfig;
+            return Build(typePair);
+        }
+
+        public Mapper Build(TypePair typePair)
+        {
+            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
+            Mapper mapper = mapperBuilder.Build(typePair);
+            return mapper;
         }
     }
 }

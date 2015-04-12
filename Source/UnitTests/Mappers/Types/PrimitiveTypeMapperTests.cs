@@ -2,6 +2,7 @@
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Mappers.Types;
+using Nelibur.ObjectMapper.Mappers.Types.Primitive;
 using Xunit;
 using Xunit.Extensions;
 

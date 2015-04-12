@@ -2,48 +2,37 @@
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
 
-namespace Nelibur.ObjectMapper.Mappers.Types
+namespace Nelibur.ObjectMapper.Mappers.Types.Custom
 {
-    internal sealed class PrimitiveTypeMapperBuilder : MapperBuilder
+    internal sealed class CustomTypeMapperBuilder : MapperBuilder
     {
-        private static readonly Func<object, object> _nothingConverter = x => x;
-
-        public PrimitiveTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
+        public CustomTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
         }
 
         protected override string ScopeName
         {
-            get { return "PrimitiveTypeMappers"; }
+            get { return "CustomTypeMappers"; }
         }
 
         protected override Mapper BuildCore(TypePair typePair)
         {
             Func<object, object> converter = GetConverter(typePair);
-            return new PrimitiveTypeMapper(converter);
+            return new CustomTypeMapper(converter);
         }
 
         protected override bool IsSupportedCore(TypePair typePair)
         {
-            return typePair.Source.IsPrimitive
-                   || typePair.Source == typeof(string)
-                   || typePair.Source == typeof(Guid)
-                   || typePair.Source.IsEnum
-                   || typePair.Source == typeof(decimal)
-                   || typePair.HasTypeConverter();
+            return typePair.HasTinyMapperConverter();
         }
 
         private static Func<object, object> GetConverter(TypePair pair)
         {
-            if (pair.IsDeepCloneable)
-            {
-                return _nothingConverter;
-            }
-
             TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
+
             if (fromConverter.CanConvertTo(pair.Target))
             {
-                return  x => fromConverter.ConvertTo(x, pair.Target);
+                return x => fromConverter.ConvertTo(x, pair.Target);
             }
 
             TypeConverter toConverter = TypeDescriptor.GetConverter(pair.Target);
