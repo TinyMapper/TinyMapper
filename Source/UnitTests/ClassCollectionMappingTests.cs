@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nelibur.ObjectMapper;
+using Xunit;
 
 namespace UnitTests
 {
