@@ -22,7 +22,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
                 return collection.Count;
             }
 
-            int count = 0;
+            var count = 0;
             foreach (object item in source)
             {
                 count++;
@@ -58,7 +58,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         /// <param name="action">Given function</param>
         public static void IterI<T>(this IEnumerable<T> value, Action<int, T> action)
         {
-            int i = 0;
+            var i = 0;
             foreach (T item in value)
             {
                 action(i++, item);

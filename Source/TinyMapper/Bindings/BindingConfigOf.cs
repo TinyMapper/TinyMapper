@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Nelibur.ObjectMapper.Core.DataStructures;
 
 namespace Nelibur.ObjectMapper.Bindings
 {
     internal sealed class BindingConfigOf<TTarget> : BindingConfig, IBindingConfig<TTarget>
     {
-
         public void Ignore(Expression<Func<TTarget, object>> expression)
         {
             var member = expression.Body as MemberExpression;

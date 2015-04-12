@@ -8,8 +8,8 @@ namespace Nelibur.ObjectMapper.Mappers
     internal abstract class MapperBuilder
     {
         protected const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
-        protected readonly IDynamicAssembly _assembly;
         private const string AssemblyName = "DynamicTinyMapper";
+        protected readonly IDynamicAssembly _assembly;
         private readonly IMapperBuilderConfig _config;
 
         protected MapperBuilder(IMapperBuilderConfig config)

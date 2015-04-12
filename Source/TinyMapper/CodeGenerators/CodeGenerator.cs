@@ -86,7 +86,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators
                 invocationObject.Emit(this);
             }
 
-            for (int i = 0; i < arguments.Length; i++)
+            for (var i = 0; i < arguments.Length; i++)
             {
                 arguments[i].Emit(this);
                 CastType(arguments[i].ObjectType, actualArguments[i].ParameterType);

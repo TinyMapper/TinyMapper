@@ -8,7 +8,6 @@ namespace Nelibur.ObjectMapper.Mappers
     internal interface IMapperBuilderConfig
     {
         IDynamicAssembly Assembly { get; }
-
         MapperBuilder GetMapperBuilder(TypePair typePair);
         Option<BindingConfig> GetBindingConfig(TypePair typePair);
     }

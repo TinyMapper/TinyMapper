@@ -12,14 +12,14 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 
         public Type ObjectType { get; private set; }
 
-        public static IEmitterType Load()
-        {
-            return new EmitNull();
-        }
-
         public void Emit(CodeGenerator generator)
         {
             generator.Emit(OpCodes.Ldnull);
+        }
+
+        public static IEmitterType Load()
+        {
+            return new EmitNull();
         }
     }
 }
