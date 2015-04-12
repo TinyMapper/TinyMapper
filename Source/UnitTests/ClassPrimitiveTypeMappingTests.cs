@@ -1,6 +1,5 @@
 ﻿using System;
 using Nelibur.ObjectMapper;
-using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests
@@ -10,12 +9,19 @@ namespace UnitTests
         [Fact]
         public void Map_PrimitiveType_Success()
         {
-            TinyMapper.Bind<Source, Target>();
-            DynamicAssemblyBuilder.Get().Save();
+            TinyMapper.Bind<Source1, Target1>();
 
-            var source = new Source();
+            var source = new Source1
+            {
+                Bool = true,
+                Char = 'a',
+                DateTime = DateTime.Now,
+                IntNullable1 = 1,
+                Decimal = 1m,
+                DateTimeNullable1 = DateTime.Today
+            };
 
-            var actual = TinyMapper.Map<Target>(source);
+            var actual = TinyMapper.Map<Target1>(source);
 
             Assert.Equal(source.Bool, actual.Bool);
             Assert.Equal(source.Byte, actual.Byte);
@@ -25,8 +31,8 @@ namespace UnitTests
             Assert.Equal(source.Int, actual.Int);
             Assert.Equal(source.Int1, actual.Int1);
             Assert.Equal(source.Int2, actual.Int2);
-            Assert.Equal(source.Int3.GetValueOrDefault(), actual.Int3);
-            Assert.Equal(source.Int4.GetValueOrDefault(), actual.Int4);
+            Assert.Equal(source.IntNullable1.GetValueOrDefault(), actual.IntNullable1);
+            Assert.Equal(source.IntNullable2.GetValueOrDefault(), actual.IntNullable2);
             Assert.Equal(source.Long, actual.Long);
             Assert.Equal(source.Sbyte, actual.Sbyte);
             Assert.Equal(source.Short, actual.Short);
@@ -35,27 +41,66 @@ namespace UnitTests
             Assert.Equal(source.Ushort, actual.Ushort);
             Assert.Equal(source.DateTime, actual.DateTime);
             Assert.Equal(source.DateTimeOffset, actual.DateTimeOffset);
-            Assert.Equal(source.DateTimeNullable, actual.DateTimeNullable);
             Assert.Equal(source.DateTimeNullable1, actual.DateTimeNullable1);
+            Assert.Equal(source.DateTimeNullable2, actual.DateTimeNullable2);
+        }
+
+        [Fact]
+        public void Map_IgnoreProperties_Success()
+        {
+            TinyMapper.Bind<Source2, Target2>(config =>
+            {
+                config.Ignore(x => x.FirstName);
+                config.Ignore(x => x.LastName);
+            });
+
+            var source = new Source2
+            {
+                Id = 1,
+                FirstName = "First",
+                LastName = "LastName"
+            };
+
+            var actual = TinyMapper.Map<Target2>(source);
+
+            Assert.Equal(source.Id, actual.Id);
+            Assert.Null(actual.FirstName);
+            Assert.Null(actual.LastName);
         }
 
 
-        public class Source
+        public class Source2
+        {
+            public int Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+
+        public class Target2
+        {
+            public int Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+
+        public class Source1
         {
             public bool Bool { get; set; }
             public byte Byte { get; set; }
             public char Char { get; set; }
             public DateTime DateTime { get; set; }
-            public DateTime? DateTimeNullable { get; set; }
             public DateTime? DateTimeNullable1 { get; set; }
+            public DateTime? DateTimeNullable2 { get; set; }
             public DateTimeOffset DateTimeOffset { get; set; }
             public decimal Decimal { get; set; }
             public float Float { get; set; }
             public int Int { get; set; }
             public int? Int1 { get; set; }
             public int Int2 { get; set; }
-            public int? Int3 { get; set; }
-            public int? Int4 { get; set; }
+            public int? IntNullable1 { get; set; }
+            public int? IntNullable2 { get; set; }
             public long Long { get; set; }
             public sbyte Sbyte { get; set; }
             public short Short { get; set; }
@@ -65,22 +110,22 @@ namespace UnitTests
         }
 
 
-        public class Target
+        public class Target1
         {
             public bool Bool { get; set; }
             public byte Byte { get; set; }
             public char Char { get; set; }
             public DateTime DateTime { get; set; }
-            public DateTime? DateTimeNullable { get; set; }
             public DateTime? DateTimeNullable1 { get; set; }
+            public DateTime? DateTimeNullable2 { get; set; }
             public DateTimeOffset DateTimeOffset { get; set; }
             public decimal Decimal { get; set; }
             public float Float { get; set; }
             public int Int { get; set; }
             public int? Int1 { get; set; }
             public int? Int2 { get; set; }
-            public int Int3 { get; set; }
-            public int Int4 { get; set; }
+            public int IntNullable1 { get; set; }
+            public int IntNullable2 { get; set; }
             public long Long { get; set; }
             public sbyte Sbyte { get; set; }
             public short Short { get; set; }

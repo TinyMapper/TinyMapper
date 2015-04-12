@@ -10,9 +10,9 @@ namespace UnitTests
         [Fact]
         public void Map_ClassCollections_Success()
         {
-            TinyMapper.Bind<Class9, Class10>();
+            TinyMapper.Bind<Source1, Target1>();
 
-            var source = new Class9
+            var source = new Source1
             {
                 Items = new List<Item1>
                 {
@@ -33,7 +33,7 @@ namespace UnitTests
                 }
             };
 
-            var actual = TinyMapper.Map<Class10>(source);
+            var actual = TinyMapper.Map<Target1>(source);
 
             Assert.Equal(source.Items.Count, actual.Items.Count);
             Assert.Equal(source.Items1, actual.Items1);
@@ -53,40 +53,40 @@ namespace UnitTests
         [Fact]
         public void Map_NullCollection_Success()
         {
-            var source = new Class11
+            var source = new Source2
             {
                 Int = 1
             };
 
-            var actual = TinyMapper.Map<Class12>(source);
+            var actual = TinyMapper.Map<Target2>(source);
 
             Assert.Equal(source.Ints, actual.Ints);
             Assert.Equal(source.Int, actual.Int);
         }
 
 
-        public class Class10
+        public class Target1
         {
             public List<Item2> Items { get; set; }
             public List<Item1> Items1 { get; set; }
         }
 
 
-        public class Class11
+        public class Source2
         {
             public int Int { get; set; }
             public List<int> Ints { get; set; }
         }
 
 
-        public class Class12
+        public class Target2
         {
             public int Int { get; set; }
             public List<int> Ints { get; set; }
         }
 
 
-        public class Class9
+        public class Source1
         {
             public List<Item1> Items { get; set; }
             public List<Item1> Items1 { get; set; }

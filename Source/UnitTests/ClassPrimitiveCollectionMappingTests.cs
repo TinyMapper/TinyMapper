@@ -10,16 +10,16 @@ namespace UnitTests
         [Fact]
         public void Map_PrimitiveArrays_Success()
         {
-            TinyMapper.Bind<Class5, Class6>();
+            TinyMapper.Bind<Source1, Target1>();
 
-            var source = new Class5
+            var source = new Source1
             {
                 Ints = new[] { 0, 1 },
                 Bools = new[] { true },
                 Strings = new[] { "Nelibur", "TinyMapper" }
             };
 
-            var target = TinyMapper.Map<Class6>(source);
+            var target = TinyMapper.Map<Target1>(source);
 
             Assert.Equal(target.Ints, source.Ints);
             Assert.Equal(target.Bools, source.Bools);
@@ -29,8 +29,8 @@ namespace UnitTests
         [Fact]
         public void Map_PrimitiveCollections_Success()
         {
-            TinyMapper.Bind<Class3, Class4>();
-            var source = new Class3
+            TinyMapper.Bind<Source2, Target2>();
+            var source = new Source2
             {
                 Bool = new List<bool> { true, false },
                 Byte = new List<byte> { 0, 1 },
@@ -48,7 +48,7 @@ namespace UnitTests
                 Ushort = new List<ushort> { 5, 5 }
             };
 
-            var target = TinyMapper.Map<Class4>(source);
+            var target = TinyMapper.Map<Target2>(source);
 
             Assert.Equal(target.Bool, source.Bool);
             Assert.Equal(target.Byte, source.Byte);
@@ -67,7 +67,7 @@ namespace UnitTests
         }
 
 
-        public class Class3
+        public class Source2
         {
             public List<bool> Bool { get; set; }
             public List<byte> Byte { get; set; }
@@ -86,7 +86,7 @@ namespace UnitTests
         }
 
 
-        public class Class4
+        public class Target2
         {
             public List<bool> Bool { get; set; }
             public List<byte> Byte { get; set; }
@@ -105,7 +105,7 @@ namespace UnitTests
         }
 
 
-        public class Class5
+        public class Source1
         {
             public bool[] Bools { get; set; }
             public int[] Ints { get; set; }
@@ -113,7 +113,7 @@ namespace UnitTests
         }
 
 
-        public class Class6
+        public class Target1
         {
             public bool[] Bools { get; set; }
             public int[] Ints { get; set; }
