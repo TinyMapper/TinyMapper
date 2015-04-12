@@ -4,8 +4,7 @@ using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers.Classes;
 using Nelibur.ObjectMapper.Mappers.Collections;
-using Nelibur.ObjectMapper.Mappers.Types.Custom;
-using Nelibur.ObjectMapper.Mappers.Types.Primitive;
+using Nelibur.ObjectMapper.Mappers.Types.Convertible;
 using Nelibur.ObjectMapper.Reflection;
 
 namespace Nelibur.ObjectMapper.Mappers
@@ -15,8 +14,7 @@ namespace Nelibur.ObjectMapper.Mappers
         private readonly Dictionary<TypePair, BindingConfig> _bindingConfigs = new Dictionary<TypePair, BindingConfig>();
         private readonly ClassMapperBuilder _classMapperBuilder;
         private readonly CollectionMapperBuilder _collectionMapperBuilder;
-        private readonly CustomTypeMapperBuilder _customTypeMapperBuilder;
-        private readonly PrimitiveTypeMapperBuilder _primitiveTypeMapperBuilder;
+        private readonly ConvertibleTypeMapperBuilder _convertibleTypeMapperBuilder;
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
@@ -24,8 +22,7 @@ namespace Nelibur.ObjectMapper.Mappers
 
             _classMapperBuilder = new ClassMapperBuilder(this);
             _collectionMapperBuilder = new CollectionMapperBuilder(this);
-            _primitiveTypeMapperBuilder = new PrimitiveTypeMapperBuilder(this);
-            _customTypeMapperBuilder = new CustomTypeMapperBuilder(this);
+            _convertibleTypeMapperBuilder = new ConvertibleTypeMapperBuilder(this);
         }
 
         public IDynamicAssembly Assembly { get; private set; }
@@ -39,13 +36,9 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public MapperBuilder GetMapperBuilder(TypePair typePair)
         {
-            if (_primitiveTypeMapperBuilder.IsSupported(typePair))
+            if (_convertibleTypeMapperBuilder.IsSupported(typePair))
             {
-                return _primitiveTypeMapperBuilder;
-            }
-            else if (_customTypeMapperBuilder.IsSupported(typePair))
-            {
-                return _customTypeMapperBuilder;
+                return _convertibleTypeMapperBuilder;
             }
             else if (_collectionMapperBuilder.IsSupported(typePair))
             {

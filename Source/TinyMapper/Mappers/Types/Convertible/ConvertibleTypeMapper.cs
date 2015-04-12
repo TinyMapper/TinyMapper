@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Nelibur.ObjectMapper.Mappers.Types.Primitive
+namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
-    internal sealed class PrimitiveTypeMapper : Mapper
+    internal sealed class ConvertibleTypeMapper : Mapper
     {
         private readonly Func<object, object> _converter;
 
-        public PrimitiveTypeMapper(Func<object, object> converter)
+        public ConvertibleTypeMapper(Func<object, object> converter)
         {
             _converter = converter;
         }

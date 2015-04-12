@@ -16,6 +16,14 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
+            TinyMapper.Bind<SourceClass, TargetClass>();
+            var source = new SourceClass
+            {
+                FirstName = "First",
+                LastName = "Last"
+            };
+
+            var result = TinyMapper.Map<TargetClass>(source);
         }
     }
 
@@ -33,14 +41,14 @@ namespace UnitTests
     }
 
 
-    public sealed class SourceClassConverter : TinyMapperConverter
+    public sealed class SourceClassConverter : TypeConverter
     {
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            return sourceType == typeof(SourceClass);
+            return destinationType == typeof(TargetClass);
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var concreteValue = (SourceClass)value;
             var result = new TargetClass

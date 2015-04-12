@@ -2,34 +2,45 @@
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
 
-namespace Nelibur.ObjectMapper.Mappers.Types.Custom
+namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
-    internal sealed class CustomTypeMapperBuilder : MapperBuilder
+    internal sealed class ConvertibleTypeMapperBuilder : MapperBuilder
     {
-        public CustomTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
+        private static readonly Func<object, object> _nothingConverter = x => x;
+
+        public ConvertibleTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
         }
 
         protected override string ScopeName
         {
-            get { return "CustomTypeMappers"; }
+            get { return "ConvertibleTypeMappers"; }
         }
 
         protected override Mapper BuildCore(TypePair typePair)
         {
             Func<object, object> converter = GetConverter(typePair);
-            return new CustomTypeMapper(converter);
+            return new ConvertibleTypeMapper(converter);
         }
 
         protected override bool IsSupportedCore(TypePair typePair)
         {
-            return typePair.HasTinyMapperConverter();
+            return typePair.Source.IsPrimitive
+                   || typePair.Source == typeof(string)
+                   || typePair.Source == typeof(Guid)
+                   || typePair.Source.IsEnum
+                   || typePair.Source == typeof(decimal)
+                   || typePair.HasTypeConverter();
         }
 
         private static Func<object, object> GetConverter(TypePair pair)
         {
-            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
+            if (pair.IsDeepCloneable)
+            {
+                return _nothingConverter;
+            }
 
+            TypeConverter fromConverter = TypeDescriptor.GetConverter(pair.Source);
             if (fromConverter.CanConvertTo(pair.Target))
             {
                 return x => fromConverter.ConvertTo(x, pair.Target);

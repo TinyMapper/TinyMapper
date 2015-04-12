@@ -104,7 +104,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             }
         }
 
-        public bool HasSystemTypeConverter()
+        public bool HasTypeConverter()
         {
             TypeConverter fromConverter = TypeDescriptor.GetConverter(Source);
             if (fromConverter.CanConvertTo(Target))
@@ -118,32 +118,6 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 return true;
             }
             return false;
-        }
-
-        public bool HasTinyMapperConverter()
-        {
-            TypeConverter converter = GetTypeConverter();
-            if (converter == null)
-            {
-                return false;
-            }
-            return converter.GetType().IsSubclassOf(typeof(TinyMapperConverter));
-        }
-
-        private TypeConverter GetTypeConverter()
-        {
-            TypeConverter fromConverter = TypeDescriptor.GetConverter(Source);
-            if (fromConverter.CanConvertTo(Target))
-            {
-                return fromConverter;
-            }
-
-            TypeConverter toConverter = TypeDescriptor.GetConverter(Target);
-            if (toConverter.CanConvertFrom(Source))
-            {
-                return toConverter;
-            }
-            return null;
         }
     }
 }

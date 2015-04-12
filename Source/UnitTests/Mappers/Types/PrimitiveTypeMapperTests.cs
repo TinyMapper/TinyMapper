@@ -2,7 +2,7 @@
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Mappers.Types;
-using Nelibur.ObjectMapper.Mappers.Types.Primitive;
+using Nelibur.ObjectMapper.Mappers.Types.Convertible;
 using Xunit;
 using Xunit.Extensions;
 
@@ -13,7 +13,7 @@ namespace UnitTests.Mappers.Types
         [Fact]
         public void Map_Enum_Success()
         {
-            var builder = new PrimitiveTypeMapperBuilder(new MappingBuilderConfigStub());
+            var builder = new ConvertibleTypeMapperBuilder(new MappingBuilderConfigStub());
             Mapper mapper = builder.Build(new TypePair(typeof(EnumA), typeof(EnumB)));
 
             var actual = (EnumB)mapper.Map(EnumA.B);
@@ -38,7 +38,7 @@ namespace UnitTests.Mappers.Types
         [Theory]
         public void Map_PrimitiveTypes_Success(Type sourceType, Type targetType, object source, object expected)
         {
-            var builder = new PrimitiveTypeMapperBuilder(new MappingBuilderConfigStub());
+            var builder = new ConvertibleTypeMapperBuilder(new MappingBuilderConfigStub());
             Mapper mapper = builder.Build(new TypePair(sourceType, targetType));
             object actual = mapper.Map(source);
             Assert.Equal(expected, actual);

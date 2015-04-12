@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassCollectionMappingTests.cs" />
+    <Compile Include="ClassConvertibleTypeMapping.cs" />
     <Compile Include="ClassHierarchyMappingTests.cs" />
     <Compile Include="ClassPrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
