@@ -8,6 +8,19 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 {
     internal static class TypeExtensions
     {
+        public static Type GetCollectionItemType(this Type type)
+        {
+            if (type.IsArray)
+            {
+                return type.GetElementType();
+            }
+            else if (type.IsListOf())
+            {
+                return type.GetGenericArguments().First();
+            }
+            throw new NotSupportedException();
+        }
+
         public static ConstructorInfo GetDefaultCtor(this Type type)
         {
             return type.GetConstructor(Type.EmptyTypes);

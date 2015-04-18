@@ -20,7 +20,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         protected Array EnumerableToArrayTemplate<TTargetItem>(IEnumerable source)
         {
             var result = new TTargetItem[source.Count()];
-            var index = 0;
+            int index = 0;
             foreach (object item in source)
             {
                 result[index++] = ((TTargetItem)ConvertItem(item));

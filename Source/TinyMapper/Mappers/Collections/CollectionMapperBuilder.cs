@@ -51,19 +51,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             return typePair.IsEnumerableTypes;
         }
 
-        private static Type GetCollectionItemType(Type type)
-        {
-            if (type.IsArray)
-            {
-                return type.GetElementType();
-            }
-            else if (type.IsListOf())
-            {
-                return type.GetGenericArguments().First();
-            }
-            throw new NotSupportedException();
-        }
-
         private static bool IsIEnumerableToList(TypePair typePair)
         {
             return typePair.Source.IsIEnumerable() && typePair.Target.IsListOf();
@@ -106,8 +93,8 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
-            Type sourceItemType = GetCollectionItemType(typePair.Source);
-            Type targetItemType = GetCollectionItemType(typePair.Target);
+            Type sourceItemType = typePair.Source.GetCollectionItemType();
+            Type targetItemType = typePair.Target.GetCollectionItemType();
 
             EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
 
@@ -120,6 +107,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private bool IsIEnumerableToArray(TypePair typePair)
         {
             return typePair.Source.IsIEnumerable() && typePair.Target.IsArray;
+        }
+
+        private bool IsIEnumerableToIEnumerable(TypePair typePair)
+        {
+            return typePair.Source.IsIEnumerable() && typePair.Target.IsIEnumerable();
         }
     }
 }
