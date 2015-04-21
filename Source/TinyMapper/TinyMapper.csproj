@@ -67,7 +67,6 @@
     <Compile Include="Bindings\IBindingConfig.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
-    <Compile Include="Core\Reflection\DelegateFactory.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
