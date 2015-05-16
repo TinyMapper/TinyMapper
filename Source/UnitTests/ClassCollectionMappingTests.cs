@@ -51,6 +51,36 @@ namespace UnitTests
         }
 
         [Fact]
+        public void Map_ClassDifferentCollections_Success()
+        {
+            TinyMapper.Bind<Person, PersonDto>();
+
+            var source = new Person
+            {
+                Contacts = new List<Contact>
+                {
+                    new Contact
+                    {
+                        Int = 1,
+                        String = "2"
+                    }
+                }
+            };
+
+            var actual = TinyMapper.Map<PersonDto>(source);
+
+            Assert.Equal(source.Contacts.Count, actual.Contacts.Count);
+            for (int i = 0; i < source.Contacts.Count; i++)
+            {
+                Contact expectedItem = source.Contacts[i];
+                ContactDto actualItem = actual.Contacts[i];
+
+                Assert.Equal(expectedItem.Int, actualItem.Int);
+                Assert.Equal(expectedItem.String, actualItem.String);
+            }
+        }
+
+        [Fact]
         public void Map_NullCollection_Success()
         {
             var source = new Source2
@@ -64,34 +94,17 @@ namespace UnitTests
             Assert.Equal(source.Int, actual.Int);
         }
 
-
-        public class Target1
-        {
-            public List<Item2> Items { get; set; }
-            public List<Item1> Items1 { get; set; }
-        }
-
-
-        public class Source2
+        public class Contact
         {
             public int Int { get; set; }
-            public List<int> Ints { get; set; }
+            public string String { get; set; }
         }
 
-
-        public class Target2
+        public class ContactDto
         {
             public int Int { get; set; }
-            public List<int> Ints { get; set; }
+            public string String { get; set; }
         }
-
-
-        public class Source1
-        {
-            public List<Item1> Items { get; set; }
-            public List<Item1> Items1 { get; set; }
-        }
-
 
         public sealed class Item1
         {
@@ -101,13 +114,46 @@ namespace UnitTests
             public string String { get; set; }
         }
 
-
         public sealed class Item2
         {
             public bool[] Bools { get; set; }
             public int Int { get; set; }
             public List<int> List { get; set; }
             public string String { get; set; }
+        }
+
+        public class Person
+        {
+            public List<Contact> Contacts { get; set; }
+        }
+
+        public class PersonDto
+        {
+            public List<ContactDto> Contacts { get; set; }
+        }
+
+        public class Source1
+        {
+            public List<Item1> Items { get; set; }
+            public List<Item1> Items1 { get; set; }
+        }
+
+        public class Source2
+        {
+            public int Int { get; set; }
+            public List<int> Ints { get; set; }
+        }
+
+        public class Target1
+        {
+            public List<Item2> Items { get; set; }
+            public List<Item1> Items1 { get; set; }
+        }
+
+        public class Target2
+        {
+            public int Int { get; set; }
+            public List<int> Ints { get; set; }
         }
     }
 }
