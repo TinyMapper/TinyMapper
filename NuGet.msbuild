@@ -76,6 +76,10 @@
             <Package>TinyMapper</Package>
             <Destination>lib\net35</Destination>
         </PackageBinaries>  
+        <PackageBinaries Include='$(OutDir)\TinyMapper\3.0\TinyMapper.dll'>
+            <Package>TinyMapper</Package>
+            <Destination>lib\net30</Destination>
+        </PackageBinaries>  
     </ItemGroup>
 
     <Target Name="CopyBinaries" Inputs="%(PackageBinaries.Identity)" Outputs="_DO_IT_">

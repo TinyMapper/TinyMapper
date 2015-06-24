@@ -33,6 +33,10 @@
         <MSBuild Projects="@(Solutions)" Properties="Platform=Any CPU;Configuration=$(Configuration)" Targets="Build"/>
     </Target>
 
+	<Target Name = "Release30" DependsOnTargets="Rebuild">
+        <MSBuild Projects="@(Solutions)" Properties="Platform=Any CPU;Configuration=Release 3.0" Targets="Build"/>
+    </Target>
+
 	<Target Name = "Release35" DependsOnTargets="Rebuild">
         <MSBuild Projects="@(Solutions)" Properties="Platform=Any CPU;Configuration=Release 3.5" Targets="Build"/>
     </Target>

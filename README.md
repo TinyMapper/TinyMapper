@@ -47,6 +47,10 @@ var person = new Person
 var personDto = TinyMapper.Map<PersonDto>(person);
 ```
 
+`TinyMapper` supports the following platforms:
+* .Net 3.0+
+* Mono
+
 ## What to read
 
  * [TinyMapper: yet another object to object mapper for .net](http://www.codeproject.com/Articles/886420/TinyMapper-yet-another-object-to-object-mapper-for)
