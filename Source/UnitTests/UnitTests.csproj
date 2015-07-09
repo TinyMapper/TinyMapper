@@ -93,7 +93,8 @@
     <Compile Include="Snippets\DynamicMethodSnippet.cs" />
     <Compile Include="Snippets\ForeachSnippet.cs" />
     <Compile Include="Snippets\ObjectMapperSnippet.cs" />
-    <Compile Include="Snippets\TypeConverterSnippet.cs" />
+    <Compile Include="Snippets\TypeConverters\TypeConverterSnippet.cs" />
+    <Compile Include="Snippets\TypeConverters\YesNoConverterSnippet.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TinyMapper\TinyMapper.csproj">

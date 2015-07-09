@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Xunit;
 
-namespace UnitTests.Snippets
+namespace UnitTests.Snippets.TypeConverters
 {
     public sealed class TypeConverterSnippet
     {
