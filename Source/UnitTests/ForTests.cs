@@ -11,7 +11,8 @@ namespace UnitTests
         {
             var source = new Source
             {
-                MyInt = 1
+                MyInt = 1,
+                MyString = "My Value"
             };
 
             TinyMapper.Bind<Source, Target>(config =>

@@ -15,7 +15,7 @@ namespace UnitTests.Snippets.TypeConverters
         [Fact]
         public void Converter()
         {
-            var typeConverter = TypeDescriptor.GetConverter(typeof(SourceClass));
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(SourceClass));
             var source = new SourceClass
             {
                 FirstName = "First",
@@ -25,19 +25,11 @@ namespace UnitTests.Snippets.TypeConverters
             Assert.Equal(string.Format("{0} {1}", source.FirstName, source.LastName), target.FullName);
         }
 
-
-        private class TargetClass
-        {
-            public string FullName { get; set; }
-        }
-
-
         private class SourceClass
         {
             public string FirstName { get; set; }
             public string LastName { get; set; }
         }
-
 
         private sealed class SourceClassConverter : TypeConverter
         {
@@ -55,6 +47,11 @@ namespace UnitTests.Snippets.TypeConverters
                 };
                 return result;
             }
+        }
+
+        private class TargetClass
+        {
+            public string FullName { get; set; }
         }
     }
 }

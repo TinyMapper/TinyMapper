@@ -94,6 +94,7 @@
     <Compile Include="Snippets\DynamicMethodSnippet.cs" />
     <Compile Include="Snippets\ForeachSnippet.cs" />
     <Compile Include="Snippets\ObjectMapperSnippet.cs" />
+    <Compile Include="Snippets\TypeConverters\DictionaryConverterSnippet.cs" />
     <Compile Include="Snippets\TypeConverters\TypeConverterSnippet.cs" />
     <Compile Include="Snippets\TypeConverters\YesNoConverterSnippet.cs" />
   </ItemGroup>
