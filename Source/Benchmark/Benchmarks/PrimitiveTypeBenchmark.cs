@@ -9,19 +9,24 @@ namespace Benchmark.Benchmarks
     {
         public PrimitiveTypeBenchmark(int iterations) : base(iterations)
         {
-            InitMappers();
+        }
+
+        protected override void InitMappers()
+        {
+            TinyMapper.Bind<Source, Target>();
+            Mapper.CreateMap<Source, Target>();
         }
 
         protected override TimeSpan MeasureAutoMapper()
         {
-            Class1 source = CreateSource();
-            Mapper.Map<Class2>(source);
+            Source source = CreateSource();
+            Mapper.Map<Target>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < _iterations; i++)
             {
-                var target = Mapper.Map<Class2>(source);
+                var target = Mapper.Map<Target>(source);
             }
             stopwatch.Stop();
             return stopwatch.Elapsed;
@@ -29,13 +34,13 @@ namespace Benchmark.Benchmarks
 
         protected override TimeSpan MeasureHandmade()
         {
-            Class1 source = CreateSource();
+            Source source = CreateSource();
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < _iterations; i++)
             {
-                var target = new Class2();
+                var target = new Target();
                 target = HandmadeMap(source, target);
             }
 
@@ -45,22 +50,22 @@ namespace Benchmark.Benchmarks
 
         protected override TimeSpan MeasureTinyMapper()
         {
-            Class1 source = CreateSource();
-            TinyMapper.Map<Class2>(source);
+            Source source = CreateSource();
+            TinyMapper.Map<Target>(source);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (int i = 0; i < _iterations; i++)
             {
-                var target = TinyMapper.Map<Class2>(source);
+                var target = TinyMapper.Map<Target>(source);
             }
             stopwatch.Stop();
             return stopwatch.Elapsed;
         }
 
-        private static Class1 CreateSource()
+        private static Source CreateSource()
         {
-            return new Class1
+            return new Source
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -78,7 +83,7 @@ namespace Benchmark.Benchmarks
             };
         }
 
-        private static Class2 HandmadeMap(Class1 source, Class2 target)
+        private static Target HandmadeMap(Source source, Target target)
         {
             target.Bool = source.Bool;
             target.Byte = source.Byte;
@@ -96,46 +101,38 @@ namespace Benchmark.Benchmarks
             return target;
         }
 
-        private static void InitMappers()
+        public class Source
         {
-            TinyMapper.Bind<Class1, Class2>();
-            Mapper.CreateMap<Class1, Class2>();
+            public bool Bool { get; set; }
+            public byte Byte { get; set; }
+            public char Char { get; set; }
+            public DateTime DateTime { get; set; }
+            public decimal Decimal { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public float Float { get; set; }
+            public int Int { get; set; }
+            public string LastName { get; set; }
+            public long Long { get; set; }
+            public string Nickname { get; set; }
+            public short Short { get; set; }
         }
-    }
 
-
-    public class Class1
-    {
-        public bool Bool { get; set; }
-        public byte Byte { get; set; }
-        public char Char { get; set; }
-        public DateTime DateTime { get; set; }
-        public decimal Decimal { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public float Float { get; set; }
-        public int Int { get; set; }
-        public string LastName { get; set; }
-        public long Long { get; set; }
-        public string Nickname { get; set; }
-        public short Short { get; set; }
-    }
-
-
-    public class Class2
-    {
-        public bool Bool { get; set; }
-        public byte Byte { get; set; }
-        public char Char { get; set; }
-        public DateTime DateTime { get; set; }
-        public decimal Decimal { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public float Float { get; set; }
-        public int Int { get; set; }
-        public string LastName { get; set; }
-        public long Long { get; set; }
-        public string Nickname { get; set; }
-        public short Short { get; set; }
+        public class Target
+        {
+            public bool Bool { get; set; }
+            public byte Byte { get; set; }
+            public char Char { get; set; }
+            public DateTime DateTime { get; set; }
+            public decimal Decimal { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public float Float { get; set; }
+            public int Int { get; set; }
+            public string LastName { get; set; }
+            public long Long { get; set; }
+            public string Nickname { get; set; }
+            public short Short { get; set; }
+        }
     }
 }

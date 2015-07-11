@@ -9,11 +9,20 @@ namespace Benchmark.Benchmarks
         protected Benchmark(int iterations)
         {
             _iterations = iterations;
+            InitMappers();
         }
 
         public void Measure()
         {
-            Console.WriteLine("Iterations: {0}", _iterations);
+            string inputInfo = MeasureMapperInputInfo();
+            if (string.IsNullOrWhiteSpace(inputInfo))
+            {
+                Console.WriteLine("Iterations: {0}", _iterations);
+            }
+            else
+            {
+                Console.WriteLine("Iterations: {0}, {1}", _iterations, inputInfo);
+            }
 
             TimeSpan handmade = MeasureHandmade();
             Console.WriteLine("Handmade: {0}ms", handmade.TotalMilliseconds);
@@ -27,8 +36,16 @@ namespace Benchmark.Benchmarks
             Console.WriteLine(Environment.NewLine);
         }
 
+        protected abstract void InitMappers();
+
         protected abstract TimeSpan MeasureAutoMapper();
         protected abstract TimeSpan MeasureHandmade();
+
+        protected virtual string MeasureMapperInputInfo()
+        {
+            return string.Empty;
+        }
+
         protected abstract TimeSpan MeasureTinyMapper();
     }
 }
