@@ -11,9 +11,9 @@ namespace UnitTests.Snippets
             TinyMapper.Bind<TSource, TTarget>();
         }
 
-        public void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config)
+        public void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
         {
-            TinyMapper.Bind<TSource, TTarget>(config);
+            TinyMapper.Bind(config);
         }
 
         public TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
@@ -27,11 +27,10 @@ namespace UnitTests.Snippets
         }
     }
 
-
     public interface IObjectMapper
     {
         void Bind<TSource, TTarget>();
-        void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config);
+        void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config);
         TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget));
         TTarget Map<TTarget>(object source);
     }

@@ -27,11 +27,11 @@ namespace Nelibur.ObjectMapper
             _mappers[typePair] = _targetMapperBuilder.Build(typePair);
         }
 
-        public static void Bind<TSource, TTarget>(Action<IBindingConfig<TTarget>> config)
+        public static void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
-            var bindingConfig = new BindingConfigOf<TTarget>();
+            var bindingConfig = new BindingConfigOf<TSource, TTarget>();
             config(bindingConfig);
 
             _mappers[typePair] = _targetMapperBuilder.Build(typePair, bindingConfig);

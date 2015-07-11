@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -15,41 +11,28 @@ namespace UnitTests
         {
             var source = new Source
             {
-                Collection = new List<int> { 1, 2, 3 }
+                MyInt = 1
             };
 
-            TinyMapper.Bind<Source, Target>();
+            TinyMapper.Bind<Source, Target>(config =>
+            {
+                config.Bind(from => from.MyInt, to => to.Int);
+                config.Bind(from => from.MyString, to => to.MyString);
+            });
 
             var target = TinyMapper.Map<Target>(source);
         }
 
-        [TypeConverter(typeof(SourceConverter))]
-        public sealed class Source
+        public class Source
         {
-            public ICollection Collection { get; set; }
+            public int MyInt { get; set; }
+            public string MyString { get; set; }
         }
 
-        public sealed class SourceConverter : TypeConverter
+        public class Target
         {
-            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-            {
-                return destinationType == typeof(Target);
-            }
-
-            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-            {
-                var concreteValue = (Source)value;
-                var result = new Target
-                {
-                    Collection = new List<int>((IEnumerable<int>)concreteValue.Collection)
-                };
-                return result;
-            }
-        }
-
-        public sealed class Target
-        {
-            public ICollection Collection { get; set; }
+            public int Int { get; set; }
+            public string MyString { get; set; }
         }
     }
 }
