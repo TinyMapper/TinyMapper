@@ -27,13 +27,14 @@ var person = new Person
 var personDto = TinyMapper.Map<PersonDto>(person);
 ```
 
-Ignore mapping members
+Ignore mapping source members and bind members with different names
 
 ```csharp
 TinyMapper.Bind<Person, PersonDto>(config =>
 {
 	config.Ignore(x => x.Id);
 	config.Ignore(x => x.Email);
+	config.Bind(from => from.LastName, to => to.Surname);
 });
 
 var person = new Person
