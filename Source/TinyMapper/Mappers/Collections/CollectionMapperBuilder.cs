@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators;
@@ -104,13 +105,13 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
-            Tuple<Type, Type> sourceTypes = typePair.Source.GetDictionaryItemTypes();
-            Tuple<Type, Type> targetTypes = typePair.Target.GetDictionaryItemTypes();
+            KeyValuePair<Type, Type> sourceTypes = typePair.Source.GetDictionaryItemTypes();
+            KeyValuePair<Type, Type> targetTypes = typePair.Target.GetDictionaryItemTypes();
 
-            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item1, targetTypes.Item1), ConvertItemKeyMethod);
-            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item2, targetTypes.Item2));
+            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Key, targetTypes.Key), ConvertItemKeyMethod);
+            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Value, targetTypes.Value));
 
-            var arguments = new[] { sourceTypes.Item1, sourceTypes.Item2, targetTypes.Item1, targetTypes.Item2 };
+            var arguments = new[] { sourceTypes.Key, sourceTypes.Value, targetTypes.Key, targetTypes.Value };
             MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, arguments);
 
             IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));

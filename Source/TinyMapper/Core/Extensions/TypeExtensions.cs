@@ -26,12 +26,12 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             return type.GetConstructor(Type.EmptyTypes);
         }
 
-        public static Tuple<Type, Type> GetDictionaryItemTypes(this Type type)
+        public static KeyValuePair<Type, Type> GetDictionaryItemTypes(this Type type)
         {
             if (type.IsDictionaryOf())
             {
                 Type[] types = type.GetGenericArguments();
-                return new Tuple<Type, Type>(types[0], types[1]);
+                return new KeyValuePair<Type, Type>(types[0], types[1]);
             }
             throw new NotSupportedException();
         }
