@@ -34,7 +34,7 @@ TinyMapper.Bind<Person, PersonDto>(config =>
 {
 	config.Ignore(x => x.Id);
 	config.Ignore(x => x.Email);
-	config.Bind(from => from.LastName, to => to.Surname);
+	config.Bind(source => source.LastName, target => target.Surname);
 });
 
 var person = new Person
