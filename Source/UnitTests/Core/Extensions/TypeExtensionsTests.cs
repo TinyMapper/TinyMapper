@@ -22,6 +22,14 @@ namespace UnitTests.Core.Extensions
             Assert.False((typeof(string)).HasDefaultCtor());
         }
 
+        [InlineData(typeof(Dictionary<string, int>), true)]
+        [InlineData(typeof(List<int>), false)]
+        [Theory]
+        public void IsDictionaryOf_Types_True(Type type, bool result)
+        {
+            Assert.Equal(result, type.IsDictionaryOf());
+        }
+
         [InlineData(typeof(List<int>), true)]
         [InlineData(typeof(int[]), true)]
         [InlineData(typeof(ArrayList), false)]

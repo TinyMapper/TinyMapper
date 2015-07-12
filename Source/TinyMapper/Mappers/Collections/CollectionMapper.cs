@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
@@ -10,6 +11,28 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         protected virtual object ConvertItem(object item)
         {
             throw new NotImplementedException();
+        }
+
+        protected virtual object ConvertItemKey(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual TTarget DictionaryToDictionary(IEnumerable source)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected Dictionary<TKey, TValue> DictionaryToDictionaryTemplate<TKey, TValue>(IEnumerable source)
+        {
+            var result = new Dictionary<TKey, TValue>();
+            foreach (KeyValuePair<TKey, TValue> item in source)
+            {
+                var key = (TKey)ConvertItemKey(item.Key);
+                var value = (TValue)ConvertItem(item.Value);
+                result.Add(key, value);
+            }
+            return result;
         }
 
         protected virtual TTarget EnumerableToArray(IEnumerable source)
@@ -55,6 +78,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             else if (targetType.IsArray)
             {
                 return EnumerableToArray(enumerable);
+            }
+            else if (typeof(TSource).IsDictionaryOf() && targetType.IsDictionaryOf())
+            {
+                return DictionaryToDictionary(enumerable);
             }
             string errorMessage = string.Format("Not suppoerted From {0} To {1}", typeof(TSource).Name, targetType.Name);
             throw new NotSupportedException(errorMessage);

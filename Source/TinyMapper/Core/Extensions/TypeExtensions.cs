@@ -26,6 +26,16 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             return type.GetConstructor(Type.EmptyTypes);
         }
 
+        public static Tuple<Type, Type> GetDictionaryItemTypes(this Type type)
+        {
+            if (type.IsDictionaryOf())
+            {
+                Type[] types = type.GetGenericArguments();
+                return new Tuple<Type, Type>(types[0], types[1]);
+            }
+            throw new NotSupportedException();
+        }
+
         public static MethodInfo GetGenericMethod(this Type type, string methodName, params Type[] arguments)
         {
             return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)
@@ -35,6 +45,11 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static bool HasDefaultCtor(this Type type)
         {
             return type.GetConstructor(Type.EmptyTypes) != null;
+        }
+
+        public static bool IsDictionaryOf(this Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
         }
 
         public static bool IsIEnumerable(this Type type)
