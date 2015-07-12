@@ -5,10 +5,10 @@ using Xunit;
 
 namespace UnitTests
 {
-    public sealed class ClassPrimitiveCollectionMappingTests
+    public sealed class PrimitiveCollectionMappingTests
     {
         [Fact]
-        public void Map_PrimitiveArrays_Success()
+        public void Map_Arrays_Success()
         {
             TinyMapper.Bind<Source1, Target1>();
 
@@ -27,7 +27,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Map_PrimitiveCollections_Success()
+        public void Map_Collections_Success()
         {
             TinyMapper.Bind<Source2, Target2>();
             var source = new Source2

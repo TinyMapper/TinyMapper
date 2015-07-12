@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public sealed class ClassCollectionMappingTests
+    public sealed class CollectionMappingTests
     {
         [Fact]
         public void Map_ClassCollections_Success()

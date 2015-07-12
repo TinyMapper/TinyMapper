@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public sealed class ClassPrimitiveTypeMappingTests
+    public sealed class PrimitiveTypeMappingTests
     {
         [Fact]
         public void Map_PrimitiveType_Success()

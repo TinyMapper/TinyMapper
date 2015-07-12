@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nelibur.ObjectMapper;
-using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests
 {
-    public sealed class ClassDictionaryMappingTests
+    public sealed class DictionaryMappingTests
     {
         [Fact]
-        public void Map_ClassDictionary_Success()
+        public void Map_Dictionary_Success()
         {
             TinyMapper.Bind<Source1, Target1>();
 
@@ -27,7 +26,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Map_ClassDifferentKeyDictionary_Success()
+        public void Map_DifferentKeyDictionary_Success()
         {
             TinyMapper.Bind<ItemKeySource, ItemKeyTarget>();
             TinyMapper.Bind<Source2, Target2>();
