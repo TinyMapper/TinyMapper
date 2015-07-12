@@ -83,14 +83,20 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
             Option<BindingConfig> bindingConfig = _config.GetBindingConfig(typePair);
 
-            foreach (MemberInfo targetMember in targetMembers)
+            foreach (MemberInfo sourceMember in sourceMembers)
             {
-                if (bindingConfig.Map(x => x.IsIgnoreField(targetMember.Name)).Value)
+                if (bindingConfig.Map(x => x.IsIgnoreField(sourceMember.Name)).Value)
                 {
                     continue;
                 }
-                MemberInfo sourceMember = sourceMembers.FirstOrDefault(x => Match(x.Name, targetMember.Name));
-                if (sourceMember.IsNull())
+                Option<string> targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
+                if (targetName.HasNoValue)
+                {
+                    targetName = new Option<string>(sourceMember.Name);
+                }
+
+                MemberInfo targetMember = targetMembers.FirstOrDefault(x => Match(x.Name, targetName.Value));
+                if (targetMember.IsNull())
                 {
                     continue;
                 }

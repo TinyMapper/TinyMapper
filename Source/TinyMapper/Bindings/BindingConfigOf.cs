@@ -18,7 +18,7 @@ namespace Nelibur.ObjectMapper.Bindings
             BindFields(sourceName, targetName);
         }
 
-        public void Ignore(Expression<Func<TTarget, object>> expression)
+        public void Ignore(Expression<Func<TSource, object>> expression)
         {
             string memberName = GetMemberName(expression);
             IgnoreField(memberName);

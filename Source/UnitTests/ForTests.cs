@@ -17,8 +17,8 @@ namespace UnitTests
 
             TinyMapper.Bind<Source, Target>(config =>
             {
-//                config.Bind(from => from.MyInt, to => to.Int);
-//                config.Bind(from => from.MyString, to => to.MyString);
+                config.Bind(from => from.MyInt, to => to.Int);
+                config.Bind(from => from.MyString, to => to.MyString);
             });
 
             var target = TinyMapper.Map<Target>(source);
