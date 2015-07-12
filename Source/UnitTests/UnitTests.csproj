@@ -85,7 +85,6 @@
     <Compile Include="MappingWithConfigTests.cs" />
     <Compile Include="PrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
-    <Compile Include="ExternalTests\SimpleWithAssociationTests.cs" />
     <Compile Include="ForTests.cs" />
     <Compile Include="Mappers\Classes\ClassMapperTests.cs" />
     <Compile Include="MappingBuilderConfigStub.cs" />
