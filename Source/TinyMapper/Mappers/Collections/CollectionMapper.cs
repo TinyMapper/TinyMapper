@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
@@ -23,13 +22,13 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             throw new NotImplementedException();
         }
 
-        protected Dictionary<TKey, TValue> DictionaryToDictionaryTemplate<TKey, TValue>(IEnumerable source)
+        protected Dictionary<TTargetKey, TTargetValue> DictionaryToDictionaryTemplate<TSourceKey, TSourceValue, TTargetKey, TTargetValue>(IEnumerable source)
         {
-            var result = new Dictionary<TKey, TValue>();
-            foreach (KeyValuePair<TKey, TValue> item in source)
+            var result = new Dictionary<TTargetKey, TTargetValue>();
+            foreach (KeyValuePair<TSourceKey, TSourceValue> item in source)
             {
-                var key = (TKey)ConvertItemKey(item.Key);
-                var value = (TValue)ConvertItem(item.Value);
+                var key = (TTargetKey)ConvertItemKey(item.Key);
+                var value = (TTargetValue)ConvertItem(item.Value);
                 result.Add(key, value);
             }
             return result;

@@ -12,8 +12,8 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 {
     internal sealed class CollectionMapperBuilder : MapperBuilder
     {
-        private const string ConvertItemMethod = "ConvertItem";
         private const string ConvertItemKeyMethod = "ConvertItemKey";
+        private const string ConvertItemMethod = "ConvertItem";
         private const string DictionaryToDictionaryMethod = "DictionaryToDictionary";
         private const string DictionaryToDictionaryTemplateMethod = "DictionaryToDictionaryTemplate";
         private const string EnumerableToArrayMethod = "EnumerableToArray";
@@ -99,6 +99,24 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             EmitDictionaryToTarget(parentType, typeBuilder, typePair, DictionaryToDictionaryMethod, DictionaryToDictionaryTemplateMethod);
         }
 
+        private void EmitDictionaryToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
+            string methodName, string templateMethodName)
+        {
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
+
+            Tuple<Type, Type> sourceTypes = typePair.Source.GetDictionaryItemTypes();
+            Tuple<Type, Type> targetTypes = typePair.Target.GetDictionaryItemTypes();
+
+            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item1, targetTypes.Item1), ConvertItemKeyMethod);
+            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item2, targetTypes.Item2));
+
+            var arguments = new[] { sourceTypes.Item1, sourceTypes.Item2, targetTypes.Item1, targetTypes.Item2 };
+            MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, arguments);
+
+            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));
+            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
+        }
+
         private void EmitEnumerableToArray(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
             EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToArrayMethod, EnumerableToArrayTemplateMethod);
@@ -120,23 +138,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
 
             MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, targetItemType);
-
-            IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));
-            EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));
-        }
-
-        private void EmitDictionaryToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
-            string methodName, string templateMethodName)
-        {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
-
-            var sourceTypes = typePair.Source.GetDictionaryItemTypes();
-            var targetTypes = typePair.Target.GetDictionaryItemTypes();
-
-            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item1, targetTypes.Item1), ConvertItemKeyMethod);
-            EmitConvertItem(typeBuilder, new TypePair(sourceTypes.Item2, targetTypes.Item2));
-
-            MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, new[] { targetTypes.Item1, targetTypes.Item2 });
 
             IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));
             EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));

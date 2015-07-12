@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ClassCollectionMappingTests.cs" />
     <Compile Include="ClassConvertibleTypeMappingTests.cs" />
+    <Compile Include="ClassDictionaryMappingTests.cs" />
     <Compile Include="ClassHierarchyMappingTests.cs" />
     <Compile Include="ClassPrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
