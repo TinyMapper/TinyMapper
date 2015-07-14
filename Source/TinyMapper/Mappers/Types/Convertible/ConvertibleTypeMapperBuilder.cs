@@ -1,12 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
+using System.Reflection;
+using System.Linq;
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
     internal sealed class ConvertibleTypeMapperBuilder : MapperBuilder
     {
         private static readonly Func<object, object> _nothingConverter = x => x;
+        const BindingFlags conversionFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy;
 
         public ConvertibleTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
