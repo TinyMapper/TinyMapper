@@ -56,6 +56,19 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
             {
                 return x => Convert.ChangeType(x, pair.Source);
             }
+            
+            var conversionMethod = pair.Target.GetMethods(conversionFlags)
+                .Where(m => m.Name == "op_Implicit"
+                    && m.Attributes.HasFlag(MethodAttributes.SpecialName)
+                    && m.GetParameters().Length == 1
+                    && m.GetParameters()[0].ParameterType.IsAssignableFrom(pair.Source)
+                ).FirstOrDefault();
+
+            if (conversionMethod != null)
+            {
+                return x => conversionMethod.Invoke(null, new[] { x });
+            }
+            
             return null;
         }
     }
