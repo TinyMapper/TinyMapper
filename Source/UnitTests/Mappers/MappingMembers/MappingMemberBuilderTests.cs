@@ -13,7 +13,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Buid_Recursion_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source1), typeof(Target1)));
             Assert.Equal(2, members.Count);
         }
 
@@ -21,7 +21,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Build_CommonFileds_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass2), typeof(MyClass3)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source2), typeof(Target2)));
             Assert.Equal(2, members.Count);
         }
 
@@ -33,26 +33,26 @@ namespace UnitTests.Mappers.MappingMembers
 
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub(bindingConfig));
 
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(MyClass), typeof(MyClass1)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source1), typeof(Target1)));
             Assert.Equal(1, members.Count);
         }
 
 
-        public class MyClass
+        public class Source1
         {
-            public MyClass1 Class { get; set; }
+            public Target1 Class { get; set; }
             public int Id { get; set; }
         }
 
 
-        public class MyClass1
+        public class Target1
         {
-            public MyClass Class { get; set; }
+            public Source1 Class { get; set; }
             public int Id { get; set; }
         }
 
 
-        public class MyClass2
+        public class Source2
         {
             private string _private;
             public int Int { get; set; }
@@ -61,7 +61,7 @@ namespace UnitTests.Mappers.MappingMembers
         }
 
 
-        public class MyClass3
+        public class Target2
         {
             private string _private;
             public int Int { get; set; }

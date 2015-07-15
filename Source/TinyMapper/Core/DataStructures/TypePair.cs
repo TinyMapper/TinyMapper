@@ -49,17 +49,22 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             get { return Source.IsIEnumerable() && Target.IsIEnumerable(); }
         }
 
+        public bool IsNullableToNotNullable
+        {
+            get { return Source.IsNullable() && Target.IsNullable() == false; }
+        }
+
+        public bool IsNullableTypes
+        {
+            get { return Source.IsNullable() && Target.IsNullable(); }
+        }
+
         public Type Source { get; private set; }
         public Type Target { get; private set; }
 
         private bool IsEqualTypes
         {
             get { return Source == Target; }
-        }
-
-        private bool IsNullableTypes
-        {
-            get { return Source.IsNullable() && Target.IsNullable(); }
         }
 
         private bool IsPrimitiveTypes
@@ -70,11 +75,6 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
         private bool IsValueTypes
         {
             get { return Source.IsValueType && Target.IsValueType; }
-        }
-
-        public bool Equals(TypePair other)
-        {
-            return Source == other.Source && Target == other.Target;
         }
 
         public static TypePair Create(Type source, Type target)
@@ -118,6 +118,11 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
                 return true;
             }
             return false;
+        }
+
+        public bool Equals(TypePair other)
+        {
+            return Source == other.Source && Target == other.Target;
         }
     }
 }

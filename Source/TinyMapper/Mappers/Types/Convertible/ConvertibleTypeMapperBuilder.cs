@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
@@ -25,12 +26,37 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 
         protected override bool IsSupportedCore(TypePair typePair)
         {
-            return typePair.Source.IsPrimitive
-                   || typePair.Source == typeof(string)
-                   || typePair.Source == typeof(Guid)
-                   || typePair.Source.IsEnum
-                   || typePair.Source == typeof(decimal)
-                   || typePair.HasTypeConverter();
+            return IsSupportedType(typePair.Source) || typePair.HasTypeConverter();
+        }
+
+        private static Option<Func<object, object>> ConvertEnum(TypePair pair)
+        {
+            Func<object, object> result;
+            if (pair.IsEnumTypes)
+            {
+                result = x => Convert.ChangeType(x, pair.Source);
+                return result.ToOption();
+            }
+
+            if (pair.Target.IsEnum)
+            {
+                if (pair.Source.IsEnum == false)
+                {
+                    if (pair.Source == typeof(string))
+                    {
+                        result = x => Enum.Parse(pair.Target, x.ToString());
+                    }
+                }
+                result = x => Enum.ToObject(pair.Target, Convert.ChangeType(x, Enum.GetUnderlyingType(pair.Target)));
+                return result.ToOption();
+            }
+
+            if (pair.Source.IsEnum)
+            {
+                result = x => Convert.ChangeType(x, pair.Target);
+                return result.ToOption();
+            }
+            return Option<Func<object, object>>.Empty;
         }
 
         private static Func<object, object> GetConverter(TypePair pair)
@@ -52,24 +78,33 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
                 return x => toConverter.ConvertFrom(x);
             }
 
-            if (pair.IsEnumTypes)
+            Option<Func<object, object>> enumConverter = ConvertEnum(pair);
+            if (enumConverter.HasValue)
             {
-                return x => Convert.ChangeType(x, pair.Source);
+                return enumConverter.Value;
             }
-            
-            var conversionMethod = pair.Target.GetMethods(conversionFlags)
-                .Where(m => m.Name == "op_Implicit"
-                    && m.Attributes.HasFlag(MethodAttributes.SpecialName)
-                    && m.GetParameters().Length == 1
-                    && m.GetParameters()[0].ParameterType.IsAssignableFrom(pair.Source)
-                ).FirstOrDefault();
 
-            if (conversionMethod != null)
+            if (pair.IsNullableToNotNullable)
             {
-                return x => conversionMethod.Invoke(null, new[] { x });
+                return GetConverter(new TypePair(Nullable.GetUnderlyingType(pair.Source), pair.Target));
             }
-            
+
+            if (pair.Target.IsNullable())
+            {
+                return GetConverter(new TypePair(pair.Source, Nullable.GetUnderlyingType(pair.Target)));
+            }
+
             return null;
+        }
+
+        private bool IsSupportedType(Type value)
+        {
+            return value.IsPrimitive
+                   || value == typeof(string)
+                   || value == typeof(Guid)
+                   || value.IsEnum
+                   || value == typeof(decimal)
+                   || value.IsNullable() && IsSupportedType(Nullable.GetUnderlyingType(value));
         }
     }
 }

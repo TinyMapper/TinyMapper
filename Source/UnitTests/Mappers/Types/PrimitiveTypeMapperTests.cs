@@ -1,7 +1,6 @@
 ﻿using System;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
-using Nelibur.ObjectMapper.Mappers.Types;
 using Nelibur.ObjectMapper.Mappers.Types.Convertible;
 using Xunit;
 using Xunit.Extensions;
@@ -10,20 +9,38 @@ namespace UnitTests.Mappers.Types
 {
     public sealed class PrimitiveTypeMapperTests
     {
-        [Fact]
-        public void Map_Enum_Success()
+        public enum EnumA
+        {
+            A,
+            B,
+            C
+        }
+
+        public enum EnumB
+        {
+            A,
+            B,
+            C
+        }
+
+        [InlineData(EnumA.A, EnumB.A)]
+        [InlineData(EnumA.A, 0)]
+        [Theory]
+        public void Map_Enum_Success(object source, object expected)
         {
             var builder = new ConvertibleTypeMapperBuilder(new MappingBuilderConfigStub());
             Mapper mapper = builder.Build(new TypePair(typeof(EnumA), typeof(EnumB)));
 
-            var actual = (EnumB)mapper.Map(EnumA.B);
-            Assert.Equal(EnumB.B, actual);
+            var actual = (EnumB)mapper.Map(source);
+            Assert.Equal((EnumB)(expected), actual);
         }
 
         [InlineData(typeof(bool), typeof(bool), true, true)]
         [InlineData(typeof(byte), typeof(byte), 0, 0)]
         [InlineData(typeof(int), typeof(int), 1, 1)]
         [InlineData(typeof(int), typeof(int?), 5, 5)]
+        [InlineData(typeof(int?), typeof(int?), 5, 5)]
+        [InlineData(typeof(int?), typeof(int), 5, 5)]
         [InlineData(typeof(string), typeof(int), "1", 1)]
         [InlineData(typeof(int), typeof(string), 1, "1")]
         [InlineData(typeof(decimal), typeof(decimal), 5, 5)]
@@ -43,21 +60,5 @@ namespace UnitTests.Mappers.Types
             object actual = mapper.Map(source);
             Assert.Equal(expected, actual);
         }
-    }
-
-
-    public enum EnumA
-    {
-        A,
-        B,
-        C
-    }
-
-
-    public enum EnumB
-    {
-        A,
-        B,
-        C
     }
 }

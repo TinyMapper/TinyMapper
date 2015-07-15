@@ -39,11 +39,6 @@ namespace Nelibur.ObjectMapper
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
         {
-            if (source.IsNull())
-            {
-                throw Error.ArgumentNull("source");
-            }
-
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
             Mapper mapper = GetMapper(typePair);
@@ -52,11 +47,18 @@ namespace Nelibur.ObjectMapper
             return result;
         }
 
+        /// <summary>
+        ///     Maps the specified source to <see cref="TTarget" /> type.
+        /// </summary>
+        /// <typeparam name="TTarget">The type of the target.</typeparam>
+        /// <param name="source">The source value.</param>
+        /// <returns>Value</returns>
+        /// <remarks>For mapping nullable type use <see cref="Map{TSource, TTarget}" />method.</remarks>
         public static TTarget Map<TTarget>(object source)
         {
             if (source.IsNull())
             {
-                throw Error.ArgumentNull("source");
+                throw Error.ArgumentNull("source, for mapping nullable type use Map<TSource, TTarget> method");
             }
 
             TypePair typePair = TypePair.Create(source.GetType(), typeof(TTarget));
