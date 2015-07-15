@@ -12,6 +12,21 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             Source = source;
         }
 
+        public bool IsCloneable
+        {
+            get
+            {
+                if (IsEqualTypes)
+                {
+                    var cloneType = Source.GetInterface("ICloneable");
+                    return cloneType != null && cloneType == typeof(ICloneable);
+                }
+
+
+                return false;
+            }
+        }
+
         public bool IsDeepCloneable
         {
             get

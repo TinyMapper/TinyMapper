@@ -63,7 +63,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            if (member.TypePair.IsDeepCloneable)
+            if (member.TypePair.IsDeepCloneable || member.TypePair.IsCloneable)
             {
                 return sourceMemeber;
             }
