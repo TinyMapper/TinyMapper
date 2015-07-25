@@ -57,3 +57,11 @@ var personDto = TinyMapper.Map<PersonDto>(person);
  * [TinyMapper: yet another object to object mapper for .net](http://www.codeproject.com/Articles/886420/TinyMapper-yet-another-object-to-object-mapper-for)
  * [Complex mapping](https://github.com/TinyMapper/TinyMapper/wiki/Complex-mapping)
  * [How to create custom mapping](https://github.com/TinyMapper/TinyMapper/wiki/Custom-mapping)
+ 
+ ## Contributors
+ A big thanks to all of TinyMapper's contributors:
+ 
+  - [lijaso](https://github.com/lijaso)
+  - [nomailme](https://github.com/nomailme)
+  - [Skaiol](https://github.com/Skaiol)
+  - [qihangnet](https://github.com/qihangnet)
