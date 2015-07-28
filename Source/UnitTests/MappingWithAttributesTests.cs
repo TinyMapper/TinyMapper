@@ -19,14 +19,26 @@ namespace UnitTests
             });
 
             Source source = CreateSource();
-            TinyMapper.Map<Target>(source);
-
             var actual = TinyMapper.Map<Target>(source);
 
             Assert.Equal(actual.DateTime, default(DateTime));
             Assert.Equal(actual.FirstName, source.FirstName);
             Assert.Equal(actual.LatestString, source.LegacyString);
             Assert.Equal(actual.ProtectedString, source.SealedString);
+        }
+
+        [Fact]
+        public void Map_Back_Success()
+        {
+            TinyMapper.Bind<Target, Source>();
+
+            Target target = CreateTarget();
+            var actual = TinyMapper.Map<Source>(target);
+
+            Assert.Equal(actual.DateTime, target.DateTime);
+            Assert.Equal(actual.FirstName, target.FirstName);
+            Assert.Equal(actual.LegacyString, target.LatestString);
+            Assert.Equal(actual.SealedString, target.ProtectedString);
         }
 
         private static Source CreateSource()
@@ -40,13 +52,15 @@ namespace UnitTests
             };
         }
 
-        private static Target HandmadeMap(Source source, Target target)
+        private static Target CreateTarget()
         {
-//            target.DateTime = source.DateTime;
-            target.FirstName = source.FirstName;
-            target.LatestString = source.LegacyString;
-            target.ProtectedString = source.SealedString;
-            return target;
+            return new Target
+            {
+                FirstName = "John",
+                DateTime = DateTime.Now,
+                LatestString = "legacy field",
+                ProtectedString = "sealed field, we don't change legacy code",
+            };
         }
 
         public class Source
