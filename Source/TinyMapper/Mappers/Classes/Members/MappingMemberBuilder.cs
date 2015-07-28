@@ -86,7 +86,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             {
                 var attributes = targetMember.GetCustomAttributes();
                 BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
-                if (bind != null)
+                if (bind.IsNotNull())
                 {
                     map.Add(bind.Name, targetMember.Name);
                 }
@@ -97,7 +97,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             foreach (MemberInfo sourceMember in sourceMembers)
             {
                 var attributes = sourceMember.GetCustomAttributes();
-                if (attributes.FirstOrDefault(x => x is IgnoreAttribute) != null)
+                if (attributes.FirstOrDefault(x => x is IgnoreAttribute).IsNotNull())
                 {
                     continue;
                 }
@@ -108,7 +108,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
                 Option<string> targetName;
                 BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
-                if (bind != null)
+                if (bind.IsNotNull())
                 {
                     targetName = new Option<string>(bind.Name);
                 }
