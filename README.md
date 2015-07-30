@@ -61,6 +61,7 @@ var personDto = TinyMapper.Map<PersonDto>(person);
 ## Contributors
 A big thanks to all of TinyMapper's contributors:
  
+ * [iEmiya](https://github.com/iEmiya)
  * [lijaso](https://github.com/lijaso)
  * [nomailme](https://github.com/nomailme)
  * [Skaiol](https://github.com/Skaiol)

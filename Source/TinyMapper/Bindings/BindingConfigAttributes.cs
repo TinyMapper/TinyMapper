@@ -5,29 +5,24 @@ namespace Nelibur.ObjectMapper.Bindings
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public sealed class IgnoreAttribute : Attribute
     {
-        private readonly Type _bindToType;
-
         public IgnoreAttribute(Type bindToType = null)
         {
-            _bindToType = bindToType;
+            BindToType = bindToType;
         }
 
-        public Type BindToType { get { return _bindToType; } }
+        public Type BindToType { get; private set; }
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public sealed class BindAttribute : Attribute
     {
-        private readonly string _name;
-        private readonly Type _bindToType;
-
         public BindAttribute(string name, Type bindToType = null)
         {
-            _name = name;
-            _bindToType = bindToType;
+            Name = name;
+            BindToType = bindToType;
         }
 
-        public string Name { get { return _name; } }
-        public Type BindToType { get { return _bindToType; } }
+        public Type BindToType { get; private set; }
+        public string Name { get; private set; }
     }
 }

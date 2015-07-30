@@ -36,7 +36,7 @@ namespace UnitTests
             Assert.Equal(expectedValue, result.Value);
         }
 
-//        [InlineData(1, EnumA.B)]
+        [InlineData(1, EnumA.B)]
         [InlineData(null, null)]
         [Theory]
         public void Map_NullableToEnum_Success(int? sourceValue, EnumA? expectedValue)
