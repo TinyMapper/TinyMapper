@@ -86,9 +86,12 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             {
                 var attributes = targetMember.GetCustomAttributes();
                 BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
-                if (bind != null)
+                if (bind.IsNotNull())
                 {
-                    map.Add(bind.Name, targetMember.Name);
+                    if (bind.BindToType.IsNull() || typePair.Source.IsAssignableFrom(bind.BindToType))
+                    {
+                        map.Add(bind.Name, targetMember.Name);
+                    }
                 }
             }
 
@@ -97,7 +100,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             foreach (MemberInfo sourceMember in sourceMembers)
             {
                 var attributes = sourceMember.GetCustomAttributes();
-                if (attributes.FirstOrDefault(x => x is IgnoreAttribute) != null)
+                var ignores = attributes.Where(x => x is IgnoreAttribute).Cast<IgnoreAttribute>();
+                if (ignores.Any(x => x.BindToType.IsNull()) || ignores.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType)).IsNotNull())
                 {
                     continue;
                 }
@@ -107,8 +111,10 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 }
 
                 Option<string> targetName;
-                BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
-                if (bind != null)
+                var binds = attributes.Where(x => x is BindAttribute).Cast<BindAttribute>();
+                BindAttribute bind = binds.FirstOrDefault(x => x.BindToType.IsNull());
+                if (bind.IsNull()) bind = binds.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType));
+                if (bind.IsNotNull())
                 {
                     targetName = new Option<string>(bind.Name);
                 }
