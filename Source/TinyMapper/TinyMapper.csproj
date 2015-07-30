@@ -73,6 +73,7 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bindings\BindingConfigAttributes.cs" />
     <Compile Include="Bindings\BindingConfig.cs" />
     <Compile Include="Bindings\BindingConfigOf.cs" />
     <Compile Include="Bindings\IBindingConfig.cs" />

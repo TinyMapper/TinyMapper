@@ -81,18 +81,58 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
             List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
 
+            Dictionary<string, string> map = new Dictionary<string, string>();
+            foreach (var targetMember in targetMembers)
+            {
+                var attributes = targetMember.GetCustomAttributes();
+                BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
+                if (bind.IsNotNull())
+                {
+                    if (bind.BindToType.IsNull() || typePair.Source.IsAssignableFrom(bind.BindToType))
+                    {
+                        map.Add(bind.Name, targetMember.Name);
+                    }
+                }
+            }
+
             Option<BindingConfig> bindingConfig = _config.GetBindingConfig(typePair);
 
             foreach (MemberInfo sourceMember in sourceMembers)
             {
+                var attributes = sourceMember.GetCustomAttributes();
+                var ignores = attributes.Where(x => x is IgnoreAttribute).Cast<IgnoreAttribute>();
+                if (ignores.Any(x => x.BindToType.IsNull()) || ignores.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType)).IsNotNull())
+                {
+                    continue;
+                }
                 if (bindingConfig.Map(x => x.IsIgnoreField(sourceMember.Name)).Value)
                 {
                     continue;
                 }
-                Option<string> targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
-                if (targetName.HasNoValue)
+
+                Option<string> targetName;
+                var binds = attributes.Where(x => x is BindAttribute).Cast<BindAttribute>();
+                BindAttribute bind = binds.FirstOrDefault(x => x.BindToType.IsNull());
+                if (bind.IsNull()) bind = binds.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType));
+                if (bind.IsNotNull())
                 {
-                    targetName = new Option<string>(sourceMember.Name);
+                    targetName = new Option<string>(bind.Name);
+                }
+                else
+                {
+                    targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
+                    if (targetName.HasNoValue)
+                    {
+                        string targetMemberName;
+                        if (map.TryGetValue(sourceMember.Name, out targetMemberName))
+                        {
+                            targetName = new Option<string>(targetMemberName);
+                        }
+                        else
+                        {
+                            targetName = new Option<string>(sourceMember.Name);
+                        }
+                    }
                 }
 
                 MemberInfo targetMember = targetMembers.FirstOrDefault(x => Match(x.Name, targetName.Value));

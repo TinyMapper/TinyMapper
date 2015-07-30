@@ -82,6 +82,7 @@
     <Compile Include="ConvertibleTypeMappingTests.cs" />
     <Compile Include="DictionaryMappingTests.cs" />
     <Compile Include="ClassHierarchyMappingTests.cs" />
+    <Compile Include="MappingWithAttributesTests.cs" />
     <Compile Include="MappingWithConfigTests.cs" />
     <Compile Include="PrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
