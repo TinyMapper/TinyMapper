@@ -11,13 +11,15 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static Option<TAttribute> GetAttribute<TAttribute>(this MemberInfo value)
             where TAttribute : Attribute
         {
-            return value.GetCustomAttribute<TAttribute>().ToOption();
+            return value.GetCustomAttributes()
+                        .FirstOrDefault(x => x is TAttribute)
+                        .ToType<TAttribute>();
         }
 
         public static List<TAttribute> GetAttributes<TAttribute>(this MemberInfo value)
             where TAttribute : Attribute
         {
-            return value.GetCustomAttributes<TAttribute>().ToList();
+            return value.GetCustomAttributes().OfType<TAttribute>().ToList();
         }
 
         public static Type GetMemberType(this MemberInfo value)
