@@ -9,31 +9,43 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
+            TinyMapper.Bind<Source, Target>(config => config.Bind(from => @from.Campaign, typeof(Campaign1)));
+
             var source = new Source
             {
-                MyInt = 1,
-                MyString = "My Value"
+                Campaign = new Campaign1
+                {
+                    Value = 1
+                }
             };
 
-            TinyMapper.Bind<Source, Target>(config =>
-            {
-                config.Bind(from => from.MyInt, to => to.Int);
-                config.Bind(from => from.MyString, to => to.MyString);
-            });
-
-            var target = TinyMapper.Map<Target>(source);
+            var result = TinyMapper.Map<Target>(source);
         }
 
-        public class Source
+        public class Campaign1 : CampaignBase
         {
-            public int MyInt { get; set; }
-            public string MyString { get; set; }
         }
 
-        public class Target
+        public class Campaign2 : CampaignBase
         {
-            public int Int { get; set; }
-            public string MyString { get; set; }
+        }
+
+        public abstract class CampaignBase
+        {
+            public int Value { get; set; }
+        }
+
+        public class Source : SourceBase
+        {
+        }
+
+        public abstract class SourceBase
+        {
+            public CampaignBase Campaign { get; set; }
+        }
+
+        public class Target : SourceBase
+        {
         }
     }
 }

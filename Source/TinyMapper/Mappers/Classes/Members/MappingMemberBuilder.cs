@@ -74,6 +74,75 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return string.Equals(valueA, valueB, StringComparison.Ordinal);
         }
 
+        private string GetTargetName(
+            Option<BindingConfig> bindingConfig,
+            TypePair typePair,
+            MemberInfo sourceMember,
+            Dictionary<string, string> targetBindings)
+        {
+            Option<string> targetName;
+            List<BindAttribute> binds = sourceMember.GetAttributes<BindAttribute>();
+            BindAttribute bind = binds.FirstOrDefault(x => x.TargetType.IsNull());
+            if (bind.IsNull())
+            {
+                bind = binds.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.TargetType));
+            }
+            if (bind.IsNotNull())
+            {
+                targetName = new Option<string>(bind.MemberName);
+            }
+            else
+            {
+                targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
+                if (targetName.HasNoValue)
+                {
+                    string targetMemberName;
+                    if (targetBindings.TryGetValue(sourceMember.Name, out targetMemberName))
+                    {
+                        targetName = new Option<string>(targetMemberName);
+                    }
+                    else
+                    {
+                        targetName = new Option<string>(sourceMember.Name);
+                    }
+                }
+            }
+            return targetName.Value;
+        }
+
+        private Dictionary<string, string> GetTest(TypePair typePair, List<MemberInfo> targetMembers)
+        {
+            var result = new Dictionary<string, string>();
+            foreach (MemberInfo member in targetMembers)
+            {
+                Option<BindAttribute> bindAttribute = member.GetAttribute<BindAttribute>();
+                if (bindAttribute.HasNoValue)
+                {
+                    continue;
+                }
+
+                if (bindAttribute.Value.TargetType.IsNull() || typePair.Source.IsAssignableFrom(bindAttribute.Value.TargetType))
+                {
+                    result[bindAttribute.Value.MemberName] = member.Name;
+                }
+            }
+            return result;
+        }
+
+        private bool IsIgnore(Option<BindingConfig> bindingConfig, TypePair typePair, MemberInfo sourceMember)
+        {
+            List<IgnoreAttribute> ignores = sourceMember.GetAttributes<IgnoreAttribute>();
+            if (ignores.Any(x => x.TargetType.IsNull()))
+            {
+                return true;
+            }
+            if (ignores.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.TargetType)).IsNotNull())
+            {
+                return true;
+            }
+            return bindingConfig.Map(x => x.IsIgnoreField(sourceMember.Name)).Value;
+        }
+
         private List<MappingMember> ParseMappingTypes(TypePair typePair)
         {
             var result = new List<MappingMember>();
@@ -81,66 +150,34 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             List<MemberInfo> sourceMembers = GetSourceMembers(typePair.Source);
             List<MemberInfo> targetMembers = GetTargetMembers(typePair.Target);
 
-            Dictionary<string, string> map = new Dictionary<string, string>();
-            foreach (var targetMember in targetMembers)
-            {
-                var attributes = targetMember.GetCustomAttributes();
-                BindAttribute bind = attributes.FirstOrDefault(x => x is BindAttribute) as BindAttribute;
-                if (bind.IsNotNull())
-                {
-                    if (bind.BindToType.IsNull() || typePair.Source.IsAssignableFrom(bind.BindToType))
-                    {
-                        map.Add(bind.Name, targetMember.Name);
-                    }
-                }
-            }
+            Dictionary<string, string> targetBindings = GetTest(typePair, targetMembers);
 
             Option<BindingConfig> bindingConfig = _config.GetBindingConfig(typePair);
 
             foreach (MemberInfo sourceMember in sourceMembers)
             {
-                var attributes = sourceMember.GetCustomAttributes();
-                var ignores = attributes.Where(x => x is IgnoreAttribute).Cast<IgnoreAttribute>();
-                if (ignores.Any(x => x.BindToType.IsNull()) || ignores.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType)).IsNotNull())
-                {
-                    continue;
-                }
-                if (bindingConfig.Map(x => x.IsIgnoreField(sourceMember.Name)).Value)
+                if (IsIgnore(bindingConfig, typePair, sourceMember))
                 {
                     continue;
                 }
 
-                Option<string> targetName;
-                var binds = attributes.Where(x => x is BindAttribute).Cast<BindAttribute>();
-                BindAttribute bind = binds.FirstOrDefault(x => x.BindToType.IsNull());
-                if (bind.IsNull()) bind = binds.FirstOrDefault(x => typePair.Target.IsAssignableFrom(x.BindToType));
-                if (bind.IsNotNull())
-                {
-                    targetName = new Option<string>(bind.Name);
-                }
-                else
-                {
-                    targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
-                    if (targetName.HasNoValue)
-                    {
-                        string targetMemberName;
-                        if (map.TryGetValue(sourceMember.Name, out targetMemberName))
-                        {
-                            targetName = new Option<string>(targetMemberName);
-                        }
-                        else
-                        {
-                            targetName = new Option<string>(sourceMember.Name);
-                        }
-                    }
-                }
+                string targetName = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
 
-                MemberInfo targetMember = targetMembers.FirstOrDefault(x => Match(x.Name, targetName.Value));
+                MemberInfo targetMember = targetMembers.FirstOrDefault(x => Match(x.Name, targetName));
                 if (targetMember.IsNull())
                 {
                     continue;
                 }
-                result.Add(new MappingMember(sourceMember, targetMember));
+                var concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
+                if (concreteBindingType.HasValue)
+                {
+                    var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);
+                    result.Add(new MappingMember(sourceMember, targetMember, mappingTypePair));
+                }
+                else
+                {
+                    result.Add(new MappingMember(sourceMember, targetMember));
+                }
             }
             return result;
         }

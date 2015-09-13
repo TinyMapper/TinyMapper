@@ -7,8 +7,8 @@ namespace Nelibur.ObjectMapper.Bindings
     {
         public void Bind(Expression<Func<TSource, object>> source, Expression<Func<TTarget, object>> target)
         {
-            string sourceName = GetMemberName(source);
-            string targetName = GetMemberName(target);
+            string sourceName = GetMemberInfo(source);
+            string targetName = GetMemberInfo(target);
 
             if (string.Equals(sourceName, targetName, StringComparison.OrdinalIgnoreCase))
             {
@@ -18,13 +18,19 @@ namespace Nelibur.ObjectMapper.Bindings
             BindFields(sourceName, targetName);
         }
 
+        public void Bind(Expression<Func<TTarget, object>> target, Type targetType)
+        {
+            string targetName = GetMemberInfo(target);
+            BindType(targetName, targetType);
+        }
+
         public void Ignore(Expression<Func<TSource, object>> expression)
         {
-            string memberName = GetMemberName(expression);
+            string memberName = GetMemberInfo(expression);
             IgnoreField(memberName);
         }
 
-        private static string GetMemberName<T>(Expression<Func<T, object>> expression)
+        private static string GetMemberInfo<T>(Expression<Func<T, object>> expression)
         {
             var member = expression.Body as MemberExpression;
             if (member == null)

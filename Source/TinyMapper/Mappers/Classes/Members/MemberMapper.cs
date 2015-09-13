@@ -49,8 +49,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private IEmitter Build(MappingMember member)
         {
-            IEmitterType sourceObject = EmitArgument.Load(member.Source.GetMemberType(), 1);
-            IEmitterType targetObject = EmitArgument.Load(member.Target.GetMemberType(), 2);
+            IEmitterType sourceObject = EmitArgument.Load(member.TypePair.Source, 1);
+            IEmitterType targetObject = EmitArgument.Load(member.TypePair.Target, 2);
 
             IEmitterType sourceMember = LoadMember(member.Source, sourceObject);
             IEmitterType targetMember = LoadMember(member.Target, targetObject);

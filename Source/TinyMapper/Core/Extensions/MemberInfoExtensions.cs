@@ -1,10 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Nelibur.ObjectMapper.Core.DataStructures;
 
 namespace Nelibur.ObjectMapper.Core.Extensions
 {
     internal static class MemberInfoExtensions
     {
+        public static Option<TAttribute> GetAttribute<TAttribute>(this MemberInfo value)
+            where TAttribute : Attribute
+        {
+            return value.GetCustomAttribute<TAttribute>().ToOption();
+        }
+
+        public static List<TAttribute> GetAttributes<TAttribute>(this MemberInfo value)
+            where TAttribute : Attribute
+        {
+            return value.GetCustomAttributes<TAttribute>().ToList();
+        }
+
         public static Type GetMemberType(this MemberInfo value)
         {
             if (value.IsField())

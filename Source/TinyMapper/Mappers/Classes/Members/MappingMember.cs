@@ -8,10 +8,15 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
     internal class MappingMember
     {
         public MappingMember(MemberInfo source, MemberInfo target)
+            : this(source, target, new TypePair(source.GetMemberType(), target.GetMemberType()))
+        {
+        }
+
+        public MappingMember(MemberInfo source, MemberInfo target, TypePair typePair)
         {
             Source = source;
             Target = target;
-            TypePair = new TypePair(Source.GetMemberType(), Target.GetMemberType());
+            TypePair = typePair;
         }
 
         public MemberInfo Source { get; private set; }

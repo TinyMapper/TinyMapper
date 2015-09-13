@@ -6,6 +6,7 @@ namespace Nelibur.ObjectMapper.Bindings
     public interface IBindingConfig<TSource, TTarget>
     {
         void Bind(Expression<Func<TSource, object>> source, Expression<Func<TTarget, object>> target);
+        void Bind(Expression<Func<TTarget, object>> target, Type targetType);
         void Ignore(Expression<Func<TSource, object>> expression);
     }
 }
