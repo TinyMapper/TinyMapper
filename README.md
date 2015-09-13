@@ -68,3 +68,4 @@ A big thanks to all of TinyMapper's contributors:
  * [nomailme](https://github.com/nomailme)
  * [Skaiol](https://github.com/Skaiol)
  * [qihangnet](https://github.com/qihangnet)
+ * [teknogecko](https://github.com/teknogecko)
