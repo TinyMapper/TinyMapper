@@ -35,9 +35,17 @@ p {
 
 @media only screen and (max-width : 992px) {
     .parallax-container .section {
-        position: absolute;
         top: 40%;
     }
+
+    .parallax-container:not(.valign-wrapper) .section {
+        position: static;
+    }
+
+    .parallax-container.valign-wrapper .section {
+        position: absolute;
+    }
+
     #index-banner .section {
         top: 10%;
     }
