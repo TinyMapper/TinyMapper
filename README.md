@@ -22,8 +22,7 @@ var person = new Person
 {
 	Id = Guid.NewGuid(),
 	FirstName = "John",
-	LastName = "Doe",
-	Email = "support@tinymapper.net"
+	LastName = "Doe"
 };
 
 var personDto = TinyMapper.Map<PersonDto>(person);
