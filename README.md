@@ -29,7 +29,7 @@ var person = new Person
 var personDto = TinyMapper.Map<PersonDto>(person);
 ```
 
-Ignore mapping source members and bind members with different names
+Ignore mapping source members and bind members with different names/types
 
 ```csharp
 TinyMapper.Bind<Person, PersonDto>(config =>
@@ -37,6 +37,7 @@ TinyMapper.Bind<Person, PersonDto>(config =>
 	config.Ignore(x => x.Id);
 	config.Ignore(x => x.Email);
 	config.Bind(source => source.LastName, target => target.Surname);
+	config.Bind(source => source.Emails, typeof(List<string>));
 });
 
 var person = new Person
@@ -44,7 +45,7 @@ var person = new Person
 	Id = Guid.NewGuid(),
 	FirstName = "John",
 	LastName = "Doe",
-	Email = "support@tinymapper.net"
+	Emails = new List<string>{"support@tinymapper.net", "MyEmail@tinymapper.net"}
 };
 
 var personDto = TinyMapper.Map<PersonDto>(person);
