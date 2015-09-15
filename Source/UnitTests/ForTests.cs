@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -9,43 +10,27 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            TinyMapper.Bind<Source, Target>(config => config.Bind(from => @from.Campaign, typeof(Campaign1)));
+            TinyMapper.Bind<Source, Target>();
 
             var source = new Source
             {
-                Campaign = new Campaign1
-                {
-                    Value = 1
-                }
+                 List = new List<int>{1, 2,3}
             };
 
             var result = TinyMapper.Map<Target>(source);
         }
 
-        public class Campaign1 : CampaignBase
+
+        public class Source
         {
+            public IReadOnlyList<int> List { get; set; }
         }
 
-        public class Campaign2 : CampaignBase
+
+        public class Target
         {
+            public List<int> List { get; set; }
         }
 
-        public abstract class CampaignBase
-        {
-            public int Value { get; set; }
-        }
-
-        public class Source : SourceBase
-        {
-        }
-
-        public abstract class SourceBase
-        {
-            public CampaignBase Campaign { get; set; }
-        }
-
-        public class Target : SourceBase
-        {
-        }
     }
 }

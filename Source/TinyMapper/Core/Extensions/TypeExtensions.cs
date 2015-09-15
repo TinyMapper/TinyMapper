@@ -14,7 +14,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             {
                 return type.GetElementType();
             }
-            else if (type.IsListOf())
+            else if (type.IsIEnumerableOf())
             {
                 return type.GetGenericArguments().First();
             }

@@ -134,7 +134,7 @@ namespace UnitTests
 
         public class Source1
         {
-            public List<Item1> Items { get; set; }
+            public IList<Item1> Items { get; set; }
             public List<Item1> Items1 { get; set; }
         }
 
