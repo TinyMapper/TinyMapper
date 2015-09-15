@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.Collections
 {
     public sealed class PrimitiveCollectionMappingTests
     {
@@ -69,7 +69,7 @@ namespace UnitTests
 
         public class Source2
         {
-            public List<bool> Bool { get; set; }
+            public IList<bool> Bool { get; set; }
             public List<byte> Byte { get; set; }
             public List<char> Char { get; set; }
             public List<decimal> Decimal { get; set; }
@@ -78,7 +78,7 @@ namespace UnitTests
             public List<int> Int { get; set; }
             public List<long> Long { get; set; }
             public List<sbyte> Sbyte { get; set; }
-            public List<short> Short { get; set; }
+            public IList<short> Short { get; set; }
             public List<string> String { get; set; }
             public List<uint> Uint { get; set; }
             public List<ulong> Ulong { get; set; }

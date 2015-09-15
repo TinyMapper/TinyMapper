@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.Collections
 {
     public sealed class CollectionMappingTests
     {
         [Fact]
-        public void Map_ClassCollections_Success()
+        public void Map_Collections_Success()
         {
             TinyMapper.Bind<Source1, Target1>();
 
@@ -51,7 +51,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Map_ClassDifferentCollections_Success()
+        public void Map_DifferentCollections_Success()
         {
             TinyMapper.Bind<Person, PersonDto>();
 
@@ -78,6 +78,20 @@ namespace UnitTests
                 Assert.Equal(expectedItem.Int, actualItem.Int);
                 Assert.Equal(expectedItem.String, actualItem.String);
             }
+        }
+
+        [Fact]
+        public void Map_InterfaceToCollection_Success()
+        {
+            TinyMapper.Bind<Source3, Target3>();
+
+            var source = new Source3
+            {
+                List = new List<int> { 1, 2, 3 }
+            };
+
+            var actual = TinyMapper.Map<Target3>(source);
+            Assert.Equal(source.List, actual.List);
         }
 
         [Fact]
@@ -144,6 +158,11 @@ namespace UnitTests
             public List<int> Ints { get; set; }
         }
 
+        public class Source3
+        {
+            public IReadOnlyList<int> List { get; set; }
+        }
+
         public class Target1
         {
             public List<Item2> Items { get; set; }
@@ -154,6 +173,11 @@ namespace UnitTests
         {
             public int Int { get; set; }
             public List<int> Ints { get; set; }
+        }
+
+        public class Target3
+        {
+            public List<int> List { get; set; }
         }
     }
 }

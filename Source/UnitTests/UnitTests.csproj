@@ -78,20 +78,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionMappingTests.cs" />
-    <Compile Include="ConvertibleTypeMappingTests.cs" />
-    <Compile Include="DictionaryMappingTests.cs" />
-    <Compile Include="ClassHierarchyMappingTests.cs" />
-    <Compile Include="MappingWithAttributesTests.cs" />
-    <Compile Include="MappingWithConfigTests.cs" />
-    <Compile Include="PrimitiveTypeMappingTests.cs" />
+    <Compile Include="Mappings\Collections\CollectionMappingTests.cs" />
+    <Compile Include="Mappings\TypeConverters\ConvertibleTypeMappingTests.cs" />
+    <Compile Include="Mappings\Collections\DictionaryMappingTests.cs" />
+    <Compile Include="Mappings\Classes\ClassHierarchyMappingTests.cs" />
+    <Compile Include="Mappings\Attributes\MappingWithAttributesTests.cs" />
+    <Compile Include="Mappings\MappingWithConfigTests.cs" />
+    <Compile Include="Mappings\PrimitiveTypeMappingTests.cs" />
     <Compile Include="Core\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="ForTests.cs" />
     <Compile Include="Mappers\Classes\ClassMapperTests.cs" />
     <Compile Include="MappingBuilderConfigStub.cs" />
     <Compile Include="Mappers\MappingMembers\MappingMemberBuilderTests.cs" />
     <Compile Include="Mappers\Types\PrimitiveTypeMapperTests.cs" />
-    <Compile Include="PrimitiveCollectionMappingTests.cs" />
+    <Compile Include="Mappings\Collections\PrimitiveCollectionMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snippets\DynamicMethodSnippet.cs" />
     <Compile Include="Snippets\ForeachSnippet.cs" />

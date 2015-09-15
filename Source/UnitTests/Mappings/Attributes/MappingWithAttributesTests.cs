@@ -3,7 +3,7 @@ using Nelibur.ObjectMapper;
 using Nelibur.ObjectMapper.Bindings;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.Attributes
 {
     public sealed class MappingWithAttributesTests
     {

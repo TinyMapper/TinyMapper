@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings
 {
     public sealed class MappingWithConfigTests
     {
@@ -34,6 +35,26 @@ namespace UnitTests
             Assert.Equal(source.Byte, actual.Byte);
             Assert.Equal(source.Int, actual.MyInt);
             Assert.Equal(source.SourceItem.Id, actual.TargetItem.Id);
+        }
+
+        [Fact]
+        public void Map_ConcreteType_Success()
+        {
+            TinyMapper.Bind<Source2, Target2>(config =>
+            {
+                config.Bind(target => target.Ints, typeof(List<int>));
+                config.Bind(target => target.Strings, typeof(List<string>));
+            });
+
+            var source = new Source2
+            {
+                Ints = new List<int> { 1, 2, 3 },
+                Strings = new List<string> { "A", "B", "C" }
+            };
+
+            var actual = TinyMapper.Map<Target2>(source);
+            Assert.Equal(source.Ints, actual.Ints);
+            Assert.Equal(source.Strings, actual.Strings);
         }
 
         [Fact]
@@ -72,6 +93,12 @@ namespace UnitTests
             public string String { get; set; }
         }
 
+        public class Source2
+        {
+            public IList<int> Ints { get; set; }
+            public List<string> Strings { get; set; }
+        }
+
         public class SourceItem
         {
             public Guid Id { get; set; }
@@ -85,6 +112,12 @@ namespace UnitTests
             public string MyString { get; set; }
 
             public TargetItem TargetItem { get; set; }
+        }
+
+        public class Target2
+        {
+            public IList<int> Ints { get; set; }
+            public IEnumerable<string> Strings { get; set; }
         }
 
         public class TargetItem

@@ -3,7 +3,7 @@ using Nelibur.ObjectMapper;
 using Xunit;
 using Xunit.Extensions;
 
-namespace UnitTests
+namespace UnitTests.Mappings
 {
     public sealed class PrimitiveTypeMappingTests
     {

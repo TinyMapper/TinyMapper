@@ -4,7 +4,7 @@ using System.Linq;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.Collections
 {
     public sealed class DictionaryMappingTests
     {

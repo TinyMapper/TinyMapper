@@ -4,7 +4,7 @@ using System.Globalization;
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.TypeConverters
 {
     public sealed class ConvertibleTypeMappingTests
     {

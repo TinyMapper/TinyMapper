@@ -2,7 +2,7 @@
 using Nelibur.ObjectMapper;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Mappings.Classes
 {
     public sealed class ClassHierarchyMappingTests
     {
