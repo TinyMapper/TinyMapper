@@ -54,17 +54,17 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             get { return Source.IsNullable() && Target.IsNullable() == false; }
         }
 
-        public bool IsNullableTypes
-        {
-            get { return Source.IsNullable() && Target.IsNullable(); }
-        }
-
         public Type Source { get; private set; }
         public Type Target { get; private set; }
 
         private bool IsEqualTypes
         {
             get { return Source == Target; }
+        }
+
+        private bool IsNullableTypes
+        {
+            get { return Source.IsNullable() && Target.IsNullable(); }
         }
 
         private bool IsPrimitiveTypes

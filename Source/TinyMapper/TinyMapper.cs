@@ -53,7 +53,7 @@ namespace Nelibur.ObjectMapper
         /// <typeparam name="TTarget">The type of the target.</typeparam>
         /// <param name="source">The source value.</param>
         /// <returns>Value</returns>
-        /// <remarks>For mapping nullable type use <see cref="Map{TSource, TTarget}" />method.</remarks>
+        /// <remarks>For mapping nullable type use <see cref="Map{TTarget}" />method.</remarks>
         public static TTarget Map<TTarget>(object source)
         {
             if (source.IsNull())
