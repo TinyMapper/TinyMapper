@@ -22,6 +22,7 @@ namespace UnitTests.Mappings.Attributes
             var actual = TinyMapper.Map<Target>(source);
 
             Assert.Equal(actual.DateTime, default(DateTime));
+            Assert.Equal(actual.FirstName, source.FirstName);
             Assert.Equal(actual.LatestString, source.LegacyString);
             Assert.Equal(actual.ProtectedString, source.SealedString);
         }
@@ -44,6 +45,7 @@ namespace UnitTests.Mappings.Attributes
         {
             return new Source
             {
+                FirstName = "John",
                 DateTime = DateTime.Now,
                 LegacyString = "legacy field",
                 SealedString = "sealed field, we don't change legacy code",
@@ -54,6 +56,7 @@ namespace UnitTests.Mappings.Attributes
         {
             return new Target
             {
+                FirstName = "John",
                 DateTime = DateTime.Now,
                 LatestString = "legacy field",
                 ProtectedString = "sealed field, we don't change legacy code",
