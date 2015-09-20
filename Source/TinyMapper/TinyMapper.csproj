@@ -95,6 +95,7 @@
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapper.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapperBuilder.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomTypeMapper.cs" />
     <Compile Include="Mappers\Types\Custom\CustomTypeMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />

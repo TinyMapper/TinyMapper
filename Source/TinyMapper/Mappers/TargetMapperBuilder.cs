@@ -51,23 +51,18 @@ namespace Nelibur.ObjectMapper.Mappers
             return result;
         }
 
-        public MapperBuilder GetMapperBuilder(MappingMember mappingMember)
+        public MapperBuilder GetMapperBuilder(TypePair parentTypePair, MappingMember mappingMember)
         {
-            return GetMemberMapperBuilder(mappingMember);
+            if (_customTypeMapperBuilder.IsSupported(parentTypePair, mappingMember))
+            {
+                return _customTypeMapperBuilder;
+            }
+            return GetTypeMapperBuilder(mappingMember.TypePair);
         }
 
         public MapperBuilder GetMapperBuilder(TypePair typePair)
         {
             return GetTypeMapperBuilder(typePair);
-        }
-
-        private MapperBuilder GetMemberMapperBuilder(MappingMember mappingMember)
-        {
-            if (_customTypeMapperBuilder.IsSupported(mappingMember))
-            {
-                return _customTypeMapperBuilder;
-            }
-            return GetTypeMapperBuilder(mappingMember.TypePair);
         }
 
         private MapperBuilder GetTypeMapperBuilder(TypePair typePair)

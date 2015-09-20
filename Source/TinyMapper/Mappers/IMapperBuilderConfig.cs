@@ -9,8 +9,8 @@ namespace Nelibur.ObjectMapper.Mappers
     internal interface IMapperBuilderConfig
     {
         IDynamicAssembly Assembly { get; }
-        MapperBuilder GetMapperBuilder(TypePair typePair);
         Option<BindingConfig> GetBindingConfig(TypePair typePair);
-        MapperBuilder GetMapperBuilder(MappingMember mappingMember);
+        MapperBuilder GetMapperBuilder(TypePair typePair);
+        MapperBuilder GetMapperBuilder(TypePair parentTypePair, MappingMember mappingMember);
     }
 }

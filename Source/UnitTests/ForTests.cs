@@ -6,11 +6,13 @@ namespace UnitTests
 {
     public sealed class ForTests
     {
-
         [Fact]
         public void Test()
         {
             TinyMapper.Bind<Source, Target>(config => config.Bind(target => target.Value, "MyValue"));
+
+            var source = new Source();
+            var result = TinyMapper.Map<Target>(source);
         }
 
         [Fact]
@@ -26,25 +28,24 @@ namespace UnitTests
             var result = TinyMapper.Map<TargetArea>(actual);
         }
 
+        public class Area
+        {
+            public string Name { get; set; }
+        }
 
         public class Source
         {
             public string Value { get; set; }
         }
 
-        public class Target
-        {
-            public string Value { get; set; }
-        }
-
-        public class Area
-        {
-            public string Name { get; set; }
-        }
-
         public class SourceArea
         {
             public Area Area { get; set; }
+        }
+
+        public class Target
+        {
+            public string Value { get; set; }
         }
 
         public class TargetArea

@@ -31,12 +31,12 @@ namespace UnitTests
             return _bindingConfig;
         }
 
-        public MapperBuilder GetMapperBuilder(MappingMember mappingMember)
+        public MapperBuilder GetMapperBuilder(TypePair typePair)
         {
             throw new NotImplementedException();
         }
 
-        public MapperBuilder GetMapperBuilder(TypePair typePair)
+        public MapperBuilder GetMapperBuilder(TypePair parentTypePair, MappingMember mappingMember)
         {
             throw new NotImplementedException();
         }

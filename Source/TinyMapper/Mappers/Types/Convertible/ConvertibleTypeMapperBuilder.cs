@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
@@ -22,6 +23,11 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
         {
             Func<object, object> converter = GetConverter(typePair);
             return new ConvertibleTypeMapper(converter);
+        }
+
+        protected override Mapper BuildCore(TypePair parentTypePair, MappingMember mappingMember)
+        {
+            return BuildCore(mappingMember.TypePair);
         }
 
         protected override bool IsSupportedCore(TypePair typePair)

@@ -8,6 +8,7 @@ using Nelibur.ObjectMapper.CodeGenerators.Emitters;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
@@ -51,6 +52,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             result.AddMappers(_mapperCache.Mappers);
             return result;
+        }
+
+        protected override Mapper BuildCore(TypePair parentTypePair, MappingMember mappingMember)
+        {
+            return BuildCore(mappingMember.TypePair);
         }
 
         protected override bool IsSupportedCore(TypePair typePair)

@@ -40,6 +40,11 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             return result;
         }
 
+        protected override Mapper BuildCore(TypePair parentTypePair, MappingMember mappingMember)
+        {
+            return BuildCore(mappingMember.TypePair);
+        }
+
         protected override bool IsSupportedCore(TypePair typePair)
         {
             return true;
@@ -69,15 +74,13 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private Option<MapperCache> EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
         {
-            List<MappingMember> members = _mappingMemberBuilder.Build(typePair);
-
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
                 new[] { typePair.Source, typePair.Target });
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 
             var emitterComposite = new EmitComposite();
 
-            MemberEmitterDescription emitterDescription = EmitMappingMembers(members);
+            MemberEmitterDescription emitterDescription = EmitMappingMembers(typePair);
 
             emitterComposite.Add(emitterDescription.Emitter);
             emitterComposite.Add(EmitReturn.Return(EmitArgument.Load(typePair.Target, 2)));
@@ -85,9 +88,10 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             return emitterDescription.MapperCache;
         }
 
-        private MemberEmitterDescription EmitMappingMembers(List<MappingMember> members)
+        private MemberEmitterDescription EmitMappingMembers(TypePair typePair)
         {
-            MemberEmitterDescription result = _memberMapper.Build(members);
+            List<MappingMember> members = _mappingMemberBuilder.Build(typePair);
+            MemberEmitterDescription result = _memberMapper.Build(typePair, members);
             return result;
         }
     }

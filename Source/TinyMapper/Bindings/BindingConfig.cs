@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nelibur.ObjectMapper.Core.DataStructures;
+using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Bindings
 {
@@ -38,6 +39,16 @@ namespace Nelibur.ObjectMapper.Bindings
             Type result;
             bool exsist = _bindTypes.TryGetValue(targetName, out result);
             return new Option<Type>(result, exsist);
+        }
+
+        internal Option<Func<object, object>> GetCustomTypeConverter(string targetName)
+        {
+            return _customTypeConverters.GetValue(targetName);
+        }
+
+        internal bool HasCustomTypeConverter(string targetName)
+        {
+            return _customTypeConverters.ContainsKey(targetName);
         }
 
         internal void IgnoreSourceField(string sourceName)

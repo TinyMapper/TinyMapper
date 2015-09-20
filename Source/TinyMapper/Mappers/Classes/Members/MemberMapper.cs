@@ -18,10 +18,10 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             _config = config;
         }
 
-        public MemberEmitterDescription Build(List<MappingMember> members)
+        public MemberEmitterDescription Build(TypePair parentTypePair, List<MappingMember> members)
         {
             var emitter = new EmitComposite();
-            members.ForEach(x => emitter.Add(Build(x)));
+            members.ForEach(x => emitter.Add(Build(parentTypePair, x)));
             var result = new MemberEmitterDescription(emitter, _mapperCache);
             result.AddMapper(_mapperCache);
             return result;
@@ -47,7 +47,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        private IEmitter Build(MappingMember member)
+        private IEmitter Build(TypePair parentTypePair, MappingMember member)
         {
             IEmitterType sourceObject = EmitArgument.Load(member.TypePair.Source, 1);
             IEmitterType targetObject = EmitArgument.Load(member.TypePair.Target, 2);
@@ -55,29 +55,29 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             IEmitterType sourceMember = LoadMember(member.Source, sourceObject);
             IEmitterType targetMember = LoadMember(member.Target, targetObject);
 
-            IEmitterType convertedMember = ConvertMember(member, sourceMember, targetMember);
+            IEmitterType convertedMember = ConvertMember(parentTypePair, member, sourceMember, targetMember);
 
             IEmitter result = StoreTargetObjectMember(member, targetObject, convertedMember);
             return result;
         }
 
-        private IEmitterType ConvertMember(MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
+        private IEmitterType ConvertMember(TypePair parentTypePair, MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
         {
-            if (member.TypePair.IsDeepCloneable)
+            if (member.TypePair.IsDeepCloneable && _config.GetBindingConfig(parentTypePair).HasNoValue)
             {
                 return sourceMemeber;
             }
 
-            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(member);
+            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(parentTypePair, member);
 
             IEmitterType result = mapperCacheItem.EmitMapMethod(sourceMemeber, targetMember);
             return result;
         }
 
-        private MapperCacheItem CreateMapperCacheItem(MappingMember mappingMember)
+        private MapperCacheItem CreateMapperCacheItem(TypePair parentTypePair, MappingMember mappingMember)
         {
-            MapperBuilder mapperBuilder = _config.GetMapperBuilder(mappingMember);
-            Mapper mapper = mapperBuilder.Build(mappingMember.TypePair);
+            MapperBuilder mapperBuilder = _config.GetMapperBuilder(parentTypePair, mappingMember);
+            Mapper mapper = mapperBuilder.Build(parentTypePair, mappingMember);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(mappingMember.TypePair, mapper);
 
             return mapperCacheItem;
