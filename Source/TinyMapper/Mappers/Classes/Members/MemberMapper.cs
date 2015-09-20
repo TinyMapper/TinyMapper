@@ -68,17 +68,17 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 return sourceMemeber;
             }
 
-            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(member.TypePair);
+            MapperCacheItem mapperCacheItem = CreateMapperCacheItem(member);
 
             IEmitterType result = mapperCacheItem.EmitMapMethod(sourceMemeber, targetMember);
             return result;
         }
 
-        private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
+        private MapperCacheItem CreateMapperCacheItem(MappingMember mappingMember)
         {
-            MapperBuilder mapperBuilder = _config.GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Build(typePair);
-            MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);
+            MapperBuilder mapperBuilder = _config.GetMapperBuilder(mappingMember);
+            Mapper mapper = mapperBuilder.Build(mappingMember.TypePair);
+            MapperCacheItem mapperCacheItem = _mapperCache.Add(mappingMember.TypePair, mapper);
 
             return mapperCacheItem;
         }

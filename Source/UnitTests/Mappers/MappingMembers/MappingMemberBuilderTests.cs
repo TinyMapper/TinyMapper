@@ -29,7 +29,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Build_IgnoreProperty_Success()
         {
             var bindingConfig = new BindingConfig();
-            bindingConfig.IgnoreField("Id");
+            bindingConfig.IgnoreSourceField("Id");
 
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub(bindingConfig));
 

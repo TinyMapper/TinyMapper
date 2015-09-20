@@ -79,6 +79,7 @@
     <Compile Include="Bindings\IBindingConfig.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
+    <Compile Include="Core\Extensions\DictionaryExtensions.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapper.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapperBuilder.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomTypeMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitBox.cs" />

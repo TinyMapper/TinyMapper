@@ -140,7 +140,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             {
                 return true;
             }
-            return bindingConfig.Map(x => x.IsIgnoreField(sourceMember.Name)).Value;
+            return bindingConfig.Map(x => x.IsIgnoreSourceField(sourceMember.Name)).Value;
         }
 
         private List<MappingMember> ParseMappingTypes(TypePair typePair)

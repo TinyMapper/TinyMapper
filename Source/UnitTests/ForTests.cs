@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -7,27 +6,50 @@ namespace UnitTests
 {
     public sealed class ForTests
     {
+
         [Fact]
         public void Test()
         {
-            TinyMapper.Bind<Source, Target>();
+            TinyMapper.Bind<Source, Target>(config => config.Bind(target => target.Value, "MyValue"));
+        }
 
-            var source = new Source
+        [Fact]
+        public void Test_Area()
+        {
+            TinyMapper.Bind<SourceArea, TargetArea>(config => config.Bind(source => source.Area.Name, target => target.AreaName));
+
+            var actual = new SourceArea
             {
-                List = new List<int> { 1, 2, 3 }
+                Area = new Area { Name = "MyName" }
             };
 
-            var result = TinyMapper.Map<Target>(source);
+            var result = TinyMapper.Map<TargetArea>(actual);
         }
+
 
         public class Source
         {
-            public IReadOnlyList<int> List { get; set; }
+            public string Value { get; set; }
         }
 
         public class Target
         {
-            public List<int> List { get; set; }
+            public string Value { get; set; }
+        }
+
+        public class Area
+        {
+            public string Name { get; set; }
+        }
+
+        public class SourceArea
+        {
+            public Area Area { get; set; }
+        }
+
+        public class TargetArea
+        {
+            public string AreaName { get; set; }
         }
     }
 }

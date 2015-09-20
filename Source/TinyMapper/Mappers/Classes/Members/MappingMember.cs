@@ -5,7 +5,7 @@ using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
-    internal class MappingMember
+    internal sealed class MappingMember
     {
         public MappingMember(MemberInfo source, MemberInfo target)
             : this(source, target, new TypePair(source.GetMemberType(), target.GetMemberType()))

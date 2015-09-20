@@ -10,7 +10,7 @@ namespace Nelibur.ObjectMapper.Mappers
         protected const MethodAttributes OverrideProtected = MethodAttributes.Family | MethodAttributes.Virtual;
         private const string AssemblyName = "DynamicTinyMapper";
         protected readonly IDynamicAssembly _assembly;
-        private readonly IMapperBuilderConfig _config;
+        protected readonly IMapperBuilderConfig _config;
 
         protected MapperBuilder(IMapperBuilderConfig config)
         {

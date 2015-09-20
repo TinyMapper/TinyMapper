@@ -3,6 +3,7 @@ using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers;
+using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Nelibur.ObjectMapper.Reflection;
 
 namespace UnitTests
@@ -28,6 +29,11 @@ namespace UnitTests
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {
             return _bindingConfig;
+        }
+
+        public MapperBuilder GetMapperBuilder(MappingMember mappingMember)
+        {
+            throw new NotImplementedException();
         }
 
         public MapperBuilder GetMapperBuilder(TypePair typePair)

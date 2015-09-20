@@ -20,6 +20,7 @@ namespace Nelibur.ObjectMapper.Bindings
             _bindTypes[targetName] = value;
         }
 
+
         internal Option<string> GetBindField(string sourceName)
         {
             string result;
@@ -34,12 +35,12 @@ namespace Nelibur.ObjectMapper.Bindings
             return new Option<Type>(result, exsist);
         }
 
-        internal void IgnoreField(string sourceName)
+        internal void IgnoreSourceField(string sourceName)
         {
             _ignoreFields.Add(sourceName);
         }
 
-        internal bool IsIgnoreField(string sourceName)
+        internal bool IsIgnoreSourceField(string sourceName)
         {
             if (string.IsNullOrEmpty(sourceName))
             {
