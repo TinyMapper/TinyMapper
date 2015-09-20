@@ -8,7 +8,13 @@ namespace Nelibur.ObjectMapper.Bindings
     {
         private readonly Dictionary<string, string> _bindFields = new Dictionary<string, string>();
         private readonly Dictionary<string, Type> _bindTypes = new Dictionary<string, Type>();
+        private readonly Dictionary<string, Func<object, object>> _customTypeConverters = new Dictionary<string, Func<object, object>>();
         private readonly HashSet<string> _ignoreFields = new HashSet<string>();
+
+        internal void BindConverter(string targetName, Func<object, object> func)
+        {
+            _customTypeConverters[targetName] = func;
+        }
 
         internal void BindFields(string sourceName, string targetName)
         {
@@ -19,7 +25,6 @@ namespace Nelibur.ObjectMapper.Bindings
         {
             _bindTypes[targetName] = value;
         }
-
 
         internal Option<string> GetBindField(string sourceName)
         {

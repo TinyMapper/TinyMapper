@@ -20,7 +20,8 @@ namespace Nelibur.ObjectMapper.Bindings
 
         public void Bind<TField>(Expression<Func<TTarget, TField>> target, TField value)
         {
-            Func<object> t = () => value;
+            Func<object, object> func = x => value;
+            BindConverter(GetMemberInfo(target), func);
         }
 
         public void Bind(Expression<Func<TTarget, object>> target, Type targetType)
@@ -35,7 +36,7 @@ namespace Nelibur.ObjectMapper.Bindings
             IgnoreSourceField(memberName);
         }
 
-        private static string GetMemberInfo<T>(Expression<Func<T, object>> expression)
+        private static string GetMemberInfo<T, TField>(Expression<Func<T, TField>> expression)
         {
             var member = expression.Body as MemberExpression;
             if (member == null)
