@@ -10,7 +10,7 @@ namespace Nelibur.ObjectMapper.Bindings
             string sourceName = GetMemberInfo(source);
             string targetName = GetMemberInfo(target);
 
-            if (string.Equals(sourceName, targetName, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(sourceName, targetName, StringComparison.Ordinal))
             {
                 return;
             }

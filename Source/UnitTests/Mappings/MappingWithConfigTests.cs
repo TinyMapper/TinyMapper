@@ -37,6 +37,26 @@ namespace UnitTests.Mappings
             Assert.Equal(source.SourceItem.Id, actual.TargetItem.Id);
         }
 
+		[Fact]
+		public void Map_BindCaseSensitive_Success()
+		{
+			TinyMapper.Bind<SourceItem, TargetItem>();
+
+			TinyMapper.Bind<Source1, Target1>(config =>
+			{
+				config.Bind(from => from.CaseSensitive, to => to.Casesensitive);
+			});
+
+			var source = new Source1
+			{
+				CaseSensitive = "CaseSensitive"
+			};
+
+			var actual = TinyMapper.Map<Target1>(source);
+
+			Assert.Equal(source.CaseSensitive, actual.Casesensitive);
+		}
+
         [Fact]
         public void Map_ConcreteType_Success()
         {
@@ -88,6 +108,7 @@ namespace UnitTests.Mappings
             public bool Bool { get; set; }
             public byte Byte { get; set; }
             public int Int { get; set; }
+			public string CaseSensitive { get; set; }
 
             public SourceItem SourceItem { get; set; }
             public string String { get; set; }
@@ -110,6 +131,7 @@ namespace UnitTests.Mappings
             public byte Byte { get; set; }
             public int MyInt { get; set; }
             public string MyString { get; set; }
+			public string Casesensitive { get; set; }
 
             public TargetItem TargetItem { get; set; }
         }
