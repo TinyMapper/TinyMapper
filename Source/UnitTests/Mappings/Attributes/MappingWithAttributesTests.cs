@@ -13,9 +13,9 @@ namespace UnitTests.Mappings.Attributes
             // use custom attributes: 'IgnoreAttribute' and 'BindAttribute'
             TinyMapper.Bind<Source, Target>(config =>
             {
-//                config.Ignore(x => x.DateTime);
-//                config.Bind(from => from.LegacyString, to => to.LatestString);
-//                config.Bind(from => from.SealedString, to => to.ProtectedString);
+                config.Ignore(x => x.DateTime);
+                config.Bind(from => from.LegacyString, to => to.LatestString);
+                config.Bind(from => from.SealedString, to => to.ProtectedString);
             });
 
             Source source = CreateSource();
