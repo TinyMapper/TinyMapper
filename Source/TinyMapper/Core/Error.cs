@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 
 namespace Nelibur.ObjectMapper.Core
 {
@@ -11,11 +10,6 @@ namespace Nelibur.ObjectMapper.Core
         public static Exception ArgumentNull(string paramName)
         {
             return new ArgumentNullException(paramName);
-        }
-
-        public static Exception ConfigurationError(string message)
-        {
-            return new ConfigurationErrorsException(message);
         }
 
         public static Exception InvalidOperation(string message)
