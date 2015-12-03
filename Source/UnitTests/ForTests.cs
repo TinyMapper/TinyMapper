@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -13,6 +14,45 @@ namespace UnitTests
             //
             //            var source = new Source();
             //            var result = TinyMapper.Map<Target>(source);
+
+            TinyMapper.Bind<PersonComplexFrom, PersonTo>(config =>
+            {
+                config.Bind(from => from.Nickname, to => to.StringTarget);
+            });
+
+//            TinyMapper.Bind<PersonComplexFrom, PersonTo>();
+
+            var person = new PersonComplexFrom
+            {
+                CreateTime = DateTime.Now,
+                Nickname = "Object Mapper",
+                Int = 3
+            };
+
+//            List<PersonComplexFrom> list = new List<PersonComplexFrom> { person };
+
+            //person.Address = null;
+            var personDto = TinyMapper.Map<PersonTo>(person);
+
+//            var lists = TinyMapper.Map<List<PersonTo>>(list);
+        }
+
+        public sealed class PersonComplexFrom
+        {
+            public DateTime? CreateTime { get; set; }
+
+            public int? Int { get; set; }
+
+            public string Nickname { get; set; }
+        }
+
+        public sealed class PersonTo
+        {
+            public DateTime? CreateTime { get; set; }
+            public string StringTarget { get; set; }
+
+            public int? Int { get; set; }
+
         }
 
         [Fact(Skip = "For test")]

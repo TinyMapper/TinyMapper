@@ -25,6 +25,7 @@ namespace UnitTests.Mappings
                 Byte = 5,
                 Int = 9,
                 String = "Test",
+                DateTime = DateTime.Now,
                 SourceItem = new SourceItem { Id = Guid.NewGuid() }
             };
 
@@ -34,6 +35,7 @@ namespace UnitTests.Mappings
             Assert.Equal(source.String, actual.MyString);
             Assert.Equal(source.Byte, actual.Byte);
             Assert.Equal(source.Int, actual.MyInt);
+            Assert.Equal(source.DateTime, actual.DateTime);
             Assert.Equal(source.SourceItem.Id, actual.TargetItem.Id);
         }
 
@@ -108,6 +110,7 @@ namespace UnitTests.Mappings
             public bool Bool { get; set; }
             public byte Byte { get; set; }
             public int Int { get; set; }
+            public DateTime? DateTime { get; set; }
             public string CaseSensitive { get; set; }
 
             public SourceItem SourceItem { get; set; }
@@ -130,6 +133,7 @@ namespace UnitTests.Mappings
             public bool Bool { get; set; }
             public byte Byte { get; set; }
             public int MyInt { get; set; }
+            public DateTime? DateTime { get; set; }
             public string MyString { get; set; }
             public string Casesensitive { get; set; }
 
