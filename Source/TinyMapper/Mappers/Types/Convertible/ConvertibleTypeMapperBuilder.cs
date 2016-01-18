@@ -51,6 +51,7 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
                     if (pair.Source == typeof(string))
                     {
                         result = x => Enum.Parse(pair.Target, x.ToString());
+                        return result.ToOption();
                     }
                 }
                 result = x => Enum.ToObject(pair.Target, Convert.ChangeType(x, Enum.GetUnderlyingType(pair.Target)));
