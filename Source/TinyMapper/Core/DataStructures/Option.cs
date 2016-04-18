@@ -5,7 +5,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
     /// <summary>
     ///     https://github.com/Nelibur/Nelibur.
     /// </summary>
-    internal sealed class Option<T>
+    internal struct Option<T>
     {
         private static readonly Option<T> _empty = new Option<T>(default(T), false);
         private readonly bool _hasValue;

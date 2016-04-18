@@ -16,7 +16,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
         }
 
 
-        private class EmitLoadProperty : IEmitterType
+        private sealed class EmitLoadProperty : IEmitterType
         {
             private readonly PropertyInfo _property;
             private readonly IEmitterType _source;

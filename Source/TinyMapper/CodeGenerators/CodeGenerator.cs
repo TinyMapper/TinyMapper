@@ -45,31 +45,27 @@ namespace Nelibur.ObjectMapper.CodeGenerators
             return _ilGenerator.DeclareLocal(type);
         }
 
-        public CodeGenerator Emit(OpCode opCode)
+        public void Emit(OpCode opCode)
         {
             _ilGenerator.Emit(opCode);
-            return this;
         }
 
-        public CodeGenerator Emit(OpCode opCode, int value)
+        public void Emit(OpCode opCode, int value)
         {
             _ilGenerator.Emit(opCode, value);
-            return this;
         }
 
-        public CodeGenerator Emit(OpCode opCode, Type value)
+        public void Emit(OpCode opCode, Type value)
         {
             _ilGenerator.Emit(opCode, value);
-            return this;
         }
 
-        public CodeGenerator Emit(OpCode opCode, FieldInfo value)
+        public void Emit(OpCode opCode, FieldInfo value)
         {
             _ilGenerator.Emit(opCode, value);
-            return this;
         }
 
-        public CodeGenerator EmitCall(MethodInfo method, IEmitterType invocationObject, params IEmitterType[] arguments)
+        public void EmitCall(MethodInfo method, IEmitterType invocationObject, params IEmitterType[] arguments)
         {
             ParameterInfo[] actualArguments = method.GetParameters();
             if (arguments.IsNull())
@@ -92,13 +88,11 @@ namespace Nelibur.ObjectMapper.CodeGenerators
                 CastType(arguments[i].ObjectType, actualArguments[i].ParameterType);
             }
             EmitCall(method);
-            return this;
         }
 
-        public CodeGenerator EmitNewObject(ConstructorInfo ctor)
+        public void EmitNewObject(ConstructorInfo ctor)
         {
             _ilGenerator.Emit(OpCodes.Newobj, ctor);
-            return this;
         }
 
         private void EmitCall(MethodInfo method)
