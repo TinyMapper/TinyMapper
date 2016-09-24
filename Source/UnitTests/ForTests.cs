@@ -10,29 +10,68 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            var fromDatabase = new List<Survey>
+            TinyMapper.Bind<EntityTypeModel, EntityType>(config =>
             {
-                new Survey { Id = 1, Data = "Data1" },
-                new Survey { Id = 2, Data = "Data2" }
+                config.Bind(target => target.EntityMappingTypes, typeof(List<EntityMapppingType>));
+            });
+
+            TinyMapper.Bind<EntityType, EntityTypeModel>(config => 
+            {
+                config.Bind(target => target.EntityMappingTypes, typeof(List<EntityMapppingTypeModel>));
+            });
+
+            var entityType = new EntityType
+            {
+                CreateDate = DateTime.Now,
+                Id = 1,
+                Type = "MyType",
+                EntityMappingTypes = new List<EntityMapppingType> { new EntityMapppingType { Value = 5 } }
             };
 
-            TinyMapper.Bind<List<Survey>, List<SurveyDto>>();
-
-            var dto = TinyMapper.Map<List<SurveyDto>>(fromDatabase);
+            EntityTypeModel entityTypeModel = TinyMapper.Map<EntityType, EntityTypeModel>(entityType);
+            EntityType newEntityType = TinyMapper.Map<EntityTypeModel, EntityType>(entityTypeModel);
         }
 
 
-        public sealed class Survey
+        public partial class EntityType
         {
+            public EntityType()
+            {
+                EntityMappingTypes = new List<EntityMapppingType>();
+            }
+
             public int Id { get; set; }
-            public string Data { get; set; }
+            public string Type { get; set; }
+            public DateTime CreateDate { get; set; }
+            public int? CreateBy { get; set; }
+            public virtual ICollection<EntityMapppingType> EntityMappingTypes { get; set; }
         }
 
 
-        public sealed class SurveyDto
+        public sealed class EntityMapppingType
         {
+            public int Value { get; set; }
+        }
+
+
+        public sealed class EntityMapppingTypeModel
+        {
+            public int Value { get; set; }
+        }
+
+
+        public class EntityTypeModel
+        {
+            public EntityTypeModel()
+            {
+                EntityMappingTypes = new List<EntityMapppingTypeModel>();
+            }
+
             public int Id { get; set; }
-            public string Data { get; set; }
+            public string Type { get; set; }
+            public DateTime CreateDate { get; set; }
+            public int? CreateBy { get; set; }
+            public List<EntityMapppingTypeModel> EntityMappingTypes { get; set; }
         }
     }
 }
