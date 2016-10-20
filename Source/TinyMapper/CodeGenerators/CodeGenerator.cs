@@ -99,11 +99,11 @@ namespace Nelibur.ObjectMapper.CodeGenerators
         {
             if (method.IsVirtual)
             {
-                _ilGenerator.EmitCall(OpCodes.Callvirt, method, Type.EmptyTypes);
+                _ilGenerator.Emit(OpCodes.Callvirt, method);
             }
             else
             {
-                _ilGenerator.EmitCall(OpCodes.Call, method, Type.EmptyTypes);
+                _ilGenerator.Emit(OpCodes.Call, method);
             }
         }
     }
