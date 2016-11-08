@@ -14,11 +14,19 @@ namespace Nelibur.ObjectMapper.Mappers
 {
     internal sealed class TargetMapperBuilder : IMapperBuilderConfig
     {
+        internal static readonly Func<string, string, bool> DefaultMatching =
+                    (source, target) => string.Equals(source, target, StringComparison.Ordinal);
+
         private readonly Dictionary<TypePair, BindingConfig> _bindingConfigs = new Dictionary<TypePair, BindingConfig>();
         private readonly ClassMapperBuilder _classMapperBuilder;
         private readonly CollectionMapperBuilder _collectionMapperBuilder;
         private readonly ConvertibleTypeMapperBuilder _convertibleTypeMapperBuilder;
         private readonly CustomTypeMapperBuilder _customTypeMapperBuilder;
+
+        public Func<string, string, bool> IsNameMatched
+        {
+            get; internal set;
+        }
 
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
@@ -28,6 +36,8 @@ namespace Nelibur.ObjectMapper.Mappers
             _collectionMapperBuilder = new CollectionMapperBuilder(this);
             _convertibleTypeMapperBuilder = new ConvertibleTypeMapperBuilder(this);
             _customTypeMapperBuilder = new CustomTypeMapperBuilder(this);
+
+            this.IsNameMatched = DefaultMatching;
         }
 
         public IDynamicAssembly Assembly { get; private set; }

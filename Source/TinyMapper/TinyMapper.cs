@@ -14,10 +14,14 @@ namespace Nelibur.ObjectMapper
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
         private static readonly TargetMapperBuilder _targetMapperBuilder;
 
+        public static readonly IGlobalConfiguration Config;
+
         static TinyMapper()
         {
             IDynamicAssembly assembly = DynamicAssemblyBuilder.Get();
             _targetMapperBuilder = new TargetMapperBuilder(assembly);
+
+            Config = new GlobalConfiguration(_targetMapperBuilder);
         }
 
         public static void Bind<TSource, TTarget>()
