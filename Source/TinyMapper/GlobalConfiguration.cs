@@ -26,5 +26,10 @@ namespace Nelibur.ObjectMapper
 
             _targetMapperBuilder.IsNameMatched = nameMatching;
         }
+
+        public void Reset()
+        {
+            _targetMapperBuilder.IsNameMatched = TargetMapperBuilder.DefaultMatching;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace UnitTests.Mappings
 
             Assert.Equal(source.Name, result.Name1);
 
+            TinyMapper.Config.Reset();
         }
 
         public class SourceCustom
