@@ -26,6 +26,14 @@ namespace UnitTests
             get { return DynamicAssemblyBuilder.Get(); }
         }
 
+        public Func<string, string, bool> IsNameMatched
+        {
+            get
+            {
+                return TargetMapperBuilder.DefaultMatching;
+            }
+        }
+
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {
             return _bindingConfig;

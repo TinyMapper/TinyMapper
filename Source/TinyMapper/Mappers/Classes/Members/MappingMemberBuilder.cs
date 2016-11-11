@@ -10,7 +10,9 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MappingMemberBuilder
     {
+        
         private readonly IMapperBuilderConfig _config;
+
 
         public MappingMemberBuilder(IMapperBuilderConfig config)
         {
@@ -67,11 +69,6 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 result.Add(member);
             }
             return result;
-        }
-
-        private static bool Match(string valueA, string valueB)
-        {
-            return string.Equals(valueA, valueB, StringComparison.Ordinal);
         }
 
         private string GetTargetName(
@@ -162,8 +159,9 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 }
 
                 string targetName = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
+                MemberInfo targetMember = targetMembers.FirstOrDefault(x =>
+                                                        _config.IsNameMatched(targetName, x.Name));
 
-                MemberInfo targetMember = targetMembers.FirstOrDefault(x => Match(x.Name, targetName));
                 if (targetMember.IsNull())
                 {
                     continue;
