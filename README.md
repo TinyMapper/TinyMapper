@@ -72,3 +72,4 @@ A big thanks to all of TinyMapper's contributors:
  * [qihangnet](https://github.com/qihangnet)
  * [teknogecko](https://github.com/teknogecko)
  * [Samtrion](https://github.com/Samtrion)
+ * [DerHulk](https://github.com/DerHulk)
