@@ -10,9 +10,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 {
     internal sealed class MappingMemberBuilder
     {
-        
         private readonly IMapperBuilderConfig _config;
-
 
         public MappingMemberBuilder(IMapperBuilderConfig config)
         {
@@ -159,8 +157,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 }
 
                 string targetName = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
-                MemberInfo targetMember = targetMembers.FirstOrDefault(x =>
-                                                        _config.IsNameMatched(targetName, x.Name));
+                MemberInfo targetMember = targetMembers.FirstOrDefault(x => _config.NameMatching(targetName, x.Name));
 
                 if (targetMember.IsNull())
                 {

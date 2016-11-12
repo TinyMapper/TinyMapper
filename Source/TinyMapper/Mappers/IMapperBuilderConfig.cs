@@ -12,7 +12,6 @@ namespace Nelibur.ObjectMapper.Mappers
         Option<BindingConfig> GetBindingConfig(TypePair typePair);
         MapperBuilder GetMapperBuilder(TypePair typePair);
         MapperBuilder GetMapperBuilder(TypePair parentTypePair, MappingMember mappingMember);
-
-        Func<string, string, bool> IsNameMatched { get; }
+        Func<string, string, bool> NameMatching { get; }
     }
 }

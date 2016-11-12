@@ -26,11 +26,11 @@ namespace UnitTests
             get { return DynamicAssemblyBuilder.Get(); }
         }
 
-        public Func<string, string, bool> IsNameMatched
+        public Func<string, string, bool> NameMatching
         {
             get
             {
-                return TargetMapperBuilder.DefaultMatching;
+                return TargetMapperBuilder.DefaultNameMatching;
             }
         }
 

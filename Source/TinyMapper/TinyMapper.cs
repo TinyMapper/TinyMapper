@@ -13,15 +13,13 @@ namespace Nelibur.ObjectMapper
     {
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
         private static readonly TargetMapperBuilder _targetMapperBuilder;
-
-        public static readonly IGlobalConfiguration Config;
+        private static readonly TinyMapperConfig _config;
 
         static TinyMapper()
         {
             IDynamicAssembly assembly = DynamicAssemblyBuilder.Get();
             _targetMapperBuilder = new TargetMapperBuilder(assembly);
-
-            Config = new GlobalConfiguration(_targetMapperBuilder);
+            _config = new TinyMapperConfig(_targetMapperBuilder);
         }
 
         public static void Bind<TSource, TTarget>()
@@ -49,6 +47,11 @@ namespace Nelibur.ObjectMapper
             var result = (TTarget)mapper.Map(source, target);
 
             return result;
+        }
+
+        public static void Config(Action<ITinyMapperConfig> config)
+        {
+            config(_config);
         }
 
         /// <summary>

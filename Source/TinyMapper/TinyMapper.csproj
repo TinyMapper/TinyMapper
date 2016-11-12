@@ -84,7 +84,7 @@
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
     <Compile Include="Core\Extensions\DictionaryExtensions.cs" />
-    <Compile Include="GlobalConfiguration.cs" />
+    <Compile Include="ITinyMapperConfig.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
@@ -122,6 +122,7 @@
     <Compile Include="Reflection\DynamicAssemblyBuilder.cs" />
     <Compile Include="Mappers\TargetMapperBuilder.cs" />
     <Compile Include="Core\DataStructures\TypePair.cs" />
+    <Compile Include="TinyMapperConfig.cs" />
     <Compile Include="TinyMapper.cs" />
     <Compile Include="Core\Extensions\MemberInfoExtensions.cs" />
     <Compile Include="Mappers\Mapper.cs" />
