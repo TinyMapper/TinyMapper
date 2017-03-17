@@ -29,6 +29,16 @@ namespace Nelibur.ObjectMapper
             _mappers[typePair] = _targetMapperBuilder.Build(typePair);
         }
 
+        public static void BindIfNotBound<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
+        {
+            Mapper mapper;
+            TypePair typePair = TypePair.Create<TSource, TTarget>();
+            if (_mappers.TryGetValue(typePair, out mapper) == false)
+            {
+                Bind(config);
+            }
+        }
+
         public static void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
@@ -52,6 +62,13 @@ namespace Nelibur.ObjectMapper
         public static void Config(Action<ITinyMapperConfig> config)
         {
             config(_config);
+        }
+
+        public static bool IsBound<TSource, TTarget>()
+        {
+            Mapper mapper;
+            TypePair typePair = TypePair.Create<TSource, TTarget>();
+            return _mappers.TryGetValue(typePair, out mapper);
         }
 
         /// <summary>
