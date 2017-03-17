@@ -105,6 +105,36 @@ namespace UnitTests.Mappings
             Assert.Null(actual.TargetItem);
         }
 
+
+        [Fact]
+        public void Map_BindIfNotBound_Success()
+        {
+            TinyMapper.Bind<Source1, Target1>(config =>
+            {
+                config.Ignore(x => x.Int);
+            });
+            TinyMapper.BindIfNotBound<Source1, Target1>(config =>
+            {
+                config.Ignore(x => x.Bool);
+            });
+
+            var source = new Source1
+            {
+                Bool = true,
+                Byte = 5,
+                Int = 9,
+                String = "Test",
+            };
+
+            var actual = TinyMapper.Map<Target1>(source);
+
+            Assert.Equal(source.Bool, actual.Bool);
+            Assert.Equal(null, actual.MyString);
+            Assert.Equal(source.Byte, actual.Byte);
+            Assert.Equal(0, actual.MyInt);
+            Assert.Null(actual.TargetItem);
+        }
+
         public class Source1
         {
             public bool Bool { get; set; }

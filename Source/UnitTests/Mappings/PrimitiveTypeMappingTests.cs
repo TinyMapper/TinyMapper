@@ -52,6 +52,14 @@ namespace UnitTests.Mappings
         }
 
         [Fact]
+        public void Map_IsBound_Success()
+        {
+            TinyMapper.Bind<Source2, Target2>();
+            
+            Assert.True(TinyMapper.IsBound<Source2, Target2>());
+        }
+
+        [Fact]
         public void Map_IgnoreProperties_Success()
         {
             TinyMapper.Bind<Source2, Target2>(config =>
