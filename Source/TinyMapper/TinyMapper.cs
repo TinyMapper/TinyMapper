@@ -6,6 +6,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Reflection;
+using System.Threading;
 
 namespace Nelibur.ObjectMapper
 {
@@ -14,6 +15,7 @@ namespace Nelibur.ObjectMapper
         private static readonly Dictionary<TypePair, Mapper> _mappers = new Dictionary<TypePair, Mapper>();
         private static readonly TargetMapperBuilder _targetMapperBuilder;
         private static readonly TinyMapperConfig _config;
+        private static readonly ReaderWriterLockSlim _mappersLock = new ReaderWriterLockSlim();
 
         static TinyMapper()
         {
@@ -26,7 +28,9 @@ namespace Nelibur.ObjectMapper
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
+            _mappersLock.EnterReadLock();
             _mappers[typePair] = _targetMapperBuilder.Build(typePair);
+            _mappersLock.ExitReadLock();
         }
 
         public static void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
@@ -36,7 +40,9 @@ namespace Nelibur.ObjectMapper
             var bindingConfig = new BindingConfigOf<TSource, TTarget>();
             config(bindingConfig);
 
+            _mappersLock.EnterReadLock();
             _mappers[typePair] = _targetMapperBuilder.Build(typePair, bindingConfig);
+            _mappersLock.ExitReadLock();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
@@ -79,11 +85,22 @@ namespace Nelibur.ObjectMapper
         private static Mapper GetMapper(TypePair typePair)
         {
             Mapper mapper;
-            if (_mappers.TryGetValue(typePair, out mapper) == false)
+            _mappersLock.EnterUpgradeableReadLock();
+            try
             {
-                mapper = _targetMapperBuilder.Build(typePair);
-                _mappers[typePair] = mapper;
+                if (_mappers.TryGetValue(typePair, out mapper) == false)
+                {
+                    mapper = _targetMapperBuilder.Build(typePair);
+                    _mappersLock.EnterWriteLock();
+                    _mappers[typePair] = mapper;
+                    _mappersLock.ExitWriteLock();
+                }
             }
+            finally
+            {
+                _mappersLock.ExitUpgradeableReadLock();
+            }
+
             return mapper;
         }
     }

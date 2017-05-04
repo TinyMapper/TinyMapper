@@ -14,3 +14,4 @@ _ReSharper*
 *.ncrunchproject
 /packages/*/*
 /Tools/*/*
+/.vs
