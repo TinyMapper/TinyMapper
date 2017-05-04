@@ -91,7 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchmarks\Benchmark.cs" />
+    <Compile Include="Benchmarks\ParallelCollectionBenchmark.cs" />
     <Compile Include="Benchmarks\CollectionBenchmark.cs" />
+    <Compile Include="Benchmarks\ParallelPrimitiveTypeBenchmark.cs" />
     <Compile Include="Benchmarks\PrimitiveTypeBenchmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
