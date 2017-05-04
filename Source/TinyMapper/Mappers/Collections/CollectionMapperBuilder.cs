@@ -49,8 +49,14 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             {
                 EmitDictionaryToDictionary(parentType, typeBuilder, typePair);
             }
+            else if (IsEnumerableToEnumerable(typePair))
+            {
+                EmitEnumerableToEnumerable(parentType, typeBuilder, typePair);
+            }
+
             var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
             result.AddMappers(_mapperCache.Mappers);
+
             return result;
         }
 
@@ -78,6 +84,12 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             return typePair.Source.IsIEnumerable() && typePair.Target.IsListOf();
         }
+
+        private bool IsEnumerableToEnumerable(TypePair typePair)
+        {
+            return typePair.Source.IsIEnumerable() && typePair.Target.IsIEnumerable();
+        }
+
 
         private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
@@ -130,6 +142,11 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         }
 
         private void EmitEnumerableToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
+        {
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
+        }
+
+        private void EmitEnumerableToEnumerable(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
             EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
         }

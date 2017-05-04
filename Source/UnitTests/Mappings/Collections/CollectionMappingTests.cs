@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -108,6 +110,85 @@ namespace UnitTests.Mappings.Collections
             Assert.Equal(source.Int, actual.Int);
         }
 
+        [Fact]
+        public void Map_IEnumerable_T_Success()
+        {
+            var target = new PersonComplex
+            {
+                Emails = new[] {"none1@none.com", "none2@none.com"},
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            TinyMapper.Bind<PersonComplex, PersonComplexDto>();
+
+            var actual = TinyMapper.Map<PersonComplexDto>(target);
+
+            Assert.NotNull(actual);
+            Assert.NotNull(actual.Emails);
+            Assert.NotEmpty(actual.Emails);
+            Assert.Equal(actual.Emails.Count, 2);
+        }
+
+        [Fact]
+        public void Map_IEnumerable_Success()
+        {
+            var target = new PersonComplex2
+            {
+                Emails = new[] { "none1@none.com", "none2@none.com" },
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            TinyMapper.Bind<PersonComplex2, PersonComplexDto2>();
+
+            var actual = TinyMapper.Map<PersonComplexDto2>(target);
+
+            Assert.NotNull(actual);
+            Assert.NotNull(actual.Emails);
+            Assert.NotEmpty(actual.Emails);
+            Assert.Equal(actual.Emails.Count, 2);
+        }
+
+        [Fact]
+        public void Map_To_IEnumerable_T_Success()
+        {
+            var target = new PersonComplex3
+            {
+                Emails = new ArrayList(new [] { "none1@none.com", "none2@none.com" }),
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            TinyMapper.Bind<PersonComplex3, PersonComplexDto3>();
+
+            var actual = TinyMapper.Map<PersonComplexDto3>(target);
+
+            Assert.NotNull(actual);
+            Assert.NotNull(actual.Emails);
+            Assert.NotEmpty(actual.Emails);
+            Assert.Equal(actual.Emails.Count(), 2);
+        }
+
+        [Fact]
+        public void Map_To_IEnumerable_Success()
+        {
+            var target = new PersonComplex
+            {
+                Emails = new[] { "none1@none.com", "none2@none.com" },
+                FirstName = "John",
+                LastName = "Doe"
+            };
+
+            TinyMapper.Bind<PersonComplex, PersonComplex2>();
+
+            var actual = TinyMapper.Map<PersonComplex2>(target);
+
+            Assert.NotNull(actual);
+            Assert.NotNull(actual.Emails);
+            Assert.NotEmpty(actual.Emails);
+        }
+
         public class Contact
         {
             public int Int { get; set; }
@@ -144,6 +225,48 @@ namespace UnitTests.Mappings.Collections
         public class PersonDto
         {
             public List<ContactDto> Contacts { get; set; }
+        }
+
+        public class PersonComplex
+        {
+            public IEnumerable<string> Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public class PersonComplexDto
+        {
+            public IList<string> Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public class PersonComplex2
+        {
+            public IEnumerable Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public class PersonComplexDto2
+        {
+            public ArrayList Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public class PersonComplex3
+        {
+            public ArrayList Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public class PersonComplexDto3
+        {
+            public IEnumerable<string> Emails { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
 
         public class Source1

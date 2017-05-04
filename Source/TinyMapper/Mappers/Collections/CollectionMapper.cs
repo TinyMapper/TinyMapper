@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
-    internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
+    internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget> where TTarget : class
     {
         protected virtual object ConvertItem(object item)
         {
@@ -43,7 +44,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             var result = new TTargetItem[source.Count()];
             int index = 0;
-            foreach (object item in source)
+            foreach (var item in source)
             {
                 result[index++] = ((TTargetItem)ConvertItem(item));
             }
@@ -55,14 +56,41 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             throw new NotImplementedException();
         }
 
+        protected virtual TTarget EnumerableToArrayList(IEnumerable source)
+        {
+            var result = new ArrayList();
+
+            foreach (var item in source)
+            {
+                result.Add(ConvertItem(item));
+            }
+
+            return result as TTarget;
+        }
+
         protected List<TTargetItem> EnumerableToListTemplate<TTargetItem>(IEnumerable source)
         {
             var result = new List<TTargetItem>();
-            foreach (object item in source)
+            foreach (var item in source)
             {
                 result.Add((TTargetItem)ConvertItem(item));
             }
             return result;
+        }
+
+        protected virtual TTarget EnumerableToEnumerable(IEnumerable source)
+        {
+            IList result = null;
+            foreach (var item in source)
+            {
+                if (result == null)
+                {
+                    result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(item.GetType()));
+                }
+
+                result.Add(ConvertItem(item));
+            }
+            return result as TTarget;
         }
 
         protected override TTarget MapCore(TSource source, TTarget target)
@@ -82,6 +110,16 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             {
                 return DictionaryToDictionary(enumerable);
             }
+            else if (targetType == typeof(ArrayList))
+            {
+                return EnumerableToArrayList(enumerable);
+            }
+            else if (targetType.IsIEnumerable())
+            {
+                // Default Case
+                return EnumerableToEnumerable(enumerable);
+            }
+
             string errorMessage = string.Format("Not suppoerted From {0} To {1}", typeof(TSource).Name, targetType.Name);
             throw new NotSupportedException(errorMessage);
         }

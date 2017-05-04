@@ -14,11 +14,12 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             {
                 return type.GetElementType();
             }
-            else if (type.IsIEnumerableOf())
+            else if (type.IsGenericType && type.IsIEnumerableOf())
             {
                 return type.GetGenericArguments().First();
             }
-            throw new NotSupportedException();
+
+            return typeof(object);
         }
 
         public static ConstructorInfo GetDefaultCtor(this Type type)
@@ -49,7 +50,9 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsDictionaryOf(this Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
+            return type.IsGenericType && 
+                (type.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
+                type.GetGenericTypeDefinition() == typeof(IDictionary<,>));
         }
 
         public static bool IsIEnumerable(this Type type)
@@ -60,12 +63,18 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static bool IsIEnumerableOf(this Type type)
         {
             return type.GetInterfaces()
-                       .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+                       .Any(x => x.IsGenericType && 
+                                x.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
+                            (!x.IsGenericType && x == typeof(IEnumerable)));
         }
 
         public static bool IsListOf(this Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+            return
+                (type.IsGenericType &&
+                    (type.GetGenericTypeDefinition() == typeof(List<>) ||
+                    type.GetGenericTypeDefinition() == typeof(IList<>) ||
+                    type.GetGenericTypeDefinition() == typeof(ICollection<>)));
         }
 
         public static bool IsNullable(this Type type)

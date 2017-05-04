@@ -32,7 +32,7 @@ namespace UnitTests.Core.Extensions
 
         [InlineData(typeof(List<int>), true)]
         [InlineData(typeof(int[]), true)]
-        [InlineData(typeof(ArrayList), false)]
+        [InlineData(typeof(ArrayList), true)]
         [InlineData(typeof(int), false)]
         [Theory]
         public void IsIEnumerableOf_Types_True(Type type, bool result)

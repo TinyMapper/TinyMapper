@@ -26,6 +26,40 @@ namespace UnitTests.Mappings.Collections
         }
 
         [Fact]
+        public void Map_IDictionary_Success()
+        {
+            TinyMapper.Bind<Source3, Target3>();
+
+            var source = new Source3
+            {
+                Id = Guid.NewGuid(),
+                Dictionary = new Dictionary<string, int> { { "Key1", 1 }, { "Key2", 2 } }
+            };
+
+            var target = TinyMapper.Map<Target3>(source);
+
+            Assert.Equal(source.Id, target.Id);
+            Assert.Equal(source.Dictionary, target.Dictionary);
+        }
+
+        [Fact]
+        public void Map_IDictionary_Target_Success()
+        {
+            TinyMapper.Bind<Source1, Target3>();
+
+            var source = new Source1
+            {
+                Id = Guid.NewGuid(),
+                Dictionary = new Dictionary<string, int> { { "Key1", 1 }, { "Key2", 2 } }
+            };
+
+            var target = TinyMapper.Map<Target3>(source);
+
+            Assert.Equal(source.Id, target.Id);
+            Assert.Equal(source.Dictionary, target.Dictionary);
+        }
+
+        [Fact]
         public void Map_DifferentKeyDictionary_Success()
         {
             TinyMapper.Bind<ItemKeySource, ItemKeyTarget>();
@@ -70,6 +104,12 @@ namespace UnitTests.Mappings.Collections
             public Guid Id { get; set; }
         }
 
+        public class Source3
+        {
+            public IDictionary<string, int> Dictionary { get; set; }
+            public Guid Id { get; set; }
+        }
+
         public class Target1
         {
             public Dictionary<string, int> Dictionary { get; set; }
@@ -79,6 +119,12 @@ namespace UnitTests.Mappings.Collections
         public class Target2
         {
             public Dictionary<ItemKeyTarget, int> Dictionary { get; set; }
+            public Guid Id { get; set; }
+        }
+
+        public class Target3
+        {
+            public IDictionary<string, int> Dictionary { get; set; }
             public Guid Id { get; set; }
         }
     }
