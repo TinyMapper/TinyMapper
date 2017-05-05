@@ -163,7 +163,7 @@ namespace UnitTests.Mappings.Collections
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
-            Assert.Equal(actual.Emails.Count(), 2);
+            Assert.Equal(target.Emails.Cast<string>(), actual.Emails);
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace UnitTests.Mappings.Collections
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
-            Assert.Equal(target.Emails, actual.Emails.OfType<string>());
+            Assert.Equal(target.Emails, actual.Emails.Cast<string>());
         }
 
         public class Contact
