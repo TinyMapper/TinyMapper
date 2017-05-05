@@ -28,9 +28,9 @@ namespace Nelibur.ObjectMapper
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
 
-            _mappersLock.EnterReadLock();
+            _mappersLock.EnterWriteLock();
             _mappers[typePair] = _targetMapperBuilder.Build(typePair);
-            _mappersLock.ExitReadLock();
+            _mappersLock.ExitWriteLock();
         }
 
         public static void Bind<TSource, TTarget>(Action<IBindingConfig<TSource, TTarget>> config)
@@ -40,9 +40,9 @@ namespace Nelibur.ObjectMapper
             var bindingConfig = new BindingConfigOf<TSource, TTarget>();
             config(bindingConfig);
 
-            _mappersLock.EnterReadLock();
+            _mappersLock.EnterWriteLock();
             _mappers[typePair] = _targetMapperBuilder.Build(typePair, bindingConfig);
-            _mappersLock.ExitReadLock();
+            _mappersLock.ExitWriteLock();
         }
 
         public static TTarget Map<TSource, TTarget>(TSource source, TTarget target = default(TTarget))
