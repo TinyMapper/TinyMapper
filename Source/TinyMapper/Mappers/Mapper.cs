@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Nelibur.ObjectMapper.Mappers
@@ -9,7 +10,7 @@ namespace Nelibur.ObjectMapper.Mappers
         public const string MappersFieldName = "_mappers";
         protected Mapper[] _mappers;
 
-        public void AddMappers(List<Mapper> mappers)
+        public void AddMappers(IEnumerable<Mapper> mappers)
         {
             _mappers = mappers.ToArray();
         }
