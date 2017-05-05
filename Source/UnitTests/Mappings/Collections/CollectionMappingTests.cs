@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using Nelibur.ObjectMapper;
@@ -124,10 +123,9 @@ namespace UnitTests.Mappings.Collections
 
             var actual = TinyMapper.Map<PersonComplexDto>(target);
 
-            Assert.NotNull(actual);
-            Assert.NotNull(actual.Emails);
-            Assert.NotEmpty(actual.Emails);
-            Assert.Equal(actual.Emails.Count, 2);
+            Assert.Equal(target.FirstName, actual.FirstName);
+            Assert.Equal(target.LastName, actual.LastName);
+            Assert.Equal(target.Emails, actual.Emails);
         }
 
         [Fact]
@@ -144,10 +142,9 @@ namespace UnitTests.Mappings.Collections
 
             var actual = TinyMapper.Map<PersonComplexDto2>(target);
 
-            Assert.NotNull(actual);
-            Assert.NotNull(actual.Emails);
-            Assert.NotEmpty(actual.Emails);
-            Assert.Equal(actual.Emails.Count, 2);
+            Assert.Equal(target.FirstName, actual.FirstName);
+            Assert.Equal(target.LastName, actual.LastName);
+            Assert.Equal(target.Emails, actual.Emails.Cast<string>());
         }
 
         [Fact]
@@ -164,9 +161,8 @@ namespace UnitTests.Mappings.Collections
 
             var actual = TinyMapper.Map<PersonComplexDto3>(target);
 
-            Assert.NotNull(actual);
-            Assert.NotNull(actual.Emails);
-            Assert.NotEmpty(actual.Emails);
+            Assert.Equal(target.FirstName, actual.FirstName);
+            Assert.Equal(target.LastName, actual.LastName);
             Assert.Equal(actual.Emails.Count(), 2);
         }
 
@@ -184,9 +180,9 @@ namespace UnitTests.Mappings.Collections
 
             var actual = TinyMapper.Map<PersonComplex2>(target);
 
-            Assert.NotNull(actual);
-            Assert.NotNull(actual.Emails);
-            Assert.NotEmpty(actual.Emails);
+            Assert.Equal(target.FirstName, actual.FirstName);
+            Assert.Equal(target.LastName, actual.LastName);
+            Assert.Equal(target.Emails, actual.Emails.OfType<string>());
         }
 
         public class Contact
