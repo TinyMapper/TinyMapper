@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Mappings\Collections\CollectionMappingTests.cs" />
     <Compile Include="Mappings\MapWithCustomBindTests.cs" />
+    <Compile Include="Mappings\Polymorphic\PolymorphicTests.cs" />
     <Compile Include="TinyMapperConfigTests.cs" />
     <Compile Include="Mappings\TypeConverters\ConvertibleTypeMappingTests.cs" />
     <Compile Include="Mappings\Collections\DictionaryMappingTests.cs" />

@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Out\Debug\TinyMapper\4.5\TinyMapper.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +33,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\4.5\TinyMapper.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.0|AnyCPU'">
     <OutputPath>..\..\Out\Release\TinyMapper\4.0\</OutputPath>
@@ -44,6 +48,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\4.0\TinyMapper.xml</DocumentationFile>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 3.5|AnyCPU'">
     <OutputPath>..\..\Out\Release\TinyMapper\3.5\</OutputPath>
@@ -56,6 +63,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\3.5\TinyMapper.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 3.0|AnyCPU'">
     <OutputPath>..\..\Out\Release\TinyMapper\3.0\</OutputPath>
@@ -68,6 +77,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\3.0\TinyMapper.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -80,6 +91,7 @@
     <Compile Include="Bindings\BindingConfigAttributes.cs" />
     <Compile Include="Bindings\BindingConfig.cs" />
     <Compile Include="Bindings\BindingConfigOf.cs" />
+    <Compile Include="Bindings\BindingException.cs" />
     <Compile Include="Bindings\IBindingConfig.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitArray.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
@@ -99,6 +111,7 @@
     <Compile Include="Mappers\Classes\Members\MappingMemberBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MappingMember.cs" />
     <Compile Include="Core\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Mappers\MappingException.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapper.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapperBuilder.cs" />
     <Compile Include="Mappers\Types\Custom\CustomTypeMapper.cs" />
@@ -132,6 +145,7 @@
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Core\Extensions\OptionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TinyMapperException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nuget\tinymapper.nuspec" />
