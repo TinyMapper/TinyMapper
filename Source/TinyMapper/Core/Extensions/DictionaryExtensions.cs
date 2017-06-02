@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Nelibur.ObjectMapper.Core.DataStructures;
 
 namespace Nelibur.ObjectMapper.Core.Extensions

@@ -97,7 +97,6 @@
     <Compile Include="CodeGenerators\Emitters\EmitThis.cs" />
     <Compile Include="Core\Extensions\DictionaryExtensions.cs" />
     <Compile Include="ITinyMapperConfig.cs" />
-    <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Mappers\Classes\ClassMapper.cs" />
     <Compile Include="Mappers\Classes\ClassMapperBuilder.cs" />
     <Compile Include="Mappers\Classes\Members\MemberEmitterDescription.cs" />

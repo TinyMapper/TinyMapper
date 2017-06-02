@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
-    internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget> where TTarget : class
+    internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
+        where TTarget : class
     {
         protected virtual object ConvertItem(object item)
         {

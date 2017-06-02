@@ -18,11 +18,11 @@ namespace Nelibur.ObjectMapper.Bindings
             BindFields(sourceName, targetName);
         }
 
-//        public void Bind<TField>(Expression<Func<TTarget, TField>> target, TField value)
-//        {
-//            Func<object, object> func = x => value;
-//            BindConverter(GetMemberInfo(target), func);
-//        }
+        //        public void Bind<TField>(Expression<Func<TTarget, TField>> target, TField value)
+        //        {
+        //            Func<object, object> func = x => value;
+        //            BindConverter(GetMemberInfo(target), func);
+        //        }
 
         public void Bind(Expression<Func<TTarget, object>> target, Type targetType)
         {

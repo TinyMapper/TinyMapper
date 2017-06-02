@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Reflection;
-using System.Threading;
 
 namespace Nelibur.ObjectMapper
 {
     /// <summary>
-    /// TinyMapper is an object to object mapper for .NET. The main advantage is performance. 
-    /// TinyMapper allows easily map object to object, i.e. properties or fields from one 
-    /// object to another, for instance.
+    ///     TinyMapper is an object to object mapper for .NET. The main advantage is performance.
+    ///     TinyMapper allows easily map object to object, i.e. properties or fields from one
+    ///     object to another, for instance.
     /// </summary>
     public static class TinyMapper
     {
@@ -30,7 +30,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Create a one-way mapping between one type and another
+        ///     Create a one-way mapping between one type and another
         /// </summary>
         /// <typeparam name="TSource">Source type</typeparam>
         /// <typeparam name="TTarget">Target type</typeparam>
@@ -49,7 +49,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Create a one-way mapping between one type and another
+        ///     Create a one-way mapping between one type and another
         /// </summary>
         /// <typeparam name="TSource">Source type</typeparam>
         /// <typeparam name="TTarget">Target type</typeparam>
@@ -73,7 +73,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Find out if a binding exists for Source to Target
+        ///     Find out if a binding exists for Source to Target
         /// </summary>
         /// <typeparam name="TSource">Source type</typeparam>
         /// <typeparam name="TTarget">Target type</typeparam>
@@ -81,18 +81,17 @@ namespace Nelibur.ObjectMapper
         public static bool BindingExists<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-            bool result;
             Mapper mapper;
 
             _mappersLock.EnterReadLock();
-            result = _mappers.TryGetValue(typePair, out mapper);
+            var result = _mappers.TryGetValue(typePair, out mapper);
             _mappersLock.ExitReadLock();
 
             return result;
         }
 
         /// <summary>
-        /// Coppies data from one class to another
+        ///     Coppies data from one class to another
         /// </summary>
         /// <typeparam name="TSource">Source type</typeparam>
         /// <typeparam name="TTarget">Target type</typeparam>
@@ -110,7 +109,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Configure the Mapper
+        ///     Configure the Mapper
         /// </summary>
         /// <param name="config">Lambda to provide config settings</param>
         public static void Config(Action<ITinyMapperConfig> config)
@@ -156,14 +155,14 @@ namespace Nelibur.ObjectMapper
                     {
                         mapper = _targetMapperBuilder.Build(typePair);
                         _mappersLock.EnterWriteLock();
-                    try
-                    {
-                        _mappers[typePair] = mapper;
-                    }
-                    finally
-                    {
-                        _mappersLock.ExitWriteLock();
-                    }
+                        try
+                        {
+                            _mappers[typePair] = mapper;
+                        }
+                        finally
+                        {
+                            _mappersLock.ExitWriteLock();
+                        }
                     }
                     else
                         throw new MappingException($"Unable to find a binding for type '{typePair.Source?.Name}' to '{typePair.Target?.Name}'.");
@@ -182,10 +181,10 @@ namespace Nelibur.ObjectMapper
         {
             // Walk the polymorphic heirarchy until we find a mapping match
             Type source = types.Source;
-            Mapper result = null;
 
             do
             {
+                Mapper result;
                 foreach (var iface in source.GetInterfaces())
                 {
                     if (_mappers.TryGetValue(TypePair.Create(iface, types.Target), out result))
@@ -194,8 +193,8 @@ namespace Nelibur.ObjectMapper
 
                 if (_mappers.TryGetValue(TypePair.Create(source, types.Target), out result))
                     return result;
-
-            } while ((source = source.BaseType) != null);
+            }
+            while ((source = source.BaseType) != null);
 
             return null;
         }

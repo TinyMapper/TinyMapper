@@ -7,29 +7,20 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
     /// </summary>
     internal struct Option<T>
     {
-        private static readonly Option<T> _empty = new Option<T>(default(T), false);
-        private readonly bool _hasValue;
-
         public Option(T value, bool hasValue = true)
         {
-            _hasValue = hasValue;
+            HasValue = hasValue;
             Value = value;
         }
 
-        public static Option<T> Empty
-        {
-            get { return _empty; }
-        }
+        public static Option<T> Empty { get; } = new Option<T>(default(T), false);
 
         public bool HasNoValue
         {
-            get { return !_hasValue; }
+            get { return !HasValue; }
         }
 
-        public bool HasValue
-        {
-            get { return _hasValue; }
-        }
+        public bool HasValue { get; }
 
         public T Value { get; private set; }
 

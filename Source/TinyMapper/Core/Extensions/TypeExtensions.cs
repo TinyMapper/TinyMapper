@@ -50,9 +50,9 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsDictionaryOf(this Type type)
         {
-            return type.IsGenericType && 
-                (type.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
-                type.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+            return type.IsGenericType &&
+                   (type.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
+                    type.GetGenericTypeDefinition() == typeof(IDictionary<,>));
         }
 
         public static bool IsIEnumerable(this Type type)
@@ -63,18 +63,18 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static bool IsIEnumerableOf(this Type type)
         {
             return type.GetInterfaces()
-                       .Any(x => x.IsGenericType && 
-                                x.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
-                            (!x.IsGenericType && x == typeof(IEnumerable)));
+                       .Any(x => x.IsGenericType &&
+                                 x.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
+                                 (!x.IsGenericType && x == typeof(IEnumerable)));
         }
 
         public static bool IsListOf(this Type type)
         {
             return
-                (type.IsGenericType &&
-                    (type.GetGenericTypeDefinition() == typeof(List<>) ||
-                    type.GetGenericTypeDefinition() == typeof(IList<>) ||
-                    type.GetGenericTypeDefinition() == typeof(ICollection<>)));
+            type.IsGenericType &&
+             (type.GetGenericTypeDefinition() == typeof(List<>) ||
+              type.GetGenericTypeDefinition() == typeof(IList<>) ||
+              type.GetGenericTypeDefinition() == typeof(ICollection<>));
         }
 
         public static bool IsNullable(this Type type)

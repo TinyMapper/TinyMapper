@@ -74,7 +74,9 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private Option<MapperCache> EmitMapClass(TypePair typePair, TypeBuilder typeBuilder)
         {
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod, OverrideProtected, typePair.Target,
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(MapClassMethod,
+                OverrideProtected,
+                typePair.Target,
                 new[] { typePair.Source, typePair.Target });
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 

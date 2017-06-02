@@ -7,9 +7,6 @@ namespace Nelibur.ObjectMapper
     {
         private readonly TargetMapperBuilder _targetMapperBuilder;
 
-        public bool EnablePolymorphicMapping { get; set; } = true;
-        public bool EnableAutoBinding { get; set; } = true;
-
         public TinyMapperConfig(TargetMapperBuilder targetMapperBuilder)
         {
             if (targetMapperBuilder == null)
@@ -18,6 +15,9 @@ namespace Nelibur.ObjectMapper
             }
             _targetMapperBuilder = targetMapperBuilder;
         }
+
+        public bool EnablePolymorphicMapping { get; set; } = true;
+        public bool EnableAutoBinding { get; set; } = true;
 
         public void NameMatching(Func<string, string, bool> nameMatching)
         {

@@ -90,7 +90,6 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             return typePair.Source.IsIEnumerable() && typePair.Target.IsIEnumerable();
         }
 
-
         private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
             MapperBuilder mapperBuilder = GetMapperBuilder(typePair);

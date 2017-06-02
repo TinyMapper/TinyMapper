@@ -22,8 +22,6 @@ namespace Nelibur.ObjectMapper.Mappers
         private readonly ConvertibleTypeMapperBuilder _convertibleTypeMapperBuilder;
         private readonly CustomTypeMapperBuilder _customTypeMapperBuilder;
 
-        public Func<string, string, bool> NameMatching { get; private set; }
-
         public TargetMapperBuilder(IDynamicAssembly assembly)
         {
             Assembly = assembly;
@@ -36,25 +34,9 @@ namespace Nelibur.ObjectMapper.Mappers
             NameMatching = DefaultNameMatching;
         }
 
-        public void SetNameMatching(Func<string, string, bool> nameMatching)
-        {
-            NameMatching = nameMatching;
-        }
+        public Func<string, string, bool> NameMatching { get; private set; }
 
         public IDynamicAssembly Assembly { get; private set; }
-
-        public Mapper Build(TypePair typePair, BindingConfig bindingConfig)
-        {
-            _bindingConfigs[typePair] = bindingConfig;
-            return Build(typePair);
-        }
-
-        public Mapper Build(TypePair typePair)
-        {
-            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
-            Mapper mapper = mapperBuilder.Build(typePair);
-            return mapper;
-        }
 
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {
@@ -74,6 +56,24 @@ namespace Nelibur.ObjectMapper.Mappers
         public MapperBuilder GetMapperBuilder(TypePair typePair)
         {
             return GetTypeMapperBuilder(typePair);
+        }
+
+        public void SetNameMatching(Func<string, string, bool> nameMatching)
+        {
+            NameMatching = nameMatching;
+        }
+
+        public Mapper Build(TypePair typePair, BindingConfig bindingConfig)
+        {
+            _bindingConfigs[typePair] = bindingConfig;
+            return Build(typePair);
+        }
+
+        public Mapper Build(TypePair typePair)
+        {
+            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
+            Mapper mapper = mapperBuilder.Build(typePair);
+            return mapper;
         }
 
         private MapperBuilder GetTypeMapperBuilder(TypePair typePair)

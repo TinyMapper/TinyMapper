@@ -13,6 +13,7 @@ namespace Nelibur.ObjectMapper.Bindings
         public Type TargetType { get; private set; }
     }
 
+
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public sealed class BindAttribute : Attribute
     {
