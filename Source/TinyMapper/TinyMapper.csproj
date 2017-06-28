@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nelibur.ObjectMapper</RootNamespace>
     <AssemblyName>TinyMapper</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,23 +17,23 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Out\Debug\TinyMapper\4.5\</OutputPath>
+    <OutputPath>..\..\Out\Debug\TinyMapper\4.6\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\Out\Debug\TinyMapper\4.5\TinyMapper.xml</DocumentationFile>
+    <DocumentationFile>..\..\Out\Debug\TinyMapper\4.6\TinyMapper.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Out\Release\TinyMapper\4.5\</OutputPath>
+    <OutputPath>..\..\Out\Release\TinyMapper\4.6\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\Out\Release\TinyMapper\4.5\TinyMapper.xml</DocumentationFile>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\4.6\TinyMapper.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.0|AnyCPU'">
@@ -80,6 +80,17 @@
     <DocumentationFile>..\..\Out\Release\TinyMapper\3.0\TinyMapper.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.5|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Out\Release\TinyMapper\4.5\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Out\Release\TinyMapper\4.5\TinyMapper.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,8 +124,10 @@
     <Compile Include="Mappers\MappingException.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapper.cs" />
     <Compile Include="Mappers\Types\Convertible\ConvertibleTypeMapperBuilder.cs" />
-    <Compile Include="Mappers\Types\Custom\CustomTypeMapper.cs" />
-    <Compile Include="Mappers\Types\Custom\CustomTypeMapperBuilder.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomMemberMapper.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomMemberMapperBuilder.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomObjectMapper.cs" />
+    <Compile Include="Mappers\Types\Custom\CustomObjectMapperBuilder.cs" />
     <Compile Include="Reflection\IDynamicAssembly.cs" />
     <Compile Include="Mappers\Classes\Members\MemberMapper.cs" />
     <Compile Include="CodeGenerators\Emitters\EmitBox.cs" />

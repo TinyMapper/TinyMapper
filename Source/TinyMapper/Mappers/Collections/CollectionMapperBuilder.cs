@@ -12,6 +12,7 @@ using Nelibur.ObjectMapper.Mappers.Classes.Members;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
+
     internal sealed class CollectionMapperBuilder : MapperBuilder
     {
         private const string ConvertItemKeyMethod = "ConvertItemKey";

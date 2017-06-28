@@ -64,6 +64,10 @@
         <PackageBinaries Include='Source\TinyMapper\nuget\**\*.*'>
             <Package>TinyMapper</Package>
         </PackageBinaries>
+         <PackageBinaries Include='$(OutDir)\TinyMapper\4.6\TinyMapper.dll'>
+            <Package>TinyMapper</Package>
+            <Destination>lib\net46</Destination>
+        </PackageBinaries> 
         <PackageBinaries Include='$(OutDir)\TinyMapper\4.5\TinyMapper.dll'>
             <Package>TinyMapper</Package>
             <Destination>lib\net45</Destination>
