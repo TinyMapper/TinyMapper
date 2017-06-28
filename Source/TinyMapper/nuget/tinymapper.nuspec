@@ -2,19 +2,19 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   
     <metadata>
-        <id>TinyMapper</id>
-        <version>2.0.8.5</version>
+        <id>STinyMapper</id>
+        <version>1.2.0</version>
         <authors>Sdzeng</authors>
-        <owners>Sdzeng</owners>
+        <owners>Bit</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>https://github.com/Sdzeng/TinyMapper/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/Sdzeng/TinyMapper</projectUrl>
+        <licenseUrl>https://github.com/Sdzeng/STinyMapper/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/Sdzeng/STinyMapper</projectUrl>
         <description>
-            TinyMapper - a tiny and quick object mapper for .Net.
+            STinyMapper -extend TinyMapper, a tiny and quick object mapper for .Net.
         </description>
         <iconUrl>http://www.gravatar.com/avatar/cfffd78dd57d31992a0052c6786cdc3d</iconUrl>
         <language>en-US</language>
-        <tags>TinyMapper Mapper</tags>
+        <tags>Extend TinyMapper Mapper</tags>
     </metadata>
     <files>
         <file src="lib\**\*.*" target="lib" />
