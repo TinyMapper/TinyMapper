@@ -1,3 +1,5 @@
+STinyMapper -extend TinyMapper, a tiny and quick object mapper for .Net.
+
 TinyMapper - a quick object mapper for .Net
 ======================================================
 [![Nuget downloads](https://img.shields.io/nuget/v/tinymapper.svg)](https://www.nuget.org/packages/TinyMapper/)
