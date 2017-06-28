@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  
     <metadata>
         <id>TinyMapper</id>
-        <version>$version$</version>
-        <authors>Sergey Morenko</authors>
-        <owners>Sergey Morenko</owners>
+        <version>2.0.9.beta</version>
+        <authors>Sdzeng</authors>
+        <owners>Sdzeng</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>https://github.com/TinyMapper/TinyMapper/blob/master/LICENSE</licenseUrl>
-        <projectUrl>http://tinymapper.net/</projectUrl>
+        <licenseUrl>https://github.com/Sdzeng/TinyMapper/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/Sdzeng/TinyMapper</projectUrl>
         <description>
             TinyMapper - a tiny and quick object mapper for .Net.
         </description>
