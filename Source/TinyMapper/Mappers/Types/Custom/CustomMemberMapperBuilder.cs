@@ -5,15 +5,15 @@ using Nelibur.ObjectMapper.Mappers.Classes.Members;
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Custom
 {
-    internal sealed class CustomTypeMapperBuilder : MapperBuilder
+    internal sealed class CustomMemberMapperBuilder : MapperBuilder
     {
-        public CustomTypeMapperBuilder(IMapperBuilderConfig config) : base(config)
+        public CustomMemberMapperBuilder(IMapperBuilderConfig config) : base(config)
         {
         }
 
         protected override string ScopeName
         {
-            get { return "CustomTypeMapper"; }
+            get { return "CustomMemberMapper"; }
         }
 
         public bool IsSupported(TypePair parentTypePair, MappingMember mappingMember)
@@ -35,7 +35,7 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Custom
         {
             Option<BindingConfig> bindingConfig = _config.GetBindingConfig(parentTypePair);
             Func<object, object> converter = bindingConfig.Value.GetCustomTypeConverter(mappingMember.Target.Name).Value;
-            return new CustomTypeMapper(converter);
+            return new CustomMemberMapper(converter);
         }
 
         protected override bool IsSupportedCore(TypePair typePair)

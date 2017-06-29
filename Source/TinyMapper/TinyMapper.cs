@@ -48,6 +48,27 @@ namespace Nelibur.ObjectMapper
             }
         }
 
+
+
+        /// <summary>
+        ///  Create a one-way mapping between one type and another
+        /// </summary>
+        /// <param name="source">Source type</param>
+        /// <param name="target">Target type</param>
+        public static void Bind(Type source,Type target)
+        {
+            TypePair typePair = TypePair.Create(source, target);
+            _mappersLock.EnterWriteLock();
+            try
+            {
+                _mappers[typePair] = _targetMapperBuilder.Build(typePair);
+            }
+            finally
+            {
+                _mappersLock.ExitWriteLock();
+            }
+        }
+
         /// <summary>
         ///     Create a one-way mapping between one type and another
         /// </summary>

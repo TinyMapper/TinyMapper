@@ -6,6 +6,8 @@ using Nelibur.ObjectMapper.Mappers.Classes.Members;
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 {
+
+    
     internal sealed class ConvertibleTypeMapperBuilder : MapperBuilder
     {
         private static readonly Func<object, object> _nothingConverter = x => x;

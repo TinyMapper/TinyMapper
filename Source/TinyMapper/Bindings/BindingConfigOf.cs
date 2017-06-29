@@ -1,10 +1,30 @@
-﻿using System;
+﻿using Nelibur.ObjectMapper.Core.DataStructures;
+using System;
 using System.Linq.Expressions;
 
 namespace Nelibur.ObjectMapper.Bindings
 {
     internal sealed class BindingConfigOf<TSource, TTarget> : BindingConfig, IBindingConfig<TSource, TTarget>
     {
+        public void BindObjectCustom(Func<TSource, TTarget> func)
+        {
+            Func<object, object> convertFunc = source =>
+            {
+                return func((TSource)source);
+            };
+            BindObjectConverter(convertFunc);
+      }
+
+        public void BindMemberCustom(Expression<Func<TTarget, object>> target,Func<TSource, object> func)
+        {
+            string targetName = GetMemberInfo(target);
+            Func<object, object> convertFunc = source =>
+            {
+                return func((TSource)source);
+            };
+            BindMemberConverter(targetName, convertFunc);
+        }
+
         public void Bind(Expression<Func<TSource, object>> source, Expression<Func<TTarget, object>> target)
         {
             string sourceName = GetMemberInfo(source);

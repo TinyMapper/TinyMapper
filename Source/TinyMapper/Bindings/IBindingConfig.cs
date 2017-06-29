@@ -5,6 +5,8 @@ namespace Nelibur.ObjectMapper.Bindings
 {
     public interface IBindingConfig<TSource, TTarget>
     {
+        void BindObjectCustom(Func<TSource, TTarget> func);
+
         void Bind(Expression<Func<TSource, object>> source, Expression<Func<TTarget, object>> target);
 
         //        void Bind<TField>(Expression<Func<TTarget, TField>> target, TField value); not working yet

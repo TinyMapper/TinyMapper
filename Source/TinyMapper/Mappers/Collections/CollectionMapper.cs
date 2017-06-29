@@ -5,6 +5,7 @@ using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
+     
     internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
         where TTarget : class
     {
@@ -83,12 +84,15 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             IList result = null;
             foreach (var item in source)
             {
+                var target = ConvertItem(item);
+
                 if (result == null)
                 {
-                    result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(item.GetType()));
+                    result = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(target.GetType()));
                 }
 
-                result.Add(ConvertItem(item));
+             
+                result.Add(target);
             }
             return result as TTarget;
         }

@@ -2,11 +2,11 @@
 
 namespace Nelibur.ObjectMapper.Mappers.Types.Custom
 {
-    internal sealed class CustomTypeMapper : Mapper
+    internal sealed class CustomObjectMapper : Mapper
     {
         private readonly Func<object, object> _converter;
 
-        public CustomTypeMapper(Func<object, object> converter)
+        public CustomObjectMapper(Func<object, object> converter)
         {
             _converter = converter;
         }
