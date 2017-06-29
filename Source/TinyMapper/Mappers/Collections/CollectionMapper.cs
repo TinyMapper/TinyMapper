@@ -5,7 +5,7 @@ using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Collections
 {
-    
+     
     internal abstract class CollectionMapper<TSource, TTarget> : MapperOf<TSource, TTarget>
         where TTarget : class
     {
