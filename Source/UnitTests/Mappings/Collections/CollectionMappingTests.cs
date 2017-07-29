@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Nelibur.ObjectMapper;
+using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests.Mappings.Collections
@@ -119,9 +120,9 @@ namespace UnitTests.Mappings.Collections
                 LastName = "Doe"
             };
 
-            TinyMapper.Bind<PersonComplex, PersonComplexDto>();
+            TinyMapper.Bind<PersonComplex, PersonComplexTarget>();
 
-            var actual = TinyMapper.Map<PersonComplexDto>(target);
+            var actual = TinyMapper.Map<PersonComplexTarget>(target);
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
@@ -131,16 +132,16 @@ namespace UnitTests.Mappings.Collections
         [Fact]
         public void Map_IEnumerable_Success()
         {
-            var target = new PersonComplex2
+            var target = new PersonComplex
             {
                 Emails = new[] { "none1@none.com", "none2@none.com" },
                 FirstName = "John",
                 LastName = "Doe"
             };
 
-            TinyMapper.Bind<PersonComplex2, PersonComplexDto2>();
+            TinyMapper.Bind<PersonComplex, PersonComplexTarget2>();
 
-            var actual = TinyMapper.Map<PersonComplexDto2>(target);
+            var actual = TinyMapper.Map<PersonComplexTarget2>(target);
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
@@ -157,9 +158,9 @@ namespace UnitTests.Mappings.Collections
                 LastName = "Doe"
             };
 
-            TinyMapper.Bind<PersonComplex3, PersonComplexDto3>();
+            TinyMapper.Bind<PersonComplex3, PersonComplexTarget3>();
 
-            var actual = TinyMapper.Map<PersonComplexDto3>(target);
+            var actual = TinyMapper.Map<PersonComplexTarget3>(target);
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
@@ -176,9 +177,9 @@ namespace UnitTests.Mappings.Collections
                 LastName = "Doe"
             };
 
-            TinyMapper.Bind<PersonComplex, PersonComplex2>();
+            TinyMapper.Bind<PersonComplex, PersonComplexTarget4>();
 
-            var actual = TinyMapper.Map<PersonComplex2>(target);
+            var actual = TinyMapper.Map<PersonComplexTarget4>(target);
 
             Assert.Equal(target.FirstName, actual.FirstName);
             Assert.Equal(target.LastName, actual.LastName);
@@ -230,21 +231,21 @@ namespace UnitTests.Mappings.Collections
             public string LastName { get; set; }
         }
 
-        public class PersonComplexDto
+        public class PersonComplexTarget
         {
             public IList<string> Emails { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
         }
 
-        public class PersonComplex2
+        public class PersonComplexTarget4
         {
             public IEnumerable Emails { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
         }
 
-        public class PersonComplexDto2
+        public class PersonComplexTarget2
         {
             public ArrayList Emails { get; set; }
             public string FirstName { get; set; }
@@ -258,7 +259,7 @@ namespace UnitTests.Mappings.Collections
             public string LastName { get; set; }
         }
 
-        public class PersonComplexDto3
+        public class PersonComplexTarget3
         {
             public IEnumerable<string> Emails { get; set; }
             public string FirstName { get; set; }

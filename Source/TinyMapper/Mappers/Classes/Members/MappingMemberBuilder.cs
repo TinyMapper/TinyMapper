@@ -163,7 +163,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 {
                     continue;
                 }
-                var concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
+                Option<Type> concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
                 if (concreteBindingType.HasValue)
                 {
                     var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);

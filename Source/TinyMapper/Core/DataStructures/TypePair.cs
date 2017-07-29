@@ -125,6 +125,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             }
         }
 
+        // TODO Cache TypeConverters
         public bool HasTypeConverter()
         {
             TypeConverter fromConverter = TypeDescriptor.GetConverter(Source);

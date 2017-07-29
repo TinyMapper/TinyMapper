@@ -46,7 +46,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             int index = 0;
             foreach (var item in source)
             {
-                result[index++] = ((TTargetItem)ConvertItem(item));
+                result[index++] = (TTargetItem)ConvertItem(item);
             }
             return result;
         }

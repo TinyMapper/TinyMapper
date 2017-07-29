@@ -81,10 +81,9 @@ namespace Nelibur.ObjectMapper
         public static bool BindingExists<TSource, TTarget>()
         {
             TypePair typePair = TypePair.Create<TSource, TTarget>();
-            Mapper mapper;
 
             _mappersLock.EnterReadLock();
-            var result = _mappers.TryGetValue(typePair, out mapper);
+            bool result = _mappers.ContainsKey(typePair);
             _mappersLock.ExitReadLock();
 
             return result;
@@ -185,7 +184,7 @@ namespace Nelibur.ObjectMapper
             do
             {
                 Mapper result;
-                foreach (var iface in source.GetInterfaces())
+                foreach (Type iface in source.GetInterfaces())
                 {
                     if (_mappers.TryGetValue(TypePair.Create(iface, types.Target), out result))
                         return result;

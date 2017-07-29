@@ -1,82 +1,84 @@
-﻿using Nelibur.ObjectMapper;
+﻿using System;
+using Nelibur.ObjectMapper;
 using Nelibur.ObjectMapper.Mappers;
 using Xunit;
 
 namespace UnitTests.Mappings.Polymorphic
 {
-    public class PolymorphicTests
+    public sealed class PolymorphicTests
     {
         [Fact]
         public void SimpleCustomHeirarchyMappingTest()
         {
             // Arrange
-            SourceB source = new SourceB
+            var source = new SourceB
             {
                 FirstName = "John",
                 LastName = "Doe",
                 Age = 37
             };
 
-            TinyMapper.Bind<SourceA, TargetA>(n => n.Bind(from => from.FirstName, to => to.Name));
+            TinyMapper.Bind<SourceA, TargetA>(x => x.Bind(from => from.FirstName, to => to.Name));
 
             // Act
             var target = TinyMapper.Map<TargetA>(source);
 
             // Assert
             Assert.NotNull(target);
-            Assert.Same(source.FirstName, target.Name);
+            Assert.Equal(source.FirstName, target.Name);
         }
 
         [Fact]
         public void SimpleCustomHeirarchyMappingTest2()
         {
             // Arrange
-            SourceB source = new SourceB
+            var source = new SourceB
             {
                 FirstName = "John",
                 LastName = "Doe",
                 Age = 37
             };
 
-            TargetB target = new TargetB();
-            TinyMapper.Bind<SourceA, TargetA>(n => n.Bind(from => from.FirstName, to => to.Name));
+            var target = new TargetB();
+            TinyMapper.Bind<SourceA, TargetA>(x => x.Bind(from => from.FirstName, to => to.Name));
 
             // Act
             TinyMapper.Map<SourceA, TargetA>(source, target);
 
             // Assert
             Assert.NotNull(target);
-            Assert.Same(source.FirstName, target.Name);
+            Assert.Equal(source.FirstName, target.Name);
+            Assert.Equal(0, target.Age);
         }
 
         [Fact]
         public void SimpleCustomInterfaceMappingTest()
         {
             // Arrange
-            SourceB source = new SourceB
+            var source = new SourceB
             {
                 FirstName = "John",
                 LastName = "Doe",
                 Age = 37
             };
 
-            TinyMapper.Bind<ISource, TargetA>(n => n.Bind(from => from.FirstName, to => to.Name));
+            TinyMapper.Bind<ISource, TargetA>(x => x.Bind(from => from.FirstName, to => to.Name));
 
             // Act
             var target = TinyMapper.Map<TargetA>(source);
 
             // Assert
             Assert.NotNull(target);
-            Assert.Same(source.FirstName, target.Name);
+            Assert.Equal(source.FirstName, target.Name);
         }
 
         [Fact]
         public void ReversePolymorphicShouldFailWithException()
         {
             // Arrange
-            TinyMapper.Config(n => n.EnableAutoBinding = false);
+            TinyMapper.Config(x => x.EnableAutoBinding = false);
 
-            SourceB source = new SourceB
+            var source = new SourceB
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -91,9 +93,9 @@ namespace UnitTests.Mappings.Polymorphic
         public void DisablePolymorphicMappingTest()
         {
             // Arrange
-            TinyMapper.Config(n => { n.EnablePolymorphicMapping = false; });
+            TinyMapper.Config(x => { x.EnablePolymorphicMapping = false; x.EnableAutoBinding = true; });
 
-            SourceB source = new SourceB
+            var source = new SourceB
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -119,7 +121,7 @@ namespace UnitTests.Mappings.Polymorphic
     }
 
 
-    public class SourceB : SourceA, ISource
+    public sealed class SourceB : SourceA, ISource
     {
         public int Age { get; set; }
     }
@@ -138,8 +140,7 @@ namespace UnitTests.Mappings.Polymorphic
         public string Name { get; set; }
     }
 
-
-    public class TargetB : TargetA
+    public sealed class TargetB : TargetA
     {
         public int Age { get; set; }
     }
