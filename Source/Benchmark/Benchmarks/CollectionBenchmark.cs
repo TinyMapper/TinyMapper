@@ -1,77 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using AutoMapper;
-using Nelibur.ObjectMapper;
 using Nelibur.Sword.Extensions;
 
 namespace Benchmark.Benchmarks
 {
-    public sealed class CollectionBenchmark : Benchmark
+    public sealed class CollectionBenchmark
     {
         private const int CollectionLength = 100;
-
-        public CollectionBenchmark(int iterations) : base(iterations)
-        {
-        }
-
-        protected override void InitMappers()
-        {
-            TinyMapper.Bind<Source, Target>();
-
-            Mapper.CreateMap<Source, Target>();
-        }
-
-        protected override TimeSpan MeasureAutoMapper()
-        {
-            Source source = CreateSource();
-            Mapper.Map<Target>(source);
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = Mapper.Map<Target>(source);
-            }
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
-
-        protected override TimeSpan MeasureHandmade()
-        {
-            Source source = CreateSource();
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = new Target();
-                target = HandmadeMap(source, target);
-            }
-
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
-
-        protected override string MeasureMapperInputInfo()
-        {
-            return string.Format("CollectionLength: {0}", CollectionLength);
-        }
-
-        protected override TimeSpan MeasureTinyMapper()
-        {
-            Source source = CreateSource();
-            TinyMapper.Map<Target>(source);
-
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            for (int i = 0; i < _iterations; i++)
-            {
-                var target = TinyMapper.Map<Target>(source);
-            }
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
-        }
 
         private static Item CreateItem()
         {
@@ -126,6 +61,7 @@ namespace Benchmark.Benchmarks
             return target;
         }
 
+
         public class Item
         {
             public bool Bool { get; set; }
@@ -143,6 +79,7 @@ namespace Benchmark.Benchmarks
             public short Short { get; set; }
         }
 
+
         public class Source
         {
             public Source()
@@ -154,6 +91,7 @@ namespace Benchmark.Benchmarks
             public List<Item> ItemList { get; set; }
             public List<string> StringList { get; set; }
         }
+
 
         public class Target
         {
