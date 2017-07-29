@@ -71,10 +71,10 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static bool IsListOf(this Type type)
         {
             return
-            type.IsGenericType &&
-             (type.GetGenericTypeDefinition() == typeof(List<>) ||
-              type.GetGenericTypeDefinition() == typeof(IList<>) ||
-              type.GetGenericTypeDefinition() == typeof(ICollection<>));
+                type.IsGenericType &&
+                (type.GetGenericTypeDefinition() == typeof(List<>) ||
+                 type.GetGenericTypeDefinition() == typeof(IList<>) ||
+                 type.GetGenericTypeDefinition() == typeof(ICollection<>));
         }
 
         public static bool IsNullable(this Type type)

@@ -12,7 +12,10 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
 
         public bool IsEmpty
         {
-            get { return _cache.Count == 0; }
+            get
+            {
+                return _cache.Count == 0;
+            }
         }
 
         public List<Mapper> Mappers

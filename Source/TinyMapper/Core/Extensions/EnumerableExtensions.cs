@@ -9,7 +9,8 @@ namespace Nelibur.ObjectMapper.Core.Extensions
     internal static class EnumerableExtensions
     {
         public static List<TResult> ConvertAll<TFrom, TResult>(
-            this IEnumerable<TFrom> value, Func<TFrom, TResult> converter)
+            this IEnumerable<TFrom> value,
+            Func<TFrom, TResult> converter)
         {
             return value.Select(converter).ToList();
         }
@@ -73,7 +74,9 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         /// <param name="action">Given function</param>
         /// <param name="exceptionHandler">Exception handler action</param>
         public static void IterSafe<T>(
-            this IEnumerable<T> value, Action<T> action, Action<Exception> exceptionHandler = null)
+            this IEnumerable<T> value,
+            Action<T> action,
+            Action<Exception> exceptionHandler = null)
         {
             foreach (T item in value)
             {

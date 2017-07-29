@@ -25,7 +25,10 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         protected override string ScopeName
         {
-            get { return "ClassMappers"; }
+            get
+            {
+                return "ClassMappers";
+            }
         }
 
         protected override Mapper BuildCore(TypePair typePair)

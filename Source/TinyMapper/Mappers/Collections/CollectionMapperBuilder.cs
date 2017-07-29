@@ -30,7 +30,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
         protected override string ScopeName
         {
-            get { return "CollectionMappers"; }
+            get
+            {
+                return "CollectionMappers";
+            }
         }
 
         protected override Mapper BuildCore(TypePair typePair)
@@ -117,8 +120,12 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             EmitDictionaryToTarget(parentType, typeBuilder, typePair, DictionaryToDictionaryMethod, DictionaryToDictionaryTemplateMethod);
         }
 
-        private void EmitDictionaryToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
-            string methodName, string templateMethodName)
+        private void EmitDictionaryToTarget(
+            Type parentType,
+            TypeBuilder typeBuilder,
+            TypePair typePair,
+            string methodName,
+            string templateMethodName)
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
@@ -150,8 +157,12 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
         }
 
-        private void EmitEnumerableToTarget(Type parentType, TypeBuilder typeBuilder, TypePair typePair,
-            string methodName, string templateMethodName)
+        private void EmitEnumerableToTarget(
+            Type parentType,
+            TypeBuilder typeBuilder,
+            TypePair typePair,
+            string methodName,
+            string templateMethodName)
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 

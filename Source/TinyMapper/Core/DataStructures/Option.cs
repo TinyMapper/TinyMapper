@@ -17,7 +17,10 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
 
         public bool HasNoValue
         {
-            get { return !HasValue; }
+            get
+            {
+                return !HasValue;
+            }
         }
 
         public bool HasValue { get; }

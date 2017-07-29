@@ -16,7 +16,10 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 
         protected override string ScopeName
         {
-            get { return "ConvertibleTypeMappers"; }
+            get
+            {
+                return "ConvertibleTypeMappers";
+            }
         }
 
         protected override Mapper BuildCore(TypePair typePair)

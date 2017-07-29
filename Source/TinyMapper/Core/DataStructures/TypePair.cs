@@ -41,17 +41,26 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
 
         public bool IsEnumTypes
         {
-            get { return Source.IsEnum && Target.IsEnum; }
+            get
+            {
+                return Source.IsEnum && Target.IsEnum;
+            }
         }
 
         public bool IsEnumerableTypes
         {
-            get { return Source.IsIEnumerable() && Target.IsIEnumerable(); }
+            get
+            {
+                return Source.IsIEnumerable() && Target.IsIEnumerable();
+            }
         }
 
         public bool IsNullableToNotNullable
         {
-            get { return Source.IsNullable() && Target.IsNullable() == false; }
+            get
+            {
+                return Source.IsNullable() && Target.IsNullable() == false;
+            }
         }
 
         public Type Source { get; private set; }
@@ -59,22 +68,34 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
 
         private bool IsEqualTypes
         {
-            get { return Source == Target; }
+            get
+            {
+                return Source == Target;
+            }
         }
 
         private bool IsNullableTypes
         {
-            get { return Source.IsNullable() && Target.IsNullable(); }
+            get
+            {
+                return Source.IsNullable() && Target.IsNullable();
+            }
         }
 
         private bool IsPrimitiveTypes
         {
-            get { return Source.IsPrimitive && Target.IsPrimitive; }
+            get
+            {
+                return Source.IsPrimitive && Target.IsPrimitive;
+            }
         }
 
         private bool IsValueTypes
         {
-            get { return Source.IsValueType && Target.IsValueType; }
+            get
+            {
+                return Source.IsValueType && Target.IsValueType;
+            }
         }
 
         public static TypePair Create(Type source, Type target)

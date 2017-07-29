@@ -13,7 +13,10 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Custom
 
         protected override string ScopeName
         {
-            get { return "CustomTypeMapper"; }
+            get
+            {
+                return "CustomTypeMapper";
+            }
         }
 
         public bool IsSupported(TypePair parentTypePair, MappingMember mappingMember)
