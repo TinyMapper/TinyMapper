@@ -54,7 +54,6 @@ namespace UnitTests.Mappers.MappingMembers
 
         public class Source2
         {
-            private string _private;
             public int Int { get; set; }
             public long Long { get; set; }
             public string String { get; set; }
@@ -63,7 +62,6 @@ namespace UnitTests.Mappers.MappingMembers
 
         public class Target2
         {
-            private string _private;
             public int Int { get; set; }
             public long Long { get; set; }
             public string String1 { get; set; }
