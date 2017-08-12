@@ -21,18 +21,9 @@ namespace UnitTests
             _bindingConfig = bindingConfig.ToOption();
         }
 
-        public IDynamicAssembly Assembly
-        {
-            get { return DynamicAssemblyBuilder.Get(); }
-        }
+        public IDynamicAssembly Assembly => DynamicAssemblyBuilder.Get();
 
-        public Func<string, string, bool> NameMatching
-        {
-            get
-            {
-                return TargetMapperBuilder.DefaultNameMatching;
-            }
-        }
+        public Func<string, string, bool> NameMatching => TargetMapperBuilder.DefaultNameMatching;
 
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {

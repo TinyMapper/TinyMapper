@@ -3,7 +3,6 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
 using Nelibur.ObjectMapper.Mappers.Types.Convertible;
 using Xunit;
-using Xunit.Extensions;
 
 namespace UnitTests.Mappers.Types
 {
@@ -32,7 +31,7 @@ namespace UnitTests.Mappers.Types
             Mapper mapper = builder.Build(new TypePair(typeof(EnumA), typeof(EnumB)));
 
             var actual = (EnumB)mapper.Map(source);
-            Assert.Equal((EnumB)(expected), actual);
+            Assert.Equal((EnumB)expected, actual);
         }
 
         [InlineData(typeof(bool), typeof(bool), true, true)]

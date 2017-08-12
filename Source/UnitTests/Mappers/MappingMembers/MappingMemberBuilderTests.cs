@@ -13,7 +13,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Buid_Recursion_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source1), typeof(Target1)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
             Assert.Equal(2, members.Count);
         }
 
@@ -21,7 +21,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Build_CommonFileds_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source2), typeof(Target2)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceSimple), typeof(TargetSimple)));
             Assert.Equal(2, members.Count);
         }
 
@@ -29,30 +29,30 @@ namespace UnitTests.Mappers.MappingMembers
         public void Build_IgnoreProperty_Success()
         {
             var bindingConfig = new BindingConfig();
-            bindingConfig.IgnoreSourceField("Id");
+            bindingConfig.IgnoreSourceField(nameof(SourceWithRecursion.Id));
 
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub(bindingConfig));
 
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(Source1), typeof(Target1)));
+            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
             Assert.Equal(1, members.Count);
         }
 
 
-        public class Source1
+        public class SourceWithRecursion
         {
-            public Target1 Class { get; set; }
+            public TargetWithRecursion Class { get; set; }
             public int Id { get; set; }
         }
 
 
-        public class Target1
+        public class TargetWithRecursion
         {
-            public Source1 Class { get; set; }
+            public SourceWithRecursion Class { get; set; }
             public int Id { get; set; }
         }
 
 
-        public class Source2
+        public class SourceSimple
         {
             public int Int { get; set; }
             public long Long { get; set; }
@@ -60,7 +60,7 @@ namespace UnitTests.Mappers.MappingMembers
         }
 
 
-        public class Target2
+        public class TargetSimple
         {
             public int Int { get; set; }
             public long Long { get; set; }

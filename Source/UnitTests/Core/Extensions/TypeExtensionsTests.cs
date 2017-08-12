@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Xunit;
-using Xunit.Extensions;
 
 namespace UnitTests.Core.Extensions
 {

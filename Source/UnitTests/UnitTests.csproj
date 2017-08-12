@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFrameworks>netcoreapp1.1;net452</TargetFrameworks>
+	<TargetFrameworks>net452;netcoreapp1.1</TargetFrameworks>
     <ImportLibs>net</ImportLibs>
     <Configurations>Debug;Release;VS</Configurations>
   </PropertyGroup>

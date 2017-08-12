@@ -12,9 +12,9 @@ namespace UnitTests.Mappers.Classes
         public void Map_PrimitiveField_Success()
         {
             var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Build(new TypePair(typeof(FiledSource), typeof(FiledTarget)));
+            Mapper mapper = builder.Build(new TypePair(typeof(SourceWithFields), typeof(TargetWithFields)));
 
-            var source = new FiledSource
+            var source = new SourceWithFields
             {
                 Bool = true,
                 Byte = 0,
@@ -30,7 +30,7 @@ namespace UnitTests.Mappers.Classes
                 Ushort = 7
             };
 
-            var actual = (FiledTarget)mapper.Map(source);
+            var actual = (TargetWithFields)mapper.Map(source);
 
             Assert.Equal(source.Bool, actual.Bool);
             Assert.Equal(source.Byte, actual.Byte);
@@ -50,9 +50,9 @@ namespace UnitTests.Mappers.Classes
         public void Map_PrimitiveProperty_Success()
         {
             var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
-            Mapper mapper = builder.Build(new TypePair(typeof(PropertySource), typeof(PropertyTarget)));
+            Mapper mapper = builder.Build(new TypePair(typeof(SourceWithProperties), typeof(TargetWithProperties)));
 
-            var source = new PropertySource
+            var source = new SourceWithProperties
             {
                 Bool = true,
                 Byte = 0,
@@ -72,7 +72,7 @@ namespace UnitTests.Mappers.Classes
                 DateTimeNullable1 = new DateTime(2020, 2, 4)
             };
 
-            var actual = (PropertyTarget)mapper.Map(source);
+            var actual = (TargetWithProperties)mapper.Map(source);
 
             Assert.Equal(source.Bool, actual.Bool);
             Assert.Equal(source.Byte, actual.Byte);
@@ -92,7 +92,7 @@ namespace UnitTests.Mappers.Classes
             Assert.Equal(source.DateTimeNullable1, actual.DateTimeNullable1);
         }
 
-        public class FiledSource
+        public class SourceWithFields
         {
             public bool Bool;
             public byte Byte;
@@ -108,7 +108,7 @@ namespace UnitTests.Mappers.Classes
             public ushort Ushort;
         }
 
-        public class FiledTarget
+        public class TargetWithFields
         {
             public bool Bool;
             public byte Byte;
@@ -124,7 +124,7 @@ namespace UnitTests.Mappers.Classes
             public ushort Ushort;
         }
 
-        public class PropertySource
+        public class SourceWithProperties
         {
             public bool Bool { get; set; }
             public byte Byte { get; set; }
@@ -144,7 +144,7 @@ namespace UnitTests.Mappers.Classes
             public ushort Ushort { get; set; }
         }
 
-        public class PropertyTarget
+        public class TargetWithProperties
         {
             public bool Bool { get; set; }
             public byte Byte { get; set; }
