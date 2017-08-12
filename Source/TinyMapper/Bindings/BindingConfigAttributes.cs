@@ -17,9 +17,9 @@ namespace Nelibur.ObjectMapper.Bindings
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public sealed class BindAttribute : Attribute
     {
-        public BindAttribute(string memberName, Type targetType = null)
+        public BindAttribute(string targetMemberName, Type targetType = null)
         {
-            MemberName = memberName;
+            MemberName = targetMemberName;
             TargetType = targetType;
         }
 
