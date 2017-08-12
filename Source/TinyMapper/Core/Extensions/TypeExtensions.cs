@@ -14,7 +14,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             {
                 return type.GetElementType();
             }
-            else if (type.IsGenericType && type.IsIEnumerableOf())
+            if (Helpers.IsGenericType(type) && type.IsIEnumerableOf())
             {
                 return type.GetGenericArguments().First();
             }
@@ -50,7 +50,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsDictionaryOf(this Type type)
         {
-            return type.IsGenericType &&
+            return Helpers.IsGenericType(type) &&
                    (type.GetGenericTypeDefinition() == typeof(Dictionary<,>) ||
                     type.GetGenericTypeDefinition() == typeof(IDictionary<,>));
         }
@@ -63,15 +63,15 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static bool IsIEnumerableOf(this Type type)
         {
             return type.GetInterfaces()
-                       .Any(x => x.IsGenericType &&
+                       .Any(x => Helpers.IsGenericType(x) &&
                                  x.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
-                                 (!x.IsGenericType && x == typeof(IEnumerable)));
+                                 !Helpers.IsGenericType(x) && x == typeof(IEnumerable));
         }
 
         public static bool IsListOf(this Type type)
         {
             return
-                type.IsGenericType &&
+                Helpers.IsGenericType(type) &&
                 (type.GetGenericTypeDefinition() == typeof(List<>) ||
                  type.GetGenericTypeDefinition() == typeof(IList<>) ||
                  type.GetGenericTypeDefinition() == typeof(ICollection<>));
@@ -79,7 +79,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsNullable(this Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+            return Helpers.IsGenericType(type) && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
     }
 }

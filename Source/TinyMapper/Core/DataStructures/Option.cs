@@ -3,7 +3,7 @@
 namespace Nelibur.ObjectMapper.Core.DataStructures
 {
     /// <summary>
-    ///     https://github.com/Nelibur/Nelibur.
+    ///     https://github.com/Nelibur/Nelibur
     /// </summary>
     internal struct Option<T>
     {

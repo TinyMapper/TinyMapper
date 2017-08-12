@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
@@ -47,9 +48,9 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
                 return result.ToOption();
             }
 
-            if (pair.Target.IsEnum)
+            if (Helpers.IsEnum(pair.Target))
             {
-                if (pair.Source.IsEnum == false)
+                if (Helpers.IsEnum(pair.Source) == false)
                 {
                     if (pair.Source == typeof(string))
                     {
@@ -61,7 +62,7 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
                 return result.ToOption();
             }
 
-            if (pair.Source.IsEnum)
+            if (Helpers.IsEnum(pair.Source))
             {
                 result = x => Convert.ChangeType(x, pair.Target);
                 return result.ToOption();
@@ -109,10 +110,10 @@ namespace Nelibur.ObjectMapper.Mappers.Types.Convertible
 
         private bool IsSupportedType(Type value)
         {
-            return value.IsPrimitive
+            return Helpers.IsPrimitive(value)
                    || value == typeof(string)
                    || value == typeof(Guid)
-                   || value.IsEnum
+                   || Helpers.IsEnum(value)
                    || value == typeof(decimal)
                    || value.IsNullable() && IsSupportedType(Nullable.GetUnderlyingType(value));
         }

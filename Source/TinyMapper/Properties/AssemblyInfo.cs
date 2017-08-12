@@ -8,9 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Nelibur.ObjectMapper.Reflection;
 
-[assembly: AssemblyTitle("TinyMapper")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

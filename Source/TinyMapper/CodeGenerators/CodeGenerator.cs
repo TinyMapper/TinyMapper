@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.CodeGenerators
@@ -21,15 +22,15 @@ namespace Nelibur.ObjectMapper.CodeGenerators
             {
                 return this;
             }
-            if (stackType.IsValueType == false && targetType == typeof(object))
+            if (Helpers.IsValueType(stackType) == false && targetType == typeof(object))
             {
                 return this;
             }
-            if (stackType.IsValueType && !targetType.IsValueType)
+            if (Helpers.IsValueType(stackType) && !Helpers.IsValueType(targetType))
             {
                 _ilGenerator.Emit(OpCodes.Box, stackType);
             }
-            else if (!stackType.IsValueType && targetType.IsValueType)
+            else if (!Helpers.IsValueType(stackType) && Helpers.IsValueType(targetType))
             {
                 _ilGenerator.Emit(OpCodes.Unbox_Any, targetType);
             }

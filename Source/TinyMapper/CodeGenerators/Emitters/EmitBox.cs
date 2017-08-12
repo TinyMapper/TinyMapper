@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
+using Nelibur.ObjectMapper.Core;
 
 namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 {
@@ -19,7 +20,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
         {
             _value.Emit(generator);
 
-            if (ObjectType.IsValueType)
+            if (Helpers.IsValueType(ObjectType))
             {
                 generator.Emit(OpCodes.Box, ObjectType);
             }

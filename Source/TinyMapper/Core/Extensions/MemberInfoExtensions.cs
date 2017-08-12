@@ -11,7 +11,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static Option<TAttribute> GetAttribute<TAttribute>(this MemberInfo value)
             where TAttribute : Attribute
         {
-            return Attribute.GetCustomAttributes(value)
+            return value.GetCustomAttributes(true)
                             .FirstOrDefault(x => x is TAttribute)
                             .ToType<TAttribute>();
         }
@@ -19,7 +19,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
         public static List<TAttribute> GetAttributes<TAttribute>(this MemberInfo value)
             where TAttribute : Attribute
         {
-            return Attribute.GetCustomAttributes(value).OfType<TAttribute>().ToList();
+            return value.GetCustomAttributes(true).OfType<TAttribute>().ToList();
         }
 
         public static Type GetMemberType(this MemberInfo value)
@@ -28,11 +28,11 @@ namespace Nelibur.ObjectMapper.Core.Extensions
             {
                 return ((FieldInfo)value).FieldType;
             }
-            else if (value.IsProperty())
+            if (value.IsProperty())
             {
                 return ((PropertyInfo)value).PropertyType;
             }
-            else if (value.IsMethod())
+            if (value.IsMethod())
             {
                 return ((MethodInfo)value).ReturnType;
             }
@@ -41,17 +41,30 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static bool IsField(this MemberInfo value)
         {
+#if COREFX
+            return value is FieldInfo;
+#else
             return value.MemberType == MemberTypes.Field;
+#endif
         }
 
         public static bool IsProperty(this MemberInfo value)
         {
+#if COREFX
+            return value is PropertyInfo;
+#else
             return value.MemberType == MemberTypes.Property;
+#endif
         }
 
         private static bool IsMethod(this MemberInfo value)
         {
+#if COREFX
+            return value is MethodInfo;
+#else
             return value.MemberType == MemberTypes.Method;
+#endif
+
         }
     }
 }

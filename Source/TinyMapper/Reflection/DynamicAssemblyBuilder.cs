@@ -7,10 +7,11 @@ namespace Nelibur.ObjectMapper.Reflection
     internal class DynamicAssemblyBuilder
     {
         internal const string AssemblyName = "DynamicTinyMapper";
-
-                private const string AssemblyNameFileName = AssemblyName + ".dll";
+#if !COREFX
+        private const string AssemblyNameFileName = AssemblyName + ".dll";
+        private static AssemblyBuilder _assemblyBuilder;
+#endif
         private static readonly DynamicAssembly _dynamicAssembly = new DynamicAssembly();
-                private static AssemblyBuilder _assemblyBuilder;
 
         public static IDynamicAssembly Get()
         {
@@ -25,11 +26,19 @@ namespace Nelibur.ObjectMapper.Reflection
             public DynamicAssembly()
             {
                 var assemblyName = new AssemblyName(AssemblyName);
+
+#if COREFX
+                AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
+
+#else
 //                AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                        _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
 
 //                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
-                                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+                        _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+#endif
+
             }
 
             public TypeBuilder DefineType(string typeName, Type parentType)
@@ -39,7 +48,9 @@ namespace Nelibur.ObjectMapper.Reflection
 
             public void Save()
             {
-                                _assemblyBuilder.Save(AssemblyNameFileName);
+#if !COREFX
+                _assemblyBuilder.Save(AssemblyNameFileName);
+#endif
             }
         }
     }

@@ -22,21 +22,25 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return ParseMappingTypes(typePair);
         }
 
-        private static List<MemberInfo> GetPublicMembers(Type type)
+        private static MemberInfo[] GetPublicMembers(Type type)
         {
-            return type.GetMembers(BindingFlags.Instance | BindingFlags.Public)
-                       .Where(x => x.MemberType == MemberTypes.Property || x.MemberType == MemberTypes.Field)
-                       .ToList();
+            BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+            PropertyInfo[] properties = type.GetProperties(flags);
+            FieldInfo[] fields = type.GetFields(flags);
+            MemberInfo[] members = new MemberInfo[properties.Length + fields.Length];
+            properties.CopyTo(members, 0);
+            fields.CopyTo(members, properties.Length);
+            return members;
         }
 
         private static List<MemberInfo> GetSourceMembers(Type sourceType)
         {
             var result = new List<MemberInfo>();
 
-            List<MemberInfo> members = GetPublicMembers(sourceType);
+            MemberInfo[] members = GetPublicMembers(sourceType);
             foreach (MemberInfo member in members)
             {
-                if (member.MemberType == MemberTypes.Property)
+                if (member.IsProperty())
                 {
                     MethodInfo method = ((PropertyInfo)member).GetGetMethod();
                     if (method.IsNull())
@@ -53,10 +57,10 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         {
             var result = new List<MemberInfo>();
 
-            List<MemberInfo> members = GetPublicMembers(targetType);
+            MemberInfo[] members = GetPublicMembers(targetType);
             foreach (MemberInfo member in members)
             {
-                if (member.MemberType == MemberTypes.Property)
+                if (member.IsProperty())
                 {
                     MethodInfo method = ((PropertyInfo)member).GetSetMethod();
                     if (method.IsNull() || method.GetParameters().Length != 1)

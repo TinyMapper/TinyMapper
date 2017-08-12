@@ -102,19 +102,19 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             {
                 return EnumerableToList(enumerable);
             }
-            else if (targetType.IsArray)
+            if (targetType.IsArray)
             {
                 return EnumerableToArray(enumerable);
             }
-            else if (typeof(TSource).IsDictionaryOf() && targetType.IsDictionaryOf())
+            if (typeof(TSource).IsDictionaryOf() && targetType.IsDictionaryOf())
             {
                 return DictionaryToDictionary(enumerable);
             }
-            else if (targetType == typeof(ArrayList))
+            if (targetType == typeof(ArrayList))
             {
                 return EnumerableToArrayList(enumerable);
             }
-            else if (targetType.IsIEnumerable())
+            if (targetType.IsIEnumerable())
             {
                 // Default Case
                 return EnumerableToEnumerable(enumerable);

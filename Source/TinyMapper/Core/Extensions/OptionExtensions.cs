@@ -4,7 +4,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 namespace Nelibur.ObjectMapper.Core.Extensions
 {
     /// <summary>
-    ///     https://github.com/Nelibur/Nelibur.
+    ///     https://github.com/Nelibur/Nelibur
     /// </summary>
     internal static class OptionExtensions
     {

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if COREFX
+using System.Reflection;
+#endif
 using System.Threading;
 using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core;
@@ -164,7 +167,9 @@ namespace Nelibur.ObjectMapper
                         }
                     }
                     else
-                        throw new MappingException($"Unable to find a binding for type '{typePair.Source?.Name}' to '{typePair.Target?.Name}'.");
+                    {
+                        throw new TinyMapperException($"Unable to find a binding for type '{typePair.Source?.Name}' to '{typePair.Target?.Name}'.");
+                    }
                 }
             }
             finally
@@ -193,7 +198,7 @@ namespace Nelibur.ObjectMapper
                 if (_mappers.TryGetValue(TypePair.Create(source, types.Target), out result))
                     return result;
             }
-            while ((source = source.BaseType) != null);
+            while ((source = Helpers.BaseType(source)) != null);
 
             return null;
         }

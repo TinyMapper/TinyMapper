@@ -4,7 +4,7 @@ using Nelibur.ObjectMapper.Core.DataStructures;
 namespace Nelibur.ObjectMapper.Core.Extensions
 {
     /// <summary>
-    ///     https://github.com/Nelibur/Nelibur.
+    ///     https://github.com/Nelibur/Nelibur
     /// </summary>
     internal static class ObjectExtensions
     {
@@ -20,7 +20,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
 
         public static Option<T> ToOption<T>(this T value)
         {
-            if (typeof(T).IsValueType == false && ReferenceEquals(value, null))
+            if (Helpers.IsValueType(typeof(T)) == false && ReferenceEquals(value, null))
             {
                 return Option<T>.Empty;
             }

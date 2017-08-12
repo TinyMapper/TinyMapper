@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
@@ -38,7 +39,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             EmitCreateTargetInstance(typePair.Target, typeBuilder);
             Option<MapperCache> mappers = EmitMapClass(typePair, typeBuilder);
 
-            var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
+            var result = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
             mappers.Do(x => result.AddMappers(x.Mappers));
             return result;
         }
@@ -58,7 +59,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(CreateTargetInstanceMethod, OverrideProtected, targetType, Type.EmptyTypes);
             var codeGenerator = new CodeGenerator(methodBuilder.GetILGenerator());
 
-            IEmitterType result = targetType.IsValueType ? EmitValueType(targetType, codeGenerator) : EmitRefType(targetType);
+            IEmitterType result = Helpers.IsValueType(targetType) ? EmitValueType(targetType, codeGenerator) : EmitRefType(targetType);
 
             EmitReturn.Return(result, targetType).Emit(codeGenerator);
         }

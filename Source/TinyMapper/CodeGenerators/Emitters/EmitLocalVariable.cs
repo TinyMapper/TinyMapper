@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
+using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 
@@ -19,7 +20,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
 
         public void Emit(CodeGenerator generator)
         {
-            _localBuilder.Where(x => x.LocalType.IsValueType)
+            _localBuilder.Where(x => Helpers.IsValueType(x.LocalType))
                          .Do(x => generator.Emit(OpCodes.Ldloca, x.LocalIndex))
                          .Do(x => generator.Emit(OpCodes.Initobj, x.LocalType));
         }

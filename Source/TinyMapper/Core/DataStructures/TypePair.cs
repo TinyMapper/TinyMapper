@@ -43,7 +43,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
         {
             get
             {
-                return Source.IsEnum && Target.IsEnum;
+                return Helpers.IsEnum(Source) && Helpers.IsEnum(Target);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
         {
             get
             {
-                return Source.IsPrimitive && Target.IsPrimitive;
+                return Helpers.IsPrimitive(Source) && Helpers.IsPrimitive(Target);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
         {
             get
             {
-                return Source.IsValueType && Target.IsValueType;
+                return Helpers.IsValueType(Source) && Helpers.IsValueType(Target);
             }
         }
 

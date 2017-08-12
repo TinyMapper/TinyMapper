@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Nelibur.ObjectMapper.CodeGenerators;
 using Nelibur.ObjectMapper.CodeGenerators.Emitters;
+using Nelibur.ObjectMapper.Core;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
 using Nelibur.ObjectMapper.Mappers.Caches;
@@ -57,7 +58,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 EmitEnumerableToEnumerable(parentType, typeBuilder, typePair);
             }
 
-            var result = (Mapper)Activator.CreateInstance(typeBuilder.CreateType());
+            var result = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
             result.AddMappers(_mapperCache.Mappers);
 
             return result;
