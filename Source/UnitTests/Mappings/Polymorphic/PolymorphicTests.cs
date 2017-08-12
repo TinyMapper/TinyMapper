@@ -86,7 +86,7 @@ namespace UnitTests.Mappings.Polymorphic
             };
 
             // Act / Assert
-            Assert.Throws<MappingException>(() => TinyMapper.Map<TargetB>(source));
+            Assert.Throws<TinyMapperException>(() => TinyMapper.Map<TargetB>(source));
         }
 
         [Fact]
