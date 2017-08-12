@@ -9,11 +9,7 @@ namespace Nelibur.ObjectMapper
 
         public TinyMapperConfig(TargetMapperBuilder targetMapperBuilder)
         {
-            if (targetMapperBuilder == null)
-            {
-                throw new ArgumentNullException();
-            }
-            _targetMapperBuilder = targetMapperBuilder;
+            _targetMapperBuilder = targetMapperBuilder ?? throw new ArgumentNullException();
         }
 
         public bool EnablePolymorphicMapping { get; set; } = true;

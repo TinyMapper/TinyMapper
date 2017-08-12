@@ -47,7 +47,7 @@ namespace Nelibur.ObjectMapper.Mappers
         protected string GetMapperFullName()
         {
             string random = Guid.NewGuid().ToString("N");
-            return string.Format("{0}.{1}.Mapper{2}", AssemblyName, ScopeName, random);
+            return $"{AssemblyName}.{ScopeName}.Mapper{random}";
         }
 
         protected abstract bool IsSupportedCore(TypePair typePair);

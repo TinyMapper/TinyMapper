@@ -14,7 +14,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             MapperCache = new Option<MapperCache>(mappers, mappers.IsEmpty);
         }
 
-        public IEmitter Emitter { get; private set; }
+        public IEmitter Emitter { get; }
         public Option<MapperCache> MapperCache { get; private set; }
 
         public void AddMapper(MapperCache value)

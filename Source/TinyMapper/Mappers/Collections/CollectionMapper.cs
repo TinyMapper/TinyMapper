@@ -120,8 +120,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 return EnumerableToEnumerable(enumerable);
             }
 
-            string errorMessage = string.Format("Not suppoerted From {0} To {1}", typeof(TSource).Name, targetType.Name);
-            throw new NotSupportedException(errorMessage);
+            throw new NotSupportedException($"Not suppoerted From {typeof(TSource).Name} To {targetType.Name}");
         }
     }
 }

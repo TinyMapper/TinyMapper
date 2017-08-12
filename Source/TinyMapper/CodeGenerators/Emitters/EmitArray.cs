@@ -23,7 +23,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
                 ObjectType = array.ObjectType.GetElementType();
             }
 
-            public Type ObjectType { get; private set; }
+            public Type ObjectType { get; }
 
             public void Emit(CodeGenerator generator)
             {

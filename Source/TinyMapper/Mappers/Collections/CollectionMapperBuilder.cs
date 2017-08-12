@@ -29,13 +29,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
         }
 
-        protected override string ScopeName
-        {
-            get
-            {
-                return "CollectionMappers";
-            }
-        }
+        protected override string ScopeName => "CollectionMappers";
 
         protected override Mapper BuildCore(TypePair typePair)
         {

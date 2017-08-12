@@ -11,7 +11,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
             ObjectType = objectType;
         }
 
-        public Type ObjectType { get; private set; }
+        public Type ObjectType { get; }
 
         public void Emit(CodeGenerator generator)
         {

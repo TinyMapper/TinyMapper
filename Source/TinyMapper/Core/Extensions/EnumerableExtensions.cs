@@ -86,10 +86,7 @@ namespace Nelibur.ObjectMapper.Core.Extensions
                 }
                 catch (Exception ex)
                 {
-                    if (exceptionHandler != null)
-                    {
-                        exceptionHandler(ex);
-                    }
+                    exceptionHandler?.Invoke(ex);
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
                 ObjectType = property.PropertyType;
             }
 
-            public Type ObjectType { get; private set; }
+            public Type ObjectType { get; }
 
             public void Emit(CodeGenerator generator)
             {
@@ -49,7 +49,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
                 ObjectType = _callMethod.ObjectType;
             }
 
-            public Type ObjectType { get; private set; }
+            public Type ObjectType { get; }
 
             public void Emit(CodeGenerator generator)
             {

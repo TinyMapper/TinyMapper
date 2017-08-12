@@ -15,17 +15,11 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
 
         public static Option<T> Empty { get; } = new Option<T>(default(T), false);
 
-        public bool HasNoValue
-        {
-            get
-            {
-                return !HasValue;
-            }
-        }
+        public bool HasNoValue => !HasValue;
 
         public bool HasValue { get; }
 
-        public T Value { get; private set; }
+        public T Value { get; }
 
         public Option<T> Match(Func<T, bool> predicate, Action<T> action)
         {

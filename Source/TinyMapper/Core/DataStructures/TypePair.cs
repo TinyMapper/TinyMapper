@@ -39,64 +39,22 @@ namespace Nelibur.ObjectMapper.Core.DataStructures
             }
         }
 
-        public bool IsEnumTypes
-        {
-            get
-            {
-                return Helpers.IsEnum(Source) && Helpers.IsEnum(Target);
-            }
-        }
+        public bool IsEnumTypes => Helpers.IsEnum(Source) && Helpers.IsEnum(Target);
 
-        public bool IsEnumerableTypes
-        {
-            get
-            {
-                return Source.IsIEnumerable() && Target.IsIEnumerable();
-            }
-        }
+        public bool IsEnumerableTypes => Source.IsIEnumerable() && Target.IsIEnumerable();
 
-        public bool IsNullableToNotNullable
-        {
-            get
-            {
-                return Source.IsNullable() && Target.IsNullable() == false;
-            }
-        }
+        public bool IsNullableToNotNullable => Source.IsNullable() && Target.IsNullable() == false;
 
-        public Type Source { get; private set; }
-        public Type Target { get; private set; }
+        public Type Source { get; }
+        public Type Target { get; }
 
-        private bool IsEqualTypes
-        {
-            get
-            {
-                return Source == Target;
-            }
-        }
+        private bool IsEqualTypes => Source == Target;
 
-        private bool IsNullableTypes
-        {
-            get
-            {
-                return Source.IsNullable() && Target.IsNullable();
-            }
-        }
+        private bool IsNullableTypes => Source.IsNullable() && Target.IsNullable();
 
-        private bool IsPrimitiveTypes
-        {
-            get
-            {
-                return Helpers.IsPrimitive(Source) && Helpers.IsPrimitive(Target);
-            }
-        }
+        private bool IsPrimitiveTypes => Helpers.IsPrimitive(Source) && Helpers.IsPrimitive(Target);
 
-        private bool IsValueTypes
-        {
-            get
-            {
-                return Helpers.IsValueType(Source) && Helpers.IsValueType(Target);
-            }
-        }
+        private bool IsValueTypes => Helpers.IsValueType(Source) && Helpers.IsValueType(Target);
 
         public static TypePair Create(Type source, Type target)
         {

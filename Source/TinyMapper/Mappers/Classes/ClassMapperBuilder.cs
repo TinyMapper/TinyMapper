@@ -24,13 +24,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             _mappingMemberBuilder = new MappingMemberBuilder(config);
         }
 
-        protected override string ScopeName
-        {
-            get
-            {
-                return "ClassMappers";
-            }
-        }
+        protected override string ScopeName => "ClassMappers";
 
         protected override Mapper BuildCore(TypePair typePair)
         {

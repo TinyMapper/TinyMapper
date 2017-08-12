@@ -22,7 +22,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
                 ObjectType = localBuilder.LocalType;
             }
 
-            public Type ObjectType { get; private set; }
+            public Type ObjectType { get; }
 
             public void Emit(CodeGenerator generator)
             {

@@ -10,13 +10,7 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
     {
         private readonly Dictionary<TypePair, MapperCacheItem> _cache = new Dictionary<TypePair, MapperCacheItem>();
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return _cache.Count == 0;
-            }
-        }
+        public bool IsEmpty => _cache.Count == 0;
 
         public List<Mapper> Mappers
         {

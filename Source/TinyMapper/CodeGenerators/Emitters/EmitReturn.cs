@@ -13,7 +13,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
             _returnValue = returnValue;
         }
 
-        public Type ObjectType { get; private set; }
+        public Type ObjectType { get; }
 
         public void Emit(CodeGenerator generator)
         {

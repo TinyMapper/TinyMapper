@@ -19,8 +19,8 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             TypePair = typePair;
         }
 
-        public MemberInfo Source { get; private set; }
-        public MemberInfo Target { get; private set; }
-        public TypePair TypePair { get; private set; }
+        public MemberInfo Source { get; }
+        public MemberInfo Target { get; }
+        public TypePair TypePair { get; }
     }
 }

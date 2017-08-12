@@ -3,7 +3,7 @@
 namespace Nelibur.ObjectMapper.Core
 {
     /// <summary>
-    ///     https://github.com/Nelibur/Nelibur.
+    ///     https://github.com/Nelibur/Nelibur
     /// </summary>
     internal static class Error
     {

@@ -36,7 +36,7 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public Func<string, string, bool> NameMatching { get; private set; }
 
-        public IDynamicAssembly Assembly { get; private set; }
+        public IDynamicAssembly Assembly { get; }
 
         public Option<BindingConfig> GetBindingConfig(TypePair typePair)
         {

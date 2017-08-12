@@ -10,7 +10,7 @@ namespace Nelibur.ObjectMapper.Bindings
             TargetType = targetType;
         }
 
-        public Type TargetType { get; private set; }
+        public Type TargetType { get; }
     }
 
 
@@ -23,7 +23,7 @@ namespace Nelibur.ObjectMapper.Bindings
             TargetType = targetType;
         }
 
-        public Type TargetType { get; private set; }
-        public string MemberName { get; private set; }
+        public Type TargetType { get; }
+        public string MemberName { get; }
     }
 }
