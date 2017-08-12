@@ -7,7 +7,7 @@ namespace UnitTests
 {
     public class TinyMapperConfigTests : IDisposable
     {
-        private static int index = 0;
+        private static int index;
         private readonly AppDomain TestDomain;
 
         public TinyMapperConfigTests()
