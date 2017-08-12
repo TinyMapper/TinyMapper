@@ -52,7 +52,9 @@ var personDto = TinyMapper.Map<PersonDto>(person);
 ```
 
 `TinyMapper` supports the following platforms:
-* .Net 3.0+
+* .Net 3.5+
+* [.NET Standard 1.3](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
+* .NET Core
 * Mono
 
 ## What to read
@@ -65,6 +67,7 @@ var personDto = TinyMapper.Map<PersonDto>(person);
 A big thanks to all of TinyMapper's contributors:
  
  * [nzaugg](https://github.com/nzaugg)
+ * [Sdzeng](https://github.com/Sdzeng)
  * [iEmiya](https://github.com/iEmiya)
  * [lijaso](https://github.com/lijaso)
  * [nomailme](https://github.com/nomailme)
