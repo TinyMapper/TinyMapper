@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !COREFX
+using System;
 using System.Reflection.Emit;
 using Xunit;
 
@@ -71,3 +72,4 @@ namespace UnitTests.Snippets
         }
     }
 }
+#endif

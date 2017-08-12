@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !COREFX
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using Nelibur.ObjectMapper;
@@ -58,3 +59,4 @@ namespace UnitTests.Mappings.TypeConverters
         }
     }
 }
+#endif

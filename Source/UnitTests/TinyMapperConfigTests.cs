@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !COREFX
+using System;
 using Nelibur.ObjectMapper;
 using Xunit;
 
@@ -107,3 +108,4 @@ namespace UnitTests
         }
     }
 }
+#endif

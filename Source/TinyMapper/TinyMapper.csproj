@@ -15,11 +15,11 @@
     <RepositoryUrl>https://github.com/TinyMapper/TinyMapper</RepositoryUrl>
     <PackageProjectUrl>http://tinymapper.net/</PackageProjectUrl>
     <Version>2.1.0</Version>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)' == 'VS'">
     <TargetFrameworks>$(TargetFrameworks)</TargetFrameworks>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <DefineConstants>COREFX</DefineConstants>

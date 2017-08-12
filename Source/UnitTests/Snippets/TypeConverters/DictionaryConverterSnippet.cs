@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !COREFX
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -62,3 +63,4 @@ namespace UnitTests.Snippets.TypeConverters
         }
     }
 }
+#endif
