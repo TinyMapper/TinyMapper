@@ -14,9 +14,16 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/TinyMapper/TinyMapper</RepositoryUrl>
     <PackageProjectUrl>http://tinymapper.net/</PackageProjectUrl>
-    <Version>2.1.0</Version>
+	<IncludeSymbols>false</IncludeSymbols>
+    <Version>2.1.1-beta</Version>
+    <AssemblyVersion>2.0.4.8</AssemblyVersion>
+    <FileVersion>2.0.4.8</FileVersion>
   </PropertyGroup>
   
+  <PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='VS'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'VS'">
     <TargetFrameworks>$(TargetFrameworks)</TargetFrameworks>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -24,10 +31,6 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <DefineConstants>COREFX</DefineConstants>
     <ImportLibs>core</ImportLibs>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='VS|net40|AnyCPU'">
-    <Optimize>True</Optimize>
-    <DocumentationFile>bin\VS\net40\TinyMapper.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup Condition="'$(ImportLibs)' == 'net'">
     <Reference Include="System" />

@@ -104,6 +104,8 @@ namespace UnitTests.Mappings.Collections
                 Int = 1
             };
 
+            TinyMapper.Bind<Source2, Target2>();
+
             var actual = TinyMapper.Map<Target2>(source);
 
             Assert.Equal(source.Ints, actual.Ints);

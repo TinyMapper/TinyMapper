@@ -12,9 +12,6 @@ namespace Nelibur.ObjectMapper
             _targetMapperBuilder = targetMapperBuilder ?? throw new ArgumentNullException();
         }
 
-        public bool EnablePolymorphicMapping { get; set; } = true;
-        public bool EnableAutoBinding { get; set; } = true;
-
         public void NameMatching(Func<string, string, bool> nameMatching)
         {
             if (nameMatching == null)
@@ -27,8 +24,6 @@ namespace Nelibur.ObjectMapper
         public void Reset()
         {
             _targetMapperBuilder.SetNameMatching(TargetMapperBuilder.DefaultNameMatching);
-            EnableAutoBinding = true;
-            EnablePolymorphicMapping = true;
         }
     }
 }

@@ -36,6 +36,7 @@ namespace UnitTests
                     config.NameMatching((x, y) => string.Equals(x + "1", y, StringComparison.OrdinalIgnoreCase));
                 });
 
+                TinyMapper.Bind<SourceCustom, TargetCustom>();
                 var sourceCustom = new SourceCustom { Custom = "Hello", Default = "Default" };
                 var targetCustom = TinyMapper.Map<TargetCustom>(sourceCustom);
 
@@ -46,6 +47,7 @@ namespace UnitTests
                 {
                     config.Reset();
                 });
+                TinyMapper.Bind<SourceDefault, TargetDefault>();
 
                 var sourceDefault = new SourceDefault { Custom = "Hello", Default = "Default" };
                 var targetDefault = TinyMapper.Map<TargetDefault>(sourceDefault);
@@ -65,6 +67,7 @@ namespace UnitTests
                 {
                     config.NameMatching((x, y) => string.Equals(x + "1", y, StringComparison.OrdinalIgnoreCase));
 
+                    TinyMapper.Bind<SourceCustom, TargetCustom>();
                     var sourceCustomOtherDomain = new SourceCustom { Custom = "Hello", Default = "Default" };
                     var targetCustomOtherDomain = TinyMapper.Map<TargetCustom>(sourceCustomOtherDomain);
 
@@ -73,9 +76,11 @@ namespace UnitTests
                 });
             });
 
+            TinyMapper.Bind<SourceCustom, TargetCustom>();
             var sourceCustom = new SourceCustom { Custom = "Hello", Default = "Default" };
             var targetCustom = TinyMapper.Map<TargetCustom>(sourceCustom);
 
+            TinyMapper.Bind<SourceDefault, TargetDefault>();
             var sourceDefault = new SourceDefault { Custom = "Hello", Default = "Default" };
             var targetDefault = TinyMapper.Map<TargetDefault>(sourceDefault);
 

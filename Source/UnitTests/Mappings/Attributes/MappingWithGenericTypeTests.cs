@@ -62,6 +62,7 @@ namespace UnitTests.Mappings.Attributes
         [Fact]
         public void Map_WithType_Back_Success()
         {
+            TinyMapper.Bind<Target, SourceDto>();
             Target target = CreateTarget();
             var source = TinyMapper.Map<SourceDto>(target);
 

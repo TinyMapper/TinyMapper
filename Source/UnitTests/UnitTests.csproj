@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<TargetFrameworks>net452;netcoreapp1.1</TargetFrameworks>
-    <ImportLibs>net</ImportLibs>
     <Configurations>Debug;Release;VS</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'VS'">
@@ -19,9 +18,6 @@
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(ImportLibs)' == 'net'">
-    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup Condition="'$(ImportLibs)' == 'core'">
 	<PackageReference Include="System.Reflection.Emit" Version="4.3.0" />

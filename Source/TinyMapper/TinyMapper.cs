@@ -33,7 +33,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Create a one-way mapping between <see cref="TSource"/> <see cref="TTarget"/>.
+        /// Create a one-way mapping between Source and Target types.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>
@@ -48,7 +48,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Create a one-way mapping between <see cref="TSource"/> <see cref="TTarget"/>.
+        /// Create a one-way mapping between Source and Target types.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>
@@ -68,7 +68,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Find out if a binding exists from <see cref="TSource"/> to <see cref="TTarget"/>.
+        /// Find out if a binding exists from Source to Target.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>
@@ -84,7 +84,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Mapsthe source to <see cref="TTarget"/> type.
+        /// Mapsthe source to Target type.
         /// The method can be called in parallel to Map methods, but cannot be called in parallel to Bind method.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
@@ -112,7 +112,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Maps the source to <see cref="TTarget"/> type.
+        /// Maps the source to Target type.
         /// The method can be called in parallel to Map methods, but cannot be called in parallel to Bind method.
         /// </summary>
         /// <typeparam name="TTarget">Target type.</typeparam>
