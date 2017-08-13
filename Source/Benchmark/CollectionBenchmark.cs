@@ -8,7 +8,7 @@ namespace Benchmark
 {
     public class CollectionBenchmark
     {
-        private const int CollectionLength = 150;
+        private const int CollectionLength = 1;
         private readonly SourceWithCollections _source = CreateSource();
 
         private const int Count = 1000;
