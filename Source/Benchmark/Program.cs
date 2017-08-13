@@ -1,15 +1,16 @@
 ﻿using System;
+using BenchmarkDotNet.Running;
 
 namespace Benchmark
 {
-    internal class Program
+    public class Program
     {
-        private const int Iterations = 100000;
-
-        private static void Main()
+        public static void Main()
         {
-            Console.WriteLine("Press any key to Exit");
-            Console.ReadLine();
+//            BenchmarkRunner.Run<PrimitiveTypeBenchmark>();
+            BenchmarkRunner.Run<CollectionBenchmark>();
+
+            Console.ReadKey();
         }
     }
 }

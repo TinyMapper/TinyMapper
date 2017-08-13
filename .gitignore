@@ -2,6 +2,7 @@ Out
 .svn
 obj
 bin
+BenchmarkDotNet.Artifacts
 .idea
 _ReSharper*
 *.sln.GhostDoc.xml
