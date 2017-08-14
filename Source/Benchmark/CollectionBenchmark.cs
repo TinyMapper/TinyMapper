@@ -35,7 +35,7 @@ namespace Benchmark
         }
 
         [Benchmark]
-        public void BenchmarkAutoMapper()
+        public void CollectionMapping_AutoMapper()
         {
             for (int i = 0; i < Iterations; i++)
             {
@@ -44,7 +44,7 @@ namespace Benchmark
         }
 
         [Benchmark]
-        public void BenchmarkTinyMapper()
+        public void CollectionMapping_TinyMapper()
         {
             for (int i = 0; i < Iterations; i++)
             {
@@ -53,7 +53,7 @@ namespace Benchmark
         }
 
         [Benchmark]
-        public void BenchmarkHandwritten()
+        public void CollectionMapping_Handwritten()
         {
             for (int i = 0; i < Iterations; i++)
             {

@@ -15,9 +15,10 @@
     <RepositoryUrl>https://github.com/TinyMapper/TinyMapper</RepositoryUrl>
     <PackageProjectUrl>http://tinymapper.net/</PackageProjectUrl>
 	<IncludeSymbols>false</IncludeSymbols>
-    <Version>2.1.1-beta</Version>
-    <AssemblyVersion>2.0.4.8</AssemblyVersion>
-    <FileVersion>2.0.4.8</FileVersion>
+    <Version>2.1.2-beta</Version>
+    <AssemblyVersion>2.0.4.14</AssemblyVersion>
+    <FileVersion>2.0.4.14</FileVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='VS'">
