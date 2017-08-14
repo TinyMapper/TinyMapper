@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using Nelibur.ObjectMapper;
-using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests.Mappings.Collections

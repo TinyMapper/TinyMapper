@@ -23,6 +23,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string EnumerableToArrayTemplateMethod = "EnumerableToArrayTemplate";
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
+        private const string EnumerableOfDeepCloneableToListTemplateMethod = "EnumerableOfDeepCloneableToListTemplate";
         private readonly MapperCache _mapperCache = new MapperCache();
 
         public CollectionMapperBuilder(IMapperBuilderConfig config) : base(config)
@@ -139,34 +140,51 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
         private void EmitEnumerableToArray(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToArrayMethod, EnumerableToArrayTemplateMethod);
+            var collectionItemTypePair = GetCollectionItemTypePair(typePair);
+
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, collectionItemTypePair, EnumerableToArrayMethod, EnumerableToArrayTemplateMethod);
         }
 
         private void EmitEnumerableToList(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
+            var collectionItemTypePair = GetCollectionItemTypePair(typePair);
+            var templateMethod = collectionItemTypePair.IsDeepCloneable ? EnumerableOfDeepCloneableToListTemplateMethod : EnumerableToListTemplateMethod;
+
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, collectionItemTypePair, EnumerableToListMethod, templateMethod);
         }
 
         private void EmitEnumerableToEnumerable(Type parentType, TypeBuilder typeBuilder, TypePair typePair)
         {
-            EmitEnumerableToTarget(parentType, typeBuilder, typePair, EnumerableToListMethod, EnumerableToListTemplateMethod);
+            var collectionItemTypePair = GetCollectionItemTypePair(typePair);
+            var templateMethod = collectionItemTypePair.IsDeepCloneable ? EnumerableOfDeepCloneableToListTemplateMethod : EnumerableToListTemplateMethod;
+
+            EmitEnumerableToTarget(parentType, typeBuilder, typePair, collectionItemTypePair, EnumerableToListMethod, templateMethod);
+        }
+
+        private static TypePair GetCollectionItemTypePair(TypePair typePair)
+        {
+            Type sourceItemType = typePair.Source.GetCollectionItemType();
+            Type targetItemType = typePair.Target.GetCollectionItemType();
+
+            return new TypePair(sourceItemType, targetItemType);
         }
 
         private void EmitEnumerableToTarget(
             Type parentType,
             TypeBuilder typeBuilder,
             TypePair typePair,
+            TypePair collectionItemTypePair,
             string methodName,
             string templateMethodName)
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
-            Type sourceItemType = typePair.Source.GetCollectionItemType();
-            Type targetItemType = typePair.Target.GetCollectionItemType();
+            if (!collectionItemTypePair.IsDeepCloneable)
+            {
+                EmitConvertItem(typeBuilder, collectionItemTypePair);
+            }
 
-            EmitConvertItem(typeBuilder, new TypePair(sourceItemType, targetItemType));
-
-            MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, targetItemType);
+            MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, collectionItemTypePair.Target);
 
             IEmitterType returnValue = EmitMethod.Call(methodTemplate, EmitThis.Load(parentType), EmitArgument.Load(typeof(IEnumerable), 1));
             EmitReturn.Return(returnValue).Emit(new CodeGenerator(methodBuilder.GetILGenerator()));

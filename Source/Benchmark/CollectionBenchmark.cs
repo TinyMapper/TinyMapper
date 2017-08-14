@@ -8,10 +8,10 @@ namespace Benchmark
 {
     public class CollectionBenchmark
     {
-        private const int CollectionLength = 1;
+        private const int CollectionLength = 100;
         private readonly SourceWithCollections _source = CreateSource();
 
-        private const int Count = 1000;
+        private const int Iterations = 1;
 
 
         public CollectionBenchmark()
@@ -37,7 +37,7 @@ namespace Benchmark
         [Benchmark]
         public void BenchmarkAutoMapper()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Iterations; i++)
             {
                 Mapper.Map<TargetWithCollections>(_source);
             }
@@ -46,7 +46,7 @@ namespace Benchmark
         [Benchmark]
         public void BenchmarkTinyMapper()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Iterations; i++)
             {
                 TinyMapper.Map<TargetWithCollections>(_source);
             }
@@ -55,7 +55,7 @@ namespace Benchmark
         [Benchmark]
         public void BenchmarkHandwritten()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Iterations; i++)
             {
                 HandwrittenMap(_source, new TargetWithCollections());
             }

@@ -54,7 +54,7 @@ namespace Nelibur.ObjectMapper.CodeGenerators.Emitters
                 ObjectType = _field.FieldType;
             }
 
-            public Type ObjectType { get; private set; }
+            public Type ObjectType { get; }
 
             public void Emit(CodeGenerator generator)
             {

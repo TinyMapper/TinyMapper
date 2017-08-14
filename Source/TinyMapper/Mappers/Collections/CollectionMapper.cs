@@ -78,6 +78,13 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
             return result;
         }
 
+        protected List<TTargetItem> EnumerableOfDeepCloneableToListTemplate<TTargetItem>(IEnumerable source)
+        {
+            var result = new List<TTargetItem>();
+            result.AddRange((IEnumerable<TTargetItem>)source);
+            return result;
+        }
+
         protected virtual TTarget EnumerableToEnumerable(IEnumerable source)
         {
             IList result = null;
