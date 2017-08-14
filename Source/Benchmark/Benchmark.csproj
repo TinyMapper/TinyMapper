@@ -8,6 +8,6 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="BenchmarkDotNet" Version="0.10.9" />
-    <PackageReference Include="TinyMapper" Version="2.1.1-beta" />
+    <PackageReference Include="TinyMapper" Version="2.1.2-beta" />
   </ItemGroup>
 </Project>
