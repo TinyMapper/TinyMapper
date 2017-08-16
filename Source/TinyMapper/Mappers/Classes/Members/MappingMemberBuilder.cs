@@ -142,11 +142,11 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return bindingConfig.Map(x => x.IsIgnoreSourceField(sourceMember.Name)).Value;
         }
 
-        private List<MemberInfo> GetSourceMemberPath(BindingFieldPath fieldPath, Type sourceType)
+        private List<MemberInfo> GetSourceMemberPath(List<string> fieldPath, Type sourceType)
         {
             var result = new List<MemberInfo>();
             var dummyType = sourceType;
-            foreach (var path in fieldPath.Path)
+            foreach (var path in fieldPath)
             {
                 var member = GetSourceMembers(dummyType).Single(x => string.Equals(x.Name, path, StringComparison.Ordinal));
                 result.Add(member);
@@ -174,33 +174,30 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 }
 
                 string targetName = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
-                var targetPath = bindingConfig.Map(x => x.GetBindFieldTargetPath(targetName));
-                var sourcePath = bindingConfig.Map(x => x.GetBindFieldSourcePath(sourceMember.Name));
 
-                if (targetPath.HasValue)
+                MemberInfo targetMember = targetMembers.FirstOrDefault(x => _config.NameMatching(targetName, x.Name));
+                if (targetMember.IsNull())
                 {
-                    var sourceMemperPath = GetSourceMemberPath(sourcePath.Value, typePair.Source);
-                    var targetMemperPath = GetSourceMemberPath(targetPath.Value, typePair.Target);
-                    result.Add(new MappingMemberPath(sourceMemperPath, targetMemperPath));
+                    continue;
+                }
+                Option<Type> concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
+                if (concreteBindingType.HasValue)
+                {
+                    var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);
+                    result.Add(new MappingMemberPath(sourceMember, targetMember, mappingTypePair));
                 }
                 else
                 {
+                    result.Add(new MappingMemberPath(sourceMember, targetMember));
+                }
 
-                    MemberInfo targetMember = targetMembers.FirstOrDefault(x => _config.NameMatching(targetName, x.Name));
-                    if (targetMember.IsNull())
-                    {
-                        continue;
-                    }
-                    Option<Type> concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
-                    if (concreteBindingType.HasValue)
-                    {
-                        var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);
-                        result.Add(new MappingMemberPath(sourceMember, targetMember, mappingTypePair));
-                    }
-                    else
-                    {
-                        result.Add(new MappingMemberPath(sourceMember, targetMember));
-                    }
+                var bindFieldPath = bindingConfig.Map(x => x.GetBindFieldPath(sourceMember.Name));
+
+                if (bindFieldPath.HasValue)
+                {
+                    var sourceMemperPath = GetSourceMemberPath(bindFieldPath.Value.SourcePath, typePair.Source);
+                    var targetMemperPath = GetSourceMemberPath(bindFieldPath.Value.TargetPath, typePair.Target);
+                    result.Add(new MappingMemberPath(sourceMemperPath, targetMemperPath));
                 }
             }
             return result;

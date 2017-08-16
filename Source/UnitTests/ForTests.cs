@@ -12,7 +12,7 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            TinyMapper.Bind<TagSource, TagSource1>();
+//            TinyMapper.Bind<TagSource, TagSource1>();
             TinyMapper.Bind<SourceTest, TargetTest>(config =>
             {
                 config.Bind(from => from.Tag.Id, to => to.Id);

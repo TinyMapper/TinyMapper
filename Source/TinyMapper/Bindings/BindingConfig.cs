@@ -7,9 +7,8 @@ namespace Nelibur.ObjectMapper.Bindings
 {
     internal class BindingConfig
     {
-        private readonly Dictionary<string, string> _bindFields = new Dictionary<string, string>();
-        private readonly Dictionary<string, BindingFieldPath> _bindFieldsSourcePath = new Dictionary<string, BindingFieldPath>();
-        private readonly Dictionary<string, BindingFieldPath> _bindFieldsTargetPath = new Dictionary<string, BindingFieldPath>();
+        private readonly Dictionary<string, string> _oneToOneBindFields = new Dictionary<string, string>();
+        private readonly Dictionary<string, BindingFieldPath> _bindFieldsPath = new Dictionary<string, BindingFieldPath>();
         private readonly Dictionary<string, Type> _bindTypes = new Dictionary<string, Type>();
         private readonly Dictionary<string, Func<object, object>> _customTypeConverters = new Dictionary<string, Func<object, object>>();
         private readonly HashSet<string> _ignoreFields = new HashSet<string>();
@@ -21,12 +20,16 @@ namespace Nelibur.ObjectMapper.Bindings
 
         internal void BindFields(List<string> sourcePath, List<string> targetPath)
         {
-            var sourceFieldPath = new BindingFieldPath(sourcePath);
-            var targetFieldPath = new BindingFieldPath(targetPath);
+            var bindingFieldPath = new BindingFieldPath(sourcePath, targetPath);
 
-            _bindFields[sourceFieldPath.Head] = targetFieldPath.Head;
-            _bindFieldsSourcePath[sourceFieldPath.Head] = sourceFieldPath;
-            _bindFieldsTargetPath[targetFieldPath.Head] = targetFieldPath;
+            if (!bindingFieldPath.HasPath)
+            {
+                _oneToOneBindFields[bindingFieldPath.SourceHead] = bindingFieldPath.TargetHead;
+            }
+            else
+            {
+                _bindFieldsPath[bindingFieldPath.SourceHead] = bindingFieldPath;
+            }
         }
 
         internal void BindType(string targetName, Type value)
@@ -37,21 +40,14 @@ namespace Nelibur.ObjectMapper.Bindings
         internal Option<string> GetBindField(string sourceName)
         {
             string result;
-            bool exsist = _bindFields.TryGetValue(sourceName, out result);
+            bool exsist = _oneToOneBindFields.TryGetValue(sourceName, out result);
             return new Option<string>(result, exsist);
         }
 
-        internal Option<BindingFieldPath> GetBindFieldSourcePath(string fieldName)
+        internal Option<BindingFieldPath> GetBindFieldPath(string fieldName)
         {
             BindingFieldPath result;
-            bool exsist = _bindFieldsSourcePath.TryGetValue(fieldName, out result);
-            return new Option<BindingFieldPath>(result, exsist);
-        }
-
-        internal Option<BindingFieldPath> GetBindFieldTargetPath(string fieldName)
-        {
-            BindingFieldPath result;
-            bool exsist = _bindFieldsTargetPath.TryGetValue(fieldName, out result);
+            bool exsist = _bindFieldsPath.TryGetValue(fieldName, out result);
             return new Option<BindingFieldPath>(result, exsist);
         }
 

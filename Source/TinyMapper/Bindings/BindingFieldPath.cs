@@ -5,17 +5,19 @@ namespace Nelibur.ObjectMapper.Bindings
 {
     internal sealed class BindingFieldPath
     {
-        public BindingFieldPath(List<string> path)
+        public BindingFieldPath(List<string> sourcePath, List<string> targetPath)
         {
-            Path = path;
-            Head = path[0];
-            Tail = path[path.Count - 1];
-            HasPath = path.Count > 1;
+            SourcePath = sourcePath;
+            TargetPath = targetPath;
+            HasPath = sourcePath.Count != 1 || targetPath.Count != 1;
+            SourceHead = sourcePath[0];
+            TargetHead = targetPath[0];
         }
 
-        public List<string> Path { get; }
-        public string Head { get; }
-        public string Tail { get; }
+        public List<string> SourcePath { get; }
+        public List<string> TargetPath { get; }
+        public string SourceHead { get; }
+        public string TargetHead { get; }
         public bool HasPath { get; }
     }
 }
