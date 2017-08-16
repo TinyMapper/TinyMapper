@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Nelibur.ObjectMapper.Bindings
@@ -7,15 +8,16 @@ namespace Nelibur.ObjectMapper.Bindings
     {
         public void Bind(Expression<Func<TSource, object>> source, Expression<Func<TTarget, object>> target)
         {
-            string sourceName = GetMemberInfo(source);
-            string targetName = GetMemberInfo(target);
+            List<string> sourcePath = GetMemberInfoPath(source);
+            List<string> targetPath = GetMemberInfoPath(target);
 
-            if (string.Equals(sourceName, targetName, StringComparison.Ordinal))
+            if (sourcePath.Count == 1 && targetPath.Count == 1 &&
+                string.Equals(sourcePath[0], targetPath[0], StringComparison.Ordinal))
             {
                 return;
             }
 
-            BindFields(sourceName, targetName);
+            BindFields(sourcePath, targetPath);
         }
 
         //        public void Bind<TField>(Expression<Func<TTarget, TField>> target, TField value)
@@ -53,6 +55,34 @@ namespace Nelibur.ObjectMapper.Bindings
                 }
             }
             return member.Member.Name;
+        }
+
+        private static List<string> GetMemberInfoPath<T, TField>(Expression<Func<T, TField>> expression)
+        {
+            var member = expression.Body as MemberExpression;
+            if (member == null)
+            {
+                var unaryExpression = expression.Body as UnaryExpression;
+                if (unaryExpression != null)
+                {
+                    member = unaryExpression.Operand as MemberExpression;
+                }
+
+                if (member == null)
+                {
+                    throw new ArgumentException("Expression is not a MemberExpression", nameof(expression));
+                }
+            }
+            var result = new List<string>();
+            do
+            {
+                var resultMember = member.Member;
+                result.Add(resultMember.Name);
+                member = member.Expression as MemberExpression;
+            }
+            while (member != null);
+            result.Reverse();
+            return result;
         }
     }
 }

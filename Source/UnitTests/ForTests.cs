@@ -12,29 +12,73 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            TinyMapper.Bind<SourceTest, TargetTest>();
+            TinyMapper.Bind<TagSource, TagSource1>();
+            TinyMapper.Bind<SourceTest, TargetTest>(config =>
+            {
+                config.Bind(from => from.Tag.Id, to => to.Id);
+            });
 
             var source = new SourceTest
             {
-                List = new List<int>{1, 2, 3}
+                Tag = new TagSource
+                {
+                    Id = 1
+                }
+//                 DataSource = "Data"
             };
 
             DynamicAssemblyBuilder.Get().Save();
 
             var target = TinyMapper.Map<SourceTest, TargetTest>(source);
 
-            Assert.Equal(source.List, target.List);
         }
+
+//        public TargetTest Test1(SourceTest source, TargetTest target)
+//        {
+//            target.Id = source.Id;
+//            return target;
+//        }
+//
+//        public TargetTest Test2(SourceTest source, TargetTest target)
+//        {
+//            target.Tag2.Id = source.Id;
+//            return target;
+//        }
+
+        public TargetTest Test3(SourceTest source, TargetTest target)
+        {
+            target.Tag.Id = source.Tag.Id;
+            return target;
+        }
+
+//        public TargetTest Test5(SourceTest source, TargetTest target)
+//        {
+//            target.Id = source.Tag.Id;
+//            return target;
+//        }
     }
 
 
     public class SourceTest
     {
-        public List<int> List { get; set; }
+        public TagSource Tag { get; set; }
+    }
+
+
+    public class TagSource
+    {
+        public int Id { get; set; }
+    }
+
+    public class TagSource1
+    {
+        public int Id { get; set; }
     }
 
     public class TargetTest
     {
-        public List<int> List { get; set; }
+        public int Id { get; set; }
+        public TagSource1 Tag { get; set; }
+//        public int Id { get; set; }
     }
 }

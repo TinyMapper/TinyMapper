@@ -18,7 +18,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             _config = config;
         }
 
-        public MemberEmitterDescription Build(TypePair parentTypePair, List<MappingMember> members)
+        public MemberEmitterDescription Build(TypePair parentTypePair, List<MappingMemberPath> members)
         {
             var emitter = new EmitComposite();
             members.ForEach(x => emitter.Add(Build(parentTypePair, x)));
@@ -47,18 +47,35 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        private IEmitter Build(TypePair parentTypePair, MappingMember member)
+        private IEmitter Build(TypePair parentTypePair, MappingMemberPath memberPath)
         {
-            IEmitterType sourceObject = EmitArgument.Load(member.TypePair.Source, 1);
-            IEmitterType targetObject = EmitArgument.Load(member.TypePair.Target, 2);
 
-            IEmitterType sourceMember = LoadMember(member.Source, sourceObject);
-            IEmitterType targetMember = LoadMember(member.Target, targetObject);
+            if (memberPath.OneLevelTarget)
+            {
+                var sourceObject = EmitArgument.Load(memberPath.TypePair.Source, 1);
+                var targetObject = EmitArgument.Load(memberPath.TypePair.Target, 2);
 
-            IEmitterType convertedMember = ConvertMember(parentTypePair, member, sourceMember, targetMember);
+                var sourceMember = LoadMember(memberPath.Source, sourceObject, memberPath.Source.Count);
+                var targetMember = LoadMember(memberPath.Target, targetObject, memberPath.Target.Count);
 
-            IEmitter result = StoreTargetObjectMember(member, targetObject, convertedMember);
-            return result;
+                IEmitterType convertedMember = ConvertMember(parentTypePair, memberPath.Tail, sourceMember, targetMember);
+
+                IEmitter result = StoreTargetObjectMember(memberPath.Tail, targetObject, convertedMember);
+                return result;
+            }
+            else
+            {
+                var targetObject = EmitArgument.Load(memberPath.Head.TypePair.Target, 2);
+                var targetMember = LoadMember(memberPath.Target, targetObject, memberPath.Target.Count - 1);
+
+                var sourceObject = EmitArgument.Load(memberPath.Head.TypePair.Source, 1);
+                var sourceMember = LoadMember(memberPath.Source, sourceObject, memberPath.Source.Count);
+
+                IEmitterType convertedMember = ConvertMember(parentTypePair, memberPath.Tail, sourceMember, targetMember);
+
+                IEmitter result = StoreTargetObjectMember(memberPath.Tail, targetMember, convertedMember);
+                return result;
+            }
         }
 
         private IEmitterType ConvertMember(TypePair parentTypePair, MappingMember member, IEmitterType sourceMemeber, IEmitterType targetMember)
@@ -87,6 +104,20 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
         private IEmitterType LoadField(IEmitterType source, FieldInfo field)
         {
             return EmitField.Load(source, field);
+        }
+
+        private IEmitterType LoadMember(List<MemberInfo> members, IEmitterType sourceObject, int loadLevel)
+        {
+            IEmitterType dummySource = sourceObject;
+            if (members.Count == 1)
+            {
+                return LoadMember(members[0], dummySource);
+            }
+            for (int i = 0; i < loadLevel; i++)
+            {
+                dummySource = LoadMember(members[i], dummySource);
+            }
+            return dummySource;
         }
 
         private IEmitterType LoadMember(MemberInfo member, IEmitterType sourceObject)

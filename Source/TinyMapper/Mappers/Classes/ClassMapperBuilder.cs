@@ -90,7 +90,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         private MemberEmitterDescription EmitMappingMembers(TypePair typePair)
         {
-            List<MappingMember> members = _mappingMemberBuilder.Build(typePair);
+            List<MappingMemberPath> members = _mappingMemberBuilder.Build(typePair);
             MemberEmitterDescription result = _memberMapper.Build(typePair, members);
             return result;
         }

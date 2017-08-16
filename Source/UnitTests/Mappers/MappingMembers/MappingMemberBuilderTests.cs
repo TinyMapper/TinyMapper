@@ -13,7 +13,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Buid_Recursion_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
+            List<MappingMemberPath> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
             Assert.Equal(2, members.Count);
         }
 
@@ -21,7 +21,7 @@ namespace UnitTests.Mappers.MappingMembers
         public void Build_CommonFileds_Success()
         {
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub());
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceSimple), typeof(TargetSimple)));
+            List<MappingMemberPath> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceSimple), typeof(TargetSimple)));
             Assert.Equal(2, members.Count);
         }
 
@@ -33,7 +33,7 @@ namespace UnitTests.Mappers.MappingMembers
 
             var mappingMemberBuilder = new MappingMemberBuilder(new MappingBuilderConfigStub(bindingConfig));
 
-            List<MappingMember> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
+            List<MappingMemberPath> members = mappingMemberBuilder.Build(new TypePair(typeof(SourceWithRecursion), typeof(TargetWithRecursion)));
             Assert.Equal(1, members.Count);
         }
 

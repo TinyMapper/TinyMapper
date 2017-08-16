@@ -179,10 +179,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(methodName, OverrideProtected, typePair.Target, new[] { typeof(IEnumerable) });
 
-            if (!collectionItemTypePair.IsDeepCloneable)
-            {
-                EmitConvertItem(typeBuilder, collectionItemTypePair);
-            }
+            EmitConvertItem(typeBuilder, collectionItemTypePair);
 
             MethodInfo methodTemplate = parentType.GetGenericMethod(templateMethodName, collectionItemTypePair.Target);
 

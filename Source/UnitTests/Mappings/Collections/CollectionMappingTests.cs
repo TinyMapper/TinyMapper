@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Nelibur.ObjectMapper;
+using Nelibur.ObjectMapper.Reflection;
 using Xunit;
 
 namespace UnitTests.Mappings.Collections
@@ -33,7 +34,7 @@ namespace UnitTests.Mappings.Collections
                     }
                 }
             };
-
+//            DynamicAssemblyBuilder.Get().Save();
             var actual = TinyMapper.Map<Target1>(source);
 
             Assert.Equal(source.Items.Count, actual.Items.Count);
