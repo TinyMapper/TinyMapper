@@ -8,8 +8,8 @@ namespace UnitTests
 {
     public sealed class ForTests
     {
-//        [Fact(Skip = "ForTests")]
-        [Fact]
+        [Fact(Skip = "ForTests")]
+//        [Fact]
         public void Test()
         {
 //            TinyMapper.Bind<TagSource, TagSource1>();

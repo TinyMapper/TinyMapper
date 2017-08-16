@@ -8,7 +8,7 @@ namespace Nelibur.ObjectMapper.Bindings
     internal class BindingConfig
     {
         private readonly Dictionary<string, string> _oneToOneBindFields = new Dictionary<string, string>();
-        private readonly Dictionary<string, BindingFieldPath> _bindFieldsPath = new Dictionary<string, BindingFieldPath>();
+        private readonly Dictionary<string, List<BindingFieldPath>> _bindFieldsPath = new Dictionary<string, List<BindingFieldPath>>();
         private readonly Dictionary<string, Type> _bindTypes = new Dictionary<string, Type>();
         private readonly Dictionary<string, Func<object, object>> _customTypeConverters = new Dictionary<string, Func<object, object>>();
         private readonly HashSet<string> _ignoreFields = new HashSet<string>();
@@ -28,7 +28,14 @@ namespace Nelibur.ObjectMapper.Bindings
             }
             else
             {
-                _bindFieldsPath[bindingFieldPath.SourceHead] = bindingFieldPath;
+                if (_bindFieldsPath.ContainsKey(bindingFieldPath.SourceHead))
+                {
+                    _bindFieldsPath[bindingFieldPath.SourceHead].Add(bindingFieldPath);
+                }
+                else
+                {
+                    _bindFieldsPath[bindingFieldPath.SourceHead] = new List<BindingFieldPath> { bindingFieldPath };
+                }
             }
         }
 
@@ -44,11 +51,11 @@ namespace Nelibur.ObjectMapper.Bindings
             return new Option<string>(result, exsist);
         }
 
-        internal Option<BindingFieldPath> GetBindFieldPath(string fieldName)
+        internal Option<List<BindingFieldPath>> GetBindFieldPath(string fieldName)
         {
-            BindingFieldPath result;
+            List<BindingFieldPath> result;
             bool exsist = _bindFieldsPath.TryGetValue(fieldName, out result);
-            return new Option<BindingFieldPath>(result, exsist);
+            return new Option<List<BindingFieldPath>>(result, exsist);
         }
 
         internal Option<Type> GetBindType(string targetName)
