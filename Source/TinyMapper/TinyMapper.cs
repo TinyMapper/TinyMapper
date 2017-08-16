@@ -50,6 +50,29 @@ namespace Nelibur.ObjectMapper
         /// <summary>
         /// Create a one-way mapping between Source and Target types.
         /// </summary>
+        /// <param name="sourceType">Source type.</param>
+        /// <param name="targetType">Target type.</param>
+        /// <remarks>The method is thread safe.</remarks>
+        public static void Bind(Type sourceType, Type targetType)
+        {
+            if (sourceType == null)
+            {
+                throw new ArgumentNullException(nameof(sourceType));
+            }
+            if (targetType == null)
+            {
+                throw new ArgumentNullException(nameof(targetType));
+            }
+            TypePair typePair = TypePair.Create(sourceType, targetType);
+            lock (_mappersLock)
+            {
+                _mappers[typePair] = _targetMapperBuilder.Build(typePair);
+            }
+        }
+
+        /// <summary>
+        /// Create a one-way mapping between Source and Target types.
+        /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>
         /// <param name="config">BindingConfig for custom binding.</param>
