@@ -13,38 +13,82 @@ namespace UnitTests
         public void Test()
         {
 
-            TinyMapper.Bind<TestParent, TestDto>(cfg =>
+//            TinyMapper.Bind<NestedPoco, NestedPocoDTO>(config =>
+//            {
+//                config.Bind(target => target.NestedObjects, typeof(List<NestedPoco>));
+//            });
+
+            var root = new Node
             {
-                cfg.Bind(e => e.Sub.Text, e => e.Text);
-            });
+                Id = "1",
+                Next = new Node
+                {
+                    Id = "2",
+                    Next = new Node
+                    {
+                        Id = "3",
+                        Child = new[]
+                        {
+                            new Node
+                            {
+                                Id = "Child Child 1"
+                            }
+                        }
 
-            var obj = new TestParent { Sub = new TestInherited { Text = "Test" } };
+                    }
+                },
+                Child = new[]
+                {
+                    new Node
+                    {
+                        Id = "Child 1"
+                    }
+                }
+            };
 
+            TinyMapper.Bind<Node, Node>();
             DynamicAssemblyBuilder.Get().Save();
 
-            var dto = TinyMapper.Map<TestParent, TestDto>(obj);
+            TinyMapper.Map<Node, Node>(root);
+
+        }
+
+    }
+
+    public class Node
+    {
+        public string Id;
+        public Node Next;
+        public Node[] Child;
+    }
+
+    public class NestedPocoDTO : NestedPoco
+    {
+
+    }
+
+    public class NestedPoco : SimplePoco
+    {
+        public List<NestedPoco> NestedObjects { get; set; }
+
+        public NestedPoco()
+        {
+            NestedObjects = new List<NestedPoco>();
         }
     }
 
-
-    public class TestBase
+    public class SimplePoco
     {
-        public virtual string Text { get; set; }
-    }
-
-    public class TestInherited : TestBase
-    {
-        public override string Text { get; set; }
-    }
-
-    public class TestParent
-    {
-        public virtual TestBase Sub { get; set; }
-    }
-
-    public class TestDto
-    {
-        public string Text { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public bool Enabled { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string ZipCode { get; set; }
+        public string Town { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string PhoneNumber { get; set; }
     }
 
 }

@@ -13,14 +13,16 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 {
     internal sealed class ClassMapperBuilder : MapperBuilder
     {
+        private readonly MapperCache _mapperCache;
         private const string CreateTargetInstanceMethod = "CreateTargetInstance";
         private const string MapClassMethod = "MapClass";
         private readonly MappingMemberBuilder _mappingMemberBuilder;
         private readonly MemberMapper _memberMapper;
 
-        public ClassMapperBuilder(IMapperBuilderConfig config) : base(config)
+        public ClassMapperBuilder(MapperCache mapperCache, IMapperBuilderConfig config) : base(config)
         {
-            _memberMapper = new MemberMapper(config);
+            _mapperCache = mapperCache;
+            _memberMapper = new MemberMapper(mapperCache, config);
             _mappingMemberBuilder = new MappingMemberBuilder(config);
         }
 
@@ -31,11 +33,16 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
             Type parentType = typeof(ClassMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
             EmitCreateTargetInstance(typePair.Target, typeBuilder);
+
+            _mapperCache.AddStub(typePair);
             Option<MapperCache> mappers = EmitMapClass(typePair, typeBuilder);
 
-            var result = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
-            mappers.Do(x => result.AddMappers(x.Mappers));
-            return result;
+            var rootMapper = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
+            _mapperCache.ReplaceStub(typePair, rootMapper);
+
+            mappers.Do(x => rootMapper.AddMappers(x.Mappers));
+
+            return rootMapper;
         }
 
         protected override Mapper BuildCore(TypePair parentTypePair, MappingMember mappingMember)

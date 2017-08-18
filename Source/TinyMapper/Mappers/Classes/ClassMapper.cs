@@ -1,5 +1,4 @@
 ﻿using System;
-using Nelibur.ObjectMapper.Core.Extensions;
 
 namespace Nelibur.ObjectMapper.Mappers.Classes
 {
@@ -14,7 +13,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes
 
         protected override TTarget MapCore(TSource source, TTarget target)
         {
-            if (target.IsNull())
+            if (target == null)
             {
                 target = CreateTargetInstance();
             }

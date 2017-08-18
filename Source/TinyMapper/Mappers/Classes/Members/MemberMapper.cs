@@ -11,18 +11,24 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
     internal sealed class MemberMapper
     {
         private readonly IMapperBuilderConfig _config;
-        private readonly MapperCache _mapperCache = new MapperCache();
+        private readonly MapperCache _mapperCache;
 
-        public MemberMapper(IMapperBuilderConfig config)
+
+        public MemberMapper(MapperCache mapperCache, IMapperBuilderConfig config)
         {
+            _mapperCache = mapperCache;
             _config = config;
         }
 
         public MemberEmitterDescription Build(TypePair parentTypePair, List<MappingMemberPath> members)
         {
-            var emitter = new EmitComposite();
-            members.ForEach(x => emitter.Add(Build(parentTypePair, x)));
-            var result = new MemberEmitterDescription(emitter, _mapperCache);
+            var emitComposite = new EmitComposite();
+            foreach (var path in members)
+            {
+                IEmitter emitter = Build(parentTypePair, path);
+                emitComposite.Add(emitter);
+            }
+            var result = new MemberEmitterDescription(emitComposite, _mapperCache);
             result.AddMapper(_mapperCache);
             return result;
         }
@@ -94,10 +100,15 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private MapperCacheItem CreateMapperCacheItem(TypePair parentTypePair, MappingMember mappingMember)
         {
+            var mapperCacheItemOption = _mapperCache.Get(mappingMember.TypePair);
+            if (mapperCacheItemOption.HasValue)
+            {
+                return mapperCacheItemOption.Value;
+            }
+
             MapperBuilder mapperBuilder = _config.GetMapperBuilder(parentTypePair, mappingMember);
             Mapper mapper = mapperBuilder.Build(parentTypePair, mappingMember);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(mappingMember.TypePair, mapper);
-
             return mapperCacheItem;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Mappers;
+using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Classes;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace UnitTests.Mappers.Classes
         [Fact]
         public void Map_PrimitiveField_Success()
         {
-            var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
+            var builder = new ClassMapperBuilder(new MapperCache(), new MappingBuilderConfigStub());
             Mapper mapper = builder.Build(new TypePair(typeof(SourceWithFields), typeof(TargetWithFields)));
 
             var source = new SourceWithFields
@@ -49,7 +50,7 @@ namespace UnitTests.Mappers.Classes
         [Fact]
         public void Map_PrimitiveProperty_Success()
         {
-            var builder = new ClassMapperBuilder(new MappingBuilderConfigStub());
+            var builder = new ClassMapperBuilder(new MapperCache(), new MappingBuilderConfigStub());
             Mapper mapper = builder.Build(new TypePair(typeof(SourceWithProperties), typeof(TargetWithProperties)));
 
             var source = new SourceWithProperties

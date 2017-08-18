@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Nelibur.ObjectMapper.Bindings;
 using Nelibur.ObjectMapper.Core.DataStructures;
 using Nelibur.ObjectMapper.Core.Extensions;
+using Nelibur.ObjectMapper.Mappers.Caches;
 using Nelibur.ObjectMapper.Mappers.Classes;
 using Nelibur.ObjectMapper.Mappers.Classes.Members;
 using Nelibur.ObjectMapper.Mappers.Collections;
@@ -26,8 +27,9 @@ namespace Nelibur.ObjectMapper.Mappers
         {
             Assembly = assembly;
 
-            _classMapperBuilder = new ClassMapperBuilder(this);
-            _collectionMapperBuilder = new CollectionMapperBuilder(this);
+            var mapperCache = new MapperCache();
+            _classMapperBuilder = new ClassMapperBuilder(mapperCache, this);
+            _collectionMapperBuilder = new CollectionMapperBuilder(mapperCache, this);
             _convertibleTypeMapperBuilder = new ConvertibleTypeMapperBuilder(this);
             _customTypeMapperBuilder = new CustomTypeMapperBuilder(this);
 
@@ -71,7 +73,7 @@ namespace Nelibur.ObjectMapper.Mappers
 
         public Mapper Build(TypePair typePair)
         {
-            MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
+            MapperBuilder mapperBuilder = GetTypeMapperBuilder(typePair);
             Mapper mapper = mapperBuilder.Build(typePair);
             return mapper;
         }

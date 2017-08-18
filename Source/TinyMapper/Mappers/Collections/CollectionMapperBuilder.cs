@@ -15,6 +15,7 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 {
     internal sealed class CollectionMapperBuilder : MapperBuilder
     {
+        private readonly MapperCache _mapperCache;
         private const string ConvertItemKeyMethod = "ConvertItemKey";
         private const string ConvertItemMethod = "ConvertItem";
         private const string DictionaryToDictionaryMethod = "DictionaryToDictionary";
@@ -24,10 +25,10 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         private const string EnumerableToListMethod = "EnumerableToList";
         private const string EnumerableToListTemplateMethod = "EnumerableToListTemplate";
         private const string EnumerableOfDeepCloneableToListTemplateMethod = "EnumerableOfDeepCloneableToListTemplate";
-        private readonly MapperCache _mapperCache = new MapperCache();
 
-        public CollectionMapperBuilder(IMapperBuilderConfig config) : base(config)
+        public CollectionMapperBuilder(MapperCache mapperCache, IMapperBuilderConfig config) : base(config)
         {
+            _mapperCache = mapperCache;
         }
 
         protected override string ScopeName => "CollectionMappers";
@@ -36,6 +37,9 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
         {
             Type parentType = typeof(CollectionMapper<,>).MakeGenericType(typePair.Source, typePair.Target);
             TypeBuilder typeBuilder = _assembly.DefineType(GetMapperFullName(), parentType);
+
+            _mapperCache.AddStub(typePair);
+
             if (IsIEnumerableToList(typePair))
             {
                 EmitEnumerableToList(parentType, typeBuilder, typePair);
@@ -53,10 +57,12 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
                 EmitEnumerableToEnumerable(parentType, typeBuilder, typePair);
             }
 
-            var result = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
-            result.AddMappers(_mapperCache.Mappers);
+            var rootMapper = (Mapper)Activator.CreateInstance(Helpers.CreateType(typeBuilder));
 
-            return result;
+            _mapperCache.ReplaceStub(typePair, rootMapper);
+            rootMapper.AddMappers(_mapperCache.Mappers);
+
+            return rootMapper;
         }
 
         protected override Mapper BuildCore(TypePair parentTypePair, MappingMember mappingMember)
@@ -91,6 +97,12 @@ namespace Nelibur.ObjectMapper.Mappers.Collections
 
         private MapperCacheItem CreateMapperCacheItem(TypePair typePair)
         {
+            var mapperCacheItemOption = _mapperCache.Get(typePair);
+            if (mapperCacheItemOption.HasValue)
+            {
+                return mapperCacheItemOption.Value;
+            }
+
             MapperBuilder mapperBuilder = GetMapperBuilder(typePair);
             Mapper mapper = mapperBuilder.Build(typePair);
             MapperCacheItem mapperCacheItem = _mapperCache.Add(typePair, mapper);

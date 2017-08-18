@@ -22,7 +22,21 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
             }
         }
 
-        public MapperCacheItem Add(TypePair key, Mapper value)
+        public void AddStub(TypePair key)
+        {
+            if (_cache.ContainsKey(key))
+            {
+                return;
+            }
+            _cache[key] = new MapperCacheItem { Id = GetId() };
+        }
+
+        public void ReplaceStub(TypePair key, Mapper mapper)
+        {
+            _cache[key].Mapper = mapper;
+        }
+
+        public MapperCacheItem Add(TypePair key, Mapper mapper)
         {
             MapperCacheItem result;
             if (_cache.TryGetValue(key, out result))
@@ -32,10 +46,20 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
             result = new MapperCacheItem
             {
                 Id = GetId(),
-                Mapper = value
+                Mapper = mapper
             };
             _cache[key] = result;
             return result;
+        }
+
+        public Option<MapperCacheItem> Get(TypePair key)
+        {
+            MapperCacheItem result;
+            if (_cache.TryGetValue(key, out result))
+            {
+                return new Option<MapperCacheItem>(result);
+            }
+            return Option<MapperCacheItem>.Empty;
         }
 
         private int GetId()
