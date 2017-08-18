@@ -8,77 +8,43 @@ namespace UnitTests
 {
     public sealed class ForTests
     {
-        [Fact(Skip = "ForTests")]
-//        [Fact]
+//        [Fact(Skip = "ForTests")]
+        [Fact]
         public void Test()
         {
-//            TinyMapper.Bind<TagSource, TagSource1>();
-            TinyMapper.Bind<SourceTest, TargetTest>(config =>
+
+            TinyMapper.Bind<TestParent, TestDto>(cfg =>
             {
-                config.Bind(from => from.Tag.Id, to => to.Id);
+                cfg.Bind(e => e.Sub.Text, e => e.Text);
             });
 
-            var source = new SourceTest
-            {
-                Tag = new TagSource
-                {
-                    Id = 1
-                }
-//                 DataSource = "Data"
-            };
+            var obj = new TestParent { Sub = new TestInherited { Text = "Test" } };
 
             DynamicAssemblyBuilder.Get().Save();
 
-            var target = TinyMapper.Map<SourceTest, TargetTest>(source);
-
+            var dto = TinyMapper.Map<TestParent, TestDto>(obj);
         }
-
-//        public TargetTest Test1(SourceTest source, TargetTest target)
-//        {
-//            target.Id = source.Id;
-//            return target;
-//        }
-//
-//        public TargetTest Test2(SourceTest source, TargetTest target)
-//        {
-//            target.Tag2.Id = source.Id;
-//            return target;
-//        }
-
-        public TargetTest Test3(SourceTest source, TargetTest target)
-        {
-            target.Tag.Id = source.Tag.Id;
-            return target;
-        }
-
-//        public TargetTest Test5(SourceTest source, TargetTest target)
-//        {
-//            target.Id = source.Tag.Id;
-//            return target;
-//        }
     }
 
 
-    public class SourceTest
+    public class TestBase
     {
-        public TagSource Tag { get; set; }
+        public virtual string Text { get; set; }
     }
 
-
-    public class TagSource
+    public class TestInherited : TestBase
     {
-        public int Id { get; set; }
+        public override string Text { get; set; }
     }
 
-    public class TagSource1
+    public class TestParent
     {
-        public int Id { get; set; }
+        public virtual TestBase Sub { get; set; }
     }
 
-    public class TargetTest
+    public class TestDto
     {
-        public int Id { get; set; }
-        public TagSource1 Tag { get; set; }
-//        public int Id { get; set; }
+        public string Text { get; set; }
     }
+
 }
