@@ -22,13 +22,18 @@ namespace Nelibur.ObjectMapper.Mappers.Caches
             }
         }
 
-        public void AddStub(TypePair key)
+        public List<MapperCacheItem> MapperCacheItems => _cache.Values.ToList();
+
+        public MapperCacheItem AddStub(TypePair key)
         {
             if (_cache.ContainsKey(key))
             {
-                return;
+                return _cache[key];
             }
-            _cache[key] = new MapperCacheItem { Id = GetId() };
+
+            var mapperCacheItem = new MapperCacheItem { Id = GetId() };
+            _cache[key] = mapperCacheItem;
+            return mapperCacheItem;
         }
 
         public void ReplaceStub(TypePair key, Mapper mapper)

@@ -15,6 +15,26 @@ namespace Nelibur.ObjectMapper.Mappers
             _mappers = mappers.ToArray();
         }
 
+        public void UpdateRootMapper(int mapperId, Mapper mapper)
+        {
+            if (_mappers == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < _mappers.Length; i++)
+            {
+                if (i == mapperId)
+                {
+                    if (_mappers[i] == null)
+                    {
+                        _mappers[i] = mapper;
+                    }
+                    return;
+                }
+            }
+        }
+
         public object Map(object source, object target = null)
         {
             return MapCore(source, target);

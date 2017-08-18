@@ -8,8 +8,8 @@ namespace Nelibur.ObjectMapper.Reflection
     {
         internal const string AssemblyName = "DynamicTinyMapper";
 #if !COREFX
-        private const string AssemblyNameFileName = AssemblyName + ".dll";
-        private static AssemblyBuilder _assemblyBuilder;
+//        private const string AssemblyNameFileName = AssemblyName + ".dll";
+//        private static AssemblyBuilder _assemblyBuilder;
 #endif
         private static readonly DynamicAssembly _dynamicAssembly = new DynamicAssembly();
 
@@ -32,11 +32,11 @@ namespace Nelibur.ObjectMapper.Reflection
                 _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
 
 #else
-//                AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                        _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+//                        _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
 
-//                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
-                        _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
+                _moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
+//                        _moduleBuilder = _assemblyBuilder.DefineDynamicModule(assemblyName.Name, AssemblyNameFileName, true);
 #endif
 
             }
@@ -49,7 +49,7 @@ namespace Nelibur.ObjectMapper.Reflection
             public void Save()
             {
 #if !COREFX
-                _assemblyBuilder.Save(AssemblyNameFileName);
+//                _assemblyBuilder.Save(AssemblyNameFileName);
 #endif
             }
         }
