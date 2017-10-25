@@ -24,7 +24,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
         private static MemberInfo[] GetPublicMembers(Type type)
         {
-            BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+            BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
             PropertyInfo[] properties = type.GetProperties(flags);
             FieldInfo[] fields = type.GetFields(flags);
             MemberInfo[] members = new MemberInfo[properties.Length + fields.Length];
@@ -95,8 +95,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 targetName = bindingConfig.Map(x => x.GetBindField(sourceMember.Name));
                 if (targetName.HasNoValue)
                 {
-                    string targetMemberName;
-                    if (targetBindings.TryGetValue(sourceMember.Name, out targetMemberName))
+                    if (targetBindings.TryGetValue(sourceMember.Name, out var targetMemberName))
                     {
                         targetName = new Option<string>(targetMemberName);
                     }
