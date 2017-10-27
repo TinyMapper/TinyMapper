@@ -9,10 +9,13 @@ namespace UnitTests
         [Fact]
         public void Test()
         {
-            var tsm = new TestStaticModel();
+            var source = new TestStaticModel();
 
-            TinyMapper.Bind<TestStaticModel, TestDto>();
-            var td = TinyMapper.Map<TestDto>(tsm);
+//            TinyMapper.Bind<TestStaticModel, TestDto>();
+            var dto = Map<TestStaticModel, TestDto>(source);
+            // OR
+
+            dto = source.Map<TestStaticModel, TestDto>();
         }
 
         private TTarget Map<TSource, TTarget>(TSource source)
