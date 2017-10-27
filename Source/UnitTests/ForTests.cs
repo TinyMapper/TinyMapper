@@ -14,6 +14,28 @@ namespace UnitTests
             TinyMapper.Bind<TestStaticModel, TestDto>();
             var td = TinyMapper.Map<TestDto>(tsm);
         }
+
+        private TTarget Map<TSource, TTarget>(TSource source)
+        {
+            if (!TinyMapper.BindingExists<TSource, TTarget>())
+            {
+                TinyMapper.Bind<TSource, TTarget>();
+            }
+            return TinyMapper.Map<TTarget>(source);
+        }
+    }
+
+
+    public static class MyExtensions
+    {
+        public static TTarget Map<TSource, TTarget>(this TSource source)
+        {
+            if (!TinyMapper.BindingExists<TSource, TTarget>())
+            {
+                TinyMapper.Bind<TSource, TTarget>();
+            }
+            return TinyMapper.Map<TTarget>(source);
+        }
     }
 
 
