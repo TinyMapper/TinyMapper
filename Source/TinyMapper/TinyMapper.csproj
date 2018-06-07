@@ -15,9 +15,9 @@
     <RepositoryUrl>https://github.com/TinyMapper/TinyMapper</RepositoryUrl>
     <PackageProjectUrl>http://tinymapper.net/</PackageProjectUrl>
 	<IncludeSymbols>false</IncludeSymbols>
-    <Version>3.0.1-beta</Version>
-    <AssemblyVersion>3.0.0.7</AssemblyVersion>
-    <FileVersion>3.0.0.7</FileVersion>
+    <Version>3.0.2-beta</Version>
+    <AssemblyVersion>3.0.0.8</AssemblyVersion>
+    <FileVersion>3.0.0.8</FileVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   

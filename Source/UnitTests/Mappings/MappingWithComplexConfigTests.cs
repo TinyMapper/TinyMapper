@@ -37,6 +37,38 @@ namespace UnitTests.Mappings
             Assert.Equal(dto.Address.Phone, person.Phone);
         }
 
+        [Fact]
+        public void Map_ComplexBind_Success1()
+        {
+            TinyMapper.Bind<PersonDto, Person>(
+                config =>
+                {
+                    config.Bind(source => source.Address.Street, target => target.Street);
+                    config.Bind(source => source.Address.Phone, target => target.Phone);
+                }
+            );
+
+            var dto = new PersonDto
+            {
+                Address = new AddressDto
+                {
+                    Street = "Street",
+                    Phone = "123123"
+                },
+                Code = "Code",
+                Identity = 1,
+                Name = "Alex"
+            };
+
+            var person = (Person)TinyMapper.Map(typeof(PersonDto), typeof(Person), dto);
+
+            Assert.Equal(dto.Identity, person.Identity);
+            Assert.Equal(dto.Code, person.Code);
+            Assert.Equal(dto.Name, person.Name);
+            Assert.Equal(dto.Address.Street, person.Street);
+            Assert.Equal(dto.Address.Phone, person.Phone);
+        }
+
 
         public class Person
         {

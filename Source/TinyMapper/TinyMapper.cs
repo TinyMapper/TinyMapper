@@ -107,7 +107,7 @@ namespace Nelibur.ObjectMapper
         }
 
         /// <summary>
-        /// Mapsthe source to Target type.
+        /// Maps the source to Target type.
         /// The method can be called in parallel to Map methods, but cannot be called in parallel to Bind method.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
@@ -121,6 +121,25 @@ namespace Nelibur.ObjectMapper
 
             Mapper mapper = GetMapper(typePair);
             var result = (TTarget)mapper.Map(source, target);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Maps the source to Target type.
+        /// The method can be called in parallel to Map methods, but cannot be called in parallel to Bind method.
+        /// </summary>
+        /// <param name="sourceType">Source type.</param>
+        /// <param name="targetType">Target type.</param>
+        /// <param name="source">Source object.</param>
+        /// <param name="target">Target object.</param>
+        /// <returns>Mapped object.</returns>
+        public static object Map(Type sourceType, Type targetType, object source, object target = null)
+        {
+            TypePair typePair = TypePair.Create(sourceType, targetType);
+
+            Mapper mapper = GetMapper(typePair);
+            var result = mapper.Map(source, target);
 
             return result;
         }
