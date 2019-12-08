@@ -104,6 +104,35 @@ namespace UnitTests.Mappings
             Assert.Equal(0, actual.MyInt);
             Assert.Null(actual.TargetItem);
         }
+        
+        [Fact]
+        public void Map_MultiTarget()
+        {
+            TinyMapper.Bind<SourceName, TargetName>(config =>
+            {
+                config.Bind(s => s.CName, t => t.C2Name1);
+                config.Bind(s => s.CName, t => t.C2Name2);
+            });
+
+            var result = TinyMapper.Map<TargetName>(new SourceName
+            {
+                CName = "7788"
+            });
+
+            Assert.Equal("7788", result.C2Name1);
+            Assert.Equal("7788", result.C2Name2);
+        }
+        
+        public class SourceName
+        {
+            public string CName { get; set; }
+        }
+    
+        public class TargetName
+        {
+            public string C2Name1 { get; set; }
+            public string C2Name2 { get; set; }
+        }
 
         public class Source1
         {

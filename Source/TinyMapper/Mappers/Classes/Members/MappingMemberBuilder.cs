@@ -73,13 +73,13 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             return result;
         }
 
-        private string GetTargetName(
+        private List<string> GetTargetName(
             Option<BindingConfig> bindingConfig,
             TypePair typePair,
             MemberInfo sourceMember,
             Dictionary<string, string> targetBindings)
         {
-            Option<string> targetName;
+            Option<List<string>> targetName;
             List<BindAttribute> binds = sourceMember.GetAttributes<BindAttribute>();
             BindAttribute bind = binds.FirstOrDefault(x => x.TargetType.IsNull());
             if (bind.IsNull())
@@ -88,7 +88,7 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
             }
             if (bind.IsNotNull())
             {
-                targetName = new Option<string>(bind.MemberName);
+                targetName = new Option<List<string>>(new List<string> { bind.MemberName } );
             }
             else
             {
@@ -97,11 +97,11 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                 {
                     if (targetBindings.TryGetValue(sourceMember.Name, out var targetMemberName))
                     {
-                        targetName = new Option<string>(targetMemberName);
+                        targetName = new Option<List<string>>(new List<string> { targetMemberName });
                     }
                     else
                     {
-                        targetName = new Option<string>(sourceMember.Name);
+                        targetName = new Option<List<string>>(new List<string> { sourceMember.Name });
                     }
                 }
             }
@@ -172,26 +172,30 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
                     continue;
                 }
 
-                string targetName = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
+                List<string> targetNames = GetTargetName(bindingConfig, typePair, sourceMember, targetBindings);
 
-                MemberInfo targetMember = targetMembers.FirstOrDefault(x => _config.NameMatching(targetName, x.Name));
-                if (targetMember.IsNull())
+                foreach (var targetName in targetNames)
                 {
+                    MemberInfo targetMember = targetMembers.FirstOrDefault(x => _config.NameMatching(targetName, x.Name));
+                    if (targetMember.IsNull())
+                    {
+                        result.AddRange(GetBindMappingMemberPath(typePair, bindingConfig, sourceMember));
+                        continue;
+                    }
+                    Option<Type> concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
+                    if (concreteBindingType.HasValue)
+                    {
+                        var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);
+                        result.Add(new MappingMemberPath(sourceMember, targetMember, mappingTypePair));
+                    }
+                    else
+                    {
+                        result.Add(new MappingMemberPath(sourceMember, targetMember));
+                    }
+
                     result.AddRange(GetBindMappingMemberPath(typePair, bindingConfig, sourceMember));
-                    continue;
-                }
-                Option<Type> concreteBindingType = bindingConfig.Map(x => x.GetBindType(targetName));
-                if (concreteBindingType.HasValue)
-                {
-                    var mappingTypePair = new TypePair(sourceMember.GetMemberType(), concreteBindingType.Value);
-                    result.Add(new MappingMemberPath(sourceMember, targetMember, mappingTypePair));
-                }
-                else
-                {
-                    result.Add(new MappingMemberPath(sourceMember, targetMember));
                 }
 
-                result.AddRange(GetBindMappingMemberPath(typePair, bindingConfig, sourceMember));
             }
             return result;
         }
@@ -204,11 +208,11 @@ namespace Nelibur.ObjectMapper.Mappers.Classes.Members
 
             if (bindFieldPath.HasValue)
             {
-                foreach (var item in bindFieldPath.Value)
+                foreach (BindingFieldPath item in bindFieldPath.Value)
                 {
-                    var sourceMemperPath = GetSourceMemberPath(item.SourcePath, typePair.Source);
-                    var targetMemperPath = GetSourceMemberPath(item.TargetPath, typePair.Target);
-                    result.Add(new MappingMemberPath(sourceMemperPath, targetMemperPath));
+                    var sourceMemberPath = GetSourceMemberPath(item.SourcePath, typePair.Source);
+                    var targetMemberPath = GetSourceMemberPath(item.TargetPath, typePair.Target);
+                    result.Add(new MappingMemberPath(sourceMemberPath, targetMemberPath));
 
                 }
             }

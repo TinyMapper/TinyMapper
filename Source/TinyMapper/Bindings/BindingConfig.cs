@@ -7,7 +7,7 @@ namespace Nelibur.ObjectMapper.Bindings
 {
     internal class BindingConfig
     {
-        private readonly Dictionary<string, string> _oneToOneBindFields = new Dictionary<string, string>();
+        private readonly Dictionary<string, List<string>> _oneToOneBindFields = new Dictionary<string, List<string>>();
         private readonly Dictionary<string, List<BindingFieldPath>> _bindFieldsPath = new Dictionary<string, List<BindingFieldPath>>();
         private readonly Dictionary<string, Type> _bindTypes = new Dictionary<string, Type>();
         private readonly Dictionary<string, Func<object, object>> _customTypeConverters = new Dictionary<string, Func<object, object>>();
@@ -24,7 +24,14 @@ namespace Nelibur.ObjectMapper.Bindings
 
             if (!bindingFieldPath.HasPath)
             {
-                _oneToOneBindFields[bindingFieldPath.SourceHead] = bindingFieldPath.TargetHead;
+                if (_oneToOneBindFields.ContainsKey(bindingFieldPath.SourceHead))
+                {
+                    _oneToOneBindFields[bindingFieldPath.SourceHead].Add(bindingFieldPath.TargetHead);
+                }
+                else
+                {
+                    _oneToOneBindFields[bindingFieldPath.SourceHead] = new List<string>{ bindingFieldPath.TargetHead };
+                }
             }
             else
             {
@@ -44,25 +51,25 @@ namespace Nelibur.ObjectMapper.Bindings
             _bindTypes[targetName] = value;
         }
 
-        internal Option<string> GetBindField(string sourceName)
+        internal Option<List<string>> GetBindField(string sourceName)
         {
-            string result;
-            bool exsist = _oneToOneBindFields.TryGetValue(sourceName, out result);
-            return new Option<string>(result, exsist);
+            List<string> result;
+            bool exists = _oneToOneBindFields.TryGetValue(sourceName, out result);
+            return new Option<List<string>> (result, exists);
         }
 
         internal Option<List<BindingFieldPath>> GetBindFieldPath(string fieldName)
         {
             List<BindingFieldPath> result;
-            bool exsist = _bindFieldsPath.TryGetValue(fieldName, out result);
-            return new Option<List<BindingFieldPath>>(result, exsist);
+            bool exists = _bindFieldsPath.TryGetValue(fieldName, out result);
+            return new Option<List<BindingFieldPath>>(result, exists);
         }
 
         internal Option<Type> GetBindType(string targetName)
         {
             Type result;
-            bool exsist = _bindTypes.TryGetValue(targetName, out result);
-            return new Option<Type>(result, exsist);
+            bool exists = _bindTypes.TryGetValue(targetName, out result);
+            return new Option<Type>(result, exists);
         }
 
         internal Option<Func<object, object>> GetCustomTypeConverter(string targetName)

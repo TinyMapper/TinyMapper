@@ -6,6 +6,7 @@ namespace UnitTests
 {
     public sealed class ForTests
     {
+
         [Fact]
         public void Test()
         {
