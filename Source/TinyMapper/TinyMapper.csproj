@@ -16,9 +16,10 @@
     <PackageProjectUrl>http://tinymapper.net/</PackageProjectUrl>
 	<IncludeSymbols>false</IncludeSymbols>
     <Version>3.0.2-beta</Version>
-    <AssemblyVersion>3.0.0.8</AssemblyVersion>
-    <FileVersion>3.0.0.8</FileVersion>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageVersion>3.0.3</PackageVersion>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='VS'">
