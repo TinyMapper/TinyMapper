@@ -122,7 +122,22 @@ namespace UnitTests.Mappings
             Assert.Equal("7788", result.C2Name1);
             Assert.Equal("7788", result.C2Name2);
         }
-        
+
+        [Fact]
+        public void Map_EmptyLevel2Source_IsNull()
+        {
+            TinyMapper.Bind<Source3, Target1>(config =>
+            {
+                config.Bind(from => from.Name.CName, to => to.MyString);
+            });
+
+            var source = new Source3();
+
+            var actual = TinyMapper.Map<Target1>(source);
+
+            Assert.Null(actual.MyString);
+        }
+
         public class SourceName
         {
             public string CName { get; set; }
@@ -150,6 +165,11 @@ namespace UnitTests.Mappings
         {
             public IList<int> Ints { get; set; }
             public List<string> Strings { get; set; }
+        }
+
+        public class Source3
+        {
+            public SourceName Name { get; set; }
         }
 
         public class SourceItem
