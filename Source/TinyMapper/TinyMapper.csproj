@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<RootNamespace>Nelibur.ObjectMapper</RootNamespace>
-    <TargetFrameworks>net35;net40;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 
     <ImportLibs>net</ImportLibs>
     <Configurations>Debug;Release;VS</Configurations>
@@ -30,7 +30,7 @@
     <TargetFrameworks>$(TargetFrameworks)</TargetFrameworks>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0'">
     <DefineConstants>COREFX</DefineConstants>
     <ImportLibs>core</ImportLibs>
   </PropertyGroup>
@@ -38,9 +38,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup Condition="'$(ImportLibs)' == 'core'">
-	<PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.3.0" />
-	<PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+	<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
+	<PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
   </ItemGroup>

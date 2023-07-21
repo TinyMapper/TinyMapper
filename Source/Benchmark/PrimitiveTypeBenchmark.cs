@@ -8,11 +8,12 @@ namespace Benchmark
     public class PrimitiveTypeBenchmark
     {
         private readonly SourceWithPrimitiveTypes _source = CreateSource();
+        private Mapper _autoMapper;
 
         public PrimitiveTypeBenchmark()
         {
             InitTinyMapper();
-            InitTinyAutoMapper();
+            InitAutoMapper();
         }
 
         private void InitTinyMapper()
@@ -20,9 +21,10 @@ namespace Benchmark
             TinyMapper.Bind<SourceWithPrimitiveTypes, TargetWithPrimitiveTypes>();
         }
 
-        private void InitTinyAutoMapper()
+        private void InitAutoMapper()
         {
-            Mapper.Initialize(x => x.CreateMap<SourceWithPrimitiveTypes, TargetWithPrimitiveTypes>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SourceWithPrimitiveTypes, TargetWithPrimitiveTypes>());
+            _autoMapper = new Mapper(config);
         }
 
         private static SourceWithPrimitiveTypes CreateSource()
@@ -54,7 +56,7 @@ namespace Benchmark
         [Benchmark]
         public void BenchmarkAutoMapper()
         {
-            Mapper.Map<TargetWithPrimitiveTypes>(_source);
+            _autoMapper.Map<TargetWithPrimitiveTypes>(_source);
         }
     }
 

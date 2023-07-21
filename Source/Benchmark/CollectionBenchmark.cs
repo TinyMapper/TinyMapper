@@ -10,6 +10,7 @@ namespace Benchmark
     {
         private const int CollectionLength = 100;
         private readonly SourceWithCollections _source = CreateSource();
+        private Mapper _autoMapper;
 
         private const int Iterations = 1;
 
@@ -17,7 +18,7 @@ namespace Benchmark
         public CollectionBenchmark()
         {
             InitTinyMapper();
-            InitTinyAutoMapper();
+            InitAutoMapper();
         }
 
         private void InitTinyMapper()
@@ -25,13 +26,14 @@ namespace Benchmark
             TinyMapper.Bind<SourceWithCollections, TargetWithCollections>();
         }
 
-        private void InitTinyAutoMapper()
+        private void InitAutoMapper()
         {
-            Mapper.Initialize(x =>
+            var config = new MapperConfiguration(cfg =>
             {
-                x.CreateMap<SourceWithCollections, TargetWithCollections>();
-                x.CreateMap<Item, Item>();
+                cfg.CreateMap<SourceWithCollections, TargetWithCollections>();
+                cfg.CreateMap<Item, Item>();
             });
+            _autoMapper = new Mapper(config);
         }
 
         [Benchmark]
@@ -39,7 +41,7 @@ namespace Benchmark
         {
             for (int i = 0; i < Iterations; i++)
             {
-                Mapper.Map<TargetWithCollections>(_source);
+                _autoMapper.Map<TargetWithCollections>(_source);
             }
         }
 

@@ -1,29 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFrameworks>net452;netcoreapp1.1</TargetFrameworks>
+	<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <Configurations>Debug;Release;VS</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'VS'">
     <TargetFrameworks>$(TargetFrameworks)</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition="$(TargetFramework)=='netcoreapp1.1'">
-    <DefineConstants>COREFX</DefineConstants>
-    <LibImport>core</LibImport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0'">
     <DefineConstants>COREFX</DefineConstants>
     <ImportLibs>core</ImportLibs>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="xunit" Version="2.5.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
   </ItemGroup>
   <ItemGroup Condition="'$(ImportLibs)' == 'core'">
-	<PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
-	<PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+	<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+	<PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
   </ItemGroup>
